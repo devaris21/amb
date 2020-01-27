@@ -25,7 +25,7 @@ class ASSURANCE extends TABLE
 	public $assurance;
 	public $typeduree_id;
 	public $etatpiece_id = 1;
-	public $employe_id;
+	public $gestionnaire_id;
 
 
 
@@ -34,7 +34,7 @@ class ASSURANCE extends TABLE
 		if ($this->name != "" && $this->numero_piece != "") {
 			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
-				$this->employe_id = getSession("employe_connecte_id");
+				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 				$data = $this->save();
 			}else{
 				$data->status = false;

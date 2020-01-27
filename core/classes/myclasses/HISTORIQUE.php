@@ -11,9 +11,9 @@ class HISTORIQUE extends TABLE
 	public static $namespace = __NAMESPACE__;
 
 	public $sentense; // phrase de l'historique
-	public $employe_id = null;
+	public $gestionnaire_id = null;
 	public $utilisateur_id = null;
-	public $carplane_id = null;
+	public $carplan_id = null;
 	public $prestataire_id = null;
 	public $is_caisse = 0; //1 si operation de caisse, 1 sinon
 	public $price = 0; //le montant si operation de caisse
@@ -33,8 +33,8 @@ class HISTORIQUE extends TABLE
 		$story->record_key = $element->get_id();
 		$story->type_save = $type_save;
 		$story->sentense =  $element->sentense;
-		if (getSession("employe_connecte_id") != null) {
-			$story->employe_id = getSession("employe_connecte_id");
+		if (getSession("gestionnaire_connecte_id") != null) {
+			$story->gestionnaire_id = getSession("gestionnaire_connecte_id");
 		}
 
 		if ($story->type_save == "insert") {
@@ -45,8 +45,8 @@ class HISTORIQUE extends TABLE
 		if (isset($element->utilisateur_id)) {
 			$story->utilisateur_id = $element->utilisateur_id;
 		}
-		if (isset($element->carplane_id)) {
-			$story->carplane_id = $element->carplane_id;
+		if (isset($element->carplan_id)) {
+			$story->carplan_id = $element->carplan_id;
 		}
 		if (in_array($story->record, ["depense", "entree", "reglement", "remboursement", "lignefacture"])) {
 			$story->is_caisse = 1;
@@ -65,14 +65,14 @@ class HISTORIQUE extends TABLE
 
 public function auteur(){
 	$this->actualise();
-	if ($this->employe_id != null) {
-		return $this->employe->name." ".$this->employe->lastname." // Gestionnaire GPA";
+	if ($this->gestionnaire_id != null) {
+		return $this->gestionnaire->name." ".$this->gestionnaire->lastname." // Gestionnaire GPA";
 
 	}elseif ($this->utilisateur_id != null) {
 		return $this->utilisateur->name." ".$this->utilisateur->lastname." // Direction";
 
-	}elseif ($this->carplane_id != null) {
-		return $this->carplane->name." ".$this->carplane->lastname." // Car plan";
+	}elseif ($this->carplan_id != null) {
+		return $this->carplan->name." ".$this->carplan->lastname." // Car plan";
 
 	}elseif ($this->prestataire_id != null) {
 		return $this->prestataire->name." ".$this->prestataire->lastname." // Prestataire";
@@ -87,17 +87,17 @@ public function auteur(){
 	}
 
 
-	public static function getHistoriqueEmploye(EMPLOYE $employe, $date1 = null, $date2 =null){
+	public static function getHistoriqueEmploye(GESTIONNAIRE $gestionnaire, $date1 = null, $date2 =null){
 		if (is_null($date1)) { $date1 = dateAjoute(-2); }
 		if (is_null($date2)) { $date2 = date("Y-m-d H:i:s"); }
-		return self::findBy(["employe_id ="=>$employe->get_id(), "is_caisse = "=>0, "DATE(created) >= "=>$date1, "DATE(created) <= "=>$date2], [], ["created"=>"DESC"]);
+		return self::findBy(["gestionnaire_id ="=>$gestionnaire->get_id(), "is_caisse = "=>0, "DATE(created) >= "=>$date1, "DATE(created) <= "=>$date2], [], ["created"=>"DESC"]);
 	}
 
 
-	public static function getHistoriqueCaisseEmploye(EMPLOYE $employe, $date1 = null, $date2 =null){
+	public static function getHistoriqueCaisseEmploye(GESTIONNAIRE $gestionnaire, $date1 = null, $date2 =null){
 		if (is_null($date1)) { $date1 = dateAjoute(-2); }
 		if (is_null($date2)) { $date2 = date("Y-m-d H:i:s"); }
-		return self::findBy(["employe_id ="=>$employe->get_id(), "DATE(created) >= "=>$date1, "DATE(created) <= "=>$date2], [], ["created"=>"DESC"]);
+		return self::findBy(["gestionnaire_id ="=>$gestionnaire->get_id(), "DATE(created) >= "=>$date1, "DATE(created) <= "=>$date2], [], ["created"=>"DESC"]);
 	}
 
 

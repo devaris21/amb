@@ -13,8 +13,9 @@ class CONNEXION extends TABLE
 
 	public $date_connexion;
 	public $date_deconnexion ;
-	public $employe_id = null;
-	public $client_id = null;
+	public $gestionnaire_id = null;
+	public $utilisateur_id = null;
+	public $carplan_id = null;
 
 	public function enregistre(){
 		return $this->save();
@@ -23,9 +24,9 @@ class CONNEXION extends TABLE
 
 	
 	//connecter un employé
-	public function connexion_employe(){
-		$this->deconnexion_employe();
-		session("employe_connecte_id", $this->employe_id);
+	public function connexion_gestionnaire(){
+		$this->deconnexion_gestionnaire();
+		session("gestionnaire_connecte_id", $this->gestionnaire_id);
 		$this->date_connexion = date("Y-m-d H:i:s");
 		$this->date_deconnexion = null;
 		$this->enregistre();
@@ -34,14 +35,14 @@ class CONNEXION extends TABLE
 
 
 	//deconnecter un employé
-	public function deconnexion_employe(){
-		$datas = CONNEXION::findBy(["employe_id = "=> $this->employe_id], [], ["id"=>"DESC"], 1);
+	public function deconnexion_gestionnaire(){
+		$datas = CONNEXION::findBy(["gestionnaire_id = "=> $this->gestionnaire_id], [], ["id"=>"DESC"], 1);
 		if (count($datas) > 0) {
 			$connexion = $datas[0];
 			$connexion->actualise();
 			if ($connexion->date_deconnexion == null) {
 				$connexion->date_deconnexion = date("Y-m-d H:i:s");
-				$connexion->historique("Déconnexion du gestionnaire".$connexion->employe->name." ".$connexion->employe->lastname);
+				$connexion->historique("Déconnexion du gestionnaire".$connexion->gestionnaire->name." ".$connexion->gestionnaire->lastname);
 				$connexion->save();
 			}
 		}
@@ -81,9 +82,9 @@ class CONNEXION extends TABLE
 
 
 	//connecter un carplan
-	public function connexion_carplane(){
-		$this->deconnexion_carplane();
-		session("carplane_id", $this->carplane_id);
+	public function connexion_carplan(){
+		$this->deconnexion_carplan();
+		session("carplan_id", $this->carplan_id);
 		$this->date_connexion = date("Y-m-d H:i:s");
 		$this->date_deconnexion = null;
 
@@ -93,14 +94,14 @@ class CONNEXION extends TABLE
 
 
 	//deconnecter un carplan
-	public function deconnexion_carplane(){
-		$datas = CONNEXION::findBy(["carplane_id = "=> $this->carplane_id], [], ["id"=>"DESC"], 1);
+	public function deconnexion_carplan(){
+		$datas = CONNEXION::findBy(["carplan_id = "=> $this->carplan_id], [], ["id"=>"DESC"], 1);
 		if (count($datas) > 0) {
 			$connexion = $datas[0];
 			$connexion->actualise();
 			if ($connexion->date_deconnexion == null) {
 				$connexion->date_deconnexion = date("Y-m-d H:i:s");
-				$connexion->historique("Déconnexion du carplane ".$connexion->carplane->name." ".$connexion->carplane->lastname);
+				$connexion->historique("Déconnexion du carplan ".$connexion->carplan->name." ".$connexion->carplan->lastname);
 				$connexion->save();
 			}
 		}
@@ -146,12 +147,12 @@ class CONNEXION extends TABLE
 
 
 	public function sentenseUpdate(){
-		return $this->sentense = "Modification des informations de la connexion de ".$this->employe->name." ".$this->employe->lastname." du ".datelong($this->created);
+		return $this->sentense = "Modification des informations de la connexion de ".$this->gestionnaire->name." ".$this->gestionnaire->lastname." du ".datelong($this->created);
 	}
 
 
 	public function sentenseDelete(){
-		return $this->sentense = "Supprimer de la connexion de  ".$this->employe->name." ".$this->employe->lastname." du ".datelong($this->created);
+		return $this->sentense = "Supprimer de la connexion de  ".$this->gestionnaire->name." ".$this->gestionnaire->lastname." du ".datelong($this->created);
 	}
 
 }

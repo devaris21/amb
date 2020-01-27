@@ -26,7 +26,7 @@ class MISSION extends TABLE
 	public $started;
 	public $finished;
 	public $etat_id = 0;
-	public $employe_id;
+	public $gestionnaire_id;
 
 
 	public function enregistre(){
@@ -47,7 +47,7 @@ class MISSION extends TABLE
 					include(__DIR__."/../../sections/home/elements/mails/mission.php");
 					$contenu = ob_get_contents();
 					ob_end_clean();
-					EMAIL::send(EMPLOYE::getEmailGestionnaires(), "Approbation d'une nouvelle mission", $contenu);
+					EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Approbation d'une nouvelle mission", $contenu);
 
 
 					$message = "Nous vous informons de la nouvelle mission suite à l'approbation générale de votre demande de véhicule N°$this->id pour ".$this->demandevehicule->typedemandevehicule->name;

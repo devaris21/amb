@@ -31,7 +31,7 @@ if ($action == "new") {
 		if ($element->set_login($login)) {
 			if ($pass != "" && $pass == $pass0) {
 				$element->password = hasher($pass);
-				$element->is_new = 0;
+				$element->isNew = 0;
 				$element->historique("Prémière connexion, nouvelle configuration des paramètres de connexion !");
 				$data = $element->save();
 				if ($data->status) {
@@ -55,7 +55,7 @@ if ($action == "new") {
 
 
 if ($action == "reset") {
-	$datas = EMPLOYE::findBy(["email ="=>$email]);
+	$datas = GESTIONNAIRE::findBy(["email ="=>$email]);
 	if (count($datas) > 0) {
 		$element = $datas[0];
 		$data = $element->reset();

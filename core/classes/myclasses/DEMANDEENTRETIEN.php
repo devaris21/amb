@@ -17,14 +17,14 @@ class DEMANDEENTRETIEN extends TABLE
 
 	public $typeentretienvehicule_id = 0;
 	public $utilisateur_id = null;
-	public $carplane_id = null;
+	public $carplan_id = null;
 	public $vehicule_id	;
 	public $objet;
 	public $comment;
 	public $date_approuve;
 
 	public $etat_id = 0;
-	public $employe_id;
+	public $gestionnaire_id;
 
 
 	public function enregistre(){
@@ -45,7 +45,7 @@ class DEMANDEENTRETIEN extends TABLE
 				include(__DIR__."/../../sections/home/elements/mails/demandeentretien.php");
 				$contenu = ob_get_contents();
 				ob_end_clean();
-				EMAIL::send(EMPLOYE::getEmailGestionnaires(), "Nouvelle demande d'entretien de véhicule", $contenu);
+				EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande d'entretien de véhicule", $contenu);
 			}
 		}else{
 			$data->status = false;
@@ -64,7 +64,7 @@ class DEMANDEENTRETIEN extends TABLE
 	public function auteur(){
 		$this->actualise();
 		if ($this->utilisateur_id == null) {
-			return $this->carplane->name();
+			return $this->carplan->name();
 		}else{
 			return $this->utilisateur->name();
 		}
@@ -74,7 +74,7 @@ class DEMANDEENTRETIEN extends TABLE
 	public function contact(){
 		$this->actualise();
 		if ($this->utilisateur_id == null) {
-			return $this->carplane->contact." // ".$this->carplane->contact2;
+			return $this->carplan->contact." // ".$this->carplan->contact2;
 		}else{
 			return $this->utilisateur->contact." // ".$this->utilisateur->contact2;
 		}
@@ -83,7 +83,7 @@ class DEMANDEENTRETIEN extends TABLE
 	public function fonction(){
 		$this->actualise();
 		if ($this->utilisateur_id == null) {
-			return "CARPLANE";
+			return "carplan";
 		}else{
 			return $this->utilisateur->departement->name;
 		}
@@ -92,7 +92,7 @@ class DEMANDEENTRETIEN extends TABLE
 	public function email(){
 		$this->actualise();
 		if ($this->utilisateur_id == null) {
-			return $this->carplane->email;
+			return $this->carplan->email;
 		}else{
 			return $this->utilisateur->email;
 		}

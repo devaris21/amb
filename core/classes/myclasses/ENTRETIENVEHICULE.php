@@ -22,7 +22,7 @@ class ENTRETIENVEHICULE extends TABLE
 	public $price;
 	public $started;
 	public $finished;
-	public $employe_id;
+	public $gestionnaire_id;
 	public $etat_id = 0;
 	public $comment; 
 
@@ -35,7 +35,7 @@ class ENTRETIENVEHICULE extends TABLE
 			if (count($datas) == 1) {
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
-					$this->employe_id = getSession("employe_connecte_id");
+					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();
 				}else{
 					$data->status = false;

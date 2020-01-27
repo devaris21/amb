@@ -2,7 +2,7 @@
 namespace Native;
 use Native\SHAMMAN;
 use Home\CLIENT;
-use Home\EMPLOYE;
+use Home\GESTIONNAIRE;
 use Home\PARAMS;
 /**
  * 
@@ -13,16 +13,16 @@ class ROOTER
 
     private $url;
     private $language = "fr";
-    private $section = "home";
+    private $section = "amb";
     private $module = "start";
-    private $page = "index";
+    private $page = "select";
     private $id ;
 
 
     private $token;
 
 
-    const SECTION_SIMPLE = ["home"];
+    const SECTION_SIMPLE = ["amb"];
     const SECTION_ADMIN = ["espaceclient", "administration"];
     const SECTION_STOCKAGE = ["images", "documents"];
 
@@ -70,10 +70,10 @@ class ROOTER
                 $params = PARAMS::findLastId();
                 
                 if ($this->section == "administration") {
-                    $datas = EMPLOYE::findBy(["id = "=>getSession("employe_connecte_id")]);
+                    $datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
                     if (count($datas) >0) {
-                        $employe = $datas[0];
-                        $employe->actualise();
+                        $gestionnaire = $datas[0];
+                        $gestionnaire->actualise();
                     }else{
                         $this->new_root($this->section, "access", "login");
                         $this->render();
@@ -159,12 +159,12 @@ public function assets($file){
     return "../../webapp/$this->section/assets/$file";
 }
 
-public function path($filepath){
+public function relativePath($filepath){
     return $path = "../../webapp/$this->section/modules/$this->module/$this->page/$filepath";
 }
 
 
-public function path_root($filepath){
+public function rootPath($filepath){
     return $path = "../../$filepath";
 }
 

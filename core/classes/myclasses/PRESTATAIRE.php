@@ -62,7 +62,7 @@ class PRESTATAIRE extends PERSONNE
 	public function se_connecter(){
 		$connexion = new CONNEXION;
 		$connexion->prestataire_id = $this->get_id();
-		$connexion->connexion_carplane();
+		$connexion->connexion_carplan();
 	}
 
 
@@ -70,12 +70,12 @@ class PRESTATAIRE extends PERSONNE
 	public function se_deconnecter(){
 		$connexion = new CONNEXION;
 		$connexion->prestataire_id = $this->get_id();
-		$connexion->deconnexion_carplane();
+		$connexion->deconnexion_carplan();
 	}
 
 
 	public function last_connexion(){
-		$datas = CONNEXION::findBy(["carplane_id = "=> $this->get_id()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["carplan_id = "=> $this->get_id()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {

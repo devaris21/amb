@@ -17,7 +17,7 @@ class APPROVISIONNEMENT extends TABLE
 
 
 	public function enregistre(){
-		$this->employe_id = getSession("employe_connecte_id");
+		$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 		$data = $this->save();
 		return $data;
 	}

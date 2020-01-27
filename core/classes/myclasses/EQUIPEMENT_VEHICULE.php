@@ -12,7 +12,7 @@ class EQUIPEMENT_VEHICULE extends TABLE
 
 	public $vehicule_id;
 	public $equipement_id;
-	public $employe_id;
+	public $gestionnaire_id;
 	public $quantite = 0;
 
 
@@ -27,7 +27,7 @@ class EQUIPEMENT_VEHICULE extends TABLE
 				$equip = $datas[0];
 				$data = $equip->destock($this->quantite);
 				if ($data->status) {
-					$this->employe_id = getSession("employe_connecte_id");
+					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();
 				}
 			}else{

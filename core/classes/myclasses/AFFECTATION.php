@@ -13,7 +13,7 @@ class AFFECTATION extends TABLE
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
-	public $carplane_id;
+	public $carplan_id;
 	public $comment;
 	public $vehicule_id;
 	public $objet;
@@ -21,7 +21,7 @@ class AFFECTATION extends TABLE
 	public $finished = "";
 	public $date_fin;
 	public $etat_id = 0;
-	public $employe_id;
+	public $gestionnaire_id;
 
 
 
@@ -32,9 +32,9 @@ class AFFECTATION extends TABLE
 		if (count($datas) == 0) {
 			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
-				$datas = CARPLANE::findBy(["id ="=>$this->carplane_id]);
+				$datas = carplan::findBy(["id ="=>$this->carplan_id]);
 				if (count($datas) == 1) {
-					$this->employe_id = getSession("employe_connecte_id");
+					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();
 				}else{
 					$data->status = false;
@@ -63,7 +63,7 @@ class AFFECTATION extends TABLE
 
 	public function name(){
 		$this->actualise();
-		return $this->carplane->name." ".$this->carplane->lastname." <br> // Car plan";
+		return $this->carplan->name." ".$this->carplan->lastname." <br> // Car plan";
 	}
 
 
@@ -87,7 +87,7 @@ class AFFECTATION extends TABLE
 				$affectation->finished = $ladate; 
 				$affectation->etat_id = 0;
 				$affectation->objet = "Renouvelement de la precedente affectation ";
-				$affectation->employe_id = getSession("employe_connecte_id");
+				$affectation->gestionnaire_id = getSession("gestionnaire_connecte_id");
 				$affectation->historique("On a reconduit l'affectation du vehicule ".$this->vehicule->name()." à ".$this->name()." jusqu'au ".datecourt($affectation->finished));
 				$data = $affectation->save();
 			}	
@@ -101,7 +101,7 @@ class AFFECTATION extends TABLE
 
 
 	public function sentenseCreate(){
-		return $this->sentense = "Nouvelle affectation de  ".$this->carplane->name." ".$this->carplane->lastname." au véhicule ".$this->vehicule->marque->name." immatriculé ". $this->vehicule->immatriculation;
+		return $this->sentense = "Nouvelle affectation de  ".$this->carplan->name." ".$this->carplan->lastname." au véhicule ".$this->vehicule->marque->name." immatriculé ". $this->vehicule->immatriculation;
 	}
 
 

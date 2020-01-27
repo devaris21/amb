@@ -160,8 +160,8 @@ abstract class PERSONNE extends TABLE
 				$this->login = $login;
 				return true;
 			}else{
-				$employeTemp = $datas[0];
-				if ($employeTemp->id === $this->id) {
+				$gestionnaireTemp = $datas[0];
+				if ($gestionnaireTemp->id === $this->id) {
 					$this->login = $login;
 					return true;
 				}else{
@@ -183,8 +183,8 @@ abstract class PERSONNE extends TABLE
 				$this->email = $email;
 				return true;
 			}else{
-				$employeTemp = $datas[0];
-				if ($employeTemp->id === $this->id) {
+				$gestionnaireTemp = $datas[0];
+				if ($gestionnaireTemp->id === $this->id) {
 					$this->email = $email;
 					return true;
 				}else{

@@ -23,7 +23,7 @@ class VISITETECHNIQUE extends TABLE
 	public $duree;
 	public $typeduree_id;
 	public $etatpiece_id = 0;
-	public $employe_id;
+	public $gestionnaire_id;
 
 
 
@@ -33,7 +33,7 @@ class VISITETECHNIQUE extends TABLE
 			if ($this->name != "" && $this->numero_piece != "") {
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
-					$this->employe_id = getSession("employe_connecte_id");
+					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();
 				}else{
 					$data->status = false;
@@ -79,7 +79,7 @@ class VISITETECHNIQUE extends TABLE
 			$modul = end($table) ;
 
 			$this->client_id       = $commande->client_id;
-			$this->employe_id      = getSession("employe_connecte_id");
+			$this->gestionnaire_id      = getSession("gestionnaire_connecte_id");
 			if ($this->price <= $commande->reste ) {
 				$data = $this->enregistre();
 				if ($data->status) {
@@ -121,7 +121,7 @@ class VISITETECHNIQUE extends TABLE
 
 			$this->price           = $commande->avance;
 			$this->client_id       = $commande->client_id;
-			$this->employe_id      = getSession("employe_connecte_id");
+			$this->gestionnaire_id      = getSession("gestionnaire_connecte_id");
 			$this->rendu           = $commande->rendu;
 			$this->modepayement_id = $commande->modepayement_id;
 			if ($this->price > 0) {
@@ -162,7 +162,7 @@ class VISITETECHNIQUE extends TABLE
 
 	public function regler_commande_globale(Array $tableau){
 		$data = new RESPONSE;
-		$this->employe_id  = getSession("employe_connecte_id");
+		$this->gestionnaire_id  = getSession("gestionnaire_connecte_id");
 		$this->client_id  = getSession("client_courant_id");
 		$temp = MODEPAYEMENT::findBy(["id = "=>$this->modepayement_id])[0];
 		$this->historique("Reglement d'une facture shamman-form");

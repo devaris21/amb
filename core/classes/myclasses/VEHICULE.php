@@ -216,9 +216,9 @@ class VEHICULE extends TABLE
 			if (count($datas) > 0) {
 				$affectation = $datas[0];
 				$affectation->actualise();
-				$this->carplane = $affectation->carplane;
-				$this->fonction = $affectation->carplane->fonction;
-				return $affectation->carplane->name();
+				$this->carplan = $affectation->carplan;
+				$this->fonction = $affectation->carplan->fonction;
+				return $affectation->carplan->name();
 			}
 		}else{
 			return $this->groupevehicule->name;

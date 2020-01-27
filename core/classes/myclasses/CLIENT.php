@@ -81,8 +81,8 @@ class CLIENT extends PERSONNE
 
 	public static function getAllConnected(){
 		$datas = self::findBy(["allowed = "=> 1]);
-		foreach ($datas as $key => $employe) {
-			if (!$employe->is_connected()) {
+		foreach ($datas as $key => $gestionnaire) {
+			if (!$gestionnaire->is_connected()) {
 				unset($datas[$key]);
 			}
 		}
@@ -107,7 +107,7 @@ class CLIENT extends PERSONNE
 
 
 
-	public function relog_employe(string $login, string $password){
+	public function relog_gestionnaire(string $login, string $password){
 		$data = new RESPONSE;
 		if ($password != "" && $login != "") {
 			$datas = self::findBy(["login = "=>$login, "id !="=> $this->get_id()]);
@@ -190,8 +190,8 @@ class CLIENT extends PERSONNE
 			$data->status = true;
 			$data->message = "aucun login semblabe, valide!";
 		}else{
-			$employeTemp = $datas[0];
-			if ($employeTemp->id === $this->id) {
+			$gestionnaireTemp = $datas[0];
+			if ($gestionnaireTemp->id === $this->id) {
 				$data->status = true;
 				$data->message = "C'est son login'";
 			}else{
@@ -255,7 +255,7 @@ class CLIENT extends PERSONNE
 	public function getRapportJournalier(){
 		$data = new RESPONSE;
 		$tab = BREAKDAY::getDateByBreakday();
-		$datas = HISTORIQUE::findBy(["employe_id ="=>$this->get_id(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
+		$datas = HISTORIQUE::findBy(["gestionnaire_id ="=>$this->get_id(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
 		foreach ($datas as $key => $ligne) {
 			$ligne->actualise();
 			$tab = [];

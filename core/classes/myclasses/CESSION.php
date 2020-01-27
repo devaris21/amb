@@ -14,7 +14,7 @@ class CESSION extends TABLE
 	public static $namespace = __NAMESPACE__;
 
 	public $utilisateur_id = null;
-	public $carplane_id;
+	public $carplan_id;
 	public $comment;
 	public $vehicule_id;
 	public $objet;
@@ -33,9 +33,9 @@ class CESSION extends TABLE
 				if ($this->started >= date("Y-m-d") && $this->finished >= $this->started) {
 					$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 					if (count($datas) == 1) {
-						$datas = CARPLANE::findBy(["id ="=>$this->carplane_id]);
+						$datas = carplan::findBy(["id ="=>$this->carplan_id]);
 						if (count($datas) == 1) {
-							$this->employe_id = getSession("employe_connecte_id");
+							$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 							$data = $this->save();
 						}else{
 							$data->status = false;
@@ -65,14 +65,14 @@ class CESSION extends TABLE
 
 	public function name(){
 		$this->actualise();
-		if ($this->employe_id != null) {
-			return $this->employe->name." ".$this->employe->lastname." // Gestionnaire GPA";
+		if ($this->gestionnaire_id != null) {
+			return $this->gestionnaire->name." ".$this->gestionnaire->lastname." // Gestionnaire GPA";
 
 		}elseif ($this->utilisateur_id != null) {
 			return $this->utilisateur->name." ".$this->utilisateur->lastname." // Direction";
 
-		}elseif ($this->carplane_id != null) {
-			return $this->carplane->name." ".$this->carplane->lastname." // Car plan";
+		}elseif ($this->carplan_id != null) {
+			return $this->carplan->name." ".$this->carplan->lastname." // Car plan";
 
 		}elseif ($this->prestataire_id != null) {
 			return $this->prestataire->name." ".$this->prestataire->lastname." // Prestataire";
@@ -82,7 +82,7 @@ class CESSION extends TABLE
 
 
 	public function sentenseCreate(){
-		return $this->sentense = "Nouvelle affectation de  ".$this->carplane->name." ".$this->carplane->lastname." au véhicule ".$this->vehicule->marque->name." immatriculé ". $this->vehicule->immatriculation;
+		return $this->sentense = "Nouvelle affectation de  ".$this->carplan->name." ".$this->carplan->lastname." au véhicule ".$this->vehicule->marque->name." immatriculé ". $this->vehicule->immatriculation;
 	}
 
 

@@ -5,7 +5,7 @@ use Native\RESPONSE;
 /**
  * 
  */
-class VEHICULE_CARPLANE extends TABLE
+class VEHICULE_carplan extends TABLE
 {
 	
 	
@@ -14,7 +14,7 @@ class VEHICULE_CARPLANE extends TABLE
 
 
 	public $vehicule_id;
-	public $carplane_id;
+	public $carplan_id;
 	public $started;
 
 

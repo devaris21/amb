@@ -36,7 +36,7 @@ class DEMANDEVEHICULE extends TABLE
 
 	public $etats = 1;
 	public $etat_id = 0;
-	public $employe_id;
+	public $gestionnaire_id;
 
 	public $carburant;
 	public $dotation;
@@ -66,7 +66,7 @@ class DEMANDEVEHICULE extends TABLE
 						include(__DIR__."/../../sections/home/elements/mails/demandevehicule.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
-						EMAIL::send(EMPLOYE::getEmailGestionnaires(), "Nouvelle demande de véhicule", $contenu);
+						EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande de véhicule", $contenu);
 						
 					}
 				}else{

@@ -19,7 +19,7 @@ class MEMORANDUM extends TABLE
 	public $contenu;
 	public $objet;
 	public $etat_id = 0;
-	public $employe_id;
+	public $gestionnaire_id;
 
 	public $validation_gc = 0; 
 	public $date_validation_gc = null;
@@ -35,7 +35,7 @@ class MEMORANDUM extends TABLE
 		$data = new RESPONSE;
 		if ($this->objet != "") {
 			if ($this->contenu != "") {
-				$this->employe_id = getSession("employe_connecte_id");
+				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 				$data = $this->save();
 				if ($data->status) {
 					$this->reference = start0($data->lastid)."/CSDG/DAL/SLET";
@@ -44,14 +44,14 @@ class MEMORANDUM extends TABLE
 					$this->set_id($data->lastid)->actualise();
 					$params = PARAMS::findLastId();
 
-					$message = "Vous avez reçu un nouveau mémorandum soumis à votre approbation faites par ".$this->employe->name().", avec pour objet : '$this->objet' ! ";
+					$message = "Vous avez reçu un nouveau mémorandum soumis à votre approbation faites par ".$this->gestionnaire->name().", avec pour objet : '$this->objet' ! ";
 					ob_start();
 					include(__DIR__."/../../sections/home/elements/mails/memo.php");
 					$contenu = ob_get_contents();
 					ob_end_clean();
 					$emails = [];
-					foreach (EMPLOYE::findBy(["is_admin ="=>1]) as $key => $employe) {
-						$emails[] = $employe->email;
+					foreach (GESTIONNAIRE::findBy(["is_admin ="=>1]) as $key => $gestionnaire) {
+						$emails[] = $gestionnaire->email;
 					}
 					EMAIL::send($emails, "Approbation d'un nouveau memo", $contenu);
 				}

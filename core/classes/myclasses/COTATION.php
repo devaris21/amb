@@ -15,7 +15,7 @@ class COTATION extends TABLE
 	public $comment;
 	public $started;
 	public $finished;
-	public $employe_id;
+	public $gestionnaire_id;
 	public $etat_id = 0;
 
 
