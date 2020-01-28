@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/gestionnaire/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/carplan/elements/templates/head.php")); ?>
 
 
 <body class="fixed-sidebar">
 
     <div id="wrapper">
 
-        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar.php")); ?>  
+        <?php include($this->rootPath("webapp/carplan/elements/templates/sidebar.php")); ?>  
 
         <div id="page-wrapper" class="gray-bg">
           
-          <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
+          <?php include($this->rootPath("webapp/carplan/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
@@ -34,7 +34,7 @@
         </div>
 
         <div class="wrapper wrapper-content">
-            <div class="text-center animated fadeInRightBig">
+            <div class="middle-box text-center animated fadeInRightBig">
                 <h3 class="font-bold">This is page content</h3>
                 <div class="error-desc">
                     You can create here any grid layout you want. And any variation layout you imagine:) Check out
@@ -45,14 +45,14 @@
         </div>
 
         
-        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+        <?php include($this->rootPath("webapp/carplan/elements/templates/footer.php")); ?>
         
 
     </div>
 </div>
 
 
-<?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>
+<?php include($this->rootPath("webapp/carplan/elements/templates/script.php")); ?>
 
 
 </body>

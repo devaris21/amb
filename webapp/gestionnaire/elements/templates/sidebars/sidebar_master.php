@@ -1,6 +1,6 @@
 <ul class="nav metismenu" id="side-menu">
     <li class="active">
-        <a href="<?= $this->url("gestionnaire", "master", "dashbord") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Tableau de bord</span></a>
+        <a href="<?= $this->url("gestionnaire", "master", "dashboard") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Tableau de bord</span></a>
     </li>
     <li>
         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Parc auto</span> <span class="fa arrow"></span></a>

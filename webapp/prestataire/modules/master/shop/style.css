@@ -1,0 +1,11 @@
+ .cards .col-md-4, .ibox-content {
+ 	padding-bottom: 0;
+ }
+
+ .page-heading{
+ 	margin-bottom: 0;
+ 	padding: 0;
+ }
+ .contact-box{
+ 	padding: 5px;
+ }
