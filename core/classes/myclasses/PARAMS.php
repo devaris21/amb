@@ -38,11 +38,11 @@ class PARAMS extends TABLE
 		if(is_null(getSession("last_access")) OR (time() - getSession("last_access") > $session * 2) ){
 			$data->status = false;
 			$data->message = "temps depassée, page de connexion zz!";
-			$data->set_url($section, "access", "login");
+			$data->setUrl($section, "access", "login");
 		}else if ((time() - getSession("last_access") > $session) || !is_null(getSession("page_session"))) {
 			$data->status = false;
 			$data->message = "temps depassée, verrouillage de la session !";
-			$data->set_url($section, "access", "session");
+			$data->setUrl($section, "access", "session");
 		}else{
 			session("last_access", time());
 			$data->status = true;

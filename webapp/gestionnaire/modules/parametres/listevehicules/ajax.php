@@ -15,7 +15,7 @@ if ($action == "modele") {
 	$datas = MODELE::findBy(["marque_id = "=>$id]);
 	foreach ($datas as $key => $modele) {
 		$modele->actualise() ?>
-		<option value="<?= $modele->get_id() ?>"><?= $modele->name ?></option>
+		<option value="<?= $modele->getId() ?>"><?= $modele->name ?></option>
 	<?php }
 }
 

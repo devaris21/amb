@@ -220,7 +220,7 @@ if ($action == "cartegrises") {
 				<h2 style="font-size: 20px"><?= $image->cartegrise->name ?></h2>
 				<div>
 					<p onclick="voir()" class="cursor"><a target="_blank" href="<?= $rooter->image($dossier, $image->photo) ?>"><i class="fa fa-close"></i> Voir la photo</a></p>
-					<p onclick="suppression('imagecartegrise', <?= $image->get_id() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
+					<p onclick="suppression('imagecartegrise', <?= $image->getId() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
 				</div>
 			</figcaption>
 		</figure>
@@ -240,7 +240,7 @@ if ($action == "piecevehicules") {
 				<h2 style="font-size: 20px"><?= $image->piecevehicule->name ?></h2>
 				<div>
 					<p onclick="voir()" class="cursor"><a target="_blank" href="<?= $rooter->image($dossier, $image->photo) ?>"><i class="fa fa-close"></i> Voir la photo</a></p>
-					<p onclick="suppression('imagepiecevehicule', <?= $image->get_id() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
+					<p onclick="suppression('imagepiecevehicule', <?= $image->getId() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
 				</div>
 			</figcaption>
 		</figure>
@@ -259,7 +259,7 @@ if ($action == "assurances") {
 				<h2 style="font-size: 20px"><?= $image->assurance->name ?></h2>
 				<div>
 					<p onclick="voir()" class="cursor"><a target="_blank" href="<?= $rooter->image($dossier, $image->photo) ?>"><i class="fa fa-close"></i> Voir la photo</a></p>
-					<p onclick="suppression('imageassurance', <?= $image->get_id() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
+					<p onclick="suppression('imageassurance', <?= $image->getId() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
 				</div>
 			</figcaption>
 		</figure>
@@ -279,7 +279,7 @@ if ($action == "visitetechniques") {
 				<h2 style="font-size: 20px"><?= $image->visitetechnique->name ?></h2>
 				<div>
 					<p class="cursor"><a target="_blank" href="<?= $rooter->image($dossier, $image->photo) ?>"><i class="fa fa-close"></i> Voir la photo</a></p>
-					<p onclick="suppression('imagevisitetechnique', <?= $image->get_id() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
+					<p onclick="suppression('imagevisitetechnique', <?= $image->getId() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
 				</div>
 			</figcaption>
 		</figure>
@@ -299,7 +299,7 @@ if ($action == "entretiens") {
 				<h2 style="font-size: 20px"><?= $image->entretienvehicule->name ?></h2>
 				<div>
 					<p class="cursor"><a target="_blank" href="<?= $rooter->image($dossier, $image->photo) ?>"><i class="fa fa-close"></i> Voir la photo</a></p>
-					<p onclick="suppression('imageentretienvehicule', <?= $image->get_id() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
+					<p onclick="suppression('imageentretienvehicule', <?= $image->getId() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
 				</div>
 			</figcaption>
 		</figure>
@@ -319,7 +319,7 @@ if ($action == "sinistres") {
 				<h2 style="font-size: 20px"><?= $image->sinistre->name ?></h2>
 				<div>
 					<p onclick="voir()" class="cursor"><a target="_blank" href="<?= $rooter->image($dossier, $image->photo) ?>"><i class="fa fa-close"></i> Voir la photo</a></p>
-					<p onclick="suppression('imagesinistre', <?= $image->get_id() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
+					<p onclick="suppression('imagesinistre', <?= $image->getId() ?>)" class="cursor"><i class="fa fa-close"></i> Supprimer photo</p>
 				</div>
 			</figcaption>
 		</figure>

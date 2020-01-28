@@ -43,7 +43,7 @@ class CHAUFFEUR extends PERSONNE
 
 	public function etat(){
 		if ($this->etatchauffeur_id != -1) {
-			$datas = CHAUFFEUR_MISSION::findBy(["etat_id="=>0, "chauffeur_id ="=>$this->get_id()]);
+			$datas = CHAUFFEUR_MISSION::findBy(["etat_id="=>0, "chauffeur_id ="=>$this->getId()]);
 			if (count($datas) > 0) {
 				$this->etatchauffeur_id = 1;
 			}else{

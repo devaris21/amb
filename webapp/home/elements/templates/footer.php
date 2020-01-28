@@ -102,7 +102,7 @@
 
 
                     <script type="text/javascript">
-                        var page = "<?= $this->get_page(); ?>";
+                        var page = "<?= $this->getPage(); ?>";
                         $("ul.navbar-nav li a").removeClass('active');
                         $("ul.navbar-nav li a").each(function(index, el) {
                             if ($(this).attr("id") == page) {

@@ -28,12 +28,12 @@ class RESPONSE
 
 
 
-  public function set_url($section, $module, $page="", $id=""){
+  public function setUrl($section, $module, $page="", $id=""){
     //cette est redefinie dans rooter
     $this->url = "/$section/$module/$page|$id";
   }
 
-  public function set_url0($url){
+  public function setUrl0($url){
     //cette est redefinie dans rooter
     $this->url = $url;
   }

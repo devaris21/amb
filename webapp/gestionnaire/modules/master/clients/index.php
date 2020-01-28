@@ -60,7 +60,7 @@
                                                                 <td><?= $client->adresse ?></td>
                                                                 <td><?= $client->email ?></td>
                                                                 <td><?= $client->contact ?></td>
-                                                                <td><a href="<?= $this->url("administration", "master", "client", $client->get_id()) ?>" class=""><i class="fa fa-eye"> Voir </i> </a></td>
+                                                                <td><a href="<?= $this->url("administration", "master", "client", $client->getId()) ?>" class=""><i class="fa fa-eye"> Voir </i> </a></td>
                                                             </tr>
                                                         <?php } ?>
                                                     </tbody>

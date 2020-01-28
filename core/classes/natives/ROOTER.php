@@ -7,16 +7,16 @@ use Home\PARAMS;
 /**
  * 
  */
-class ROOTER
+class ROOTER extends PATH
 {
 
 
     private $url;
     private $language = "fr";
-    private $section = "amb";
-    private $module = "start";
-    private $page = "select";
-    private $id ;
+    public $section = "amb";
+    public $module = "start";
+    public $page = "select";
+    public $id ;
 
 
     private $token;
@@ -146,57 +146,31 @@ public function url($section, $module, $page="", $id=""){
     return $this->url = "../../$section/$module/$page|$id";
 }
 
-public function set_url(String $url){
+public function setUrl(String $url){
     $this->url = $url;
     return $this;
 }
 
-public function get_url(){
+public function getUrl(){
     return $this->url;
 }
-
-public function assets($file){
-    return "../../webapp/$this->section/assets/$file";
-}
-
-public function relativePath($filepath){
-    return $path = "../../webapp/$this->section/modules/$this->module/$this->page/$filepath";
-}
-
-
-public function rootPath($filepath){
-    return $path = "../../$filepath";
-}
-
-
-public function stockage($type, $dossier, $file){
-    return "../../../stockage/$type/$dossier/$file";
-}
-
-
-public function image($dossier, $file){
-    return "../../../stockage/images/$dossier/$file";
-}
-
 
 
 public function set_module($module)
 {
     $this->module = $module;
-
     return $this;
 }
 
-
-public function get_module(){
+public function getModule(){
     return $this->module;
 }
 
-public function get_page(){
+public function getPage(){
     return $this->page;
 }
 
-public function get_id()
+public function getId()
 {
     return $this->id;
 }
@@ -204,9 +178,4 @@ public function get_id()
 
 
 }
-
-
-
-
-
 ?>

@@ -41,8 +41,8 @@
                                                 <?php foreach ($sinistres as $key => $sinistre) { ?>
                                                     <tr>
                                                         <td><?= $sinistre->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typesinistre" onclick="modification('typesinistre', <?= $sinistre->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('typesinistre', <?= $sinistre->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typesinistre" onclick="modification('typesinistre', <?= $sinistre->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('typesinistre', <?= $sinistre->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -63,8 +63,8 @@
                                                 <?php foreach ($entretiens as $key => $entretien) { ?>
                                                     <tr>
                                                         <td><?= $entretien->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typeentretienvehicule" onclick="modification('typeentretienvehicule', <?= $entretien->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('typeentretienvehicule', <?= $entretien->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typeentretienvehicule" onclick="modification('typeentretienvehicule', <?= $entretien->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('typeentretienvehicule', <?= $entretien->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -86,8 +86,8 @@
                                                 <?php foreach ($typedemandes as $key => $type) { ?>
                                                     <tr>
                                                         <td><?= $type->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typedemandevehicule" onclick="modification('typedemandevehicule', <?= $type->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('typedemandevehicule', <?= $type->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typedemandevehicule" onclick="modification('typedemandevehicule', <?= $type->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('typedemandevehicule', <?= $type->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>

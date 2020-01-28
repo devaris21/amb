@@ -26,7 +26,7 @@
                                 <div class="row m-l-0 m-r-0">
                                     <div class="col-sm-12">
                                        <div class="card-block">
-                                        <h6 class="text-aqua text-uppercase m-b-20 p-b-5 b-b-default f-w-600"><i class="fa fa-pencil"></i> Vos Informations <span onclick="modification('utilisateur', <?= $gestionnaire->get_id() ?>)" data-toggle=modal data-target="#modal-user" class="cursor pull-right"><i class="fa fa-pencil "></i> MODIFIER</span></h6>
+                                        <h6 class="text-aqua text-uppercase m-b-20 p-b-5 b-b-default f-w-600"><i class="fa fa-pencil"></i> Vos Informations <span onclick="modification('utilisateur', <?= $gestionnaire->getId() ?>)" data-toggle=modal data-target="#modal-user" class="cursor pull-right"><i class="fa fa-pencil "></i> MODIFIER</span></h6>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <p class="m-b-5 f-w-600">Votre Nom</p>

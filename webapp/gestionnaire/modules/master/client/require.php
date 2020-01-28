@@ -1,10 +1,10 @@
 <?php 
 namespace Home;
 
-if ($this->get_id() != null && intval($this->get_id()) > 0) {
-	$datas = CLIENT::findBy(["id="=>$this->get_id()]);
+if ($this->getId() != null && intval($this->getId()) > 0) {
+	$datas = CLIENT::findBy(["id="=>$this->getId()]);
 	if (count($datas) == 1) {
-		session("client_id", $this->get_id());
+		session("client_id", $this->getId());
 		$client = $datas[0];
 		$client->actualise();
 

@@ -40,7 +40,7 @@ abstract class AUTH extends TABLE
 				}else{
 					$data->status = false;
 					$data->message = "L'accès à cette application vous a été restrient !";
-					$data->set_url("access", "restriction");
+					$data->setUrl("access", "restriction");
 				}
 			}else{
 				$data->status = false;
@@ -68,7 +68,7 @@ abstract class AUTH extends TABLE
 			$contenu = ob_get_contents();
 			ob_end_clean();
 			EMAIL::send([$this->email], "Reinitialisation de vos parametres de connexion", $contenu);
-			$data->set_url("amb", "start", "select");
+			$data->setUrl("amb", "start", "select");
 		}
 		return $data;
 	}

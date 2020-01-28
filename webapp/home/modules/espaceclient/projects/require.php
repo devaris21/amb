@@ -3,7 +3,7 @@ namespace Home;
 
 $datas = CLIENT::findBy(["id="=>getSession("client_id")]);
 if (count($datas) == 1) {
-	session("client_id", $this->get_id());
+	session("client_id", $this->getId());
 	$client = $datas[0];
 	$client->actualise();
 

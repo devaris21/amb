@@ -41,17 +41,17 @@
                                                     <tr>
                                                         <td>Email des Ressources Humaines</td>
                                                         <td><?= $params->email_rh ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-params1" onclick="modification('params', <?= $params->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-params1" onclick="modification('params', <?= $params->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Email du CSDG</td>
                                                         <td><?= $params->email_csdg ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-params2" onclick="modification('params', <?= $params->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-params2" onclick="modification('params', <?= $params->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Email du DG</td>
                                                         <td><?= $params->email_dg ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-params3" onclick="modification('params', <?= $params->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-params3" onclick="modification('params', <?= $params->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
                                                     </tr>
                                                 </tbody>
                                             </table>

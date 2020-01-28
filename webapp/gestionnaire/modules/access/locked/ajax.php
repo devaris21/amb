@@ -14,9 +14,9 @@ if ($action == "locked") {
 		if (count($datas) == 1) {
 			$user = $datas[0];
 			if ($user->checkPassword($password)) {
-				session("gestionnaire_connecte_id", $user->get_id());
+				session("gestionnaire_connecte_id", $user->getId());
 				$data->status = true;
-				$data->set_url("gestionnaire", "master", "dashboard");
+				$data->setUrl("gestionnaire", "master", "dashboard");
 				session("last_access", time());
 				unset_session("page_session");
 			}
@@ -26,9 +26,9 @@ if ($action == "locked") {
 				if ($ldapconn) {
 					$ldapbind = @ldap_bind($ldapconn, $user->email, $password);
 					if ($ldapbind) {
-						session("gestionnaire_connecte_id", $user->get_id());
+						session("gestionnaire_connecte_id", $user->getId());
 						$data->status = true;
-						$data->set_url("gestionnaire", "master", "dashboard");
+						$data->setUrl("gestionnaire", "master", "dashboard");
 						session("last_access", time());
 						unset_session("page_session");
 					}else{
@@ -36,11 +36,11 @@ if ($action == "locked") {
 						$data->message = "Votre mot de passe est incorrect !";
 					}
 				}else{
-					$data->set_url("gestionnaire", "access", "login");
+					$data->setUrl("gestionnaire", "access", "login");
 				}		
 			}*/	
 		}else{
-			$data->set_url("gestionnaire", "access", "login");
+			$data->setUrl("gestionnaire", "access", "login");
 		}
 	}else{
 		$data->status = false;

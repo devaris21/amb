@@ -79,7 +79,7 @@ class VEHICULE extends TABLE
 
 
 	public function finAssurance(){
-		$datas = ASSURANCE::findBy(["vehicule_id ="=> $this->get_id()], [], ["finished"=>"DESC"]);
+		$datas = ASSURANCE::findBy(["vehicule_id ="=> $this->getId()], [], ["finished"=>"DESC"]);
 		if (count($datas) >= 1) {
 			$item = $datas[0];
 			return $item->finished;
@@ -90,7 +90,7 @@ class VEHICULE extends TABLE
 
 
 	public function finVisite(){
-		$datas = VISITETECHNIQUE::findBy(["vehicule_id ="=> $this->get_id()], [], ["finished"=>"DESC"]);
+		$datas = VISITETECHNIQUE::findBy(["vehicule_id ="=> $this->getId()], [], ["finished"=>"DESC"]);
 		if (count($datas) >= 1) {
 			$item = $datas[0];
 			return $item->finished;
@@ -102,7 +102,7 @@ class VEHICULE extends TABLE
 
 	public function finVidange(){
 		$datas = TYPEENTRETIENVEHICULE::findBy();
-		$datas = ASSURANCE::findBy(["vehicule_id ="=> $this->get_id()], [], ["finished"=>"DESC"]);
+		$datas = ASSURANCE::findBy(["vehicule_id ="=> $this->getId()], [], ["finished"=>"DESC"]);
 		if (count($datas) >= 1) {
 			$item = $datas[0];
 			return $item->finished;
@@ -114,8 +114,8 @@ class VEHICULE extends TABLE
 
 	public function piecevehicules(){
 		foreach (TYPEPIECEVEHICULE::getAll() as $key => $piece) {
-			$datas = PIECEVEHICULE::findBy(["vehicule_id ="=>$this->get_id(), "typepiecevehicule_id ="=>$piece->get_id()], [], ["finished"=>"DESC"]);
-			$name = "piece".$piece->get_id();
+			$datas = PIECEVEHICULE::findBy(["vehicule_id ="=>$this->getId(), "typepiecevehicule_id ="=>$piece->getId()], [], ["finished"=>"DESC"]);
+			$name = "piece".$piece->getId();
 			if (count($datas) >= 1) {
 				$item = $datas[0];
 				$this->$name = $item->finished;
@@ -130,7 +130,7 @@ class VEHICULE extends TABLE
 
 
 	public function assurance(){
-		$datas = ASSURANCE::findBy(["vehicule_id ="=> $this->get_id()], [], ["finished"=>"DESC"]);
+		$datas = ASSURANCE::findBy(["vehicule_id ="=> $this->getId()], [], ["finished"=>"DESC"]);
 		if (count($datas) >= 1) {
 			return $datas[0];
 		}else{
@@ -140,7 +140,7 @@ class VEHICULE extends TABLE
 
 
 	public function visiteTechnique(){
-		$datas = VISITETECHNIQUE::findBy(["vehicule_id ="=> $this->get_id()], [], ["finished"=>"DESC"]);
+		$datas = VISITETECHNIQUE::findBy(["vehicule_id ="=> $this->getId()], [], ["finished"=>"DESC"]);
 		if (count($datas) >= 1) {
 			return $datas[0];
 		}else{
@@ -149,7 +149,7 @@ class VEHICULE extends TABLE
 	}
 
 	public function carteGrise(){
-		$datas = CARTEGRISE::findBy(["vehicule_id ="=> $this->get_id()], [], ["id"=>"DESC"]);
+		$datas = CARTEGRISE::findBy(["vehicule_id ="=> $this->getId()], [], ["id"=>"DESC"]);
 		if (count($datas) >= 1) {
 			return $datas[0];
 		}else{
@@ -160,7 +160,7 @@ class VEHICULE extends TABLE
 	public function pieces(){
 		$tableau = [];
 		foreach (TYPEPIECEVEHICULE::getAll() as $key => $value) {
-			$datas = PIECEVEHICULE::findBy(["vehicule_id ="=> $this->get_id(), "typepiecevehicule_id ="=>$value->get_id()], [], ["finished"=>"DESC"]);
+			$datas = PIECEVEHICULE::findBy(["vehicule_id ="=> $this->getId(), "typepiecevehicule_id ="=>$value->getId()], [], ["finished"=>"DESC"]);
 			if (count($datas) >= 1) {
 				$tableau[] = $datas[0];
 			}
@@ -178,16 +178,16 @@ class VEHICULE extends TABLE
 			}elseif ($this->is_affecte()) {
 				$this->etatvehicule_id = 3;
 			}else{
-				$datas = ENTRETIENVEHICULE::findBy(["etat_id="=>0, "started >="=>dateAjoute(), "vehicule_id ="=>$this->get_id()]);
+				$datas = ENTRETIENVEHICULE::findBy(["etat_id="=>0, "started >="=>dateAjoute(), "vehicule_id ="=>$this->getId()]);
 				if (count($datas) > 0) {
 					$this->etatvehicule_id = 1;
 				}else{
-					$datas = VEHICULE_MISSION::findBy(["etat_id="=>0, "vehicule_id ="=>$this->get_id()]);
+					$datas = VEHICULE_MISSION::findBy(["etat_id="=>0, "vehicule_id ="=>$this->getId()]);
 					if (count($datas) > 0) {
 						$this->etatvehicule_id = 2;
 					}else{
 						$this->etatvehicule_id = 0;
-						$datas = LOCATION_VEHICULE::findBy(["etat_id="=>0, "vehicule_id ="=>$this->get_id()]);
+						$datas = LOCATION_VEHICULE::findBy(["etat_id="=>0, "vehicule_id ="=>$this->getId()]);
 						foreach ($datas as $key => $value) {
 							$value->actualise();
 							if ($value->location->started <= dateAjoute() && dateAjoute() <= $value->location->finished) {
@@ -212,7 +212,7 @@ class VEHICULE extends TABLE
 		$this->actualise();
 		$this->fonction = "";
 		if ($this->is_affecte()) {
-			$datas = AFFECTATION::findBy(["vehicule_id="=>$this->get_id(), "etat_id="=>0]);
+			$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id="=>0]);
 			if (count($datas) > 0) {
 				$affectation = $datas[0];
 				$affectation->actualise();
@@ -227,7 +227,7 @@ class VEHICULE extends TABLE
 
 
 	public function is_affecte(){
-		$datas = AFFECTATION::findBy(["vehicule_id ="=> $this->get_id(), "etat_id="=>0]);
+		$datas = AFFECTATION::findBy(["vehicule_id ="=> $this->getId(), "etat_id="=>0]);
 		if (count($datas) > 0) {
 			return true;
 		}else{
@@ -314,7 +314,7 @@ class VEHICULE extends TABLE
 		$datas1 = static::pretes();
 		foreach ($datas1 as $key => $vehicule1) {
 			foreach ($datas as $key => $vehicule) {
-				if ($vehicule1->get_id() == $vehicule->get_id()) {
+				if ($vehicule1->getId() == $vehicule->getId()) {
 					unset($datas1[$key]);
 				}
 			}

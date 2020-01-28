@@ -1,10 +1,10 @@
 <?php 
 // namespace Home;
 
-// if ($this->get_id() != null && intval($this->get_id()) > 0) {
-// 	$datas = VEHICULE::findBy(["id="=>$this->get_id()]);
+// if ($this->getId() != null && intval($this->getId()) > 0) {
+// 	$datas = VEHICULE::findBy(["id="=>$this->getId()]);
 // 	if (count($datas) == 1) {
-// 		session("vehicule_id", $this->get_id());
+// 		session("vehicule_id", $this->getId());
 // 		$vehicule = $datas[0];
 // 		$vehicule->actualise();
 // 		$vehicule->etat();
@@ -22,7 +22,7 @@
 
 // 		$vehicule->affectation();
 
-// 		$datas = AFFECTATION::findBy(["vehicule_id="=>$this->get_id(), "etat_id="=>0]);
+// 		$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id="=>0]);
 // 		if (count($datas) > 0) {
 // 			$affectation = $datas[0];
 // 			$affectation->actualise();

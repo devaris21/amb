@@ -1,7 +1,7 @@
 <?php 
 namespace Home;
 
-$datas =TYPEENTRETIENVEHICULE::findBy(["id = "=>$this->get_id()]);
+$datas =TYPEENTRETIENVEHICULE::findBy(["id = "=>$this->getId()]);
 if (count($datas) > 0) {
 	$entretien = $datas[0];
 	$entretien->fourni("entretienvehicule");

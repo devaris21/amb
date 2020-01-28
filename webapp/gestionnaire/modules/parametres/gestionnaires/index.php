@@ -102,12 +102,12 @@
                                                             <tr>
                                                                 <td class="gras"><?= $gestionnaire->name ?> <?= $gestionnaire->lastname ?></td>
                                                                 <td class="gras"><?= $gestionnaire->typeadministrateur->name ?></td>
-                                                               <td class="cursor" onclick="changer(<?= $gestionnaire->get_id() ?>)"><i class="fa fa-refresh text-blue"></i></td>
+                                                               <td class="cursor" onclick="changer(<?= $gestionnaire->getId() ?>)"><i class="fa fa-refresh text-blue"></i></td>
                                                                 <td><?= $gestionnaire->adresse ?></td>
                                                                 <td><a href="mailto:<?= $gestionnaire->email ?>"><?= $gestionnaire->email ?></a></td>
                                                                 <td><?= $gestionnaire->contact ?> / <?= $gestionnaire->contact2 ?></td>
-                                                                <td class="cursor" data-toggle="modal" data-target="#modal-gestionnaire" onclick="modification('gestionnaire', <?= $gestionnaire->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                                <td class="cursor" onclick="suppression_with_password('gestionnaire', <?= $gestionnaire->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                                <td class="cursor" data-toggle="modal" data-target="#modal-gestionnaire" onclick="modification('gestionnaire', <?= $gestionnaire->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                                <td class="cursor" onclick="suppression_with_password('gestionnaire', <?= $gestionnaire->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                             </tr>
                                                         <?php } ?>
                                                     </tbody>

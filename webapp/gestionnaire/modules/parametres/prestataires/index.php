@@ -132,8 +132,8 @@
                                                             <td><?= $prestataire->contact ?> / <?= $prestataire->contact2 ?></td>
                                                             <td><?= ($prestataire->isNew == 0)?'***********':$prestataire->login ?></td>
                                                             <td><?= ($prestataire->isNew == 0)?'***********':"21ju195mer5artci" ?></td>
-                                                            <td class="cursor" data-toggle="modal" data-target="#modal-prestataire" onclick="modification('prestataire', <?= $prestataire->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                            <td class="cursor" onclick="suppression_with_password('prestataire', <?= $prestataire->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                            <td class="cursor" data-toggle="modal" data-target="#modal-prestataire" onclick="modification('prestataire', <?= $prestataire->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                            <td class="cursor" onclick="suppression_with_password('prestataire', <?= $prestataire->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                         </tr>
                                                     <?php } ?>
 
@@ -161,8 +161,8 @@
                                                         $type->actualise(); ?>
                                                         <tr>
                                                             <td><?= $type->name ?></td>
-                                                            <td class="cursor" data-toggle="modal" data-target="#modal-type" onclick="modification('typeprestataire', <?= $type->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                            <td class="cursor" onclick="suppression_with_password('typeprestataire', <?= $type->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                            <td class="cursor" data-toggle="modal" data-target="#modal-type" onclick="modification('typeprestataire', <?= $type->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                            <td class="cursor" onclick="suppression_with_password('typeprestataire', <?= $type->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                         </tr>
                                                     <?php } ?>
 

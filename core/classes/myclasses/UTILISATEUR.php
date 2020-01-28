@@ -55,7 +55,7 @@ class UTILISATEUR extends PERSONNE
 
 	public function se_connecter(){
 		$connexion = new CONNEXION;
-		$connexion->utilisateur_id = $this->get_id();
+		$connexion->utilisateur_id = $this->getId();
 		$connexion->connexion_utilisateur();
 	}
 
@@ -63,13 +63,13 @@ class UTILISATEUR extends PERSONNE
 
 	public function se_deconnecter(){
 		$connexion = new CONNEXION;
-		$connexion->utilisateur_id = $this->get_id();
+		$connexion->utilisateur_id = $this->getId();
 		$connexion->deconnexion_utilisateur();
 	}
 
 
 	public function last_connexion(){
-		$datas = CONNEXION::findBy(["utilisateur_id = "=> $this->get_id()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["utilisateur_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
@@ -96,7 +96,7 @@ class UTILISATEUR extends PERSONNE
 
 
 	public function is_connected(){
-		$datas = CONNEXION::findBy(["employe_id = "=> $this->get_id()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["employe_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
@@ -112,14 +112,14 @@ class UTILISATEUR extends PERSONNE
 	public function relog_employe(string $login, string $password){
 		$data = new RESPONSE;
 		if ($password != "" && $login != "") {
-			$datas = self::findBy(["login = "=>$login, "id !="=> $this->get_id()]);
+			$datas = self::findBy(["login = "=>$login, "id !="=> $this->getId()]);
 			if (count($datas) == 0) {
 				if($this->password != hasher($password)){
 					if ($this->set_login($login)) {
 						$this->set_password($password);
 						$this->is_new = 1;
 						$data = $this->save();
-						$data->set_url("master", "dashboard");
+						$data->setUrl("master", "dashboard");
 					}else{
 						$data->status = false;
 						$data->message = "Cet identifiant est déjà utilisé. Changez-le !!!";
@@ -257,17 +257,17 @@ class UTILISATEUR extends PERSONNE
 	public function getRapportJournalier(){
 		$data = new RESPONSE;
 		$tab = BREAKDAY::getDateByBreakday();
-		$datas = HISTORIQUE::findBy(["employe_id ="=>$this->get_id(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
+		$datas = HISTORIQUE::findBy(["employe_id ="=>$this->getId(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
 		foreach ($datas as $key => $ligne) {
 			$ligne->actualise();
 			$tab = [];
 			$lots = MODULE::getModulesStandart();
 			foreach ($lots as $key => $module) {
-				$tab[] = $module->get_id();
+				$tab[] = $module->getId();
 			}
 			$tab[] = MODULE::getModuleIdFor("caisse");
 
-			if (!in_array($ligne->module->get_id(), $tab)) {
+			if (!in_array($ligne->module->getId(), $tab)) {
 				unset($datas[$key]);
 			}
 		}

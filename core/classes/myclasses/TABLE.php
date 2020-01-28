@@ -10,6 +10,8 @@ use \PDO;
 abstract class TABLE 
 {
 
+    protected static $namespaces = ["Native", "Home"];
+
 
     public $id = null;
     public $created = null;
@@ -19,13 +21,9 @@ abstract class TABLE
     protected $visibility = 1;
     public static $lastId;
 
-    public $sentense = "";
 
     abstract public function enregistre();
 
-    abstract public function sentenseCreate();
-    abstract public function sentenseUpdate();
-    abstract public function sentenseDelete();
 
 
     public function hydrater(Array $table1){
@@ -73,7 +71,7 @@ abstract class TABLE
 
 //SETTERS AND GETTERS
 
-    public function get_id(){
+    public function getId(){
         return $this->id;
     }
 
@@ -123,14 +121,9 @@ abstract class TABLE
     }
 
 
-       public static function fullyClassName(String $classe){
+    public static function fullyClassName(String $classe){
         $test = false;
-        // $datas = MODULE::getAll();
-        // $module = new MODULE;
-        // $module->name = "Util";
-        // $datas[] = $module;
-        $datas = ["Native", "Home"];
-        foreach ($datas as $key => $module) {
+        foreach (TABLE::$namespaces as $key => $module) {
             $myclass = ucfirst($module)."\\".strtoupper($classe);
             if (class_exists($myclass)) {
                 $test = true;
@@ -187,10 +180,10 @@ abstract class TABLE
             }
         }
 
-        if ($this->get_id() != "") {
+        if ($this->getId() != "") {
             $data->mode ="update";
             //c'est une mise a jour (update)
-            $id = $this->get_id();
+            $id = $this->getId();
             $this->set_modified() ;
             $requette = "UPDATE $table SET $setter WHERE id=$id";
         }else{
@@ -209,28 +202,28 @@ abstract class TABLE
         foreach ($table1 as $key => $value) {
             $req->bindValue(":$key", $value);
         }
-        $test = $req->execute();
+        $resultat = $req->execute();
 
-        if ($test) {
+        if ($resultat) {
             $data->status = true;
             $data->message = "succes dans le save()";
             if ($data->mode == "insert") {
                 //recuperer le lastid
                 $class = self::fullyClassName($table);
                 $temp = $class::findLastId();
-                $id = $temp->get_id();
+                $id = $temp->getId();
                 $data->lastid = $id;
                 $this->set_id($id);
             }else{
-                $data->lastid = $this->get_id();
+                $data->lastid = $this->getId();
             }
 
-            if ($this::$tableName != self::fullyClassName("historique") ) {
+            if ($this::$tableName != self::fullyClassName("history") ) {
                 //L'historque
                 $class = self::fullyClassName($table);
                 $element = new $class();
                 $element->cloner($this);
-                HISTORIQUE::createHistorique($element, $data->mode);
+                HISTORY::createHistory($element, $data->mode);
             }
         }else{
             $data->status = false;
@@ -249,11 +242,11 @@ abstract class TABLE
         //on verifie si on peut vraiment le supprimé
         if (intval($this->id) > 0 && $this->protected == 0) {
             $req = $bdd->prepare("UPDATE $table SET valide=0 WHERE id=?");
-            $req->execute([$this->get_id()]);
+            $req->execute([$this->getId()]);
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistorique($this, "delete");
+            HISTORIQUE::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;
@@ -264,7 +257,7 @@ abstract class TABLE
 
 
 
-        //Supprimer definitive d'un record
+    //Supprimer definitive d'un record
     public function delete(){
         $data = new RESPONSE;
         extract(static::tableName());
@@ -272,11 +265,11 @@ abstract class TABLE
         //on verifie si on peut vraiment le supprimé
         if (intval($this->id) > 0 && $this->protected == 0) {
             $req = $bdd->prepare("DELETE FROM $table WHERE id=?");
-            $req->execute([$this->get_id()]);
+            $req->execute([$this->getId()]);
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistorique($this, "delete");
+            HISTORIQUE::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;
@@ -410,8 +403,8 @@ abstract class TABLE
 
 
     public function actualise(){
-        if (is_numeric($this->get_Id())) {
-            $datas = static::findBy(["id = "=> $this->get_Id()]);
+        if (is_numeric($this->getId())) {
+            $datas = static::findBy(["id = "=> $this->getId()]);
             if (count($datas) > 0) {
                 $temp = $datas[0];
                 $objs = get_object_vars($temp);
@@ -448,7 +441,7 @@ abstract class TABLE
         $name = strtolower($nomTable)."s";
         $table .="_id";
         $class =  self::fullyClassName($nomTable);
-        $datas = $class::findBy(["$table = "=> $this->get_id()]);
+        $datas = $class::findBy(["$table = "=> $this->getId()]);
         $this->$name = $this->items = $datas;
     }
 
@@ -458,7 +451,7 @@ abstract class TABLE
         $this->actualise();
         $table .="_id";
         $class =  self::fullyClassName($nomTable);
-        $datas = $class::findBy(["$table != "=> $this->get_id()]);
+        $datas = $class::findBy(["$table != "=> $this->getId()]);
         $this->items = $datas;
     }
 }

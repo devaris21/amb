@@ -121,7 +121,7 @@ class DEMANDEVEHICULE extends TABLE
 		$data = $this->save();
 		if ($data->status) {
 			$this->actualise();
-			$message = "Votre demande de véhicule N°".$this->get_id()." pour ".$this->typedemandevehicule->name." a été approuvé par la DAPA, les Ressources humaines et la Direction Générale !";
+			$message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typedemandevehicule->name." a été approuvé par la DAPA, les Ressources humaines et la Direction Générale !";
 			$objet = "Demande de véhicule approuvé";
 
 			ob_start();
@@ -141,7 +141,7 @@ class DEMANDEVEHICULE extends TABLE
 		$data = $this->save();
 		if ($data->status) {
 			$this->actualise();
-			$message = "Votre demande de véhicule N°".$this->get_id()." pour ".$this->typedemandevehicule->name." a été refusé ! Comme motif << $commentaire >> !";
+			$message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typedemandevehicule->name." a été refusé ! Comme motif << $commentaire >> !";
 			$objet = "Demande de véhicule refusé";
 
 			ob_start();

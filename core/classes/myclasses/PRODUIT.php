@@ -52,7 +52,7 @@ class PRODUIT extends TABLE
 			$data->no = $data->ex = $data->ci = $data->af = $data->mo = 0;
 			$data->Nno = $data->Nex = $data->Nci = $data->Naf = $data->Nmo = 0;
 			////////////
-			$datas = COMMANDE::findBy(["entrepriselivreur_id="=>$this->get_id(), "etatcommande_id ="=>3, "modified >= "=>$debut, "modified <="=>$fin]);
+			$datas = COMMANDE::findBy(["entrepriselivreur_id="=>$this->getId(), "etatcommande_id ="=>3, "modified >= "=>$debut, "modified <="=>$fin]);
 			foreach ($datas as $key => $commande) {
 				if ($commande->typecommande_id == 1) {
 					$data->no += $commande->price;

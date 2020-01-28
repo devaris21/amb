@@ -1,53 +1,53 @@
     $(function(){
-        var modul = "<?= $this->get_module() ?>"
-        var url = "<?= $this->get_page() ?>"
+    	var modul = "<?= $this->getModule() ?>"
+    	var url = "<?= $this->getPage() ?>"
 
-        if (url == "parcauto" || url == "parcauto1" || url == "parcauto2" || url == "vehicule") {
-            url = "parcauto";
-        }
+    	if (url == "parcauto" || url == "parcauto1" || url == "parcauto2" || url == "vehicule") {
+    		url = "parcauto";
+    	}
 
-        if (url == "memorandum" || url == "memorandums") {
-            url = "memorandums";
-        }
+    	if (url == "memorandum" || url == "memorandums") {
+    		url = "memorandums";
+    	}
 
-        if (url == "entretiens") {
-            url = "entr<?= $this->get_id() ?>"
-        }
-        $("nav ul.pcoded-item li").each(function(index, el) {
-            if ($(this).attr("id") == url){
-                $(this).addClass("activev")
-                $(this).parent("ul.pcoded-submenu").parent("li.pcoded-hasmenu").addClass("active pcoded-trigger")
-            }
-        });
+    	if (url == "entretiens") {
+    		url = "entr<?= $this->getId() ?>"
+    	}
+    	$("nav ul.pcoded-item li").each(function(index, el) {
+    		if ($(this).attr("id") == url){
+    			$(this).addClass("activev")
+    			$(this).parent("ul.pcoded-submenu").parent("li.pcoded-hasmenu").addClass("active pcoded-trigger")
+    		}
+    	});
 
-        $("li.section").click(function(event) {
-            $("li.section").removeClass('activel')
-            $(this).addClass("activel")
-            $("nav.pcoded-navbar").hide(500);
-            $("nav#nav-"+$(this).attr("id")).show(800);
+    	$("li.section").click(function(event) {
+    		$("li.section").removeClass('activel')
+    		$(this).addClass("activel")
+    		$("nav.pcoded-navbar").hide(500);
+    		$("nav#nav-"+$(this).attr("id")).show(800);
 
-        });
-        $("li.section").each(function(index, el) {
-            if ($(this).attr("id") == modul){
-                $(this).addClass("activel")
-                $("nav.pcoded-navbar").hide();
-                $("nav#nav-"+$(this).attr("id")).show();
-            }
-        });
+    	});
+    	$("li.section").each(function(index, el) {
+    		if ($(this).attr("id") == modul){
+    			$(this).addClass("activel")
+    			$("nav.pcoded-navbar").hide();
+    			$("nav#nav-"+$(this).attr("id")).show();
+    		}
+    	});
 
-        modal = function(modal){
-            $(modal).modal("show")
-        }
-
-
+    	modal = function(modal){
+    		$(modal).modal("show")
+    	}
 
 
-        if ('matchMedia' in window) {
+
+
+    	if ('matchMedia' in window) {
     // Chrome, Firefox, and IE 10 support mediaMatch listeners
     window.matchMedia('print').addListener(function(media) {
-        if (media.matches) {
-            beforePrint();
-        } else {
+    	if (media.matches) {
+    		beforePrint();
+    	} else {
             // Fires immediately, so wait for the first mouse movement
             $(document).one('mouseover', afterPrint);
         }
@@ -59,30 +59,29 @@
 }
 
 function beforePrint() {
-    $("i#print").click()
+	$("i#print").click()
 }
 
 function afterPrint() {
-    $("i#print").click()
+	$("i#print").click()
 }
-})
-
-    
-
-	$("input#inputSearch").keyup(function(event) {
-		/* Act on the event */
-	});
 
 
-	$("a#btn-deconnexion").click(function(event) {
-		alerty.confirm("Voulez-vous vraiment vous deconnecter ???", {
-			title: "Deconnexion",
-			cancelLabel : "Non",
-			okLabel : "OUI, me deconnecter",
-		}, function(){
-			window.location.href = "/access/logout";
-		})
-	});
+
+$("input#inputSearch").keyup(function(event) {
+	/* Act on the event */
+});
+
+
+$("a#btn-deconnexion").click(function(event) {
+	alerty.confirm("Voulez-vous vraiment vous deconnecter ???", {
+		title: "Deconnexion",
+		cancelLabel : "Non",
+		okLabel : "OUI, me deconnecter",
+	}, function(){
+		window.location.href = "/access/logout";
+	})
+});
 
 
 

@@ -96,7 +96,7 @@
                                 <ul class="nav nav-tabs " role="tablist">
                                     <?php foreach ($types as $key => $type) { ?>
                                         <li class="nav-item">
-                                            <a class="nav-link" data-toggle="tab" href="#parc<?= $type->get_id() ?>" role="tab"><?= $type->name ?> <span class="badge bg-aqua"><?= count($type->vehicules) ?></span></a>
+                                            <a class="nav-link" data-toggle="tab" href="#parc<?= $type->getId() ?>" role="tab"><?= $type->name ?> <span class="badge bg-aqua"><?= count($type->vehicules) ?></span></a>
                                             <div class="slide"></div>
                                         </li>
                                     <?php } ?>
@@ -104,13 +104,13 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content card-block">
                                     <?php foreach ($types as $key => $type) { ?>
-                                        <div class="tab-pane " id="parc<?= $type->get_id() ?>" role="tabpanel">
+                                        <div class="tab-pane " id="parc<?= $type->getId() ?>" role="tabpanel">
                                             <div class="row">
                                                 <?php foreach ($type->vehicules as $key => $vehicule) {
                                                     $vehicule->actualise();
                                                     $vehicule->etat(); ?>
                                                       <div class="col-md-3">
-                                                        <a href="<?= $this->url("administration", 'master', "vehicule", $vehicule->get_id()) ?>">
+                                                        <a href="<?= $this->url("administration", 'master', "vehicule", $vehicule->getId()) ?>">
                                                             <div class="card cursor border" style="padding: 2%">
                                                                 <div class="row">
                                                                     <div class="col-4">

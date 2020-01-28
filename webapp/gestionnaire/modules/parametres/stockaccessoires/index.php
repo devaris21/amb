@@ -126,9 +126,9 @@
                                                             <td><?= $accessoire->marque ?></td>
                                                             <td><?= $accessoire->comment ?></td>
                                                             <td><?= $accessoire->stock ?> unité(s)</td>
-                                                            <td><i data-toggle="modal" data-target="#modal-approvisionnement" class="fa fa-cubes text-blue cursor" onclick="session('accessoire', <?= $accessoire->get_id() ?>)"></i></td>
-                                                            <td> <i data-toggle="modal" data-target="#modal-accessoire" class="fa fa-pencil cursor" onclick="modification('accessoire', <?= $accessoire->get_id() ?>)"></i></td>
-                                                            <td> <i class="fa fa-close text-red cursor" onclick="modification('accessoire', <?= $accessoire->get_id() ?>)"></i></td>
+                                                            <td><i data-toggle="modal" data-target="#modal-approvisionnement" class="fa fa-cubes text-blue cursor" onclick="session('accessoire', <?= $accessoire->getId() ?>)"></i></td>
+                                                            <td> <i data-toggle="modal" data-target="#modal-accessoire" class="fa fa-pencil cursor" onclick="modification('accessoire', <?= $accessoire->getId() ?>)"></i></td>
+                                                            <td> <i class="fa fa-close text-red cursor" onclick="modification('accessoire', <?= $accessoire->getId() ?>)"></i></td>
                                                         </tr>
                                                     <?php } ?>
                                                 </tbody>
@@ -157,8 +157,8 @@
                                                             <tr>
                                                                 <td><?= $type->name ?></td>
                                                                 <td><?= $type->name ?></td>
-                                                                <td class="cursor" data-toggle="modal" data-target="#modal-type" onclick="modification('typeaccessoire', <?= $type->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                                <td class="cursor" onclick="suppression_with_password('typeaccessoire', <?= $type->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                                <td class="cursor" data-toggle="modal" data-target="#modal-type" onclick="modification('typeaccessoire', <?= $type->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                                <td class="cursor" onclick="suppression_with_password('typeaccessoire', <?= $type->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                             </tr>
                                                         <?php } ?>
 

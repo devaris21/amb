@@ -3,20 +3,20 @@
 
                 <ul class="nav nav-tabs navs-3">
                     <li>
-                        <a class="nav-link active" data-toggle="tab" href="#tab-1"> Notes </a>
+                        <a class="nav-link active" data-toggle="tab" href="#aside-1"> Notes </a>
                     </li>
                     <li>
-                        <a class="nav-link" data-toggle="tab" href="#tab-2"> Projects </a>
+                        <a class="nav-link" data-toggle="tab" href="#aside-2"> Projects </a>
                     </li>
                     <li>
-                        <a class="nav-link" data-toggle="tab" href="#tab-3"> <i class="fa fa-gear"></i> </a>
+                        <a class="nav-link" data-toggle="tab" href="#aside-3"> <i class="fa fa-gear"></i> </a>
                     </li>
                 </ul>
 
                 <div class="tab-content">
 
 
-                    <div id="tab-1" class="tab-pane active">
+                    <div id="aside-1" class="tab-pane active">
 
                         <div class="sidebar-title">
                             <h3> <i class="fa fa-comments-o"></i> Latest Notes</h3>
@@ -145,7 +145,7 @@
 
                     </div>
 
-                    <div id="tab-2" class="tab-pane">
+                    <div id="aside-2" class="tab-pane">
 
                         <div class="sidebar-title">
                             <h3> <i class="fa fa-cube"></i> Latest projects</h3>
@@ -251,7 +251,7 @@
 
                     </div>
 
-                    <div id="tab-3" class="tab-pane">
+                    <div id="aside-3" class="tab-pane">
 
                         <div class="sidebar-title">
                             <h3><i class="fa fa-gears"></i> Settings</h3>

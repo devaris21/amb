@@ -75,7 +75,7 @@ class carplan extends PERSONNE
 
 	public function se_connecter(){
 		$connexion = new CONNEXION;
-		$connexion->carplan_id = $this->get_id();
+		$connexion->carplan_id = $this->getId();
 		$connexion->connexion_carplan();
 	}
 
@@ -83,13 +83,13 @@ class carplan extends PERSONNE
 
 	public function se_deconnecter(){
 		$connexion = new CONNEXION;
-		$connexion->carplan_id = $this->get_id();
+		$connexion->carplan_id = $this->getId();
 		$connexion->deconnexion_carplan();
 	}
 
 
 	public function last_connexion(){
-		$datas = CONNEXION::findBy(["carplan_id = "=> $this->get_id()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["carplan_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
@@ -122,7 +122,7 @@ class carplan extends PERSONNE
 
 
 	public function is_connected(){
-		$datas = CONNEXION::findBy(["employe_id = "=> $this->get_id()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["employe_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
@@ -138,14 +138,14 @@ class carplan extends PERSONNE
 	public function relog_employe(string $login, string $password){
 		$data = new RESPONSE;
 		if ($password != "" && $login != "") {
-			$datas = self::findBy(["login = "=>$login, "id !="=> $this->get_id()]);
+			$datas = self::findBy(["login = "=>$login, "id !="=> $this->getId()]);
 			if (count($datas) == 0) {
 				if($this->password != hasher($password)){
 					if ($this->set_login($login)) {
 						$this->set_password($password);
 						$this->is_new = 1;
 						$data = $this->save();
-						$data->set_url("master", "dashboard");
+						$data->setUrl("master", "dashboard");
 					}else{
 						$data->status = false;
 						$data->message = "Cet identifiant est déjà utilisé. Changez-le !!!";

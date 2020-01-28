@@ -243,7 +243,7 @@
                                                     <i class="feather icon-bell bg-simple-c-blue feed-icon"></i>
                                                 </div>
                                                 <div class="col">
-                                                    <p class="m-b-5">Vous avez reçu une nouvelle de demande vehicule de la part de <?= $item->auteur() ?><a href="<?= $this->url("administration", "fiches", "demandevehicule", $item->get_id()) ?>"><span class="label label-success f-right f-13 cursor" onclick="etat()"><i class="fa fa-eye"></i> Voir</span></a></p>
+                                                    <p class="m-b-5">Vous avez reçu une nouvelle de demande vehicule de la part de <?= $item->auteur() ?><a href="<?= $this->url("administration", "fiches", "demandevehicule", $item->getId()) ?>"><span class="label label-success f-right f-13 cursor" onclick="etat()"><i class="fa fa-eye"></i> Voir</span></a></p>
                                                 </div>
                                             </div>
                                         <?php } ?>
@@ -254,7 +254,7 @@
                                                     <i class="feather icon-bell bg-simple-c-blue feed-icon"></i>
                                                 </div>
                                                  <div class="col">
-                                                    <p class="m-b-5">Vous avez reçu une nouvelle de demande d'entretien de vehicule de la part de <?= $item->auteur() ?><a href="<?= $this->url("administration", "fiches", "demandeentretien", $item->get_id()) ?>"><span class="label label-warning f-right f-13 cursor" onclick="etat()"><i class="fa fa-eye"></i> Voir</span></a></p>
+                                                    <p class="m-b-5">Vous avez reçu une nouvelle de demande d'entretien de vehicule de la part de <?= $item->auteur() ?><a href="<?= $this->url("administration", "fiches", "demandeentretien", $item->getId()) ?>"><span class="label label-warning f-right f-13 cursor" onclick="etat()"><i class="fa fa-eye"></i> Voir</span></a></p>
                                                 </div>
                                             </div>
                                         <?php } ?>

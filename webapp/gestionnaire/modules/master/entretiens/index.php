@@ -103,14 +103,14 @@
                                 <tbody>
                                     <?php foreach ($entretiens as $key => $entretien) {
                                         $entretien->actualise(); ?>
-                                        <tr class="cursor" onclick="src('ENTR', 'entretiens', <?= $entretien->get_id(); ?>)">
+                                        <tr class="cursor" onclick="src('ENTR', 'entretiens', <?= $entretien->getId(); ?>)">
                                             <td>
                                                 <span class="gras italic text-uppercase"><?= $entretien->typeentretienvehicule->name ?></span><br>
                                                 <span><?= $entretien->name ?></span>
                                             </td>
-                                            <td><a href="<?= $this->url("administration", "master", "vehicule", $entretien->vehicule->get_id()) ?>"><img style="height: 40px;" src="<?= $this->image("vehicules", $entretien->vehicule->image) ?>" alt="placeholder+image"></a></td>
+                                            <td><a href="<?= $this->url("administration", "master", "vehicule", $entretien->vehicule->getId()) ?>"><img style="height: 40px;" src="<?= $this->image("vehicules", $entretien->vehicule->image) ?>" alt="placeholder+image"></a></td>
                                             <td>
-                                                <span class="text-uppercase"><a href="<?= $this->url("administration", "master", "vehicule", $entretien->vehicule->get_id()) ?>"><?= $entretien->vehicule->modele ?></span></a><br>
+                                                <span class="text-uppercase"><a href="<?= $this->url("administration", "master", "vehicule", $entretien->vehicule->getId()) ?>"><?= $entretien->vehicule->modele ?></span></a><br>
                                                 <span><?= $entretien->vehicule->marque->name ?> // <?= $entretien->vehicule->couleur ?></span>
                                             </td>
                                             <td>
@@ -120,14 +120,14 @@
                                             <td> Du <?= datecourt($entretien->started) ?> <br> au <?= datecourt($entretien->finished) ?></td>
                                             <td><label class="label label-<?= $entretien->etat->class ?>"><?= $entretien->etat->name ?></label></td>
                                        <!--  <td>
-                                            <button data-toggle=modal data-target="#modal-entretienvehicule" class="btn" onclick="modification('entretienvehicule', <?= $entretien->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></button>
-                                            <button class="btn btn" onclick="suppression('entretienvehicule', <?= $entretien->get_id() ?>)"><i class="fa fa-close text-red"></i></button>
+                                            <button data-toggle=modal data-target="#modal-entretienvehicule" class="btn" onclick="modification('entretienvehicule', <?= $entretien->getId() ?>)"><i class="fa fa-pencil text-blue"></i></button>
+                                            <button class="btn btn" onclick="suppression('entretienvehicule', <?= $entretien->getId() ?>)"><i class="fa fa-close text-red"></i></button>
                                         </td> -->
                                         <td>
                                             <?php if($entretien->etat_id == 0){ ?>
-                                                <button class="label cursor bg-green" onclick="entretien_fini(<?= $entretien->get_id() ?>)"><i class="fa fa-check"></i> Terminer</button><br>
+                                                <button class="label cursor bg-green" onclick="entretien_fini(<?= $entretien->getId() ?>)"><i class="fa fa-check"></i> Terminer</button><br>
                                             <?php } ?>
-                                            <a class="label cursor bg-aqua" href="<?= $this->url("administration", "fiches", "entretiens", $entretien->get_id()) ?>"><i class="fa fa-file-text-o"></i> Voir fiche</a>
+                                            <a class="label cursor bg-aqua" href="<?= $this->url("administration", "fiches", "entretiens", $entretien->getId()) ?>"><i class="fa fa-file-text-o"></i> Voir fiche</a>
                                         </td>
                                     </tr>
                                 <?php } ?>

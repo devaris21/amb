@@ -15,5 +15,8 @@
             "email": "aristidemanyesse@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+		"swiftmailer/swiftmailer": "^6.0",
+		"fzaninotto/faker": "^1.9"
+	}
 }

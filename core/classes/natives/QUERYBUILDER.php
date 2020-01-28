@@ -69,9 +69,9 @@ abstract class QUERYBUILDER
             }
         }
 
-        if ($this->get_id() != "") {
+        if ($this->getId() != "") {
             $data->mode ="update";
-            $id = $this->get_id();
+            $id = $this->getId();
             $this->set_modified() ;
             $requette = "UPDATE $table SET $setter WHERE id=$id";
         }else{
@@ -98,11 +98,11 @@ abstract class QUERYBUILDER
                 //recuperer le lastid
                 $class = self::fullyClassName($table);
                 $temp = $class::findLastId();
-                $id = $temp->get_id();
+                $id = $temp->getId();
                 $data->lastid = $id;
                 $this->set_id($id);
             }else{
-                $data->lastid = $this->get_id();
+                $data->lastid = $this->getId();
             }
 
             if ($this::$tableName != self::fullyClassName("historique") ) {
@@ -110,7 +110,7 @@ abstract class QUERYBUILDER
                 $class = self::fullyClassName($table);
                 $element = new $class();
                 $element->cloner($this);
-                HISTORIQUE::createHistorique($element, $data->mode);
+                HISTORIQUE::createHistory($element, $data->mode);
             }
         }else{
             $data->status = false;
@@ -129,11 +129,11 @@ abstract class QUERYBUILDER
         //on verifie si on peut vraiment le supprimé
         if (intval($this->id) > 0 && $this->protected == 0) {
             $req = $bdd->prepare("UPDATE $table SET valide=0 WHERE id=?");
-            $req->execute([$this->get_id()]);
+            $req->execute([$this->getId()]);
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistorique($this, "delete");
+            HISTORIQUE::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;
@@ -152,11 +152,11 @@ abstract class QUERYBUILDER
         //on verifie si on peut vraiment le supprimé
         if (intval($this->id) > 0 && $this->protected == 0) {
             $req = $bdd->prepare("DELETE FROM $table WHERE id=?");
-            $req->execute([$this->get_id()]);
+            $req->execute([$this->getId()]);
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistorique($this, "delete");
+            HISTORIQUE::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;

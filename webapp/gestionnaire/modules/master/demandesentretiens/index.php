@@ -8,7 +8,7 @@
 
     <div id="wrapper">
 
-        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/sidebar.php")); ?>  
+        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar.php")); ?>  
 
         <div id="page-wrapper" class="gray-bg">
 

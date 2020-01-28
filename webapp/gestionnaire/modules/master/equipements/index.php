@@ -95,7 +95,7 @@
                                     <ul class="nav nav-tabs " role="tablist">
                                         <?php foreach ($types as $key => $type) { ?>
                                             <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#type<?= $type->get_id() ?>" role="tab"><?= $type->name ?> <span class="badge bg-aqua"><?= count($type->items) ?></span></a>
+                                                <a class="nav-link" data-toggle="tab" href="#type<?= $type->getId() ?>" role="tab"><?= $type->name ?> <span class="badge bg-aqua"><?= count($type->items) ?></span></a>
                                                 <div class="slide"></div>
                                             </li>
                                         <?php } ?>
@@ -104,7 +104,7 @@
                                     <div class="tab-content card-block">
                                         <?php foreach ($types as $key => $type) {
                                             $type->fourni("equipement"); ?>
-                                            <div class="tab-pane " id="type<?= $type->get_id() ?>" role="tabpanel">
+                                            <div class="tab-pane " id="type<?= $type->getId() ?>" role="tabpanel">
                                                 <div class="row">
                                                     <?php foreach ($type->equipements as $key => $equipement) {
                                                         $equipement->actualise(); ?>

@@ -87,8 +87,8 @@ class VISITETECHNIQUE extends TABLE
 					$ligne = new LIGNEFACTURE;
 					$module = MODULE::findBy(["name = " => $modul])[0];
 					$ligne->reglement_id    = $data->lastid;
-					$ligne->module_id       = $module->get_id();
-					$ligne->numero_commande = $commande->get_id();
+					$ligne->module_id       = $module->getId();
+					$ligne->numero_commande = $commande->getId();
 					$ligne->price           = $this->price;
 					$ligne->reste           = $commande->reste - $this->price;
 					$ligne->standby         = $temp->standby;
@@ -132,8 +132,8 @@ class VISITETECHNIQUE extends TABLE
 						$ligne = new LIGNEFACTURE;
 						$module = MODULE::findBy(["name = " => $modul])[0];
 						$ligne->reglement_id    = $data->lastid;
-						$ligne->module_id       = $module->get_id();
-						$ligne->numero_commande = $commande->get_id();
+						$ligne->module_id       = $module->getId();
+						$ligne->numero_commande = $commande->getId();
 						$ligne->price           = $this->price;
 						$ligne->reste           = $commande->price - $commande->avance;
 						$ligne->standby         = $temp->standby;
@@ -175,7 +175,7 @@ class VISITETECHNIQUE extends TABLE
 				$ligne->price           = $commande->reste;
 				$ligne->reglement_id    = $lastid;
 				$ligne->module_id       = $commande->module_id;
-				$ligne->numero_commande = $commande->get_id();
+				$ligne->numero_commande = $commande->getId();
 				$ligne->reste           = 0;
 				$ligne->standby = $temp->standby;
 				$data = $ligne->save();

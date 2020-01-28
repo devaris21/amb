@@ -1,21 +1,66 @@
+<!DOCTYPE html>
+<html>
 
-<?php require("../../webapp/administration/assets/includes/head.php") ?>
-
-<body>
+<?php include($this->rootPath("webapp/gestionnaire/elements/templates/head.php")); ?>
 
 
+<body class="fixed-sidebar">
 
-	<!-- Pricing Section -->
-	<div class="pricing-section no-color text-center" id="rejoindre">
-		<div class="container" style="padding-top: 10%;">
-			<div class="row justify-content-md-center">
-				<h1 style="font-size: 80px;"><span>Page introuvable !!!</span></h1>
-				<h2 class="subtitle" style="line-height: 40px;">La page que vous essayez d'atteindre n'est pas disponible </h2>
-			</div>
-		</div>
-	</div>
+    <div id="wrapper">
+
+        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar.php")); ?>  
+
+        <div id="page-wrapper" class="gray-bg">
+          
+          <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
+
+          <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2>This is main title</h2>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">This is</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>Breadcrumb</strong>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-sm-8">
+                <div class="title-action">
+                    <a href="" class="btn btn-primary">This is action area</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content">
+            <div class="middle-box text-center animated fadeInRightBig">
+                <h1>404</h1>
+        <h3 class="font-bold">Page Not Found</h3>
+
+        <div class="error-desc">
+            Sorry, but the page you are looking for has note been found. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
+            <form class="form-inline m-t" role="form">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search for page">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+            </div>
+        </div>
+
+        
+        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+        
+
+    </div>
+</div>
+
+
+<?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>
+
 
 </body>
 
 </html>
-

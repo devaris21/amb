@@ -38,8 +38,8 @@
                                                 <?php foreach ($groupevehicules as $key => $type) { ?>
                                                     <tr>
                                                         <td><?= $type->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-groupevehicule" onclick="modification('groupevehicule', <?= $type->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('groupevehicule', <?= $type->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-groupevehicule" onclick="modification('groupevehicule', <?= $type->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('groupevehicule', <?= $type->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -60,8 +60,8 @@
                                                 <?php foreach ($typevehicules as $key => $type) { ?>
                                                     <tr>
                                                         <td><?= $type->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typevehicule" onclick="modification('typevehicule', <?= $type->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('typevehicule', <?= $type->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typevehicule" onclick="modification('typevehicule', <?= $type->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('typevehicule', <?= $type->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -82,8 +82,8 @@
                                                 <?php foreach ($energies as $key => $energie) { ?>
                                                     <tr>
                                                         <td><?= $energie->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-energie" onclick="modification('energie', <?= $energie->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('energie', <?= $energie->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-energie" onclick="modification('energie', <?= $energie->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('energie', <?= $energie->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -104,8 +104,8 @@
                                                 <?php foreach ($pieces as $key => $piece) { ?>
                                                     <tr>
                                                         <td><?= $piece->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typepiecevehicule" onclick="modification('typepiecevehicule', <?= $piece->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('typepiecevehicule', <?= $piece->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-typepiecevehicule" onclick="modification('typepiecevehicule', <?= $piece->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('typepiecevehicule', <?= $piece->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>
@@ -126,8 +126,8 @@
                                                 <?php foreach ($marques as $key => $marque) { ?>
                                                     <tr>
                                                         <td><?= $marque->name ?></td>
-                                                        <td class="cursor" data-toggle="modal" data-target="#modal-marque" onclick="modification('marque', <?= $marque->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                        <td class="cursor" onclick="suppression_with_password('marque', <?= $marque->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                        <td class="cursor" data-toggle="modal" data-target="#modal-marque" onclick="modification('marque', <?= $marque->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                        <td class="cursor" onclick="suppression_with_password('marque', <?= $marque->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                     </tr>
                                                 <?php } ?>
                                             </tbody>

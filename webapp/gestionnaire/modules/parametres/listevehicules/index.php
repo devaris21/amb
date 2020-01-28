@@ -111,7 +111,7 @@
                                                 <tr>
                                                     <td><img style="width: 50px;" src="<?= $this->image("vehicules", $vehicule->image) ?>"></td>
                                                     <td>
-                                                        <a href="<?= $this->url("administration", "master", "vehicule", $vehicule->get_id()) ?>">
+                                                        <a href="<?= $this->url("administration", "master", "vehicule", $vehicule->getId()) ?>">
                                                             <span><?= $vehicule->marque->name ?></span><br>
                                                             <span><?= $vehicule->modele ?></span>
                                                         </a>
@@ -133,8 +133,8 @@
                                                     <td><?= datecourt($vehicule->date_sortie) ?></td>
                                                     <td><?= $vehicule->kilometrage ?> Km</td>
                                                     <td><?= $vehicule->etat() ?></td>
-                                                    <td class="cursor" data-toggle="modal" data-target="#modal-vehicule" onclick="modification('vehicule', <?= $vehicule->get_id() ?>)"><i class="fa fa-pencil text-blue"></i></td>
-                                                    <td class="cursor" onclick="suppression_with_password('vehicule', <?= $vehicule->get_id() ?>)"><i class="fa fa-close text-red"></i></td>
+                                                    <td class="cursor" data-toggle="modal" data-target="#modal-vehicule" onclick="modification('vehicule', <?= $vehicule->getId() ?>)"><i class="fa fa-pencil text-blue"></i></td>
+                                                    <td class="cursor" onclick="suppression_with_password('vehicule', <?= $vehicule->getId() ?>)"><i class="fa fa-close text-red"></i></td>
                                                 </tr>
                                             <?php } ?>
 
