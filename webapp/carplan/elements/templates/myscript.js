@@ -101,7 +101,7 @@ $("a#btn-deconnexion").click(function(event) {
 		val = $('#datetimepickernote').data("datetimepicker").viewDate;
 		formData.append('finished', formatDate(val));
 		formData.append('classname', "note");
-		formData.append('action', "save-shamman-form");
+		formData.append('action', "save-formShamman");
 		console.log(val);
 		$.post({url:url, data:formData, contentType: false, processData: false}, function(data){
 			if (data.status) {

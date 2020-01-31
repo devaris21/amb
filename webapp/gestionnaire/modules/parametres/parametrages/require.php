@@ -1,4 +1,4 @@
 <?php 
 
-$title = "GPA | Options de parametrage ";
+$title = "AMB | Options de parametrage ";
 ?>

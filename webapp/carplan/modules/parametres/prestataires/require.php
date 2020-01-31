@@ -6,5 +6,5 @@ $prestataires = PRESTATAIRE::findBy();
 
 $types = TYPEPRESTATAIRE::findBy();
 
-$title = "GPA | Tous vos prestataires ";
+$title = "AMB | Tous vos prestataires ";
 ?>

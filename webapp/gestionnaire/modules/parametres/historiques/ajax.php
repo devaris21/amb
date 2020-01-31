@@ -12,7 +12,7 @@ extract($_POST);
 
 if ($action == "historiques") { 
 	$date2 = date("Y-m-d", strtotime(dateAjoute1($date2, 1)));
-	$historiques = HISTORIQUE::findBy(["created >="=>$date1, "created <="=>$date2], [], ["created"=>"DESC"]);
+	$historiques = HISTORY::findBy(["created >="=>$date1, "created <="=>$date2], [], ["created"=>"DESC"]);
 	?>
 	<div class="card latest-activity-card"><br>
 		<h2 class="subtitle text-center mp5">Tous les historiques du <?= datecourt($date1) ?> au <?= datecourt($date2) ?></h2>

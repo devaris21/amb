@@ -5,7 +5,7 @@
                 <h4 class="modal-title">Ajouter un nouvel accessoire</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="accessoire">
+            <form method="POST" class="formShamman" classname="accessoire">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-4">

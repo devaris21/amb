@@ -21,29 +21,38 @@
 
        <div class="container text-center">
            <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3 col-sm-6">
                     <div class="widget red-bg text-center">
                         <div class="m-b-md">
-                            <i class="fa fa-shield fa-4x"></i>
+                            <i class="fa fa-car fa-4x"></i>
                             <h3 class="m-xs text-uppercase">Gestionnaire AMB</h3><br>
                             <a href="<?= $this->url("gestionnaire", "access", "login") ?>"><button class="btn btn-info dim" type="button"><i class="fa fa-money"></i> Ouvrir la section</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 col-sm-6">
                     <div class="widget yellow-bg text-center">
                         <div class="m-b-md">
-                            <i class="fa fa-shield fa-4x"></i>
+                            <i class="fa fa-business fa-4x"></i>
                             <h3 class="m-xs text-uppercase">Section Direction</h3><br>
                             <a href="<?= $this->url("direction", "access", "login") ?>"><button class="btn btn-info dim" type="button"><i class="fa fa-money"></i> Ouvrir la section</button></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3 col-sm-6">
                     <div class="widget navy-bg text-center">
                         <div class="m-b-md">
-                            <i class="fa fa-shield fa-4x"></i>
+                            <i class="fa fa-user fa-4x"></i>
                             <h3 class="m-xs text-uppercase">Section des Carplans</h3><br>
+                            <a href="<?= $this->url("carplan", "access", "login") ?>"><button class="btn btn-info dim" type="button"><i class="fa fa-money"></i> Ouvrir la section</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="widget navy-bg text-center">
+                        <div class="m-b-md">
+                            <i class="fa fa-gears fa-4x"></i>
+                            <h3 class="m-xs text-uppercase">Admin système</h3><br>
                             <a href="<?= $this->url("carplan", "access", "login") ?>"><button class="btn btn-info dim" type="button"><i class="fa fa-money"></i> Ouvrir la section</button></a>
                         </div>
                     </div>

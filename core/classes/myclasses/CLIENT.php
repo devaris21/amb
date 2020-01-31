@@ -255,7 +255,7 @@ class CLIENT extends PERSONNE
 	public function getRapportJournalier(){
 		$data = new RESPONSE;
 		$tab = BREAKDAY::getDateByBreakday();
-		$datas = HISTORIQUE::findBy(["gestionnaire_id ="=>$this->getId(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
+		$datas = HISTORY::findBy(["gestionnaire_id ="=>$this->getId(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
 		foreach ($datas as $key => $ligne) {
 			$ligne->actualise();
 			$tab = [];

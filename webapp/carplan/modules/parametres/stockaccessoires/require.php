@@ -7,6 +7,6 @@ $accessoires = ACCESSOIRE::findBy();
 
 $types = TYPEACCESSOIRE::findBy();
 
-$title = "GPA | Tous vos accessoires de véhicules";
+$title = "AMB | Tous vos accessoires de véhicules";
 ?>
 

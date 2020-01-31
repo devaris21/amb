@@ -4,8 +4,11 @@ use Native\RESPONSE;
 /**
  * 
  */
-class HISTORY extends TABE
+class HISTORY extends TABLE
 {
+
+public static $tableName = __CLASS__;
+	public static $namespace = __NAMESPACE__;
 
 	public $sentense; // phrase de l'historique
 	public $gestionnaire_id = null;
@@ -25,7 +28,7 @@ class HISTORY extends TABE
 		$element->sentense = $sentense;
 
 		extract($element::tableName());
-		$story = new HISTORIQUE;
+		$story = new HISTORY;
 		$story->record = $table;
 		$story->record_key = $element->getId();
 		$story->type_save = $type_save;
@@ -38,6 +41,8 @@ class HISTORY extends TABE
 			$story->sentense = $element->sentenseCreate();
 		}else if ($story->type_save == "delete") {
 			$story->sentense = $element->sentenseDelete();
+		}else if ($story->type_save == "update") {
+			$story->sentense = $element->sentenseUpdate();
 		}
 		if (isset($element->utilisateur_id)) {
 			$story->utilisateur_id = $element->utilisateur_id;
@@ -46,7 +51,7 @@ class HISTORY extends TABE
 			$story->carplan_id = $element->carplan_id;
 		}
 		if (in_array($story->record, ["depense", "entree", "reglement", "remboursement", "lignefacture"])) {
-			$story->is_caisse = 1;
+			$story->isOperationCaisse = 1;
 			$story->price = $element->price;
 		}
 		if ($story->sentense != "") {

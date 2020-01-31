@@ -97,7 +97,7 @@
                 <h4 class="modal-title">Modifier les infos de l'entretien</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" id="formAssur" class="shamman-form" classname="entretienvehicule">
+            <form method="POST" id="formAssur" class="formShamman" classname="entretienvehicule">
              <div class="modal-body">
                 <div class="row">
                     <div class="col-sm-4">

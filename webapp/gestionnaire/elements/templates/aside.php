@@ -3,7 +3,7 @@
 
                 <ul class="nav nav-tabs navs-3">
                     <li>
-                        <a class="nav-link active" data-toggle="tab" href="#aside-1"> Notes </a>
+                        <a class="nav-link active" data-toggle="tab" href="#aside-1"> Véhicules </a>
                     </li>
                     <li>
                         <a class="nav-link" data-toggle="tab" href="#aside-2"> Projects </a>

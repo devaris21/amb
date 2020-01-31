@@ -32,7 +32,7 @@ class AFFECTATION extends TABLE
 		if (count($datas) == 0) {
 			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
-				$datas = carplan::findBy(["id ="=>$this->carplan_id]);
+				$datas = CARPLAN::findBy(["id ="=>$this->carplan_id]);
 				if (count($datas) == 1) {
 					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();

@@ -10,5 +10,5 @@ foreach ($types as $key => $type) {
 	}
 }
 
-$title = "GPA | Tous votre Parc Auto ";
+$title = "AMB | Tous votre Parc Auto ";
 ?>

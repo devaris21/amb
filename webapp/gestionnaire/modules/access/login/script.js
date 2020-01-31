@@ -2,12 +2,14 @@
 $(function(){
 
     $("form#formConnexion").submit(function(event) {
+        Loader.start();
         var url = "../../webapp/gestionnaire/modules/access/login/ajax.php";
         var formData = new FormData($(this)[0]);
         formData.append('action', 'connexion');
         $.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
             if (data.status) {
                 if (data.new) {
+                     Loader.stop();
                     $("#modalNewUser").modal();
                 }else{
                     window.location.href = data.url;
@@ -22,6 +24,7 @@ $(function(){
 
 
     $("form#formNewUser").submit(function(event) {
+         Loader.start();
         var url = "../../webapp/gestionnaire/modules/access/login/ajax.php";
         var formData = new FormData($(this)[0]);
         formData.append('action', 'newUser');

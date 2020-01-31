@@ -114,7 +114,7 @@
                 <h4 class="modal-title">Nouvelle pièce de véhicule</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" id="formPiece" class="shamman-form" classname="piecevehicule">
+            <form method="POST" id="formPiece" class="formShamman" classname="piecevehicule">
                 <div class="modal-body">
 
                     <div class="row">

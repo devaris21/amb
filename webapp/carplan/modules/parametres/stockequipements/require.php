@@ -7,6 +7,6 @@ $equipements = EQUIPEMENT::findBy();
 
 $types = TYPEEQUIPEMENT::findBy();
 
-$title = "GPA | Tous vos equipements de véhicules";
+$title = "AMB | Tous vos equipements de véhicules";
 ?>
 

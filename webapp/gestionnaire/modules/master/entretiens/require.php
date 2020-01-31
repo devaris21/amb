@@ -6,7 +6,7 @@ if (count($datas) > 0) {
 	$entretien = $datas[0];
 	$entretien->fourni("entretienvehicule");
 	$entretiens = $entretien->entretienvehicules;
-	$title = "GTA | Les entretiens de vehicules ";
+	$title = "AMB | Les entretiens de vehicules ";
 }else{
 	header("Location: ../access/erreur404");
 }

@@ -4,5 +4,5 @@ namespace Home;
 
 $vehicules = VEHICULE::findBy();
 
-$title = "GPA | Tous votre Parc Auto ";
+$title = "AMB | Tous votre Parc Auto ";
 ?>

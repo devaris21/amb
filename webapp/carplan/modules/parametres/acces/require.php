@@ -1,4 +1,4 @@
 <?php 
 
-$title = "GPA | Gestion des accès ";
+$title = "AMB | Gestion des accès ";
 ?>

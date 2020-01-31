@@ -150,7 +150,7 @@
                 <h4 class="modal-title">Ajouter un nouveau équipement</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="equipement">
+            <form method="POST" class="formShamman" classname="equipement">
                 <div class="modal-body">
 
                     <div class="row">

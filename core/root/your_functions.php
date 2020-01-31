@@ -196,6 +196,9 @@ function comparer($a, $b) {
 function comparerDateValidation($a, $b) {
 	return -strcmp($a->date_validation, $b->date_validation);
 }
+function comparerDateEtabissement($a, $b) {
+	return -strcmp($a->date_etablissement, $b->date_etablissement);
+}
 function comparerDateCreated($a, $b) {
 	return strcmp($a->created, $b->created);
 }

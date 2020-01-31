@@ -117,21 +117,13 @@ abstract class AUTH extends TABLE
 
 
 	public function passwordIsValide($password){
-		if (strlen($password) > 6) {
-			return true;
-		}else{
-			return false;
-		}
+		return (strlen($password) > 6);
 	}
 
 
 
 	public function checkPassword($password){
-		if ($this->password === hasher($password)) {
-			return true;
-		}else{
-			return false;
-		}
+		return ($this->password === hasher($password));
 	}
 
 

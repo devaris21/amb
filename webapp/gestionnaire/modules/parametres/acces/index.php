@@ -187,7 +187,7 @@
                 <h4 class="modal-title">Modifier les infos de la flotte</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" classname="entrepriselivreur" class="shamman-form"  >
+            <form method="POST" classname="entrepriselivreur" class="formShamman"  >
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6">

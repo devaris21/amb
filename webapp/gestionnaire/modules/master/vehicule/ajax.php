@@ -54,10 +54,10 @@ if ($action == "comment") {
 
 if ($action == "reaffectation") {
 	if ($ladate !="" && $ladate >= dateAjoute()) {
-		$datas = EMPLOYE::findBy(["id="=>getSession("employe_connecte_id")]);
+		$datas = GESTIONNAIRE::findBy(["id="=>getSession("gestionnaire_connecte_id")]);
 		if (count($datas) == 1) {
-			$employe = $datas[0];
-			if ($employe->verifier_password($password)) {
+			$gestionnaire = $datas[0];
+			if ($gestionnaire->verifierPassword($password)) {
 				$datas = AFFECTATION::findBy(["id="=>$id]);
 				if (count($datas) == 1) {
 					$affectation = $datas[0];
@@ -84,10 +84,10 @@ if ($action == "reaffectation") {
 
 
 if ($action == "indisponible") {
-	$datas = EMPLOYE::findBy(["id="=>getSession("employe_connecte_id")]);
+	$datas = GESTIONNAIRE::findBy(["id="=>getSession("gestionnaire_connecte_id")]);
 	if (count($datas) == 1) {
-		$employe = $datas[0];
-		if ($employe->verifier_password($password)) {
+		$gestionnaire = $datas[0];
+		if ($gestionnaire->verifierPassword($password)) {
 			$datas = VEHICULE::findBy(["id="=>getSession("vehicule_id")]);
 			if (count($datas) == 1) {
 				$vehicule = $datas[0];
@@ -109,10 +109,10 @@ if ($action == "indisponible") {
 
 
 if ($action == "disponible") {
-	$datas = EMPLOYE::findBy(["id="=>getSession("employe_connecte_id")]);
+	$datas = GESTIONNAIRE::findBy(["id="=>getSession("gestionnaire_connecte_id")]);
 	if (count($datas) == 1) {
-		$employe = $datas[0];
-		if ($employe->verifier_password($password)) {
+		$gestionnaire = $datas[0];
+		if ($gestionnaire->verifierPassword($password)) {
 			$datas = VEHICULE::findBy(["id="=>getSession("vehicule_id")]);
 			if (count($datas) == 1) {
 				$vehicule = $datas[0];
@@ -134,10 +134,10 @@ if ($action == "disponible") {
 
 
 if ($action == "out") {
-	$datas = EMPLOYE::findBy(["id="=>getSession("employe_connecte_id")]);
+	$datas = GESTIONNAIRE::findBy(["id="=>getSession("gestionnaire_connecte_id")]);
 	if (count($datas) == 1) {
-		$employe = $datas[0];
-		if ($employe->verifier_password($password)) {
+		$gestionnaire = $datas[0];
+		if ($gestionnaire->verifierPassword($password)) {
 			$datas = VEHICULE::findBy(["id="=>getSession("vehicule_id")]);
 			if (count($datas) == 1) {
 				$vehicule = $datas[0];

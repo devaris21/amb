@@ -35,7 +35,7 @@
 // 		// 	}
 // 		// }
 
-// 		$title = "GTA | ".$vehicule->name();
+// 		$title = "AMB | ".$vehicule->name();
 
 // 	}else{
 // 		header("Location: ../master/parcauto");

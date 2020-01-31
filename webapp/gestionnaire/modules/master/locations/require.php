@@ -6,5 +6,5 @@ unset_session("vehicules");
 // $loues = VEHICULE::loues();
 // $pretes = VEHICULE::pretes();
 
-$title = "GPA | Entrepot d'équipements ";
+$title = "AMB | Entrepot d'équipements ";
 ?>

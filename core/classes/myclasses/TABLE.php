@@ -22,8 +22,11 @@ abstract class TABLE
     public static $lastId;
 
 
-    abstract public function enregistre();
+    public $sentense;
 
+
+    abstract public function enregistre();
+    public function uploading(){}
 
 
     public function hydrater(Array $table1){
@@ -200,7 +203,11 @@ abstract class TABLE
 
         $req = $bdd->prepare($requette);
         foreach ($table1 as $key => $value) {
-            $req->bindValue(":$key", $value);
+            if (!is_array($value)) {
+                $req->bindValue(":$key", $value);
+            }else{
+                $req->bindValue(":$key", "");
+            }
         }
         $resultat = $req->execute();
 
@@ -246,7 +253,7 @@ abstract class TABLE
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistory($this, "delete");
+            HISTORY::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;
@@ -269,7 +276,7 @@ abstract class TABLE
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistory($this, "delete");
+            HISTORY::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;

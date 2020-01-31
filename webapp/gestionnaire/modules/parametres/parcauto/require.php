@@ -11,5 +11,5 @@ $typevehicules = TYPEVEHICULE::findBy([], [], ["name"=>"ASC"]);
 $typedemandes = TYPEDEMANDEVEHICULE::findBy([], [], ["name"=>"ASC"]);
 $groupevehicules = GROUPEVEHICULE::findBy([], [], ["name"=>"ASC"]);
 
-$title = "GPA | Toutes vos options de paramètrages";
+$title = "AMB | Toutes vos options de paramètrages";
 ?>

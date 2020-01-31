@@ -176,7 +176,7 @@
                 <h4 class="modal-title">Modifier vos informations</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" classname="utilisateur" class="shamman-form"  >
+            <form method="POST" classname="utilisateur" class="formShamman"  >
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-4">

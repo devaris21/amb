@@ -7,5 +7,5 @@ foreach ($types as $key => $type) {
 	$type->fourni("vehicule");
 }
 
-$title = "GPA | Tous votre Parc Auto ";
+$title = "AMB | Tous votre Parc Auto ";
 ?>

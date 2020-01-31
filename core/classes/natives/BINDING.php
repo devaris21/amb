@@ -38,7 +38,6 @@ class BINDING
 				}
 			}
 		}
-		
 	}
 
 
@@ -47,7 +46,8 @@ class BINDING
 		if (in_array("select", $types)) { 
 			if (!in_array("tableau", $types)  && $name == ""){ $name = $object."_id"; } ?>
 			<select class="select2" <?= (in_array("multiple", $types))?"multiple=multiple":"" ?> name="<?= $name ?>" style="width: 100%;">
-				<?php 
+<!-- 			<select data-placeholder="Choisissez ..." class="chosen-select" <?= (in_array("multiple", $types))?"multiple=multiple":"" ?> name="<?= $name ?>" style="width: 100%;">
+ -->				<?php 
 				$column = $name;
 				if (!isset($element) || is_null($element) || !is_object($element)) {
 					//on declare un onjet au hasard

@@ -192,7 +192,7 @@
                 <h5 class="modal-title">Type de prestataires</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="typeprestataire">
+            <form method="POST" class="formShamman" classname="typeprestataire">
                 <div class="modal-body">
                     <div class="">
                         <label>Type de prestataire<span1>*</span1></label>

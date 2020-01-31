@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td align="center" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                    <b>Adresse de la plateforme:</b> <a href="http://gpa.artci.lan">http://gpa.artci.lan</a>
+                    <b>Adresse de la plateforme:</b> <a href="http://AMB.artci.lan">http://AMB.artci.lan</a>
             </td>
         </tr>
         <tr>
@@ -48,7 +48,7 @@
                 <table bgcolor="orangered" border="0" cellspacing="0" cellpadding="0" class="buttonwrapper">
                     <tr>
                         <td align="center" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
-                            <a href="http://gpa.artci.lan" style="color: #ffffff; text-align: center; text-decoration: none;">Aller à mon espace de connexion</a>
+                            <a href="http://AMB.artci.lan" style="color: #ffffff; text-align: center; text-decoration: none;">Aller à mon espace de connexion</a>
                         </td>
                     </tr>
                 </table>

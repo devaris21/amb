@@ -110,7 +110,7 @@ abstract class QUERYBUILDER
                 $class = self::fullyClassName($table);
                 $element = new $class();
                 $element->cloner($this);
-                HISTORIQUE::createHistory($element, $data->mode);
+                HISTORY::createHistory($element, $data->mode);
             }
         }else{
             $data->status = false;
@@ -133,7 +133,7 @@ abstract class QUERYBUILDER
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistory($this, "delete");
+            HISTORY::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;
@@ -156,7 +156,7 @@ abstract class QUERYBUILDER
             $data->status = true;
             $data->message = "La suppression a été effectuée avec succès ! ";
             //L'historque
-            HISTORIQUE::createHistory($this, "delete");
+            HISTORY::createHistory($this, "delete");
         }else{
             $data->id = 2;
             $data->status = false;

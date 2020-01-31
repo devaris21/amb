@@ -52,3 +52,7 @@ if ($action == "newUser") {
 	}		
 	echo json_encode($data);
 }
+
+
+
+?>

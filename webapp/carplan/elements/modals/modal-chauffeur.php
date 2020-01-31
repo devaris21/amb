@@ -5,7 +5,7 @@
                 <h5 class="modal-title">Formulaire du chauffeur</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="chauffeur">
+            <form method="POST" class="formShamman" classname="chauffeur">
                 <div class="modal-body">
 
                     <div class="row">

@@ -2,11 +2,11 @@
 namespace Home;
 
 
-$title = "GPA | Tableau de bord";
+$title = "AMB | Tableau de bord";
 
-$notifications = NOTIFICATION::findBy(["admin ="=>1, "etat_id ="=>0]);
+// $notifications = NOTIFICATION::findBy(["admin ="=>1, "etat_id ="=>0]);
 
-$demvehicules = DEMANDEVEHICULE::findBy(["etat_id ="=>0, "etats="=>0]);
-$entretiens = DEMANDEENTRETIEN::findBy(["etat_id ="=>0]);
+// $demvehicules = DEMANDEVEHICULE::findBy(["etat_id ="=>0, "etats="=>0]);
+// $entretiens = DEMANDEENTRETIEN::findBy(["etat_id ="=>0]);
 
 ?>

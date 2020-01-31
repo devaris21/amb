@@ -1,4 +1,4 @@
 <?php 
 
-$title = "GPA | votre compte ";
+$title = "AMB | votre compte ";
 ?>

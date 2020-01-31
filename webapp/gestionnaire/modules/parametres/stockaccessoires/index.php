@@ -189,7 +189,7 @@
                 <h5 class="modal-title">Type d'accessoires</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="typeaccessoire">
+            <form method="POST" class="formShamman" classname="typeaccessoire">
                 <div class="modal-body">
                     <div class="">
                         <label>Nom du type<span1>*</span1></label>

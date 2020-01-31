@@ -114,7 +114,7 @@
                 <h5 class="modal-title">Type de sinistre</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="typesinistre">
+            <form method="POST" class="formShamman" classname="typesinistre">
                 <div class="modal-body">
 
                  <div class="">
@@ -146,7 +146,7 @@
                 <h5 class="modal-title">Type d'entretien</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="typeentretienvehicule">
+            <form method="POST" class="formShamman" classname="typeentretienvehicule">
                 <div class="modal-body">
 
                  <div class="">
@@ -178,7 +178,7 @@
                 <h5 class="modal-title">Type de demande de véhicule</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="typedemandevehicule">
+            <form method="POST" class="formShamman" classname="typedemandevehicule">
                 <div class="modal-body">
 
                  <div class="">

@@ -26,7 +26,7 @@
             <div class="col-md-6">
                 <div class="ibox-content">
                     <h1 class="logo-name text-center" style="font-size: 120px; margin: 0% !important; padding: 0% !important;">AMB</h1>
-                    <form method="POST" class="m-t" role="form" id="formConnexion">
+                    <form method="POST" class="m-t" role="form" id="formConnexion" >
                         <div class="form-group">
                             <input type="text" name="login" class="form-control" placeholder="identifiant" required>
                         </div>
@@ -76,6 +76,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 <?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>

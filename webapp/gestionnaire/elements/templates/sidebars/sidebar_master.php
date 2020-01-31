@@ -5,7 +5,7 @@
     <li>
         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Parc auto</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
-            <li><a href="<?= $this->url("gestionnaire", "master", "parcauto") ?>">Liste des véhicules</a></li>
+            <li><a href="<?= $this->url("gestionnaire", "master", "parcauto", "parcauto") ?>">Liste des véhicules</a></li>
             <li data-toggle="modal" data-target="#myModal5" ><a href="#"><i class="fa fa-plus"></i> Ajouter véhicule</a></li>
         </ul>
     </li>

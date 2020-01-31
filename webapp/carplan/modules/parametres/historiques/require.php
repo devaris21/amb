@@ -2,7 +2,7 @@
 namespace Home;
 
 
-$title = "GPA | Historiques & Traçabilité ";
+$title = "AMB | Historiques & Traçabilité ";
 
 $notifications = NOTIFICATION::findBy(["admin ="=>1, "etat_id ="=>0]);
 

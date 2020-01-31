@@ -1,7 +1,7 @@
 <?php
 namespace Home;
 use Native\RESPONSE;
-
+use Native\FICHIER;
 
 
 /**
@@ -18,7 +18,7 @@ class CARTEGRISE extends TABLE
 	public $numero_piece;
 	public $vehicule_id;
 	public $date_etablissement; 
-	public $proprietaire;
+	public $price;
 	public $couleur;
 	public $energie_id;
 
@@ -27,9 +27,13 @@ class CARTEGRISE extends TABLE
 		$data = new RESPONSE;
 		if ($this->price >= 0) {
 			if ($this->name != "" && $this->numero_piece != "") {
+				$this->vehicule_id = getSession("vehicule_id");
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
 					$data = $this->save();
+					if ($data->status) {
+						$this->uploading();
+					}
 				}else{
 					$data->status = false;
 					$data->message = "Une erreur s'est produite lors de l'opération, veuillez recommencer !";
@@ -43,6 +47,30 @@ class CARTEGRISE extends TABLE
 			$data->message = "Veuillez entrer un prix correct pour cette piece !";
 		}		
 		return $data;
+	}
+
+
+	public function uploading(){
+		if (isset($this->image1) && $this->image1["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image1);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "cartegrises", $a);
+				$this->image1 = $result->filename;
+				$this->save();
+			}
+		}
+		if (isset($this->image2) && $this->image2["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image2);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "cartegrises", $a);
+				$this->image2 = $result->filename;
+				$this->save();
+			}
+		}
 	}
 
 

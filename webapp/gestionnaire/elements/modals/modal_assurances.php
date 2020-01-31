@@ -114,7 +114,7 @@
                 <h4 class="modal-title">Modifier l'assurance de véhicule</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" id="formAssur" class="shamman-form" classname="assurance">
+            <form method="POST" id="formAssur" class="formShamman" classname="assurance">
                 <div class="modal-body">
 
                     <div class="row">

@@ -154,7 +154,7 @@
                 <h5 class="modal-title">Groupe de Véhicule</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="groupevehicule">
+            <form method="POST" class="formShamman" classname="groupevehicule">
                 <div class="modal-body">
 
                  <div class="">
@@ -185,7 +185,7 @@
                 <h5 class="modal-title">Type de Véhicule</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="typevehicule">
+            <form method="POST" class="formShamman" classname="typevehicule">
                 <div class="modal-body">
 
                  <div class="">
@@ -216,7 +216,7 @@
                 <h5 class="modal-title">Type d'energie'</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="energie">
+            <form method="POST" class="formShamman" classname="energie">
                 <div class="modal-body">
 
                  <div class="">
@@ -250,7 +250,7 @@
                 <h5 class="modal-title">Type de pièces administratives</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="typepiecevehicule">
+            <form method="POST" class="formShamman" classname="typepiecevehicule">
                 <div class="modal-body">
 
                  <div class="">
@@ -284,7 +284,7 @@
                 <h5 class="modal-title">Marque de véhicule</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
-            <form method="POST" class="shamman-form" classname="marque">
+            <form method="POST" class="formShamman" classname="marque">
                 <div class="modal-body">
 
                  <div class="">

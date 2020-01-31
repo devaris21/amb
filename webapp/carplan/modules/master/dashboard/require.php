@@ -2,7 +2,7 @@
 namespace Home;
 
 
-$title = "GPA | Tableau de bord";
+$title = "AMB | Tableau de bord";
 
 // $notifications = NOTIFICATION::findBy(["admin ="=>1, "etat_id ="=>0]);
 
