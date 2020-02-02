@@ -57,7 +57,7 @@ class DEMANDEVEHICULE extends TABLE
 					}
 					$data = $this->save();
 					if ($data->status) {
-						$this->set_id($data->lastid)->actualise();
+						$this->setId($data->lastid)->actualise();
 						$params = PARAMS::findLastId();
 
 						$message = "Vous avez reçu une nouvelle demande de véhicule de la part de ".$this->auteur()." pour ".$this->typedemandevehicule->name;

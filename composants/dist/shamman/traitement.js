@@ -3,13 +3,20 @@
         $("body").on("submit", "form.formShamman", function(event) {
             Loader.start()
             name = $(this).attr('classname');
+            reload = $(this).attr('reload');
             url = "../../composants/dist/shamman/traitement.php";
             var formdata = new FormData($(this)[0]);
             formdata.append('action', "save-formShamman");
             formdata.append('classname', name);
             $.post({url:url, data:formdata, contentType:false, processData:false}, function(data){
                 if (data.status) {
-                    window.location.reload();
+                    if (reload == "false") {
+                       Alerter.success('Réussite', data.message);
+                       Loader.stop();
+                       $(".modal").modal('hide');
+                    }else{
+                        window.location.reload();
+                    }
                 }else{
                      Alerter.error('Erreur !', data.message);
                 }

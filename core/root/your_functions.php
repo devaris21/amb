@@ -317,6 +317,7 @@ function age($timestamp)
 }
 
 
+
 function dateAjoute($nb = 0){
 	$ladate = date('Y-m-d', strtotime(date("Y-m-d")) + (24 * 3600 * $nb));
 	return $ladate;

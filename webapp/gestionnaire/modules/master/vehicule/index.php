@@ -27,7 +27,7 @@
                     <div role="tabpanel" id="menu-1" class="tab-pane active">
                         <div class="panel-body">
                           <div class="row">
-                            <div class="col-md-6 col-sm-12 border-right">
+                            <div class="col-md-6 col-sm-12 border-right" style="padding-right: 3%;">
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="text-center" data-toggle="tooltip" title="Double-cliquez sur l'image pour la changer">
@@ -42,18 +42,25 @@
                                             Véhicule de <u><?= $vehicule->groupevehicule->name ?></u> <br>
                                         </address>
                                     </div>
-                                    <div class="col-1 text-center" style="margin: auto;">
+                                    <div class="col-1 text-center">
                                         <span  data-toggle=modal data-target="#modal-vehicule" class="cursor" onclick="modification('vehicule', <?= $vehicule->getId() ?>)"><i data-toggle='tooltip' title="Modiifer les infos du véhicule" class="fa fa-pencil fa-2x cursor"></i></span><br><br>
-                                        <span data-toggle='tooltip' title="Supprimer le véhicule" onclick="suppressionWithPassword('vehicule', <?= $vehicule->getId() ?>)" class="cursor" ><i class="fa fa-close text-red fa-2x cursor"></i></span><br>
+                                        <span data-toggle='tooltip' title="Supprimer le véhicule" onclick="suppressionWithPassword('vehicule', <?= $vehicule->getId() ?>)" class="cursor" ><i class="fa fa-close text-red fa-2x cursor"></i></span><br>                                                                            
                                     </div>
                                 </div>
+                                <button class="btn btn-warning btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Nouvel entretien du véhicule</button>
                             </div>
-                            <div class="offset-sm-1 col-md-4 col-sm-4 border-right">
+                            <div class="col-md-4 col-sm-4 border-right">
                                 <span class="float-right mp5"><i class="fa fa-gears fa-2x"></i></span>
-                                <h3 class="text-green gras">Affecté à </h3>
+                                <h4 class="text-green gras">Affecté à </h4>
                                 <h2 class="mp0 gras text-navy" style="margin-top: 6px;">Koné Mamadou</h2>
                                 <h5 class="gras">Président de lorem</h5>
                                 <h4>Du date1 au date2</h4>
+                                <button class="btn btn-success btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Affecter le véhicule</button>
+                            </div>
+                            <div class="col-md-2 optionsbtn">                               
+                                <button class="btn btn-success btn-block  btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-handshake-o"></i> Faire louer ce véhicule</button>
+                                <button class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre indisponible</button>
+                                <button class="btn btn-danger  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-close"></i> Il n'est plus dans le parc</button>
                             </div>
                         </div><hr>
 
@@ -181,7 +188,7 @@
 
                 <div role="tabpanel" id="menu-3" class="tab-pane">
                     <div class="panel-body">
-                       <div class="row">
+                     <div class="row">
                         <div class="col-md-6">
                             <button class="btn btn-success btn-sm btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Ajouter nouveau</button>
                             <table class="table table-striped table-hover table-sm">
@@ -229,7 +236,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-8 border-right">
-                           <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+                         <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
                             <div class="vertical-timeline-block">
                                 <div class="vertical-timeline-icon navy-bg">
                                     <i class="fa fa-briefcase"></i>
@@ -351,208 +358,208 @@
                         <div class="ibox-content">
                             <table class="table table-hover">
                                 <tbody>
-                                     <?php foreach ($vehicule->cartegrises as $key => $carte) {
-                                                $carte->actualise(); ?>
-                                        <tr>
-                                            <td class="project-status">
-                                                <span class="label label-primary">Active</span>
-                                            </td>
-                                            <td class="project-title">
-                                                <h3 class="mp0"><?= $carte->name ?></h3>
-                                                <small>Etablie le <?= datecourt($carte->date_etablissement) ?></small>
-                                            </td>
-                                            <td class="project-completion">
-                                                <span><?= $carte->energie->name ?></span><br>
-                                                <span>Couleur <?= $carte->couleur ?></span>
-                                            </td>
-                                            <td>
-                                                <h4><?= money($carte->price) ?> <?= $params->devise ?></h4>
-                                            </td>
-                                            <td class="project-people">
-                                               <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
-                                               <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
-                                            </td>
-                                            <td class="project-actions">
-                                                <button data-toggle="modal" data-target="#modal-cartegrise"  onclick="modification('cartegrise', <?= $carte->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
-                                                <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('cartegrise', <?= $carte->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                                            </td>
-                                        </tr>
-                                    <?php  } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div role="tabpanel" id="tab-assurance" class="tab-pane">
-                <div class="panel-body">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5 class="text-uppercase">Toutes les assurances de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
-                            <div class="ibox-tools">
-                                <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-assurance" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Ajouter Nouvelle Assurance</button>
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <table class="table table-hover">
-                                <tbody>
-                                     <?php foreach ($vehicule->assurances as $key => $assurance) {
-                                                $assurance->actualise(); ?>
-                                        <tr>
-                                            <td class="project-status">
-                                                <span class="label label-primary">Active</span>
-                                            </td>
-                                            <td class="project-title">
-                                                <h3 class="mp0"><?= $assurance->name ?></h3>
-                                                <small>Etablie le <?= datecourt($assurance->date_etablissement) ?></small>
-                                            </td>
-                                            <td class="project-completion">
-                                                <span class="italic gras">Du <?= datecourt($assurance->started) ?></span><br>
-                                                <span class="italic gras">Au <?= datecourt($assurance->finished) ?></span>
-                                            </td>
-                                            <td class="project-completion">
-                                                <span><?= $assurance->assurance ?></span><br>
-                                                <span>Validité de <?= $assurance->duree ?> <?= $assurance->typeduree->name ?></span>
-                                            </td>
-                                            <td>
-                                                <h4><?= money($assurance->price) ?> <?= $params->devise ?></h4>
-                                            </td>
-                                            <td class="project-people">
-                                               <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
-                                               <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
-                                            </td>
-                                            <td class="project-actions">
-                                                <button data-toggle="modal" data-target="#modal-assurance"  onclick="modification('assurance', <?= $assurance->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
-                                                <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('assurance', <?= $assurance->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                                            </td>
-                                        </tr>
-                                    <?php  } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div role="tabpanel" id="tab-visitetechnique" class="tab-pane">
-                <div class="panel-body">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5 class="text-uppercase">Toutes les visites techniques de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
-                            <div class="ibox-tools">
-                                <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-visitetechnique" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Enregistrer nouvelle visite</button>
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <table class="table table-hover">
-                                <tbody>
-                                     <?php foreach ($vehicule->visitetechniques as $key => $vist) {
-                                                $vist->actualise(); ?>
-                                        <tr>
-                                            <td class="project-status">
-                                                <span class="label label-primary">Active</span>
-                                            </td>
-                                            <td class="project-title">
-                                                <h3 class="mp0"><?= $vist->name ?></h3>
-                                                <small>Etablie le <?= datecourt($vist->date_etablissement) ?></small>
-                                            </td>
-                                            <td class="project-completion">
-                                                <span class="italic gras">Du <?= datecourt($vist->started) ?></span><br>
-                                                <span class="italic gras">Au <?= datecourt($vist->finished) ?></span>
-                                            </td>
-                                            <td class="project-completion">
-                                                <span>Validité de <?= $vist->duree ?> <?= $vist->typeduree->name ?></span>
-                                            </td>
-                                            <td>
-                                                <h4><?= money($vist->price) ?> <?= $params->devise ?></h4>
-                                            </td>
-                                            <td class="project-people">
-                                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
-                                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
-                                            </td>
-                                            <td class="project-actions">
-                                                <button data-toggle="modal" data-target="#modal-visitetechnique"  onclick="modification('visitetechnique', <?= $vist->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
-                                                <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('visitetechnique', <?= $vist->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                                            </td>
-                                        </tr>
-                                    <?php  } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div role="tabpanel" id="tab-piecevehicule" class="tab-pane">
-                <div class="panel-body">
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5 class="text-uppercase">Autres pièces administratives de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
-                            <div class="ibox-tools">
-                                <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-piecevehicule" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Enregistrer nouvelle visite</button>
-                            </div>
-                        </div>
-                        <div class="ibox-content">
-                            <table class="table table-hover">
-                                <tbody>
-                                     <?php foreach ($vehicule->piecevehicules as $key => $piece) {
-                                                $piece->actualise(); ?>
-                                        <tr>
-                                            <td class="project-status">
-                                                <span class="label label-primary">Active</span>
-                                            </td>
-                                            <td class="project-title">
-                                                <h3 class="mp0"><?= $piece->typepiecevehicule->name ?></h3>
-                                                <h5 class="mp0"><?= $piece->name ?></h5>
-                                                <small>Etablie le <?= datecourt($piece->date_etablissement) ?></small>
-                                            </td>
-                                            <td class="project-completion">
-                                                <span class="italic gras">Du <?= datecourt($piece->started) ?></span><br>
-                                                <span class="italic gras">Au <?= datecourt($piece->finished) ?></span>
-                                            </td>
-                                            <td class="project-completion">
-                                                <span>Validité de <?= $piece->duree ?> <?= $piece->typeduree->name ?></span>
-                                            </td>
-                                            <td>
-                                                <h4><?= money($piece->price) ?> <?= $params->devise ?></h4>
-                                            </td>
-                                            <td class="project-people">
-                                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
-                                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
-                                            </td>
-                                            <td class="project-actions">
-                                                <button data-toggle="modal" data-target="#modal-piecevehicule"  onclick="modification('piecevehicule', <?= $piece->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
-                                                <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('piecevehicule', <?= $piece->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                                            </td>
-                                        </tr>
-                                    <?php  } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div role="tabpanel" id="tab-2" class="tab-pane">
-                <div class="panel-body">
-                    <strong>Donec quam felis</strong>
-
-                    <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                    and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
-
-                    <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                    sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+                                   <?php foreach ($vehicule->cartegrises as $key => $carte) {
+                                    $carte->actualise(); ?>
+                                    <tr>
+                                        <td class="project-status">
+                                            <span class="label label-primary">Active</span>
+                                        </td>
+                                        <td class="project-title">
+                                            <h3 class="mp0"><?= $carte->name ?></h3>
+                                            <small>Etablie le <?= datecourt($carte->date_etablissement) ?></small>
+                                        </td>
+                                        <td class="project-completion">
+                                            <span><?= $carte->energie->name ?></span><br>
+                                            <span>Couleur <?= $carte->couleur ?></span>
+                                        </td>
+                                        <td>
+                                            <h4><?= money($carte->price) ?> <?= $params->devise ?></h4>
+                                        </td>
+                                        <td class="project-people">
+                                         <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
+                                         <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
+                                     </td>
+                                     <td class="project-actions">
+                                        <button data-toggle="modal" data-target="#modal-cartegrise"  onclick="modification('cartegrise', <?= $carte->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
+                                        <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('cartegrise', <?= $carte->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                                    </td>
+                                </tr>
+                            <?php  } ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div role="tabpanel" id="tab-assurance" class="tab-pane">
+        <div class="panel-body">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5 class="text-uppercase">Toutes les assurances de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
+                    <div class="ibox-tools">
+                        <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-assurance" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Ajouter Nouvelle Assurance</button>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table class="table table-hover">
+                        <tbody>
+                           <?php foreach ($vehicule->assurances as $key => $assurance) {
+                            $assurance->actualise(); ?>
+                            <tr>
+                                <td class="project-status">
+                                    <span class="label label-primary">Active</span>
+                                </td>
+                                <td class="project-title">
+                                    <h3 class="mp0"><?= $assurance->name ?></h3>
+                                    <small>Etablie le <?= datecourt($assurance->date_etablissement) ?></small>
+                                </td>
+                                <td class="project-completion">
+                                    <span class="italic gras">Du <?= datecourt($assurance->started) ?></span><br>
+                                    <span class="italic gras">Au <?= datecourt($assurance->finished) ?></span>
+                                </td>
+                                <td class="project-completion">
+                                    <span><?= $assurance->assurance ?></span><br>
+                                    <span>Validité de <?= $assurance->duree ?> <?= $assurance->typeduree->name ?></span>
+                                </td>
+                                <td>
+                                    <h4><?= money($assurance->price) ?> <?= $params->devise ?></h4>
+                                </td>
+                                <td class="project-people">
+                                 <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
+                                 <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
+                             </td>
+                             <td class="project-actions">
+                                <button data-toggle="modal" data-target="#modal-assurance"  onclick="modification('assurance', <?= $assurance->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
+                                <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('assurance', <?= $assurance->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                            </td>
+                        </tr>
+                    <?php  } ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<div role="tabpanel" id="tab-visitetechnique" class="tab-pane">
+    <div class="panel-body">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5 class="text-uppercase">Toutes les visites techniques de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
+                <div class="ibox-tools">
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-visitetechnique" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Enregistrer nouvelle visite</button>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <table class="table table-hover">
+                    <tbody>
+                       <?php foreach ($vehicule->visitetechniques as $key => $vist) {
+                        $vist->actualise(); ?>
+                        <tr>
+                            <td class="project-status">
+                                <span class="label label-primary">Active</span>
+                            </td>
+                            <td class="project-title">
+                                <h3 class="mp0"><?= $vist->name ?></h3>
+                                <small>Etablie le <?= datecourt($vist->date_etablissement) ?></small>
+                            </td>
+                            <td class="project-completion">
+                                <span class="italic gras">Du <?= datecourt($vist->started) ?></span><br>
+                                <span class="italic gras">Au <?= datecourt($vist->finished) ?></span>
+                            </td>
+                            <td class="project-completion">
+                                <span>Validité de <?= $vist->duree ?> <?= $vist->typeduree->name ?></span>
+                            </td>
+                            <td>
+                                <h4><?= money($vist->price) ?> <?= $params->devise ?></h4>
+                            </td>
+                            <td class="project-people">
+                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
+                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
+                         </td>
+                         <td class="project-actions">
+                            <button data-toggle="modal" data-target="#modal-visitetechnique"  onclick="modification('visitetechnique', <?= $vist->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
+                            <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('visitetechnique', <?= $vist->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                        </td>
+                    </tr>
+                <?php  } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+<div role="tabpanel" id="tab-piecevehicule" class="tab-pane">
+    <div class="panel-body">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5 class="text-uppercase">Autres pièces administratives de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
+                <div class="ibox-tools">
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-piecevehicule" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Enregistrer nouvelle visite</button>
+                </div>
+            </div>
+            <div class="ibox-content">
+                <table class="table table-hover">
+                    <tbody>
+                       <?php foreach ($vehicule->piecevehicules as $key => $piece) {
+                        $piece->actualise(); ?>
+                        <tr>
+                            <td class="project-status">
+                                <span class="label label-primary">Active</span>
+                            </td>
+                            <td class="project-title">
+                                <h3 class="mp0"><?= $piece->typepiecevehicule->name ?></h3>
+                                <h5 class="mp0"><?= $piece->name ?></h5>
+                                <small>Etablie le <?= datecourt($piece->date_etablissement) ?></small>
+                            </td>
+                            <td class="project-completion">
+                                <span class="italic gras">Du <?= datecourt($piece->started) ?></span><br>
+                                <span class="italic gras">Au <?= datecourt($piece->finished) ?></span>
+                            </td>
+                            <td class="project-completion">
+                                <span>Validité de <?= $piece->duree ?> <?= $piece->typeduree->name ?></span>
+                            </td>
+                            <td>
+                                <h4><?= money($piece->price) ?> <?= $params->devise ?></h4>
+                            </td>
+                            <td class="project-people">
+                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
+                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
+                         </td>
+                         <td class="project-actions">
+                            <button data-toggle="modal" data-target="#modal-piecevehicule"  onclick="modification('piecevehicule', <?= $piece->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
+                            <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('piecevehicule', <?= $piece->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                        </td>
+                    </tr>
+                <?php  } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+<div role="tabpanel" id="tab-2" class="tab-pane">
+    <div class="panel-body">
+        <strong>Donec quam felis</strong>
+
+        <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
+        and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+
+        <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
+        sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
+    </div>
+</div>
+</div>
+</div>
 </div>
 
 <br><br>

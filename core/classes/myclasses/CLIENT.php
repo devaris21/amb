@@ -30,7 +30,7 @@ class CLIENT extends PERSONNE
 			$datas = static::findBy(["login ="=>$this->login]);
 			if (count($datas) == 0) {
 				$data = $this->save();
-				$this->set_id($data->lastid)->actualise();
+				$this->setId($data->lastid)->actualise();
 
 				ob_start();
 				include(__DIR__."/../../webapp/administration/elements/mails/welcome_client.php");

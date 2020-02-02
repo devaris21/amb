@@ -40,4 +40,4 @@
     <link rel="stylesheet" type="text/css" href="<?= $this->rootPath("composants/dist/shamman/shamman.css") ?>">
 </head>
 
-<?php include($this->rootPath("webapp/gestionnaire/elements/templates/loader.php")); ?> 
+<?php include($this->rootPath("composants/assets/others/loader.php")); ?> 

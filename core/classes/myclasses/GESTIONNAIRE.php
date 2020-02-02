@@ -36,7 +36,7 @@ class GESTIONNAIRE extends AUTH
 				$datas = GESTIONNAIRE::findBy(["login ="=>$this->login]);
 				if (count($datas) == 0) {
 					$data = $this->save();
-					$this->set_id($data->lastid)->actualise();
+					$this->setId($data->lastid)->actualise();
 
 					//@TODO refaire email welcome gestionnaire
 					ob_start();

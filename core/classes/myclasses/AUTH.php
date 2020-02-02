@@ -127,6 +127,29 @@ abstract class AUTH extends TABLE
 	}
 
 
+	public function setLogin($login){
+		if ($login != "") {
+			$login = verification($login);
+			$datas = static::findBy(["login = "=>$login]);
+			if (count($datas) == 0) {
+				$this->login = $login;
+				return true;
+			}else{
+				$gestionnaireTemp = $datas[0];
+				if ($gestionnaireTemp->id === $this->id) {
+					$this->login = $login;
+					return true;
+				}else{
+					$this->login = null;
+					return false;
+				}
+			}
+		}else{
+			return false;
+		}
+	}
+
+
 	public function setPassword($password){
 		$this->password = hasher($password);
 		return $this;

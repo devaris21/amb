@@ -107,13 +107,8 @@
 
 
                 <li>
-                    <a href="login.html">
+                    <a href="<?= $this->url("carplan", "access", "logout"); ?>">
                         <i class="fa fa-sign-out"></i> Déconnexion
-                    </a>
-                </li>
-                <li>
-                    <a class="right-sidebar-toggle">
-                        <i class="fa fa-tasks"></i>
                     </a>
                 </li>
             </ul>

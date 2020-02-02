@@ -2,11 +2,13 @@
 namespace Home;
 
 
-$title = "AMB | Tableau de bord";
+$title = "AMB-Carplan | Tableau de bord";
 
-// $notifications = NOTIFICATION::findBy(["admin ="=>1, "etat_id ="=>0]);
+$carplan->fourni("affectation");
+$affectation = $carplan->affectations[0];
+$affectation->actualise();
 
-// $demvehicules = DEMANDEVEHICULE::findBy(["etat_id ="=>0, "etats="=>0]);
-// $entretiens = DEMANDEENTRETIEN::findBy(["etat_id ="=>0]);
+session("carplan_vehicule_id", $affectation->vehicule->getId());
+
 
 ?>

@@ -32,7 +32,7 @@ class UTILISATEUR extends PERSONNE
 			$datas = UTILISATEUR::findBy(["login ="=>$this->login]);
 			if (count($datas) == 0) {
 				$data = $this->save();
-				$this->set_id($data->lastid)->actualise();
+				$this->setId($data->lastid)->actualise();
 
 				ob_start();
 				include(__DIR__."/../../sections/home/elements/mails/welcome_user.php");

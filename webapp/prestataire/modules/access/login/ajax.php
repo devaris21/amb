@@ -30,7 +30,7 @@ if ($action == "newUser") {
 	$datas = GESTIONNAIRE::findBy(["id ="=>getSession("temp_gestionnaire_id")]);
 	if (count($datas) == 1) {
 		$element = $datas[0];
-		if ($element->set_login($login)) {
+		if ($element->setLogin($login)) {
 			if ($pass != "" && $pass == $pass0) {
 				$element->password = hasher($pass);
 				$element->isNew = 0;

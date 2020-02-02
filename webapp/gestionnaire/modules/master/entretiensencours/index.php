@@ -16,15 +16,24 @@
 
           <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-5">
-                <h2 class="text-uppercase">Les demandes en attente</h2>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="index.html">This is</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <strong>Breadcrumb</strong>
-                    </li>
-                </ol>
+                <h2 class="text-uppercase">Les entretiens en cours</h2>
+                 <div class="container">
+                    <div class="row">
+                    <div class="col-xs-7">Afficher tous les entretiens</div>
+                    <div class="offset-1"></div>
+                    <div class="col-xs-4">
+                        <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" checked class="onoffswitch-checkbox" id="example1">
+                                <label class="onoffswitch-label" for="example1">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
             </div>
             <div class="col-sm-7">
                <div class="row">
@@ -76,7 +85,7 @@
             <div class="ibox-title">
                 <h5>All projects assigned to this account</h5>
                 <div class="ibox-tools">
-                    <a href="" class="btn btn-primary btn-xs">Create new project</a>
+                    <button data-toggle="modal" data-target="#modal-entretien" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Nouvel entretien de véhicule</button>
                 </div>
             </div>
             <div class="ibox-content">

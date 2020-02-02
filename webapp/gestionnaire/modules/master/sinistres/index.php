@@ -16,7 +16,7 @@
 
           <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-5">
-                <h2 class="text-uppercase">Les demandes en attente</h2>
+                <h2 class="text-uppercase">Les sinistres déclarés</h2>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="index.html">This is</a>
@@ -73,55 +73,66 @@
 
     <div class="wrapper wrapper-content">
         <div class="ibox">
-            <div class="ibox-title">
-                <h5>All projects assigned to this account</h5>
+            <!-- <div class="ibox-title">
+                <h5>Tous les sinistres déclarés</h5>
                 <div class="ibox-tools">
-                    <a href="" class="btn btn-primary btn-xs">Create new project</a>
+                    <button style="margin-top: -3%;" data-toggle="modal" data-target="#modal-sinistre" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
                 </div>
-            </div>
+            </div> -->
             <div class="ibox-content">
                 <table class="table table-hover">
                     <tbody>
-                        <?php for ($i=0; $i < 15; $i++) { ?>
-                        <tr>
-                            <td class="project-status">
-                                <span class="label label-primary">Active</span>
+                        <?php foreach ($sinistres as $key => $sinistre) {
+                            $sinistre->actualise(); ?>
+                            <tr>
+                                <td class="project-status">
+                                    <span class="label label-primary">Active</span>
+                                </td>
+                                <td class="project-title">
+                                    <h3 class="mp0"><?= $sinistre->name ?></h3>
+                                    <h5 class="mp0"><?= $sinistre->typesinistre->name ?></h5>
+                                </td>
+                                <td class="project-title">
+                                    <small>Survenu le <?= datecourt($sinistre->date_etablissement) ?></small>
+                                    <h5 class="mp0"><?= $sinistre->lieudrame ?></h5>
+                                </td>
+                                <td class="project-title">
+                                    <small>Conducteur</small>
+                                    <h5 class="mp0"><?= $sinistre->auteur() ?></h5>
+                                    <h5 class="mp0"><?= $sinistre->matricule ?></h5>
+                                </td>
+                            </td>
+                            <!-- <td class="project-title">
+                                <small><?= $sinistre->constat() ?></small>
+                                <small><?= $sinistre->pompier() ?></small>
+                            </td> -->
+                            <td class="project-people">
+                                <img alt="<?= $sinistre->name ?>" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "sinistres", $sinistre->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "sinistres", $sinistre->image1) ?>">
+                                <img alt="<?= $sinistre->name ?>" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "sinistres", $sinistre->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "sinistres", $sinistre->image2) ?>">
+                                <img alt="<?= $sinistre->name ?>" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "sinistres", $sinistre->image3) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "sinistres", $sinistre->image3) ?>">
                             </td>
                             <td class="project-title">
-                                <a href="project_detail.html">Contract with Zender Company</a>
-                                <br/>
-                                <small>Created 14.08.2014</small>
-                            </td>
-                            <td class="project-completion">
-                                <small>Completion with: 48%</small>
-                                <div class="progress progress-mini">
-                                    <div style="width: 48%;" class="progress-bar"></div>
-                                </div>
-                            </td>
-                            <td class="project-people">
-                                <a href=""><img alt="image" src="<?= $this->stockage("images", "vehicules", "default.jpg") ?>"></a>
-                                <a href=""><img alt="image" src="<?= $this->stockage("images", "vehicules", "default.jpg") ?>"></a>
-                                <a href=""><img alt="image" src="<?= $this->stockage("images", "vehicules", "default.jpg") ?>"></a>
-                                <a href=""><img alt="image" src="<?= $this->stockage("images", "vehicules", "default.jpg") ?>"></a>
-                                <a href=""><img alt="image" src="<?= $this->stockage("images", "vehicules", "default.jpg") ?>"></a>
+                                <small><?= $sinistre->nomautre ?></small>
+                                <h5 class="mp0"><?= $sinistre->vehiculeautre ?></h5>
+                                <h5 class="mp0"><?= $sinistre->immatriculationautre ?></h5>
                             </td>
                             <td class="project-actions">
-                                <a href="#" class="btn btn-white btn-sm"><i class="fa fa-folder"></i> View </a>
-                                <a href="#" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Edit </a>
+                                <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
+                                <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('sinistre', <?= $sinistre->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                             </td>
                         </tr>
-                        <?php  } ?>
-                    </tbody>
-                </table>
-            </div>
+                    <?php  } ?>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
 
-        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+<?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
 
 
-    </div>
+</div>
 </div>
 
 

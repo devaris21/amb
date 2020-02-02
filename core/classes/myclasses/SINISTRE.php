@@ -1,8 +1,8 @@
 <?php
 namespace Home;
 use Native\RESPONSE;
-use Native\ROOTER;
 use Native\EMAIL;
+use Native\FICHIER;
 
 
 
@@ -21,10 +21,15 @@ class SINISTRE extends TABLE
 	public $vehicule_id;
 	public $date_etablissement; 
 	public $comment;
+	public $matricule;
+	public $fullname;
 	public $gestionnaire_id;
 	public $chauffeur_id = null;
 	public $carplan_id = null;
 	public $lieudrame;
+	public $image1;
+	public $image2;
+	public $image3;
 	public $etat_id = 0;
 	public $date_approbation = null;
 
@@ -33,7 +38,8 @@ class SINISTRE extends TABLE
 	public $nomautre;
 	public $contactautre;
 	public $vehiculeautre;
-	public $assurance;
+	public $assuranceautre;
+	public $immatriculationautre;
 
 
 	public function enregistre(){
@@ -43,6 +49,10 @@ class SINISTRE extends TABLE
 			if (count($datas) == 1) {
 				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 				$data = $this->save();
+				if ($data->status) {
+					$this->uploading();
+				}
+				$data->message = "La déclaration de sinistre a été enregistré avec succes !";
 			}else{
 				$data->status = false;
 				$data->message = "Une erreur s'est produite lors de l'opération, veuillez recommencer !";
@@ -55,11 +65,52 @@ class SINISTRE extends TABLE
 	}
 
 
+	public function uploading(){
+		if (isset($this->image1) && $this->image1["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image1);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "sinistres", $a);
+				$this->image1 = $result->filename;
+				$this->save();
+			}
+		}
+		if (isset($this->image2) && $this->image2["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image2);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "sinistres", $a);
+				$this->image2 = $result->filename;
+				$this->save();
+			}
+		}
+		if (isset($this->image3) && $this->image3["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image3);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "sinistres", $a);
+				$this->image3 = $result->filename;
+				$this->save();
+			}
+		}
+	}
+
+
+
 	public function constat(){
 		if ($this->constat == 0) {
 			return "Constat à l'amiable";
 		}else{
 			return "Intervention de la police";
+		}
+	}
+
+	public function pompier(){
+		if ($this->pompiers == 1) {
+			return "Intervention des sapeurs pompiers";
 		}
 	}
 

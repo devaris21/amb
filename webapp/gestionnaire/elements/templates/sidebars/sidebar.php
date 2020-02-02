@@ -36,15 +36,15 @@
                     <div class="tab-content">
 
                         <div id="tab-1" class="tab-pane active">
-                            <?php require($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar_master.php")) ?>
+                            <?php require($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar-master.php")) ?>
                         </div>
 
                         <div id="tab-2" class="tab-pane">
-                            <?php require($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar_location.php")) ?>
+                            <?php require($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar-location.php")) ?>
                         </div>
 
                         <div id="tab-3" class="tab-pane">
-                            <?php require($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar_users.php")) ?>
+                            <?php require($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar-users.php")) ?>
                         </div>
                     </div>
                 </div>

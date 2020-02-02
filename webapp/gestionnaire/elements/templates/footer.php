@@ -23,4 +23,5 @@
 <!-- Le loader est placé dans le fichier head.php -->
 
 <?php include($this->rootPath("composants/assets/modals/modal-vehicule.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-sinistre.php")); ?> 
 

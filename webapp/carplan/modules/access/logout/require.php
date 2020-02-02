@@ -2,10 +2,10 @@
 namespace Home;
 require '../../vendor/autoload.php';
 
-$datas = GESTIONNAIRE::findBy([" id= "=>getSession("gestionnaire_connecte_id")]);
+$datas = CARPLAN::findBy([" id= "=>getSession("carplan_connecte_id")]);
 if (count($datas) == 1) {
-	$gestionnaire = $datas[0];
-	$gestionnaire->se_deconnecter();
+	$carplan = $datas[0];
+	$carplan->se_deconnecter();
 }
 
 

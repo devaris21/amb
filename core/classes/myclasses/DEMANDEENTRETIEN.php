@@ -3,6 +3,7 @@ namespace Home;
 use Native\RESPONSE;
 use Native\ROOTER;
 use Native\EMAIL;
+use Native\FICHIER;
 
 
 /**
@@ -16,11 +17,10 @@ class DEMANDEENTRETIEN extends TABLE
 
 
 	public $typeentretienvehicule_id = 0;
-	public $utilisateur_id = null;
 	public $carplan_id = null;
 	public $vehicule_id	;
-	public $objet;
 	public $comment;
+	public $image;
 	public $date_approuve;
 
 	public $etat_id = 0;
@@ -29,23 +29,23 @@ class DEMANDEENTRETIEN extends TABLE
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		$rooter = new ROOTER;
-
+		$this->vehicule_id = getSession("carplan_vehicule_id");
 		$datas = TYPEENTRETIENVEHICULE::findBy(["id ="=>$this->typeentretienvehicule_id]);
 		if (count($datas) == 1) {
 			$data = $this->save();
 			if ($data->status) {
-				$this->set_id($data->lastid)->actualise();
+				$this->uploading();
+				$this->setId($data->lastid)->actualise();
 				$params = PARAMS::findLastId();
 
-				$message = "Vous avez reçu une nouvelle demande d'entretien de véhicule de la part de ".$this->auteur()." pour le vehicule ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation;
-				$image = $rooter->image("vehicules", $this->vehicule->image);
+				//TODO revoir les emails
+				// ob_start();
+				// include(__DIR__."/../../sections/home/elements/mails/demandeentretien.php");
+				// $contenu = ob_get_contents();
+				// ob_end_clean();
+				// EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande d'entretien de véhicule", $contenu);
+				$data->message = "Votre demande d'entretien du véhicule a été enregistré avec succes !";
 
-				ob_start();
-				include(__DIR__."/../../sections/home/elements/mails/demandeentretien.php");
-				$contenu = ob_get_contents();
-				ob_end_clean();
-				EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande d'entretien de véhicule", $contenu);
 			}
 		}else{
 			$data->status = false;
@@ -55,20 +55,25 @@ class DEMANDEENTRETIEN extends TABLE
 	}
 
 
+	public function uploading(){
+		if (isset($this->image) && $this->image["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "demandeentretiens", $a);
+				$this->image = $result->filename;
+				$this->save();
+			}
+		}
+	}
+
+
+
 	public static function encours(){
 		return static::findBy(["etat_id ="=>0]);
 	}
 
-
-
-	public function auteur(){
-		$this->actualise();
-		if ($this->utilisateur_id == null) {
-			return $this->carplan->name();
-		}else{
-			return $this->utilisateur->name();
-		}
-	}
 
 
 	public function contact(){
@@ -152,7 +157,7 @@ class DEMANDEENTRETIEN extends TABLE
 
 
 	public function sentenseCreate(){
-		return $this->sentence = "Enregistrement d'une nouvelle demande d'entretien de vehicule pour le vehicule ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." par ".$this->auteur();
+		return $this->sentence = "Enregistrement d'une nouvelle demande d'entretien de vehicule pour le vehicule ".$this->vehicule->name()." par ".$this->carplan->name();
 	}
 
 	public function sentenseUpdate(){}

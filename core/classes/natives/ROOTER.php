@@ -2,6 +2,7 @@
 namespace Native;
 use Native\SHAMMAN;
 use Home\CLIENT;
+use Home\CARPLAN;
 use Home\GESTIONNAIRE;
 use Home\PARAMS;
 /**
@@ -80,6 +81,19 @@ class ROOTER extends PATH
                         return false;
                     }
                 }
+
+                if ($this->section == "carplan") {
+                    $datas = CARPLAN::findBy(["id = "=>getSession("carplan_connecte_id")]);
+                    if (count($datas) >0) {
+                        $carplan = $datas[0];
+                        $carplan->actualise();
+                    }else{
+                        $this->new_root($this->section, "access", "login");
+                        $this->render();
+                        return false;
+                    }
+                }
+
 
             }else{
              $this->new_root($this->section, "access", "login");

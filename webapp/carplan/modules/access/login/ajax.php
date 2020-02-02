@@ -9,15 +9,15 @@ extract($_POST);
 
 
 if ($action == "connexion") {
-	$data = GESTIONNAIRE::connect(["login = "=> $login, "password = "=>hasher($password)]);
+	$data = CARPLAN::connect(["login = "=> $login, "password = "=>hasher($password)]);
 	if ($data->status) {
 		$user = $data->element;
 		if (!$data->new) {
 			$user->se_connecter();
-			session("gestionnaire_connecte_id", $user->getId());
-			$data->setUrl("gestionnaire", "master", "dashboard");
+			session("carplan_connecte_id", $user->getId());
+			$data->setUrl("carplan", "master", "dashboard");
 		}else{
-			session("temp_gestionnaire_id", $user->getId());	
+			session("temp_carplan_id", $user->getId());	
 		}
 	}		
 	echo json_encode($data);
@@ -27,10 +27,10 @@ if ($action == "connexion") {
 
 
 if ($action == "newUser") {
-	$datas = GESTIONNAIRE::findBy(["id ="=>getSession("temp_gestionnaire_id")]);
+	$datas = CARPLAN::findBy(["id ="=>getSession("temp_carplan_id")]);
 	if (count($datas) == 1) {
 		$element = $datas[0];
-		if ($element->set_login($login)) {
+		if ($element->setLogin($login)) {
 			if ($pass != "" && $pass == $pass0) {
 				$element->password = hasher($pass);
 				$element->isNew = 0;
@@ -38,8 +38,8 @@ if ($action == "newUser") {
 				$data = $element->save();
 				if ($data->status) {
 					$element->se_connecter();
-					session("gestionnaire_connecte_id", $element->getId());
-					$data->setUrl("gestionnaire", "master", "dashboard");
+					session("carplan_connecte_id", $element->getId());
+					$data->setUrl("carplan", "master", "dashboard");
 				}
 			}
 		}else{

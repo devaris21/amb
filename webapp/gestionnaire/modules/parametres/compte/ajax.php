@@ -44,7 +44,7 @@ if ($action == "login") {
 	if (count($datas) == 1) {
 		$flotte = $datas[0];
 		if ($flotte->checkPassword($password)) {
-			$flotte->set_login($login);
+			$flotte->setLogin($login);
 			$data = $flotte->save();
 		}else{
 			$data->status = false;

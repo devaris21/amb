@@ -41,7 +41,7 @@ class MEMORANDUM extends TABLE
 					$this->reference = start0($data->lastid)."/CSDG/DAL/SLET";
 					$this->save();
 
-					$this->set_id($data->lastid)->actualise();
+					$this->setId($data->lastid)->actualise();
 					$params = PARAMS::findLastId();
 
 					$message = "Vous avez reçu un nouveau mémorandum soumis à votre approbation faites par ".$this->gestionnaire->name().", avec pour objet : '$this->objet' ! ";

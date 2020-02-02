@@ -26,7 +26,7 @@ class COTATION extends TABLE
 		if (count($datas) == 1) {
 			$data = $this->save();
 			if ($data->status) {
-				$this->set_id($data->lastid)->actualise();
+				$this->setId($data->lastid)->actualise();
 				$params = PARAMS::findLastId();
 
 				$objet = "Nouvelle demande de cotation";

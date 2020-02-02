@@ -39,7 +39,7 @@ class MISSION extends TABLE
 					$this->reference = $data->lastid."/".date("Y")."/CSDG/DRH/ML";
 					$this->save();
 
-					$this->set_id($data->lastid)->actualise();
+					$this->setId($data->lastid)->actualise();
 					$params = PARAMS::findLastId();
 
 					$message = "Une nouvelle mission a été enregistrée suite à l'approbation générale de la demande de véhicule N°$this->id pour ".$this->demandevehicule->typedemandevehicule->name." faite par ".$this->demandevehicule->auteur();

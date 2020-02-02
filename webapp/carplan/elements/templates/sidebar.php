@@ -6,19 +6,13 @@
                 <div class="dropdown profile-element">                        
                     <div class="row">
                         <div class="col-3">
-                            <img alt="image" class="rounded-circle" style="width: 35px" src="<?= $this->stockage("images", "societe", "avatar.png") ?>"/>
+                            <img alt="image" class="rounded-circle" style="width: 35px" src="<?= $this->stockage("images", "carplans", $affectation->carplan->image) ?>"/>
                         </div>
                         <div class="col-9">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="block m-t-xs font-bold">David Williams</span>
-                                <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                            <a data-toggle="tab" href="#">
+                                <span class="block m-t-xs font-bold"><?= coupeMot($affectation->carplan->name(), 2) ?></span>
+                                <span class="text-muted text-xs block">Carplan</span>
                             </a>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="dropdown-item" href="profile.html">Mon profil</a></li>
-                                <li class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="mailbox.html">Vérouiller la session</a></li>
-                                <li><a class="dropdown-item" href="login.html">Déconnexion</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>

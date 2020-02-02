@@ -100,7 +100,7 @@ abstract class QUERYBUILDER
                 $temp = $class::findLastId();
                 $id = $temp->getId();
                 $data->lastid = $id;
-                $this->set_id($id);
+                $this->setId($id);
             }else{
                 $data->lastid = $this->getId();
             }

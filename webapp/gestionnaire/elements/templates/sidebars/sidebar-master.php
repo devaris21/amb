@@ -6,7 +6,7 @@
         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Parc auto</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
             <li><a href="<?= $this->url("gestionnaire", "master", "parcauto", "parcauto") ?>">Liste des véhicules</a></li>
-            <li data-toggle="modal" data-target="#myModal5" ><a href="#"><i class="fa fa-plus"></i> Ajouter véhicule</a></li>
+            <li data-toggle="modal" data-target="#modal-vehicule" ><a href="#"><i class="fa fa-plus"></i> Ajouter véhicule</a></li>
         </ul>
     </li>
     
@@ -23,7 +23,7 @@
         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Sinistres</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
             <li><a href="<?= $this->url("gestionnaire", "master", "sinistres") ?>">Sinistres déclarés</a></li>
-            <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Déclarer un sinistre</a></li>
+            <li data-toggle="modal" data-target="#modal-sinistre"><a href="#"><i class="fa fa-plus"></i> Déclarer un sinistre</a></li>
         </ul>
     </li>
     <li class="">

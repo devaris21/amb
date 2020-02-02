@@ -8,13 +8,15 @@ use \DateInterval;
 /**
  * 
  */
-class carplan extends PERSONNE
+class CARPLAN extends AUTH
 {
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
 
-
+	public $matricule;
+	public $name;
+	public $lastname;
 	public $allowed = 1;
 	public $sexe_id = 1;
 	public $fonction ;

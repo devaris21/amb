@@ -32,7 +32,7 @@ abstract class TABLE
     public function hydrater(Array $table1){
 
         if(isset($table1["id"]) && !empty($table1["id"])){
-            $this->set_id($table1["id"]);
+            $this->setId($table1["id"]);
             $this->actualise();
         }
         $table2 = $this->getProperties();
@@ -79,7 +79,7 @@ abstract class TABLE
     }
 
 ///////////////////////
-    public function set_id(int $id){
+    public function setId(int $id){
         $this->id = $id;
         return $this;
     }
@@ -213,14 +213,14 @@ abstract class TABLE
 
         if ($resultat) {
             $data->status = true;
-            $data->message = "succes dans le save()";
+            $data->message = "Données enregistrées avec succes !";
             if ($data->mode == "insert") {
                 //recuperer le lastid
                 $class = self::fullyClassName($table);
                 $temp = $class::findLastId();
                 $id = $temp->getId();
                 $data->lastid = $id;
-                $this->set_id($id);
+                $this->setId($id);
             }else{
                 $data->lastid = $this->getId();
             }

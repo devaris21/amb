@@ -14,6 +14,7 @@
 	border: 3px dotted #ddd;
 }
 
-table.table td{
-	font-style: 16px;
+#menu-2 tr td:first-child{
+	font-weight: bold;
+	color: navy;
 }
