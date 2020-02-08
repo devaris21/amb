@@ -14,7 +14,7 @@
     <li>
         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Entretiens de véhicules</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
-            <li><a href="<?= $this->url("gestionnaire", "master", "demandesentretiens") ?>">Liste des demandes</a></li>
+            <li><a href="<?= $this->url("gestionnaire", "master", "demandeentretiens") ?>">Liste des demandes</a></li>
             <li><a href="<?= $this->url("gestionnaire", "master", "entretiensencours") ?>">Entretiens en cours</a></li>
             <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Nouvel entretien</a></li>
         </ul>
@@ -27,7 +27,7 @@
         </ul>
     </li>
     <li class="">
-        <a href="<?= $this->url("gestionnaire", "master", "demandesvehicules") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Demandes de véhicules</span></a>
+        <a href="<?= $this->url("gestionnaire", "master", "demandevehicules") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Demandes de véhicules</span></a>
     </li>
     <li class="">
         <a href="<?= $this->url("gestionnaire", "master", "missions") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Missions</span></a>

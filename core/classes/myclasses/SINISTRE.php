@@ -2,6 +2,7 @@
 namespace Home;
 use Native\RESPONSE;
 use Native\EMAIL;
+use Native\ROOTER;
 use Native\FICHIER;
 
 
@@ -16,7 +17,7 @@ class SINISTRE extends TABLE
 	public static $namespace = __NAMESPACE__;
 
 
-	public $name;
+	public $ticket;
 	public $typesinistre_id;
 	public $vehicule_id;
 	public $date_etablissement; 
@@ -44,9 +45,9 @@ class SINISTRE extends TABLE
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		if ($this->name != "") {
-			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
+		$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
+				$this->ticket = strtoupper(substr(uniqid(), 5, 6));
 				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 				$data = $this->save();
 				if ($data->status) {
@@ -56,11 +57,7 @@ class SINISTRE extends TABLE
 			}else{
 				$data->status = false;
 				$data->message = "Une erreur s'est produite lors de l'opération, veuillez recommencer !";
-			}
-		}else{
-			$data->status = false;
-			$data->message = "Veuillez renseigner les champs marqués d'un * !";
-		}		
+			}		
 		return $data;
 	}
 
@@ -117,10 +114,10 @@ class SINISTRE extends TABLE
 
 	public function auteur(){
 		$this->actualise();
-		if ($this->chauffeur_id == null) {
+		if ($this->carplan_id != null) {
 			return $this->carplan->name." ".$this->carplan->lastname;
 		}else{
-			return $this->chauffeur->name." ".$this->chauffeur->lastname;
+			return $this->fullname;
 		}
 	}
 
@@ -152,6 +149,23 @@ class SINISTRE extends TABLE
 		}
 	}
 
+
+
+
+	public static function encours(){
+		return static::findBy(["etat_id ="=>0]);
+	}
+
+	public static function valideesCeMois(){
+		return static::findBy(["etat_id ="=>1, "date_approbation >="=>date("Y-m")."-01"]);
+	}
+
+	public static function annuleesCeMois(){
+		return static::findBy(["etat_id ="=>-1, "date_approbation >="=>date("Y-m")."-01"]);
+	}
+
+
+
 	public function approuver(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
@@ -162,14 +176,16 @@ class SINISTRE extends TABLE
 		if ($data->status) {
 			$this->actualise();
 			$message = "Votre declaration de sinistre pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été prise en compte et approuver par la gestion du parc automobile de l'ARTCI !";
-			$image = $rooter->image("vehicules", $this->vehicule->image);
+			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
 			$objet = "Déclaration de sinistre approuvée";
 
 			ob_start();
 			include(__DIR__."/../../sections/home/elements/mails/sinistre.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
-			EMAIL::send([$this->email()], $objet, $contenu);
+			// TODO gerer les emails
+			//EMAIL::send([$this->email()], $objet, $contenu);
+			session("sinistre", $this);
 		}
 		return $data;
 	}
@@ -184,14 +200,15 @@ class SINISTRE extends TABLE
 		if ($data->status) {
 			$this->actualise();
 			$message = "Votre declaration de sinistre pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été refusé par la gestion du parc automobile de l'ARTCI !";
-			$image = $rooter->image("vehicules", $this->vehicule->image);
+			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
 			$objet = "Déclaration de sinistre refusée";
 
 			ob_start();
 			include(__DIR__."/../../sections/home/elements/mails/sinistre.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
-			EMAIL::send([$this->email()], $objet, $contenu);
+			// TODO gerer les emails
+			//EMAIL::send([$this->email()], $objet, $contenu);
 		}
 		return $data;
 	}

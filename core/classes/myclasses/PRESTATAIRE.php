@@ -5,7 +5,7 @@ use Native\EMAIL;
 /**
  * 
  */
-class PRESTATAIRE extends PERSONNE
+class PRESTATAIRE extends AUTH
 {
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
@@ -62,7 +62,7 @@ class PRESTATAIRE extends PERSONNE
 	public function se_connecter(){
 		$connexion = new CONNEXION;
 		$connexion->prestataire_id = $this->getId();
-		$connexion->connexion_carplan();
+		$connexion->connexion_prestataire();
 	}
 
 
@@ -70,12 +70,12 @@ class PRESTATAIRE extends PERSONNE
 	public function se_deconnecter(){
 		$connexion = new CONNEXION;
 		$connexion->prestataire_id = $this->getId();
-		$connexion->deconnexion_carplan();
+		$connexion->deconnexion_prestataire();
 	}
 
 
 	public function last_connexion(){
-		$datas = CONNEXION::findBy(["carplan_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["prestataire_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {

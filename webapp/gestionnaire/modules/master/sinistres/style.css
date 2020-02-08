@@ -7,3 +7,8 @@ table tr.cursor td{
 	padding: 7px;
 	font-size: 12px;
 }
+
+table.table-sinistre tr{
+	padding-bottom: 3%;
+	border-bottom: 3px solid grey;
+}

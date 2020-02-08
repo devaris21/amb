@@ -11,14 +11,14 @@
             $.post({url:url, data:formdata, contentType:false, processData:false}, function(data){
                 if (data.status) {
                     if (reload == "false") {
-                       Alerter.success('Réussite', data.message);
-                       Loader.stop();
-                       $(".modal").modal('hide');
+                        Alerter.success('Réussite', data.message);
+                        Loader.stop();
+                        $(".modal").modal('hide');
                     }else{
                         window.location.reload();
                     }
                 }else{
-                     Alerter.error('Erreur !', data.message);
+                    Alerter.error('Erreur !', data.message);
                 }
             }, 'json')
             return false;
@@ -36,7 +36,7 @@
                     if (data.status) {
                         window.location.reload()
                     }else{
-                         Alerter.error('Erreur !', data.message);
+                        Alerter.error('Erreur !', data.message);
                     }
                 },"json");
             })
@@ -70,7 +70,7 @@
                     $("form[classname="+table+"] .unmodified").hide();
                     Loader.stop();
                 }else{
-                     Alerter.error('Erreur !', data.message);
+                    Alerter.error('Erreur !', data.message);
                 }
             },"json");
         }
@@ -83,11 +83,12 @@
                 cancelLabel : "Non",
                 okLabel : "OUI, supprimer",
             }, function(){
+                Loader.start();
                 $.post(url, {action:"suppression", table:table, id:id, cascade:cascade}, (data)=>{
                     if (data.status) {
                         window.location.reload()
                     }else{
-                         Alerter.error('Erreur !', data.message);
+                        Alerter.error('Erreur !', data.message);
                     }
                 },"json");
             })
@@ -106,6 +107,7 @@
                     cancelLabel : "Annuler",
                     okLabel : "Mot de passe"
                 }, function(password){
+                    Loader.start();
                     $.post(url, {action:"suppression_with_password", table:table, id:id, cascade:cascade, password:password}, (data)=>{
                         if (data.status) {
                             window.location.reload()
@@ -129,7 +131,7 @@
                     if (data.status) {
                         window.location.reload()
                     }else{
-                         Alerter.error('Erreur !', data.message);
+                        Alerter.error('Erreur !', data.message);
                     }
                 },"json");
             })
@@ -152,7 +154,7 @@
                         if (data.status) {
                             window.location.reload()
                         }else{
-                             Alerter.error('Erreur !', data.message);
+                            Alerter.error('Erreur !', data.message);
                         }
                     },"json");
                 })

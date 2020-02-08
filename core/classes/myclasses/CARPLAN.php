@@ -17,7 +17,7 @@ class CARPLAN extends AUTH
 	public $matricule;
 	public $name;
 	public $lastname;
-	public $allowed = 1;
+	public $is_allowed = 1;
 	public $sexe_id = 1;
 	public $fonction ;
 	public $is_connecte = false;
@@ -114,13 +114,7 @@ class CARPLAN extends AUTH
 	}
 
 
-	public function is_allowed(){
-		if ($this->allowed == 0) {
-			return false;
-		}else{
-			return true;
-		}
-	}
+
 
 
 	public function is_connected(){

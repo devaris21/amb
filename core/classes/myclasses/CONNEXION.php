@@ -16,6 +16,7 @@ class CONNEXION extends TABLE
 	public $gestionnaire_id = null;
 	public $utilisateur_id = null;
 	public $carplan_id = null;
+	public $prestataire_id = null;
 
 	public function enregistre(){
 		return $this->save();
@@ -52,10 +53,10 @@ class CONNEXION extends TABLE
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-	//connecter un client
-	public function connexion_client(){
-		$this->deconnexion_client();
-		session("client_id", $this->client_id);
+	//connecter un utilisateur
+	public function connexion_utilisateur(){
+		$this->deconnexion_utilisateur();
+		session("utilisateur_connecte_id", $this->utilisateur_id);
 		$this->date_connexion = date("Y-m-d H:i:s");
 		$this->date_deconnexion = null;
 		$this->enregistre();
@@ -63,15 +64,15 @@ class CONNEXION extends TABLE
 
 
 
-	//deconnecter un client
-	public function deconnexion_client(){
-		$datas = CONNEXION::findBy(["client_id = "=> $this->client_id], [], ["id"=>"DESC"], 1);
+	//deconnecter un utilisateur
+	public function deconnexion_utilisateur(){
+		$datas = CONNEXION::findBy(["utilisateur_id = "=> $this->utilisateur_id], [], ["id"=>"DESC"], 1);
 		if (count($datas) > 0) {
 			$connexion = $datas[0];
 			$connexion->actualise();
 			if ($connexion->date_deconnexion == null) {
 				$connexion->date_deconnexion = date("Y-m-d H:i:s");
-				$connexion->historique("Déconnexion du client ".$connexion->client->name." ".$connexion->client->lastname);
+				$connexion->historique("Déconnexion de l'utilisateur ".$connexion->utilisateur->name());
 				$connexion->save();
 			}
 		}
@@ -113,10 +114,9 @@ class CONNEXION extends TABLE
 	//connecter un prestataire
 	public function connexion_prestataire(){
 		$this->deconnexion_prestataire();
-		session("prestataire_id", $this->prestataire_id);
+		session("prestataire_connecte_id", $this->prestataire_id);
 		$this->date_connexion = date("Y-m-d H:i:s");
 		$this->date_deconnexion = null;
-		$connexion->historique("Nouvelle connexion du prestataire ".$connexion->prestataire->name." ".$connexion->prestataire->lastname);
 		$this->enregistre();
 	}
 
@@ -130,7 +130,7 @@ class CONNEXION extends TABLE
 			$connexion->actualise();
 			if ($connexion->date_deconnexion == null) {
 				$connexion->date_deconnexion = date("Y-m-d H:i:s");
-				$connexion->historique("Déconnexion du prestataire ".$connexion->prestataire->name." ".$connexion->prestataire->lastname);
+				$connexion->historique("Déconnexion du prestataire ".$connexion->prestataire->name());
 				$connexion->save();
 			}
 		}

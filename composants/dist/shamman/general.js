@@ -1,5 +1,6 @@
 
 $(function(){
+
 	// Initialisation des plugins
 	$("select.select2").select2();
 
@@ -33,13 +34,13 @@ $(function(){
 	});
 
 
-modal = function(modal){
-    		$(modal).modal("show")
-    	}
+	modal = function(modal){
+		$(modal).modal("show")
+	}
 
 
 
-	    //mettre en session par ajax
+    //mettre en session par ajax
 	    session = function(name, value){
 	    	url = "../../composants/dist/traitements/traitement.php";
 	    	$.post(url, {action:"session", name:name, value:value}, (data)=>{

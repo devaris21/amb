@@ -1,10 +1,5 @@
 
-.nav-item{
-	font-weight: bold;
-	font-size: 15px;
-	text-transform: uppercase;
-}
 
-.subtitle{
-	font-style: 20px;
+.selected{
+	background-color: rgba(34, 220, 157, 0.5);
 }

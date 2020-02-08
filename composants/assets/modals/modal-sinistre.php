@@ -18,16 +18,10 @@
                                         <input type="text" class="form-control" name="matricule">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-5">
                                     <label>Nom & prénoms <span1>*</span1></label>
                                     <div class="form-group">
                                         <input type="text" class="form-control" name="fullname"  required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label>Nom de la fiche (Titre) <span1>*</span1></label>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" name="name" required placeholder="Ex...Crevaison pneu gauche">
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <label>Le vihicule concerné <span1>*</span1></label>
                                     <div class="form-group">
                                         <!-- //TODO on ne doit pas afficher tous les vehicules, juste ceux qui sont actuellement dans le parc -->

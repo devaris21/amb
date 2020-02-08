@@ -9,15 +9,15 @@ extract($_POST);
 
 
 if ($action == "connexion") {
-	$data = GESTIONNAIRE::connect(["login = "=> $login, "password = "=>hasher($password)]);
+	$data = PRESTATAIRE::connect(["login = "=> $login, "password = "=>hasher($password)]);
 	if ($data->status) {
 		$user = $data->element;
 		if (!$data->new) {
 			$user->se_connecter();
-			session("gestionnaire_connecte_id", $user->getId());
-			$data->setUrl("gestionnaire", "master", "dashboard");
+			session("prestataire_connecte_id", $user->getId());
+			$data->setUrl("prestataire", "master", "dashboard");
 		}else{
-			session("temp_gestionnaire_id", $user->getId());	
+			session("temp_prestataire_id", $user->getId());	
 		}
 	}		
 	echo json_encode($data);
@@ -27,7 +27,7 @@ if ($action == "connexion") {
 
 
 if ($action == "newUser") {
-	$datas = GESTIONNAIRE::findBy(["id ="=>getSession("temp_gestionnaire_id")]);
+	$datas = PRESTATAIRE::findBy(["id ="=>getSession("temp_prestataire_id")]);
 	if (count($datas) == 1) {
 		$element = $datas[0];
 		if ($element->setLogin($login)) {
@@ -38,8 +38,8 @@ if ($action == "newUser") {
 				$data = $element->save();
 				if ($data->status) {
 					$element->se_connecter();
-					session("gestionnaire_connecte_id", $element->getId());
-					$data->setUrl("gestionnaire", "master", "dashboard");
+					session("prestataire_connecte_id", $element->getId());
+					$data->setUrl("prestataire", "master", "dashboard");
 				}
 			}
 		}else{

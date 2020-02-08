@@ -16,7 +16,6 @@ class ENTRETIENVEHICULE extends TABLE
 
 	public $typeentretienvehicule_id;
 	public $name;
-	public $numero_piece;
 	public $vehicule_id;
 	public $prestataire_id;
 	public $price;
@@ -35,6 +34,7 @@ class ENTRETIENVEHICULE extends TABLE
 			if (count($datas) == 1) {
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
+					// TODO verifier les dates
 					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();
 				}else{

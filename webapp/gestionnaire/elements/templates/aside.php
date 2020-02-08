@@ -1,4 +1,4 @@
-<div id="right-sidebar" class="animated">
+<div id="right-sidebar" class="animated fadeInRightBig">
             <div class="sidebar-container">
 
                 <ul class="nav nav-tabs navs-3">

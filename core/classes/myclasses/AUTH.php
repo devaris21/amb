@@ -39,7 +39,7 @@ abstract class AUTH extends TABLE
 					}
 				}else{
 					$data->status = false;
-					$data->message = "L'accès à cette application vous a été restrient !";
+					$data->message = "L'accès à cette application vous a été restrient ! <br> Veuillez contacter votre Administrateur.";
 					$data->setUrl("access", "restriction");
 				}
 			}else{
@@ -51,6 +51,23 @@ abstract class AUTH extends TABLE
 			$data->message = "Veuillez renseigner integralement vos parametres de connexion !";
 		}
 		return $data;
+	}
+
+
+	public function is_allowed(){
+		if ($this->is_allowed == 0) {
+			return false;
+		}else{
+			return true;
+		}
+	}
+
+	public function is_new(){
+		if ($this->is_new == 1) {
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 

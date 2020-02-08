@@ -89,7 +89,7 @@ if ($action === "suppression") {
 	$class = TABLE::fullyClassName($table);
 	if (class_exists($class)) {
 		$element = new $class();
-		$element->set_id($id);
+		$element->setId($id);
 		$data = $element->supprime();
 	}else{
 		$data->status = false;
@@ -110,7 +110,7 @@ if ($action === "suppression_with_password") {
 			$class = TABLE::fullyClassName($table);
 			if (class_exists($class)) {
 				$element = new $class();
-				$element->set_id($id);
+				$element->setId($id);
 				$data = $element->supprime();
 			}else{
 				$data->status = false;
@@ -133,7 +133,7 @@ if ($action === "delete_suppression") {
 	$class = TABLE::fullyClassName($table);
 	if (class_exists($class)) {
 		$element = new $class();
-		$element->set_id($id);
+		$element->setId($id);
 		$data = $element->delete();
 	}else{
 		$data->status = false;
@@ -152,7 +152,7 @@ if ($action === "delete_with_password") {
 			$class = TABLE::fullyClassName($table);
 			if (class_exists($class)) {
 				$element = new $class();
-				$element->set_id($id);
+				$element->setId($id);
 				$data = $element->delete();
 			}else{
 				$data->status = false;

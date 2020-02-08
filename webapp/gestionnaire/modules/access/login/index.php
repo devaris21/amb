@@ -18,6 +18,9 @@
 
                 <p>Pour tous autre chose, veuillez contacter votre administrateur système.</p>
 
+                <p style="margin-top: 40%;"><a href="<?= $this->url("amb", "start", "select") ?>"><i class="fa fa-arrow-left"></i> Retour à la plateforme</a></p>
+
+
               <!--   <p>
                     <small>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</small>
                 </p> -->

@@ -125,22 +125,9 @@ class GESTIONNAIRE extends AUTH
 	}
 
 
-	public function is_new(){
-		if ($this->is_new == 1) {
-			return false;
-		}else{
-			return true;
-		}
-	}
+	
 	
 
-	public function is_allowed(){
-		if ($this->is_allowed == 0) {
-			return false;
-		}else{
-			return true;
-		}
-	}
 
 
 	public function is_connected(){

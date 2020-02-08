@@ -1,6 +1,7 @@
 <?php
 namespace Home;
 use Native\RESPONSE;
+use Native\FICHIER;
 use \DateTime;
 use \DateInterval;
 /**
@@ -12,9 +13,9 @@ class CHAUFFEUR extends PERSONNE
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
+	public $matricule;
 	public $name;
 	public $lastname;
-	public $matricule;
 	public $nationalite;
 	public $adresse;
 	public $sexe_id;
@@ -23,7 +24,7 @@ class CHAUFFEUR extends PERSONNE
 	public $date_fin_permis;
 	public $email;
 	public $contact;
-	public $contact2;
+	public $image;
 	public $etatchauffeur_id;
 
 
@@ -32,12 +33,30 @@ class CHAUFFEUR extends PERSONNE
 		$data = new RESPONSE;
 		if ($this->name ) {
 			$data = $this->save();
+			if ($data->status) {
+				$this->uploading();
+			}
 		}else{
 			$data->status = false;
 			$data->message = "Veuillez le login et le mot de passe du nouvel employé !";
 		}
 		return $data;
 	}
+
+
+	public function uploading(){
+		if (isset($this->image) && $this->image["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "chauffeurs", $a);
+				$this->image = $result->filename;
+				$this->save();
+			}
+		}
+	}
+
 
 
 
@@ -55,6 +74,7 @@ class CHAUFFEUR extends PERSONNE
 
 
 	public static function disponibles(){
+		// TODO revoir les chauffeurs disponibles
 		$datas = static::getAll();
 		foreach ($datas as $key => $chauffeur) {
 			$chauffeur->etat();

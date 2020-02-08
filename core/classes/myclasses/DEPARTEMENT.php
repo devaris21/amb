@@ -11,6 +11,7 @@ class DEPARTEMENT extends TABLE
 	public static $namespace = __NAMESPACE__;
 
 	public $name;
+	public $sigle;
 
 
 	public function enregistre(){

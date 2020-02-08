@@ -1,42 +1,33 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/gestionnaire/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/carplan/elements/templates/head.php")); ?>
 
 
 <body class="fixed-sidebar">
 
     <div id="wrapper">
 
-        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar.php")); ?>  
+        <?php include($this->rootPath("webapp/carplan/elements/templates/sidebar.php")); ?>  
 
         <div id="page-wrapper" class="gray-bg">
 
-          <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
+          <?php include($this->rootPath("webapp/carplan/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-5">
                 <h2 class="text-uppercase">Les demandes en attente</h2>
-                <div class="container">
-                    <div class="row">
-                    <div class="col-xs-7">Afficher toutes les demandes</div>
-                    <div class="offset-1"></div>
-                    <div class="col-xs-4">
-                        <div class="switch">
-                            <div class="onoffswitch">
-                                <input type="checkbox" checked class="onoffswitch-checkbox" id="example1">
-                                <label class="onoffswitch-label" for="example1">
-                                    <span class="onoffswitch-inner"></span>
-                                    <span class="onoffswitch-switch"></span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="index.html">This is</a>
+                    </li>
+                    <li class="breadcrumb-item active">
+                        <strong>Breadcrumb</strong>
+                    </li>
+                </ol>
             </div>
             <div class="col-sm-7">
-               <div class="row">
+             <div class="row">
                 <div class="col-md-4">
                     <div class="widget style1 navy-bg">
                         <div class="row">
@@ -82,6 +73,12 @@
 
     <div class="wrapper wrapper-content">
         <div class="ibox">
+            <div class="ibox-title">
+                <h5>All projects assigned to this account</h5>
+                <div class="ibox-tools">
+                    <a href="" class="btn btn-primary btn-xs">Create new project</a>
+                </div>
+            </div>
             <div class="ibox-content">
                 <div class="row">
                     <div class="col-lg-12">
@@ -90,7 +87,7 @@
                                 <div class="vote-item">
                                     <div class="row">
                                         <div class="col-md-10">
-                                            <div class="vote-actions" style="margin-right: 5%;">
+                                            <div class="vote-actions">
                                                 <div class="vote-icon">
                                                     <i class="fa fa-car"> </i>
                                                 </div>
@@ -141,14 +138,14 @@
     </div>
 
 
-    <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+        <?php include($this->rootPath("webapp/carplan/elements/templates/footer.php")); ?>
 
 
+    </div>
 </div>
-</div>
 
 
-<?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>
+<?php include($this->rootPath("webapp/carplan/elements/templates/script.php")); ?>
 
 
 </body>

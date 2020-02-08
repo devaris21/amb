@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-6">
 
-                <h2 class="font-bold text-uppercase"><i class="fa fa-shield"></i> Bénéficiaire de carplan</h2>
+                <h2 class="font-bold text-uppercase"><i class="fa fa-shield"></i> Prestataires / concessionnaires / partenaires</h2>
 
                 <p>Veuillez entrer vos informations de connexion pour avoir accès à la plateforme de gestion.</p>
 

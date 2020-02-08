@@ -4,7 +4,7 @@
         <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Personnels roulants</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
             <li><a href="<?= $this->url("gestionnaire", "users", "chauffeurs") ?>">Liste du personnel</a></li>
-            <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter nouveau</a></li>
+            <li data-toggle="modal" data-target="#modal-chauffeur"><a href="#"><i class="fa fa-plus"></i> Ajouter nouveau</a></li>
         </ul>
     </li>
     <li class="">

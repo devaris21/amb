@@ -2032,13 +2032,13 @@ button.dim:active:before {
   box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-  content: "ON";
+  content: "OUI";
   padding-left: 10px;
   background-color: #1ab394;
   color: #FFFFFF;
 }
 .onoffswitch-inner:after {
-  content: "OFF";
+  content: "NON";
   padding-right: 10px;
   background-color: #FFFFFF;
   color: #999999;
@@ -2769,7 +2769,8 @@ select.form-control:not([size]):not([multiple]) {
   padding-left: 0;
 }
 .form-control,
-.single-line {
+.single-line,
+select {
   background-color: #FFFFFF;
   background-image: none;
   border: 1px solid #e5e6e7;
@@ -2886,13 +2887,13 @@ select.form-control:not([size]):not([multiple]) {
   box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-  content: "ON";
+  content: "OUI";
   padding-left: 7px;
   background-color: #1AB394;
   color: #FFFFFF;
 }
 .onoffswitch-inner:after {
-  content: "OFF";
+  content: "NON";
   padding-right: 7px;
   background-color: #FFFFFF;
   color: #919191;

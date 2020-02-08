@@ -10,8 +10,8 @@
                         </div>
                         <div class="col-9">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="block m-t-xs font-bold">David Williams</span>
-                                <span class="text-muted text-xs block">Art Director <b class="caret"></b></span>
+                                <span class="block m-t-xs font-bold"><?= coupeMot($prestataire->name(), 2); ?></span>
+                                <span class="text-muted text-xs block"><?= $prestataire->typeprestataire->name; ?> <b class="caret"></b></span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="dropdown-item" href="profile.html">Mon profil</a></li>
@@ -30,18 +30,16 @@
 
             <li class="active">
                 <a href="<?= $this->url("prestataire", "master", "dashboard") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Tableau de bord</span></a>
-            </li>
-
-            <li class="">
-                <a href="<?= $this->url("prestataire", "master", "shop") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Produits & Services</span></a>
-            </li>
+            </li>           
 
             <li class="">
                 <a href="<?= $this->url("prestataire", "master", "Demandescotations") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Demandes de cotation</span></a>
             </li>
-        
-
-    
+            
+            <li class="">
+                <a href="<?= $this->url("prestataire", "master", "shop") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Produits & prestations</span></a>
+            </li>
+            
         </ul>
 
     </div>

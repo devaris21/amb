@@ -382,7 +382,7 @@ function depuis($timestamp){
 		}else if ($jours == 0 && $heures == 0 && $mins > 2) {
 			$exp = "Il y a ".date("i", abs($difference))." min";
 		}else if ($jours == 0 && $heures < 3) {
-			$exp = "Il y a ".date("H:i", abs($difference));
+			$exp = "Il y a ".date("H", abs($difference))." h ".date("i", abs($difference))." min";
 		}else if (date("Y-m-d", strtotime($timestamp)) == dateAjoute(0)) {
 			$exp = "Aujourd'hui à ".heurecourt($timestamp);
 		}else if (date("Y-m-d", strtotime($timestamp)) == dateAjoute(-1)) {

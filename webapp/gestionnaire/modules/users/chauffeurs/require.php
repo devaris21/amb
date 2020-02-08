@@ -1,8 +1,8 @@
 <?php 
 namespace Home;
 
-$title = "AMB | Toutes les affectations de véhicules !";
+$title = "AMB | Le personnel roulant du parc !";
 
-// $clients = CLIENT::findBy([], [], ["representant"=>"ASC"]);
+$chauffeurs = CHAUFFEUR::findBy([], [], ["name"=>"ASC", "lastname"=>"ASC",]);
 
 ?>

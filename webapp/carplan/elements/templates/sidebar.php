@@ -29,7 +29,7 @@
             <li>
                 <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Entretiens de véhicules</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="<?= $this->url("carplan", "master", "demandesentretiens") ?>">Liste des demandes</a></li>
+                    <li><a href="<?= $this->url("carplan", "master", "demandeentretiens") ?>">Liste des demandes</a></li>
                     <li><a href="<?= $this->url("carplan", "master", "entretiensencours") ?>">Entretiens en cours</a></li>
                     <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Nouvel entretien</a></li>
                 </ul>

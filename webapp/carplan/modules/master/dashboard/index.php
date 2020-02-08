@@ -128,7 +128,6 @@
                         </div>
                     </div>
 
-
                     <div role="tabpanel" id="menu-2" class="tab-pane">
                         <h2 class="text-uppercase gras">Fiche technique de la <u><?= $affectation->vehicule->marque->name ?> <?= $affectation->vehicule->modele ?></u> </h2>
 

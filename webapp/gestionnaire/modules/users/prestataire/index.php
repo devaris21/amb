@@ -149,9 +149,6 @@
                                                         </span>
                                                         <small class="text-muted">Category</small>
                                                         <a href="#" class="product-name"> Product</a>
-
-
-
                                                         <div class="small m-t-xs">
                                                             Many desktop publishing packages and web page editors now.
                                                         </div>
@@ -176,9 +173,6 @@
                                                         </span>
                                                         <small class="text-muted">Category</small>
                                                         <a href="#" class="product-name"> Product</a>
-
-
-
                                                         <div class="small m-t-xs">
                                                             Many desktop publishing packages and web page editors now.
                                                         </div>

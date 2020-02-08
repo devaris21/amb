@@ -16,7 +16,9 @@
                 <p>En cas d'oubli ou de perte de votre mot de passe, vous pouvez le recupérer à l'aide de votre email en cliquant sur <br><a href="<?= $this->url("gestionnaire", "access", "reset") ?>">J'ai oublié mon mot de passe !</a>
                 </p>
 
-                <p>Pour tous autre chose, veuillez contacter votre administrateur système.</p>
+                <p>Pour tout autre chose, veuillez contacter votre administrateur système.</p>
+
+                <p style="margin-top: 40%;"><a href="<?= $this->url("amb", "start", "select") ?>"><i class="fa fa-arrow-left"></i> Retour à la plateforme</a></p>
 
               <!--   <p>
                     <small>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</small>
