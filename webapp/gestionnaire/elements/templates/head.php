@@ -15,7 +15,7 @@
     <link href="<?= $this->rootPath("composants/dist/font-awesome/css/font-awesome.css") ?>" rel="stylesheet">
 
 
-<!-- Text spinners style -->
+    <!-- Text spinners style -->
     <link href="<?= $this->rootPath("composants/dist/css/plugins/textSpinners/spinners.css") ?>" rel="stylesheet">
     
     <link href="<?= $this->rootPath("composants/dist/css/animate.css") ?>" rel="stylesheet">
@@ -27,7 +27,9 @@
     <link href="<?= $this->rootPath("composants/dist/css/plugins/chosen/bootstrap-chosen.css") ?>" rel="stylesheet">
     <link href="<?= $this->rootPath("composants/dist/js/plugins/select2/dist/css/select2.css") ?>" rel="stylesheet">
     <link href="<?= $this->rootPath("composants/dist/js/plugins/alerty/dist/css/alerty.min.css") ?>" rel="stylesheet">
-
+    <link href="<?= $this->rootPath("composants/dist/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css") ?>" rel="stylesheet">
+    <link href="<?= $this->rootPath("composants/dist/css/plugins/ionRangeSlider/ion.rangeSlider.css") ?>" rel="stylesheet">
+    <link href="<?= $this->rootPath("composants/dist/css/plugins/ionRangeSlider/ion.rangeSlider.skinFlat.css") ?>" rel="stylesheet">
 
     <!-- FooTable -->
     <link href="<?= $this->rootPath("composants/dist/css/plugins/footable/footable.core.css") ?>" rel="stylesheet">

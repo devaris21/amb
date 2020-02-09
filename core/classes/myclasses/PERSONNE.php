@@ -176,7 +176,7 @@ abstract class PERSONNE extends TABLE
 
 
 
-	public function verif_email($email){
+	public function emailIsValide($email){
 		if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 			$datas = static::findBy(["email = "=>$email]);
 			if (count($datas) == 0) {

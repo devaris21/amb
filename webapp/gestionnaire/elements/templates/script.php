@@ -13,6 +13,8 @@
     <!-- Toastr -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/toastr/toastr.min.js") ?>"></script>   <!-- Footable -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/footable/footable.all.min.js") ?>"></script>
+    <!-- IonRangeSlider -->
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/ionRangeSlider/ion.rangeSlider.min.js") ?>"></script>
 
     <!-- iCheck -->
     <script src="<?= $this->rootPath("composants/dist/js/plugins/iCheck/icheck.min.js") ?>"></script>
@@ -26,5 +28,6 @@
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/shamman/general.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/shamman/traitement.js") ?>"></script>
 
+    
     <!-- script pour chaque page généré -->
     <script type="text/javascript" src="<?= $this->relativePath("script.js") ?>"></script>

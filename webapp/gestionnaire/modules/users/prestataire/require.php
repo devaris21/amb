@@ -1,8 +1,24 @@
 <?php 
 namespace Home;
 
-$title = "AMB | Toutes les affectations de véhicules !";
+if ($this->getId() != null && intval($this->getId()) > 0) {
+	$datas = PRESTATAIRE::findBy(["id="=>$this->getId()]);
+	if (count($datas) == 1) {
+		session("prestataire_id", $this->getId());
+		$prestataire = $datas[0];
+		$prestataire->actualise();
 
-// $clients = CLIENT::findBy([], [], ["representant"=>"ASC"]);
+		$prestataire->fourni("produit");
+		$prestataire->fourni("cotation");
+
+
+		$title = "AMB | ".$prestataire->name();
+
+	}else{
+		header("Location: ../users/prestataires");
+	}
+}else{
+	header("Location: ../users/prestataires");
+}
 
 ?>

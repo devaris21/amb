@@ -14,7 +14,7 @@
         <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Les Directions</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
             <li><a href="<?= $this->url("gestionnaire", "users", "utilisateurs") ?>">Liste des responsables</a></li>
-            <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter nouveau</a></li>
+            <!-- <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter nouveau</a></li> -->
         </ul>
     </li>
     <li>
@@ -22,7 +22,7 @@
         <ul class="nav nav-second-level collapse">
             <li><a href="<?= $this->url("gestionnaire", "users", "prestataires") ?>">Liste des prestataires</a></li>
             <li><a href="<?= $this->url("gestionnaire", "users", "shop") ?>"><i class="fa fa-search"></i> Rechercher produit</a></li>
-            <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter prestataire</a></li>
+            <li data-toggle="modal" data-target="#modal-prestataire"><a href="#"><i class="fa fa-plus"></i> Ajouter prestataire</a></li>
         </ul>
     </li>
 

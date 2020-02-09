@@ -24,7 +24,7 @@ class CHAUFFEUR extends PERSONNE
 	public $date_fin_permis;
 	public $email;
 	public $contact;
-	public $image;
+	public $image = "default.png";
 	public $etatchauffeur_id;
 
 

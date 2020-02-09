@@ -2,6 +2,7 @@
 namespace Home;
 use Native\RESPONSE;
 use Native\EMAIL;
+use Native\FICHIER;
 /**
  * 
  */
@@ -14,15 +15,20 @@ class PRODUIT extends TABLE
 	public $name;
 	public $price;
 	public $comment;
+	public $stock;
+	public $image = "default.png";
 	public $prestataire_id;
-	public $cotation_id = 1;
 
 
 	public function enregistre(){
 		$data = new RESPONSE;
 		if ($this->name != "") {
 			if (intval($this->price) > 0 ) {
+				$this->prestataire_id = getSession("prestataire_connecte_id");
 				$data = $this->save();
+				if ($data->status) {
+					$this->uploading();
+				}
 			}else{
 				$data->status = false;
 				$data->message = "Le prix du produit/service n'est pas correcte !";
@@ -36,6 +42,18 @@ class PRODUIT extends TABLE
 
 
 
+	public function uploading(){
+		if (isset($this->image) && $this->image["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "produits", $a);
+				$this->image = $result->filename;
+				$this->save();
+			}
+		}
+	}
 
 
 	public function statistiques(){

@@ -1,9 +1,20 @@
     $(document).ready(function(){
 
-        $(document.body).on("click",".client-link",function(e){
-            e.preventDefault()
-            $(".selected .tab-pane").removeClass('active');
-            $($(this).attr('href')).addClass("active");
-        });
+    	$(document.body).on("change","input[name=typeproduit]",function(e){
+    		id = $(this).attr("id");
+    		if ($(this).is(":checked")) {
+    			$("div."+id).fadeIn(500);
+    		}else{
+    			$("div."+id).fadeOut(500);
+    		}
+    	});
+
+
+    	$("#top-search, #rechercher").on("keyup", function() {
+    		var value = $(this).val().toLowerCase();
+    		$("div.produit").filter(function() {
+    			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    		});
+    	});
 
     });

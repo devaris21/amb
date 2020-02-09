@@ -1,8 +1,8 @@
 <?php 
 namespace Home;
 
-$title = "AMB | Toutes les affectations de véhicules !";
+$title = "AMB | Departements & responsables !";
 
-// $clients = CLIENT::findBy([], [], ["representant"=>"ASC"]);
+$departements = DEPARTEMENT::getAll();
 
 ?>

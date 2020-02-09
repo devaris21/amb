@@ -26,4 +26,5 @@
 <?php include($this->rootPath("composants/assets/modals/modal-sinistre.php")); ?> 
 
 <?php include($this->rootPath("composants/assets/modals/modal-chauffeur.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-prestataire.php")); ?> 
 

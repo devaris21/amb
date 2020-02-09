@@ -11,258 +11,111 @@
         <?php include($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar.php")); ?>  
 
         <div id="page-wrapper" class="gray-bg">
-          
+
           <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
 
+
           <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-sm-4">
-                <h2>This is main title</h2>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="index.html">This is</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <strong>Breadcrumb</strong>
-                    </li>
-                </ol>
+            <div class="col-sm-6">
+                <h2 class="text-uppercase">Partenaires & responsables</h2>
+              
             </div>
-            <div class="col-sm-8">
-                <div class="title-action">
-                    <a href="" class="btn btn-primary">This is action area</a>
+            <div class="col-sm-6">
+             <div class="row">
+                <div class="col-sm-6">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-3">
+                                <i class="fa fa-cloud fa-3x"></i>
+                            </div>
+                            <div class="col-9 text-right">
+                                <span> Tous les prestataires </span>
+                                <h2 class="font-bold"><?= start0(count(Home\PRESTATAIRE::getAll()))  ?></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="widget style1 yellow-bg">
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <span> Produits déclarés</span>
+                                <h2 class="font-bold"><?= start0(count(Home\PRODUIT::getAll()))  ?></h2>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="wrapper wrapper-content">
-            <div class="row">
-
-                            <div class="col-lg-12">
-                                <div class="ibox ">
-                                    <div class="ibox-title">
-                                        <h5>Custom responsive table </h5>
-                                        <div class="ibox-tools">
-                                            <a class="collapse-link">
-                                                <i class="fa fa-chevron-up"></i>
-                                            </a>
-                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                                <i class="fa fa-wrench"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-user">
-                                                <li><a href="#" class="dropdown-item">Config option 1</a>
-                                                </li>
-                                                <li><a href="#" class="dropdown-item">Config option 2</a>
-                                                </li>
-                                            </ul>
-                                            <a class="close-link">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="ibox-content">
-                                        <div class="row">
-                                            <div class="col-sm-9 m-b-xs">
-                                                <div data-toggle="buttons" class="btn-group btn-group-toggle">
-                                                    <label class="btn btn-sm btn-white"> <input type="radio" id="option1" name="options"> Day </label>
-                                                    <label class="btn btn-sm btn-white active"> <input type="radio" id="option2" name="options"> Week </label>
-                                                    <label class="btn btn-sm btn-white"> <input type="radio" id="option3" name="options"> Month </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="input-group mb-3">
-                                                    <input type="text" class="form-control form-control-sm" placeholder="Search">
-                                                    <div class="input-group-append">
-                                                        <button class="btn btn-sm btn-primary" type="button">Go!</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-
-                                                        <th>#</th>
-                                                        <th>Project </th>
-                                                        <th>Name </th>
-                                                        <th>Phone </th>
-                                                        <th>Company </th>
-                                                        <th>Completed </th>
-                                                        <th>Task</th>
-                                                        <th>Date</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Betha project</td>
-                                                        <td>John Smith</td>
-                                                        <td>0800 1111</td>
-                                                        <td>Erat Volutpat</td>
-                                                        <td><span class="pie">3,1</span></td>
-                                                        <td>75%</td>
-                                                        <td>Jul 18, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Betha project</td>
-                                                        <td>John Smith</td>
-                                                        <td>0800 1111</td>
-                                                        <td>Erat Volutpat</td>
-                                                        <td><span class="pie">3,1</span></td>
-                                                        <td>75%</td>
-                                                        <td>Jul 18, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-        </div>
-
-        
-        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
-        
-
     </div>
+
+
+    <div class="wrapper wrapper-content">
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Tous les prestataires agréés </h5>
+                        <div class="ibox-tools">
+                            <button style="margin-top: -5%" data-toggle="modal" data-target="#modal-prestataire" class="btn btn-primary btn-xs dim"><i class="fa fa-plus"></i> Nouveau prestataire</button>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead class="bg-primary">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Raison sociale </th>
+                                        <th>Adresse & email </th>
+                                        <th>Contacts </th>
+                                        <th>Nbr produits </th>
+                                        <th> </th>
+                                        <th> </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($prestataires as $key => $prestataire) { 
+                                        $prestataire->actualise();
+                                        $prestataire->fourni("produit"); ?>
+                                        <tr>
+                                             <td class=""><img style="width: 32px" src="<?= $this->stockage("images", "prestataires", $prestataire->image) ?>"></td>
+                                            <td>
+                                                <b><?= $prestataire->name() ?></b><br>
+                                                <small><?= $prestataire->typeprestataire->name ?></small>
+                                            </td>
+                                            <td>
+                                                <i class="fa fa-map-marker"></i> <?= $prestataire->adresse ?><br>
+                                                <i class="fa fa-envelope"></i> <?= $prestataire->email ?></td>
+                                            <td>
+                                                <i class="fa fa-phone"></i> <?= $prestataire->contact ?> <br>
+                                                <i class="fa fa-fax"></i> <?= $prestataire->fax ?>
+                                            </td>
+                                            <td><?= count($prestataire->produits); ?> produits</td>
+                                            <td><a href="<?= $this->url("gestionnaire", "users", "prestataire", $prestataire->getId()) ?>" class="btn btn-white btn-sm"><i class="fa fa-eye"></i> Afficher</a></td>
+                                            <td>
+                                                <button data-toggle="modal" data-target="#modal-prestataire" onclick="modification('prestataire', <?= $prestataire->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil text-green"></i> </button>
+                                                <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('prestataire', <?= $prestataire->getId(); ?>)"><i class="fa fa-close text-red"></i> </button>
+                                            </td>
+                                        </tr>  
+                                    <?php } ?>                                             
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+
+
+</div>
 </div>
 
 

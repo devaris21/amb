@@ -2,6 +2,7 @@
 namespace Home;
 use Native\RESPONSE;
 use Native\EMAIL;
+use Native\FICHIER;
 /**
  * 
  */
@@ -12,13 +13,14 @@ class PRESTATAIRE extends AUTH
 
 	public $name;
 	public $typeprestataire_id;
-	public $email;
 	public $login;
 	public $password;
 	public $adresse;
 	public $contact;
-	public $contact2;
-	public $image;
+	public $email;
+	public $fax;
+	public $registre;
+	public $image = "default.png";
 
 	public $is_new = 1;
 	public $is_allowed = 1;
@@ -30,21 +32,23 @@ class PRESTATAIRE extends AUTH
 		$data = new RESPONSE;
 		if ($this->name != "") {
 			if ($this->adresse != "" && $this->contact != "") {
-				if ($this->verif_email($this->email)) {
+				if ($this->emailIsValide($this->email)) {
 					$pass = substr(uniqid(), 5);
 					$this->login = substr(uniqid(), 5);
 					$this->password = hasher($pass);
 					$data = $this->save();
 					if ($data->status) {
+						$this->uploading();
 						ob_start();
 						include(__DIR__."/../../sections/home/elements/mails/welcome_prestataire.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
-						EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+						// TODO gerer les mails
+						//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
 					}
 				}else{
 					$data->status = false;
-					$data->message = "l'adresse email est incorrect !";
+					$data->message = "Veuillez changer votre adresse email !";
 				}
 			}else{
 				$data->status = false;
@@ -55,6 +59,22 @@ class PRESTATAIRE extends AUTH
 			$data->message = "Veuillez renseigner le nom de votre entreprise (votre flotte) !";
 		}
 		return $data;
+	}
+
+
+
+
+	public function uploading(){
+		if (isset($this->image) && $this->image["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "prestataires", $a);
+				$this->image = $result->filename;
+				$this->save();
+			}
+		}
 	}
 
 
@@ -86,6 +106,18 @@ class PRESTATAIRE extends AUTH
 		}
 	}
 
+
+	public function produits(){
+		return PRODUIT::findBy(["prestataire_id !="=> $this->getId(), "typeproduit_id ="=>1]);
+	}
+
+	public function services(){
+		return PRODUIT::findBy(["prestataire_id !="=> $this->getId(), "typeproduit_id ="=>2]);
+	}
+
+	public function vehicules(){
+		return PRODUIT::findBy(["prestataire_id !="=> $this->getId(), "typeproduit_id ="=>3]);
+	}
 
 
 

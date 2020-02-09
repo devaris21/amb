@@ -2,10 +2,10 @@
 namespace Home;
 
 
-$types = TYPEVEHICULE::findBy([], [], ["name"=>"ASC"]);
-foreach ($types as $key => $type) {
-	$type->fourni("vehicule");
-}
+$produits = PRODUIT::findBy(["typeproduit_id="=>1], [], ["name"=>"ASC"]);
+$services = PRODUIT::findBy(["typeproduit_id="=>2], [], ["name"=>"ASC"]);
+$vehicules = PRODUIT::findBy(["typeproduit_id="=>3], [], ["name"=>"ASC"]);
 
-$title = "AMB | Tous votre Parc Auto ";
+
+$title = "AMB | Tous vos produits ";
 ?>

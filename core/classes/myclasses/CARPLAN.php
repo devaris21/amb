@@ -21,7 +21,7 @@ class CARPLAN extends AUTH
 	public $sexe_id = 1;
 	public $fonction ;
 	public $is_connecte = false;
-	public $image ;
+	public $image = "default.png";
 	
 
 
@@ -29,7 +29,7 @@ class CARPLAN extends AUTH
 		$data = new RESPONSE;
 		if ($this->name != "") {
 			if ($this->email != "") {
-				if ($this->verif_email($this->email)) {
+				if ($this->emailIsValide($this->email)) {
 					$pass = substr(uniqid(), 5);
 					$this->login = substr(uniqid(), 5);
 					$this->password = hasher($pass);

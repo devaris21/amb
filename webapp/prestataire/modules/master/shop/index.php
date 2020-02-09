@@ -34,6 +34,8 @@
                                 </div>
                             </div>
                         </div>
+                        <button data-toggle="modal" data-target="#modal-produit" class="btn btn-primary btn-xs dim"><i class="fa fa fa-plus"></i> Ajouter nouveau</button>
+                        <br>
                     </div>
                 </div>
                 <div class="col-sm-7">
@@ -45,8 +47,8 @@
                                     <i class="fa fa-cloud fa-3x"></i>
                                 </div>
                                 <div class="col-8 text-right">
-                                    <span> Today degrees </span>
-                                    <h2 class="font-bold">26'C</h2>
+                                    <span> Total produits </span>
+                                    <h2 class="font-bold"><?= start0(count($produits)); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -58,8 +60,8 @@
                                     <i class="fa fa-envelope-o fa-3x"></i>
                                 </div>
                                 <div class="col-8 text-right">
-                                    <span> messages </span>
-                                    <h2 class="font-bold">260</h2>
+                                    <span> Total services </span>
+                                    <h2 class="font-bold"><?= start0(count($services)); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -71,8 +73,8 @@
                                     <i class="fa fa-music fa-3x"></i>
                                 </div>
                                 <div class="col-8 text-right">
-                                    <span> New albums </span>
-                                    <h2 class="font-bold">12</h2>
+                                    <span> Total véhicules </span>
+                                    <h2 class="font-bold"><?= start0(count($vehicules)); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -91,134 +93,141 @@
                             <div class="row wrapper border-bottom white-bg page-heading">
                                 <div class="tabs-container">
                                     <ul class="nav nav-tabs text-uppercase" role="tablist">
-                                        <li><a class="nav-link active" data-toggle="tab" href="#presta-1"> Produits</a></li>
-                                        <li><a class="nav-link" data-toggle="tab" href="#presta-1"> Services</a></li>
-                                        <li><a class="nav-link" data-toggle="tab" href="#presta-2"> Véhicules</a></li>
+                                        <li><a class="nav-link active" data-toggle="tab" href="#presta-1"> Vos Produits</a></li>
+                                        <li><a class="nav-link" data-toggle="tab" href="#presta-2"> vos Services</a></li>
+                                        <li><a class="nav-link" data-toggle="tab" href="#presta-3"> vos Véhicules</a></li>
                                     </ul>
                                     <div class="tab-content">
                                        <div role="tabpanel" id="presta-1" class="tab-pane active">
                                         <div class="panel-body">
                                             <div class="row">
+                                              <?php foreach ($produits as $key => $produit) {
+                                                $produit->actualise(); ?>
                                                 <div class="col-md-3">
                                                     <div class="ibox">
                                                         <div class="ibox-content product-box">
-
-                                                            <div class="product-imitation">
-                                                                [ INFO ]
+                                                            <div class="border-bottom" style="height: 200px;">
+                                                                <img style="width: 100%;" src="<?= $this->stockage("images", "produits", $produit->image) ?>">
                                                             </div>
                                                             <div class="product-desc">
                                                                 <span class="product-price">
-                                                                    $10
+                                                                    <?= money($produit->price); ?> <?= $params->devise ?> | <?= $produit->stock ?>
                                                                 </span>
-                                                                <small class="text-muted">Category</small>
-                                                                <a href="#" class="product-name"> Product</a>
-                                                                <div class="small m-t-xs">
-                                                                    Many desktop publishing packages and web page editors now.
-                                                                </div>
-                                                                <div class="m-t text-righ">
-
-                                                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                                                </div>
-                                                            </div>
+                                                                <small class="text-muted"><?= $produit->typeproduit->name ?>
+                                                            </small>
+                                                            <a href="#" class="product-name"> <?= $produit->name ?>
+                                                        </a>
+                                                        <!-- TODO element truncate -->
+                                                        <div class="border-bottom small m-t-xs" style="height: 50px; overflow: hidden;">
+                                                            <?= $produit->comment ?>
+                                                        </div>
+                                                        <div class="m-t text-righ">
+                                                            <button data-toggle="modal" data-target="#modal-produit" onclick="modification('produit', <?= $produit->getId() ?>
+                                                            )" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-pencil"></i> Modifier</button>
+                                                            <button onclick="modification('produit', <?= $produit->getId() ?>
+                                                            )" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-close"></i> Supprimer</button>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                            </div>  
+                                        <?php } ?>                                                
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div role="tabpanel" id="presta-2" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <?php foreach ($services as $key => $produit) {
+                                                $produit->actualise(); ?>
                                                 <div class="col-md-3">
                                                     <div class="ibox">
                                                         <div class="ibox-content product-box">
-
-                                                            <div class="product-imitation">
-                                                                [ INFO ]
+                                                            <div class="border-bottom" style="height: 200px;">
+                                                                <img style="width: 100%;" src="<?= $this->stockage("images", "produits", $produit->image) ?>">
                                                             </div>
                                                             <div class="product-desc">
                                                                 <span class="product-price">
-                                                                    $10
+                                                                    <?= money($produit->price); ?> <?= $params->devise ?> | <?= $produit->stock ?>
                                                                 </span>
-                                                                <small class="text-muted">Category</small>
-                                                                <a href="#" class="product-name"> Product</a>
-                                                                <div class="small m-t-xs">
-                                                                    Many desktop publishing packages and web page editors now.
-                                                                </div>
-                                                                <div class="m-t text-righ">
-
-                                                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                                                </div>
-                                                            </div>
+                                                                <small class="text-muted"><?= $produit->typeproduit->name ?>
+                                                            </small>
+                                                            <a href="#" class="product-name"> <?= $produit->name ?>
+                                                        </a>
+                                                        <!-- TODO element truncate -->
+                                                        <div class="border-bottom small m-t-xs" style="height: 50px; overflow: hidden;">
+                                                            <?= $produit->comment ?>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="ibox">
-                                                        <div class="ibox-content product-box active">
-
-                                                            <div class="product-imitation">
-                                                                [ INFO ]
-                                                            </div>
-                                                            <div class="product-desc">
-                                                                <span class="product-price">
-                                                                    $10
-                                                                </span>
-                                                                <small class="text-muted">Category</small>
-                                                                <a href="#" class="product-name"> Product</a>
-                                                                <div class="small m-t-xs">
-                                                                    Many desktop publishing packages and web page editors now.
-                                                                </div>
-                                                                <div class="m-t text-righ">
-
-                                                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="ibox">
-                                                        <div class="ibox-content product-box">
-
-                                                            <div class="product-imitation">
-                                                                [ INFO ]
-                                                            </div>
-                                                            <div class="product-desc">
-                                                                <span class="product-price">
-                                                                    $10
-                                                                </span>
-                                                                <small class="text-muted">Category</small>
-                                                                <a href="#" class="product-name"> Product</a>
-
-
-
-                                                                <div class="small m-t-xs">
-                                                                    Many desktop publishing packages and web page editors now.
-                                                                </div>
-                                                                <div class="m-t text-righ">
-
-                                                                    <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
-                                                                </div>
-                                                            </div>
+                                                        <div class="m-t text-righ">
+                                                            <button data-toggle="modal" data-target="#modal-produit" onclick="modification('produit', <?= $produit->getId() ?>
+                                                            )" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-pencil"></i> Modifier</button>
+                                                            <button onclick="modification('produit', <?= $produit->getId() ?>
+                                                            )" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-close"></i> Supprimer</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php } ?>                                                
                                 </div>
                             </div>
                         </div>
-                        <div class="ibox-content">
-                            <button class="btn btn-primary float-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-                            <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
-                        </div>
-                    </div>
 
+
+                        <div role="tabpanel" id="presta-3" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="row">
+                                  <?php foreach ($vehicules as $key => $produit) {
+                                      $produit->actualise(); ?>
+                                      <div class="col-md-3">
+                                        <div class="ibox">
+                                            <div class="ibox-content product-box">
+                                                <div class="border-bottom" style="height: 200px;">
+                                                    <img style="width: 100%;" src="<?= $this->stockage("images", "produits", $produit->image) ?>">
+                                                </div>
+                                                <div class="product-desc">
+                                                    <span class="product-price">
+                                                        <?= money($produit->price); ?> <?= $params->devise ?> | <?= $produit->stock ?>
+                                                    </span>
+                                                    <small class="text-muted"><?= $produit->typeproduit->name ?>
+                                                </small>
+                                                <a href="#" class="product-name"> <?= $produit->name ?>
+                                            </a>
+                                            <!-- TODO element truncate -->
+                                            <div class="border-bottom small m-t-xs" style="height: 50px; overflow: hidden;">
+                                                <?= $produit->comment ?>
+                                            </div>
+                                            <div class="m-t text-righ">
+                                                <button data-toggle="modal" data-target="#modal-produit" onclick="modification('produit', <?= $produit->getId() ?>
+                                                )" class="btn btn-xs btn-outline btn-primary"><i class="fa fa-pencil"></i> Modifier</button>
+                                                <button onclick="modification('produit', <?= $produit->getId() ?>
+                                                )" class="btn btn-xs btn-outline btn-danger"><i class="fa fa-close"></i> Supprimer</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>                                                
+                    </div>
                 </div>
             </div>
 
         </div>
-
     </div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+</div>
 
 
-    <?php include($this->rootPath("webapp/prestataire/elements/templates/footer.php")); ?>
+<?php include($this->rootPath("webapp/prestataire/elements/templates/footer.php")); ?>
+<?php include($this->rootPath("composants/assets/modals/modal-produit.php")); ?> 
 
 </div>
 </div>

@@ -2,6 +2,7 @@
 namespace Home;
 use Native\RESPONSE;
 use Native\EMAIL;
+use Native\FICHIER;
 use \DateTime;
 use \DateInterval;
 /**
@@ -15,11 +16,16 @@ class UTILISATEUR extends AUTH
 
 
 
+	public $matricule;
+	public $name;
+	public $lastname;
+	public $contact;
+	public $email;
 	public $is_new = 1;
 	public $is_allowed = 1;
 	public $departement_id;
 	public $is_connecte = false;
-	public $image;
+	public $image = "default.png";
 	
 
 
@@ -32,13 +38,18 @@ class UTILISATEUR extends AUTH
 			$datas = UTILISATEUR::findBy(["login ="=>$this->login]);
 			if (count($datas) == 0) {
 				$data = $this->save();
-				$this->setId($data->lastid)->actualise();
+				if ($data->status) {
+					$this->uploading();
+					$this->setId($data->lastid)->actualise();
 
-				ob_start();
-				include(__DIR__."/../../sections/home/elements/mails/welcome_user.php");
-				$contenu = ob_get_contents();
-				ob_end_clean();
-				EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+					ob_start();
+					include(__DIR__."/../../sections/home/elements/mails/welcome_user.php");
+					$contenu = ob_get_contents();
+					ob_end_clean();
+				//TODO gerer les mails
+				//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+				}
+
 			}else{
 				$data->status = false;
 				$data->message = "Ce login ne peut plus etre utilisé !";
@@ -50,6 +61,19 @@ class UTILISATEUR extends AUTH
 		return $data;
 	}
 
+
+	public function uploading(){
+		if (isset($this->image) && $this->image["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "utilisateur", $a);
+				$this->image = $result->filename;
+				$this->save();
+			}
+		}
+	}
 
 
 
