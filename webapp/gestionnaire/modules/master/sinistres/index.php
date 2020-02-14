@@ -72,7 +72,7 @@
             <div class="ibox-title">
                 <h5>Tous les sinistres déclarés</h5>
                 <div class="ibox-tools">
-                    <button style="margin-top: -3%;" data-toggle="modal" data-target="#modal-sinistre" class="btn btn-danger dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-sinistre" class="btn btn-danger dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
                 </div>
             </div>
             <div class="ibox-content">

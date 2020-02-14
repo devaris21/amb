@@ -99,6 +99,25 @@ if ($action === "suppression") {
 }
 
 
+//suppression des elements avec mot de passe
+if ($action === "verifierPassword") {
+	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
+	if (count($datas) > 0) {
+		$gestionnaire = $datas[0];
+		$gestionnaire->actualise();
+		if ($gestionnaire->checkPassword($password)) {
+			$data->status = true;
+		}else{
+			$data->status = false;
+			$data->message = "Votre mot de passe ne correspond pas !";
+		}
+	}else{
+		$data->status = false;
+		$data->message = "Vous ne pouvez pas effectué cette opération !";
+	}
+	echo json_encode($data);
+}
+
 
 //suppression des elements avec mot de passe
 if ($action === "suppression_with_password") {
@@ -167,4 +186,24 @@ if ($action === "delete_with_password") {
 		$data->message = "Vous ne pouvez pas effectué cette opération !";
 	}
 	echo json_encode($data);
+}
+
+
+if ($action === "session") {
+	session($name, $value);
+	echo ($name == "last_access" && is_null(getSession("page_session")));
+	if ($name == "last_access" && is_null(getSession("page_session"))) {
+		session($name, time());
+	}
+}
+
+
+if ($action === "getSession") {
+	return getSession($name);
+}
+
+
+if ($action === "params") {
+	$params = PARAMS::findLastId();
+	echo json_encode($params);
 }

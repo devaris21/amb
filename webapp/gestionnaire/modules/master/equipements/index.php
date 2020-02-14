@@ -1,200 +1,140 @@
+<!DOCTYPE html>
+<html>
 
-<?php require("../../webapp/administration/assets/includes/head.php") ?>
+<?php include($this->rootPath("webapp/gestionnaire/elements/templates/head.php")); ?>
 
-<body>
 
-    <?php require("../../webapp/administration/assets/includes/preloader.php") ?>
+<body class="fixed-sidebar">
 
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
+    <div id="wrapper">
 
-            <?php require("../../webapp/administration/assets/includes/header.php") ?>
+        <?php include($this->rootPath("webapp/gestionnaire/elements/templates/sidebars/sidebar.php")); ?>  
 
-            <!-- Sidebar inner chat end-->
-            <div class="pcoded-main-container">
-                <div class="pcoded-wrapper">
+        <div id="page-wrapper" class="gray-bg">
 
-                    <?php require("../../webapp/administration/assets/includes/sidebar.php") ?>
+            <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
 
-                    <div class="pcoded-content">
-                        <div class="pcoded-inner-content"><br>
-
-                         <div class="row">
-                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-c-yellow text-white">
-                                    <div class="card-block">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <p class="m-b-5">Total Equipements</p>
-                                                <h4 class="m-b-0"><?= start0(count(Home\EQUIPEMENT::getAll())) ?></h4>
-                                            </div>
-                                            <div class="col col-auto text-right">
-                                                <i class="fa fa-car f-50 text-c-yellow"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-c-pink text-white">
-                                    <div class="card-block">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <p class="m-b-5">Nbr pièces en stock</p>
-                                                <h4 class="m-b-0"><?= start0(Home\EQUIPEMENT::stock()) ?></h4>
-                                            </div>
-                                            <div class="col col-auto text-right">
-                                                <i class="fa fa-check f-50 text-c-pink"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-c-green text-white">
-                                    <div class="card-block">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <p class="m-b-5">Catégories d'équipements</p>
-                                                <h4 class="m-b-0"><?= start0(count(Home\TYPEEQUIPEMENT::getAll())) ?></h4>
-                                            </div>
-                                            <div class="col col-auto text-right">
-                                                <i class="fa fa-clone f-50 text-c-green"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-c-blue text-white">
-                                    <div class="card-block">
-                                        <div class="row align-items-center">
-                                            <div class="col">
-                                                <p class="m-b-5">Actuellement équipés</p>
-                                                <h4 class="m-b-0"> <h4 class="m-b-0"><?= start0(Home\EQUIPEMENT::utilises()) ?></h4></h4>
-                                            </div>
-                                            <div class="col col-auto text-right">
-                                                <i class="fa fa-ban f-50 text-c-blue"></i>
-                                            </div>
-                                        </div>
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-sm-7">
+                    <h2 class="text-uppercase">Les demandes en attente</h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-7 gras text-capitalize">Afficher toutes les demandes</div>
+                            <div class="offset-1"></div>
+                            <div class="col-xs-4">
+                                <div class="switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" class="onoffswitch-checkbox" id="example1">
+                                        <label class="onoffswitch-label" for="example1">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-                         <div >
-                            <button class="btn bg-green btn-sm pull-left" data-toggle="modal" data-target="#modal-equipement"><i class="fa fa-plus"></i> Ajouter un nouvel équipement</button>
-                        </div><br><br>
-                        
-
-                        <div class="">
-                            <div class="card">
-                                <div class="card-block">
-                                    <ul class="nav nav-tabs " role="tablist">
-                                        <?php foreach ($types as $key => $type) { ?>
-                                            <li class="nav-item">
-                                                <a class="nav-link" data-toggle="tab" href="#type<?= $type->getId() ?>" role="tab"><?= $type->name ?> <span class="badge bg-aqua"><?= count($type->items) ?></span></a>
-                                                <div class="slide"></div>
-                                            </li>
-                                        <?php } ?>
-                                    </ul>
-                                    <!-- Tab panes -->
-                                    <div class="tab-content card-block">
-                                        <?php foreach ($types as $key => $type) {
-                                            $type->fourni("equipement"); ?>
-                                            <div class="tab-pane " id="type<?= $type->getId() ?>" role="tabpanel">
-                                                <div class="row">
-                                                    <?php foreach ($type->equipements as $key => $equipement) {
-                                                        $equipement->actualise(); ?>
-                                                        <div class="col-md-3 equipements">
-                                                            <div class="card cursor " style="padding: 2%">
-                                                                <div class="">
-                                                                    <h2 class="mp3 subtitle text-blue" style="font-size: 14px"><?= $equipement->name ?></h2>
-                                                                    <small><?= $equipement->comment ?></small>
-                                                                    <hr class="mp0">
-                                                                    <div class="row">
-                                                                        <div class="col-7">
-                                                                            <span>en stock: <?= $equipement->stock ?> pièces</span>
-                                                                        </div>
-                                                                        <div class="col-5">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>                                                    
-                                                    <?php } ?>
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-
+                        <button data-toggle="modal" data-target="#modal-equipement" class="btn btn-success dim btn-xs"><i class="fa fa-plus"></i> Nouvel Equipement</button>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="widget style1 lazur-bg">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <i class="fa fa-cloud fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <span> Demande en cours </span>
+                                        <h2 class="font-bold"><?= start0(count(Home\DEMANDEVEHICULE::encours()))  ?></h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-sm-6">
+                            <div class="widget style1 yellow-bg">
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <span> Validées/Annulées ce mois</span>
+                                        <h2 class="font-bold"><?php //start0(count(Home\DEMANDEVEHICULE::valideesCeMois()))  ?> / <?php //start0(count(Home\DEMANDEVEHICULE::annuleesCeMois()))  ?></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="wrapper wrapper-content">
+                <div class="wrapper wrapper-content animated fadeInRight">
+                    <div class="row">
+                        <?php foreach ($equipements as $key => $equip) {
+                            $equip->actualise(); ?>
+                            <div class="col-sm-4 col-md-3">
+                                <div class="ibox">
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <img style="width: 100%" src="<?= $this->stockage("images", "equipements", $equip->image) ?>" alt="image">
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <small><?= $equip->typeequipement->name() ?></small>
+                                                <h4 class="mp0"><?= $equip->name() ?></h4>
+                                            </div>
+                                        </div>
+                                        <span style="font-size: 9px;"><?= $equip->comment ?></span>
+                                        <hr class="mp0">
+                                        <div class="contact-box-footer text-center">
+                                            <div class="m-t-xs btn-group">
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-cubes"></i> Stock</a>
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-pencil"></i> Modifier</a>
+                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-close text-red"></i> Supprimer </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php  } ?>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+
+
+            <div class="modal inmodal fade" id="modal-stock">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Changer le stock</h4>
+                        <small class="font-bold">Renseigner ces champs pour enregistrer l'assurance</small>
+                    </div>
+                    <form method="POST" class="formShamman" classname="equipement">
+                        <div class="modal-body">
+                            <p>Stock de l'équipement </p>
+                            <div class="m-r-md inline">
+                                <input type="text" value="50" name="stock" class="dial m-r" data-fgColor="#1AB394" data-width="200" data-height="200"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                            <button type="button" class="btn btn-primary">Changer</button>
+                        </div>
+                    </form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
     </div>
 </div>
 
 
+<?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>
 
-<div class="modal fade" id="modal-equipement">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Ajouter un nouveau équipement</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <form method="POST" class="formShamman" classname="equipement">
-                <div class="modal-body">
-
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <label>Le type <span1>*</span1></label>
-                            <div class="form-group">
-                                <?php Native\BINDING::html("select", "typeequipement") ?>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>Nom de l'equipement<span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="name" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>prix unitaire de l'equipement<span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="number" class="form-control" name="price" min=1 required>
-                            </div>
-                        </div>
-                    </div><br>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <label>Décrivez l' equipement</label>
-                            <div class="form-group">
-                             <textarea class="form-control" rows="4" name="comment" ></textarea>
-                         </div>
-                     </div>                        
-                 </div>
-             </div><hr class="">
-             <div class="container">
-                <input type="hidden" name="id">
-                <button type="button" class="btn btn-sm  btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>
-                <button class="btn btn-sm btn-success pull-right"><i class="fa fa-check"></i> Valider le formulaire</button>
-            </div>
-            <br>
-        </form>
-    </div>
-</div>
-</div>
-
-
-<?php require("../../webapp/administration/assets/includes/footer.php") ?>
 
 </body>
 

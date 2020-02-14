@@ -53,7 +53,7 @@
                         <div class="m-b-md">
                             <i class="fa fa-gears fa-4x"></i>
                             <h3 class="m-xs text-uppercase">Admin système</h3><br>
-                            <a href="<?= $this->url("carplan", "access", "login") ?>"><button class="btn btn-info dim" type="button"><i class="fa fa-money"></i> Ouvrir la section</button></a>
+                            <a href="<?= $this->url("administration", "access", "login") ?>"><button class="btn btn-info dim" type="button"><i class="fa fa-money"></i> Ouvrir la section</button></a>
                         </div>
                     </div>
                 </div>

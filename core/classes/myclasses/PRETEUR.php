@@ -12,11 +12,13 @@ class PRETEUR extends PERSONNE
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
+	public $matricule;
 	public $name;
 	public $adresse;
 	public $email;
 	public $contact;
 	public $fonction;
+	public $location_id;
 
 
 

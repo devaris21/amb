@@ -67,7 +67,7 @@ class ROOTER extends PATH
         $data->status = true;
         $this->is_admin = in_array($this->section, static::SECTION_ADMIN) ;
         if ($this->is_admin && $this->module != "access") {
-            $data = PARAMS::check_timeout($this->section);
+            $data = PARAMS::checkTimeout($this->section);
             if ($data->status == true) {
                 $params = PARAMS::findLastId();
                 

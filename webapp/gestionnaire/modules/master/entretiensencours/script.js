@@ -1,48 +1,63 @@
 
-$("#inputSearch").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("table tbody tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-});
+
+$(function(){
+	$("div.fini").hide()
+
+	$("input[type=checkbox]").change(function(event) {
+		if($(this).is(":checked")){
+			Loader.start()
+			setTimeout(function(){
+				Loader.stop()
+				$("div.fini").fadeIn(400)
+			}, 500);
+		}else{
+			$("div.fini").fadeOut(400)
+		}
+	});
+
+	$("#top-search").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("div.vote-item").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
 
 
-$("table tr").click(function(event) {
-    $("table tr").removeClass('selected')
-    $(this).addClass('selected')
-});
+	validerEntretien = function(id){
+		var url = "../../webapp/gestionnaire/modules/master/entretiensencours/ajax.php";
+		alerty.confirm("Voulez-vous vraiment valider cet entretien comme étant terminé ?", {
+			title: "Entretein terminé ",
+			cancelLabel : "Non",
+			okLabel : "OUI, approuver",
+		}, function(){
+			$.post(url, {action:"approuver", id:id}, (data)=>{
+				if (data.status) {
+					window.location.reload();
+				}else{
+					 Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
+	}
 
 
-src = function(categorie, dossier, id){
-    var url = "../../webapp/administration/modules/master/vehicule/ajax.php";
-    $.post(url, {action: dossier, dossier:dossier, id:id}, function(data) {
-        $("div.affichage#"+categorie).html(data);
-    }, "html");
-}
+	annulerEntretien = function(id){
+		var url = "../../webapp/gestionnaire/modules/master/entretiensencours/ajax.php";
+		alerty.confirm("Voulez-vous vraiment refuser cette demande d'entretien pour ce véhicule ?", {
+			title: "Annulation de la demande",
+			cancelLabel : "Non",
+			okLabel : "OUI, refuser",
+		}, function(){
+			$.post(url, {action:"refuser", id:id}, (data)=>{
+				if (data.status) {
+					window.location.reload()
+				}else{
+					 Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
+	}
 
-$("#inputSearch").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("table tbody tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-});
 
 
-
-$("form#formLivreur").submit(function(event) {
-    var url = "../../webapp/flotte/modules/extra/livreurs/ajax.php";
-    var formData = new FormData($(this)[0]);
-    formData.append('action', 'livreur');
-    $.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
-        if (data.status) {
-            window.location.reload()
-        }else{
-            iziToast.error({
-                title: 'Erreur !',
-                message: data.message,
-            });
-        }
-    }, 'json');
-    return false;
-});
-
+})

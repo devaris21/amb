@@ -1,11 +1,12 @@
-<div class="modal fade" id="modal-equipement">
+<div class="modal inmodal fade" id="modal-equipement">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header bg-blue">
-                <h4 class="modal-title">Ajouter un nouveau produit/service</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <form method="POST" class="shamman-form" classname="equipement">
+             <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Formulaire pour les équipements de véhicule</h4>
+            <small class="font-bold">Renseigner ces champs pour enregistrer l'equipement</small>
+        </div>
+            <form method="POST" class="formShamman" classname="equipement">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-4">
@@ -34,12 +35,20 @@
                                 <input type="number" class="form-control" name="stock" required>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <label>Décrivez l'equipement</label>
                             <div class="form-group">
                                 <textarea class="form-control" rows="4" name="comment" ></textarea>
                             </div>
-                        </div>                        
+                        </div>   
+                         <div class="col-sm-4">
+                            <label>Photo de l'equipement</label>
+                            <div class="">
+                                <img style="width: 80px;" src="" class="img-thumbnail logo">
+                                <input class="hide" type="file" name="image">
+                                <button type="button" class="btn btn-sm btn-success pull-right btn_image"><i class="fa fa-image"></i> Ajouter une image</button>
+                            </div>
+                        </div>                     
                     </div>
                 </div><hr class="">
                 <div class="container">

@@ -11,7 +11,7 @@
 
             <div class="col-md-12">
                 <div class="ibox-content text-center">
-<h1 class="logo-name text-center" style="font-size: 120px; margin: 0% !important; padding: 0% !important;">AMB</h1>
+                    <h1 class="logo-name text-center" style="font-size: 120px; margin: 0% !important; padding: 0% !important;">AMB</h1>
                     <h2 class="font-bold">J'ai oublié mon mot de passe</h2>
 
                     <p>Entrer votre adresse email pour reiniatialiser votre mot de passe !</p>
@@ -23,7 +23,8 @@
                                     <input type="email" class="form-control" placeholder="Adresse email" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary block full-width m-b">Reiniatialiser mon mot de passe</button>
+                                <a href="<?= $this->url("gestionnaire", "access", "login"); ?>" class="btn btn-xs btn-outline btn-rounded"><i class="fa fa-arrow-left"></i> Nouvelle connexion</a>
+                                <button style="margin-left: 7%;" type="submit" class="btn btn-primary m-b">Reiniatialiser mon mot de passe</button>
                             </form>
                         </div>
                     </div>
@@ -36,10 +37,10 @@
                 AMD, tous droits reservés
             </div>
             <div class="col-md-6 text-right">
-             <small>© 2019-2020</small>
-         </div>
-     </div>
-    </div>
+               <small>© 2019-2020</small>
+           </div>
+       </div>
+   </div>
 
 </body>
 

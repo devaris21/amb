@@ -77,7 +77,7 @@
                                             <div class="col-md-9">
                                                 <div class="vote-actions" style="margin-right: 6%; height: 100%">
                                                     <div class="vote-icon" data-toggle="tooltip" title="<?= ($demande->typedemandevehicule_id == 1)?'Mission programmée':'Mission inopinée'; ?>" >
-                                                        <i class="fa fa-car <?= ($demande->typedemandevehicule_id == 1)?'text-danger':''  ?>"> </i>
+                                                        <i class="fa fa-car <?= ($demande->typedemandevehicule_id == 1)?'text-danger':'' ?>"> </i>
                                                     </div>
                                                 </div>
                                                 <span class="vote-title"><u class="text-info">#<?= $demande->ticket ?></u>  // <?= $demande->objet ?></span>

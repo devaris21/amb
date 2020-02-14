@@ -14,50 +14,70 @@ class AFFECTATION extends TABLE
 	public static $namespace = __NAMESPACE__;
 
 	public $carplan_id;
-	public $comment;
 	public $vehicule_id;
-	public $objet;
+	public $etat_id = 0;
+	public $typeaffectation = 0;
+
+	public $comment = 0;
 	public $started = "";
 	public $finished = "";
-	public $date_fin;
-	public $etat_id = 0;
 	public $gestionnaire_id;
 
 
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		$this->vehicule_id = getSession("vehicule_id");
-		$datas = static::findBy(["vehicule_id ="=>$this->vehicule_id, "etat_id ="=>0]);
-		if (count($datas) == 0) {
-			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
-			if (count($datas) == 1) {
-				$datas = CARPLAN::findBy(["id ="=>$this->carplan_id]);
+		static::etat();
+		if ($this->started > $this->finished && $this->started >= date("Y-m-d")) {
+			$this->vehicule_id = getSession("vehicule_id");
+			$datas = static::findBy(["vehicule_id ="=>$this->vehicule_id, "etat_id ="=>0]);
+			if (count($datas) == 0) {
+				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
-					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
-					$data = $this->save();
+					$datas = CARPLAN::findBy(["id ="=>$this->carplan_id]);
+					if (count($datas) == 1) {
+						$data = $this->save();
+						if ($data->status) {
+							$renouv = new RENOUVELEMENTAFFECTATION;
+							$renouv->cloner($this);
+							$renouv->affectation_id = $data->lastid;
+							$renouv->gestionnaire_id = getSession("gestionnaire_connecte_id");
+							$data = $renouv->enregistre();
+						}
+					}else{
+						$data->status = false;
+						$data->message = "Une eurreur s'est produite pendant le processus, veuillez recommencer !";
+					}
 				}else{
 					$data->status = false;
 					$data->message = "Une eurreur s'est produite pendant le processus, veuillez recommencer !";
 				}
 			}else{
 				$data->status = false;
-				$data->message = "Une eurreur s'est produite pendant le processus, veuillez recommencer !";
+				$data->message = "Cet vehicule est déja affecté à quelqu'un d'autre !";
 			}
 		}else{
 			$data->status = false;
-			$data->message = "Cet vehicule est déja affecté à quelqu'un d'autre !";
+			$data->message = "Les dates de l'affectation ne correcpondent pas";
 		}
 		return $data;
 	}
 
-	public function etat(){
-		if ($this->finished < dateAjoute()) {
-			$this->etat_id = 1;
-		}else{
-			$this->etat_id = 0;
+
+	public static function etat(){
+		foreach (static::getAll() as $key => $item) {
+			$datas = RENOUVELEMENTAFFECTATION::findBy(["affectation_id ="=>$item->getId()]);
+			if (count($datas) > 0) {
+				$last = end($datas);
+				if ($last->etat_id == 0) {
+					$last->etat();
+				}
+				$item->etat_id = $last->etat_id;
+			}else{
+				$item->etat_id = -2;
+			}
+			$item->save();
 		}
-		$this->save();
 	}
 
 
@@ -67,34 +87,69 @@ class AFFECTATION extends TABLE
 	}
 
 
-	public function fin(){
-		$this->actualise();
-		$this->historique("Fin de l'affectation du vehicule ".$this->vehicule->name()." à ".$this->name());
-		$this->date_fin = date("Y-m-d");
-		$this->etat_id = 1;
-		return $this->save();
+	public function terminer(){
+		$data = new RESPONSE;
+		if ($this->etat_id == 0) {
+			$datas = RENOUVELEMENTAFFECTATION::findBy(["etat_id ="=>0, "affectation_id ="=>$this->getId()], [], ["finished"=>"DESC"]);
+			if (count($datas) > 0) {
+				$last = end($datas);
+				$data = $last->terminer();
+			}else{
+				$item->etat_id = -1;
+				$data = $this->save();
+			}
+		}else{
+			$data->status = false;
+			$data->message = "Vous ne pouvez plus effectuer cette action sur cette affectation !";
+		}
+		return $data;
 	}
 
 
-	public function reaffectation( $ladate ){
+	public function annuler(){
 		$data = new RESPONSE;
-		if ($ladate > $this->finished) {
-			$data = $this->fin();
-			if ($data->status) {
-				$affectation = $this;
-				$affectation->id = null;
-				$affectation->started = date("Y-m-d"); 
-				$affectation->finished = $ladate; 
-				$affectation->etat_id = 0;
-				$affectation->objet = "Renouvelement de la precedente affectation ";
-				$affectation->gestionnaire_id = getSession("gestionnaire_connecte_id");
-				$affectation->historique("On a reconduit l'affectation du vehicule ".$this->vehicule->name()." à ".$this->name()." jusqu'au ".datecourt($affectation->finished));
-				$data = $affectation->save();
-			}	
+		if ($this->etat_id == 0) {
+			$datas = RENOUVELEMENTAFFECTATION::findBy(["etat_id ="=>0, "affectation_id ="=>$this->getId()], [], ["finished"=>"DESC"]);
+			if (count($datas) > 0) {
+				$last = end($datas);
+				$data = $last->annuler();
+			}else{
+				$item->etat_id = -2;
+				$data = $this->save();
+			}
 		}else{
 			$data->status = false;
-			$data->message = "La nouvelle date n'est pas plus lointaine que celle actuelle !";
+			$data->message = "Vous ne pouvez plus effectuer cette action sur cette affectation !";
 		}
+		return $data;
+	}
+
+
+
+	public function renouveler($started, $finished){
+		$data = new RESPONSE;
+		if($started >= date("Y-m-d") && $finished >= $started){
+			if ($this->etat_id != 0) {
+				$renouv = new RENOUVELEMENTAFFECTATION;
+				$renouv->affectation_id = $this->getId();
+				$renouv->started = $started;
+				$renouv->finished = $finished;
+				$renouv->gestionnaire_id = getSession("gestionnaire_connecte_id");
+				$data = $renouv->enregistre();
+				if ($data->status) {
+					$this->actualise();
+					$this->historique("On a reconduit l'affectation du vehicule ".$this->vehicule->name()." à ".$this->name()." du ".datecourt($started)." jusqu'au ".datecourt($finished));
+					$data = $this->save();
+				};	
+			}else{
+				$data->status = false;
+				$data->message = "La présente affection est toujours en cours. Vous ne pouvez donc la renouveler !";
+			}
+		}else{
+			$data->status = false;
+			$data->message = "Veuillez un intervalle de dates correctes !";
+		}
+		
 		return $data;	
 	}
 

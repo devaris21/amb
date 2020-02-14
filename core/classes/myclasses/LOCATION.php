@@ -10,13 +10,13 @@ class LOCATION extends TABLE
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
+	public $ticket;
 	public $typelocation_id;
 	public $prestataire_id = null;
-	public $preteur_id = null;
 	public $started;
 	public $finished;
 	public $comment;
-	public $price;
+	public $date_fin;
 	public $etat_id = 0;
 
 	public $vehicules;
@@ -26,12 +26,25 @@ class LOCATION extends TABLE
 	public function enregistre(){
 		$data = new RESPONSE;
 		if ($this->finished >= $this->started && $this->started >= date("Y-m-d")) {
+			$this->ticket = strtoupper(substr(uniqid(), 5, 6));
 			$data = $this->save();
 		}else{
 			$data->status = false;
 			$data->message = "Les dates pour la location ne sont pas correctes  * !";
 		}
 		return $data;
+	}
+
+
+	public function name(){
+		if ($this->typelocation_id == 1) {
+			$this->actualise();
+			return $this->prestataire->name();
+		}else{
+			$this->fourni("preteur");
+			$preteur = $this->preteurs[0];
+			return $preteur->matricule." - ".$preteur->name();
+		}
 	}
 
 
@@ -74,17 +87,53 @@ class LOCATION extends TABLE
 		}
 	}
 
+
+	public function terminer(){
+		$data = new RESPONSE;
+		$rooter = new ROOTER;
+		$this->etat_id = 1;
+		$this->date_fin = date("Y-m-d H:i:s");
+		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
+		$data = $this->save();
+		if ($data->status) {
+			$this->actualise();
+			$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été prise en compte et approuver par la gestion du parc automobile de l'ARTCI !";
+			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
+			$objet = "Demande d'entretien de véhicule approuvé";
+
+			ob_start();
+			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
+			$contenu = ob_get_contents();
+			ob_end_clean();
+			//EMAIL::send([$this->email()], $objet, $contenu);
+		}
+		return $data;
+	}
 	
 
-	public static function locations(){
-		return static::findBy(['etat_id ='=>0, "typelocation_id ="=>1]);
+	public function refuser(){
+		$data = new RESPONSE;
+		$rooter = new ROOTER;
+		$this->etat_id = -1;
+		$this->date_fin = date("Y-m-d H:i:s");
+		$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
+		$data = $this->save();
+		if ($data->status) {
+			$this->actualise();
+			$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été refusé par la gestion du parc automobile de l'ARTCI !";
+			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
+			$objet = "Demande d'entretien de véhicule refusé";
+
+			ob_start();
+			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
+			$contenu = ob_get_contents();
+			ob_end_clean();
+			//EMAIL::send([$this->email()], $objet, $contenu);
+		}
+		return $data;
 	}
 
 
-	public static function prets(){
-		return static::findBy(['etat_id ='=>0, "typelocation_id ="=>2]);
-	}
-	
 
 
 	public function sentenseCreate(){

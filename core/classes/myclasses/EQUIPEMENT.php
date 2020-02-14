@@ -13,7 +13,6 @@ class EQUIPEMENT extends TABLE
 	public $typeequipement_id;
 	public $name;
 	public $marque;
-	public $price = 0;
 	public $stock = 0;
 	public $comment;
 	public $image;
@@ -24,22 +23,27 @@ class EQUIPEMENT extends TABLE
 		if ($this->name != "") {
 			$data = $this->save();
 			if ($data->status) {
-				if (isset($this->photo) && $this->photo["tmp_name"] != "") {
-					$image = new FICHIER();
-					$image->hydrater($this->photo);
-					if ($image->is_image()) {
-						$a = substr(uniqid(), 5);
-						$result = $image->upload("images", "equipements", $a);
-						$this->image = $result->filename;
-						$this->save();
-					}
-				}
+				$this->uploading();
 			}
 		}else{
 			$data->status = false;
 			$data->message = "Veuillez renseigner le nom du produit !";
 		}
 		return $data;
+	}
+
+
+	public function uploading(){
+		if (isset($this->image) && $this->image["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "equipements", $a);
+				$this->image = $result->filename;
+				$this->save();
+			}
+		}
 	}
 
 

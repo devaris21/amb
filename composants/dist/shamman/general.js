@@ -1,6 +1,21 @@
 
 $(function(){
 
+    // watch dog
+    var url = "../../composants/dist/shamman/traitement.php";
+    $.post(url, {action:"params"}, (data)=>{
+        //inactivité
+        var activeUser;
+        activeUser=setInterval(function(){}, data.timeout*60*1000);
+        window.onload= window.onclick = window.ontouchstart = window.onkeydown = function(){
+            clearInterval(activeUser);
+            activeUser=setInterval(function(){window.location.href= "../access/locked" }, data.timeout*60*1000);
+        }
+    }, 'json')
+
+
+
+
 	// Initialisation des plugins
 	$("select.select2").select2();
 
@@ -41,20 +56,20 @@ $(function(){
 
 
     //mettre en session par ajax
-	    session = function(name, value){
-	    	url = "../../composants/dist/traitements/traitement.php";
-	    	$.post(url, {action:"session", name:name, value:value}, (data)=>{
-
-	    	});
-	    }
+    session = function(name, value){
+    	var url = "../../composants/dist/shamman/traitement.php";
+    	$.post(url, {action:"session", name:name, value:value}, (data)=>{
+            //rien
+        });
+    }
 
 
 //mettre en session par ajax
 getSession = function(name){
-	url = "../../composants/dist/traitements/traitement.php";
+	var url = "../../composants/dist/shamman/traitement.php";
 	$.post(url, {action:"getSession", name:name}, (data)=>{
-
-	});
+        return data;
+    });
 }
 
 
@@ -86,4 +101,15 @@ getSession = function(name){
     	alert(this.val())
     	this.val(this.val().toUpperCase());
     })
+
+
+    $("a#btn-deconnexion").click(function(event) {
+    	alerty.confirm("Voulez-vous vraiment vous deconnecter ???", {
+    		title: "Deconnexion",
+    		cancelLabel : "Non",
+    		okLabel : "OUI, me deconnecter",
+    	}, function(){
+    		window.location.href = "../access/logout";
+    	})
+    });
 });

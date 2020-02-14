@@ -1,11 +1,7 @@
 <?php 
 namespace Home;
 
+$equipements = EQUIPEMENT::getAll();
 
-$types = TYPEEQUIPEMENT::findBy([], [], ["name"=>"ASC"]);
-foreach ($types as $key => $type) {
-	$type->fourni("equipement");
-}
-
-$title = "AMB | Entrepot d'équipements ";
+$title = "AMB | Equipements & Accessoires";
 ?>

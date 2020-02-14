@@ -13,10 +13,10 @@
 
 <div class="footer">
 	<div class="float-right">
-		10GB of <strong>250GB</strong> Free.
+		Copyright &copy; 2019-2020 | <strong>AMB</strong>.
 	</div>
 	<div>
-		<strong>Copyright</strong> Example Company &copy; 2014-2018
+		<strong>AMB | Plateforme de gestion de parc Auto-Moto-Bateau</strong>
 	</div>
 </div>
 
@@ -24,6 +24,8 @@
 
 <?php include($this->rootPath("composants/assets/modals/modal-vehicule.php")); ?> 
 <?php include($this->rootPath("composants/assets/modals/modal-sinistre.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-entretienvehicule.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-equipement.php")); ?> 
 
 <?php include($this->rootPath("composants/assets/modals/modal-chauffeur.php")); ?> 
 <?php include($this->rootPath("composants/assets/modals/modal-prestataire.php")); ?> 

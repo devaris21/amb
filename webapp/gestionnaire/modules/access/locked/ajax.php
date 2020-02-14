@@ -16,29 +16,12 @@ if ($action == "locked") {
 			if ($user->checkPassword($password)) {
 				session("gestionnaire_connecte_id", $user->getId());
 				$data->status = true;
-				$data->setUrl("gestionnaire", "master", "dashboard");
+				//$data->setUrl("gestionnaire", "master", "dashboard");
 				session("last_access", time());
 				unset_session("page_session");
-			}
-//TODO voir si on peut faire du ldap pour l'authentification
-			/*else{
-				$ldapconn = ldap_connect("ldap://172.16.0.3");
-				if ($ldapconn) {
-					$ldapbind = @ldap_bind($ldapconn, $user->email, $password);
-					if ($ldapbind) {
-						session("gestionnaire_connecte_id", $user->getId());
-						$data->status = true;
-						$data->setUrl("gestionnaire", "master", "dashboard");
-						session("last_access", time());
-						unset_session("page_session");
-					}else{
-						$data->status = false;
-						$data->message = "Votre mot de passe est incorrect !";
-					}
-				}else{
-					$data->setUrl("gestionnaire", "access", "login");
-				}		
-			}*/	
+			}else{
+				$data->message = "Le mot de passe est incorrect !";
+			}	
 		}else{
 			$data->setUrl("gestionnaire", "access", "login");
 		}

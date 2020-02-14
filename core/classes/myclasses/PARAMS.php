@@ -30,7 +30,7 @@ class PARAMS extends TABLE
 
 
 	//verifier le temps de latente entre deux actions de l'utilisateur
-	public static function check_timeout($section){
+	public static function checkTimeout($section){
 		$data = new RESPONSE;
 		$params = self::findLastId();
 		$session = $params->timeout * 60;
@@ -42,7 +42,7 @@ class PARAMS extends TABLE
 		}else if ((time() - getSession("last_access") > $session) || !is_null(getSession("page_session"))) {
 			$data->status = false;
 			$data->message = "temps depassée, verrouillage de la session !";
-			$data->setUrl($section, "access", "session");
+			$data->setUrl($section, "access", "locked");
 		}else{
 			session("last_access", time());
 			$data->status = true;

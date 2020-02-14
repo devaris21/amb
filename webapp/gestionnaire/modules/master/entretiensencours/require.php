@@ -1,10 +1,7 @@
 <?php 
 namespace Home;
 
-$title = "Tous les sinistres enregistrés";
+$entretiens = ENTRETIENVEHICULE::getAll();
 
-$sinistres = SINISTRE::findBy(["etat_id ="=>1]);
-$declarations = SINISTRE::findBy(["etat_id ="=>0]);
-
-
+$title = "AMB | Demandes d'entretien de véhicules";
 ?>

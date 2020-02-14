@@ -15,296 +15,178 @@
           <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-sm-4">
-                <h2>This is main title</h2>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="index.html">This is</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <strong>Breadcrumb</strong>
-                    </li>
-                </ol>
-            </div>
-            <div class="col-sm-8">
-                <div class="title-action">
-                    <a href="" class="btn btn-primary">This is action area</a>
+            <div class="col-sm-6">
+                <h2 class="text-uppercase text-red gras">Locations de véhicules</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-7 gras text-capitalize">Afficher seulement les locations en cours</div>
+                        <div class="offset-1"></div>
+                        <div class="col-xs-4">
+                           <div class="switch">
+                            <div class="onoffswitch">
+                                <input type="checkbox" class="onoffswitch-checkbox" id="example1">
+                                <label class="onoffswitch-label" for="example1">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="wrapper wrapper-content">
-            <div class="text-center animated fadeInRightBig">
-
-              <div class="row">
-                <div class="col-md-12">
-
-                    <div class="ibox">
-                        <div class="ibox-title">
-                            <h5>Items in your cart</h5>
-                            <div class="ibox-tools">
-                                <a href="" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> Ajouter Nouvelle Carte Grise</a>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="widget style1 navy-bg">
+                        <div class="row">
+                            <div class="col-4">
+                                <i class="fa fa-cloud fa-3x"></i>
+                            </div>
+                            <div class="col-8 text-right">
+                                <span>Déclaration en cours </span>
+                                <h2 class="font-bold"><?= start0(count(Home\SINISTRE::encours()))  ?></h2>
                             </div>
                         </div>
-                        <div class="ibox-content">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-4">
+                                <i class="fa fa-envelope-o fa-3x"></i>
+                            </div>
+                            <div class="col-8 text-right">
+                                <span> Sinistres ce mois </span>
+                                <h2 class="font-bold"><?= start0(count(Home\SINISTRE::valideesCeMois()))  ?></h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
+    <div class="wrapper wrapper-content">
+        <div class="animated fadeInRightBig">
 
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <h3>
-                                                    <a href="#" class="text-navy">
-                                                        Desktop publishing software
-                                                    </a>
-                                                </h3>
-                                                <p class="small">
-                                                    It is a long established fact that a reader will be distracted by the readable
-                                                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                                </p>
+          <div class="row">
+            <div class="col-md-12">
+
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <h5>Liste des locations de véhicules</h5>
+                        <div class="ibox-tools">
+                            <button style="margin-top: -4%" data-toggle="modal" data-target="#modal-location" class="btn btn-primary btn-xs dim"><i class="fa fa-plus"></i> Nouvelle location / pret</button>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+
+                        <div class="table-responsive">
+                            <table class="table ">
+                                <tbody>
+                                    <?php foreach ($locations as $key => $location) {
+                                        $location->actualise() ?>
+                                        <tr class=" <?= ($location->etat_id != 0)?'fini':'' ?> border-bottom">
+
+                                            <td class="border-right">                                                
+                                                <br>
+                                                <span class="label label-<?= $location->etat->class ?>"><?= $location->etat->name ?></span>
+                                            </td>
+                                            <td class="text-left">
+                                                <h3><span class=""><u class="text-info">#<?= $location->ticket ?></u> // <?= $location->typelocation->name ?></span></h3>
+                                                <p class=""><?= $location->comment; ?></p>
                                                 <div class="m-t-sm">
-                                                    <a href="#" class="text-muted"><i class="fa fa-gift"></i> Adou bénéficiaire</a>
-                                                    |
-                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Du date1 au date2</a>
-                                                </div>
-                                            </td>
-                                                                                        <td><i class="fa fa-long-arrow-left fa-5x"></i></td>
-
-                                            <td width="90">
-                                                <div class="cart-product-imitation">
+                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Du <?= datecourt($location->started) ?> au <?= datecourt($location->finished) ?></a>
                                                 </div>
                                             </td>
                                             <td>
-                                                <h4>
-                                                    $180,00
-                                                </h4>
+                                                <?php if ($location->typelocation_id == 1){ ?>
+                                                    <i class="fa fa-long-arrow-left fa-4x text-warning"></i>
+                                                <?php }elseif ($location->typelocation_id == 2) { ?>
+                                                    <i class="fa fa-long-arrow-right fa-4x text-info"></i>
+                                                <?php } ?>
                                             </td>
+                                            <?php if ($location->typelocation_id == 1){ ?>
+                                             <td>
+                                                <a href="profile.html">
+                                                    <h3 class="m-b-xs"><strong><?= $location->prestataire->name() ?></strong></h3>
+                                                    <div class="font-bold"><?= $location->prestataire->typeprestataire->name() ?></div>
+                                                    <address class="">
+                                                        <strong><?= $location->prestataire->contact ?></strong><br>
+                                                        <?= $location->prestataire->email ?>
+                                                    </address>
+                                                </a>
+                                            </td>
+
+                                        <?php }elseif ($location->typelocation_id == 2) {
+                                            $location->fourni("preteur");
+                                            $preteur = $location->preteurs[0]; ?>
                                             <td>
-                                                <a href="" class="btn btn-primary">This is action area</a>
+                                                <h3 class="m-b-xs"><strong><?= $preteur->name() ?></strong></h3>
+                                                <div class="font-bold">Graphics designer</div>
+                                                <address class="">
+                                                    <strong><?= $preteur->contact ?></strong><br>
+                                                    <?= $preteur->email ?>
+                                                </address>
                                             </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                        <?php } ?>
+                                        <td>
+                                            <br>
+                                            <button onclick="voirVehicule('<?= $location->getId() ?>')" class="btn btn-rounded btn-outline btn-xs btn-info"><i class="fa fa-eye"></i> Voir les véhicules</button>
+                                        </td>
+                                        <td class="text-right">
+                                            <?php if ($location->etat_id == 0) { ?>
+                                                <button onclick="modification('location', <?= $location->getId() ?>)" data-toggle="modal" data-target="#modal-<?= ($location->typelocation_id == 1)?'location2':'pret2' ?>" class="btn btn-outline btn-warning  dim" type="button"><i data-toggle="tooltip" title="Modifier les infos de la location" class="fa fa-pencil"></i></button>
 
-                        </div>
-                        <div class="ibox-content">
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
+                                                <?php if ($location->typelocation_id == 2){ ?>
+                                                    <button onclick="modification('preteur', <?= $preteur->getId() ?>)" data-toggle="modal" data-target="#modal-preteur" class="btn btn-outline btn-primary  dim" type="button"><i data-toggle="tooltip" title="Modifier les infos du bénéficiaire" class="fa fa-user"></i></button>
+                                                <?php } ?>
 
-                                    <tbody>
-                                        <tr>
-                                            <td width="90">
-                                                <div class="cart-product-imitation">
-                                                </div>
-                                            </td>
-                                            <td class="desc">
-                                                <h3>
-                                                    <a href="#" class="text-navy">
-                                                        Text editor
-                                                    </a>
-                                                </h3>
-                                                <p class="small">
-                                                    There are many variations of passages of Lorem Ipsum available
-                                                </p>
-                                                <dl class="small m-b-none">
-                                                    <dt>Description lists</dt>
-                                                    <dd>List is perfect for defining terms.</dd>
-                                                </dl>
+                                                <br>  
 
-                                                <div class="m-t-sm">
-                                                    <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                                    |
-                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                                </div>
-                                            </td>
+                                                <button onclick="terminerlocation(<?= $location->getId() ?>)" data-toggle="tooltip" title="Terminer la location" class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-check"></i></button>
+                                                <button onclick="annulerlocation(<?= $location->getId() ?>)" data-toggle="tooltip" title="Annuler l'location" class="btn btn-outline btn-danger  dim" type="button"><i class="fa fa-close"></i> </button>
+                                            <?php } ?>
 
-                                            <td>
-                                                $50,00
-                                                <s class="small text-muted">$63,00</s>
-                                            </td>
-                                            <td width="65">
-                                                <input type="text" class="form-control" placeholder="2">
-                                            </td>
-                                            <td>
-                                                <h4>
-                                                    $100,00
-                                                </h4>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="ibox-content">
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
-
-                                    <tbody>
-                                        <tr>
-                                            <td width="90">
-                                                <div class="cart-product-imitation">
-                                                </div>
-                                            </td>
-                                            <td class="desc">
-                                                <h3>
-                                                    <a href="#" class="text-navy">
-                                                        CRM software
-                                                    </a>
-                                                </h3>
-                                                <p class="small">
-                                                    Distracted by the readable
-                                                    content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                                </p>
-                                                <dl class="small m-b-none">
-                                                    <dt>Description lists</dt>
-                                                    <dd>A description list is perfect for defining terms.</dd>
-                                                </dl>
-
-                                                <div class="m-t-sm">
-                                                    <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                                    |
-                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                $110,00
-                                            </td>
-                                            <td width="65">
-                                                <input type="text" class="form-control" placeholder="1">
-                                            </td>
-                                            <td>
-                                                <h4>
-                                                    $110,00
-                                                </h4>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="ibox-content">
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
-
-                                    <tbody>
-                                        <tr>
-                                            <td width="90">
-                                                <div class="cart-product-imitation">
-                                                </div>
-                                            </td>
-                                            <td class="desc">
-                                                <h3>
-                                                    <a href="#" class="text-navy">
-                                                        PM software
-                                                    </a>
-                                                </h3>
-                                                <p class="small">
-                                                    Readable content of a page when looking at its layout. The point of using Lorem Ipsum is
-                                                </p>
-                                                <dl class="small m-b-none">
-                                                    <dt>Description lists</dt>
-                                                    <dd>A description list is perfect for defining terms.</dd>
-                                                </dl>
-
-                                                <div class="m-t-sm">
-                                                    <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                                    |
-                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                $130,00
-                                            </td>
-                                            <td width="65">
-                                                <input type="text" class="form-control" placeholder="1">
-                                            </td>
-                                            <td>
-                                                <h4>
-                                                    $130,00
-                                                </h4>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="ibox-content">
-                            <div class="table-responsive">
-                                <table class="table shoping-cart-table">
-
-                                    <tbody>
-                                        <tr>
-                                            <td width="90">
-                                                <div class="cart-product-imitation">
-                                                </div>
-                                            </td>
-                                            <td class="desc">
-                                                <h3>
-                                                    <a href="#" class="text-navy">
-                                                        Photo editor
-                                                    </a>
-                                                </h3>
-                                                <p class="small">
-                                                    Page when looking at its layout. The point of using Lorem Ipsum is
-                                                </p>
-                                                <dl class="small m-b-none">
-                                                    <dt>Description lists</dt>
-                                                    <dd>A description list is perfect for defining terms.</dd>
-                                                </dl>
-
-                                                <div class="m-t-sm">
-                                                    <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
-                                                    |
-                                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> Remove item</a>
-                                                </div>
-                                            </td>
-
-                                            <td>
-                                                $700,00
-                                            </td>
-                                            <td width="65">
-                                                <input type="text" class="form-control" placeholder="1">
-                                            </td>
-                                            <td>
-                                                <h4>
-                                                    $70,00
-                                                </h4>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                        </div>
-                        <div class="ibox-content">
-
-                            <button class="btn btn-primary float-right"><i class="fa fa fa-shopping-cart"></i> Checkout</button>
-                            <button class="btn btn-white"><i class="fa fa-arrow-left"></i> Continue shopping</button>
-
-                        </div>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                     </div>
 
                 </div>
             </div>
 
-
         </div>
     </div>
 
 
-    <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+</div>
+</div>
+
+
+<?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+
+<?php include($this->rootPath("composants/assets/modals/modal-location.php")); ?> 
+
+
+<div class="modal inmodal fade" id="modal-listevehicule">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Les véhicules</h4>
+            </div>
+            <div class="modal-body listevehicules">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 </div>

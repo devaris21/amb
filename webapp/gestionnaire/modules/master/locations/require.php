@@ -1,10 +1,11 @@
 <?php 
 namespace Home;
-unset_session("vehicules");
+unset_session("vehicules-louer");
+unset_session("vehicules-preter");
 
-// $locations = LOCATION::findBy(["etat_id ="=>0]);
+$locations = LOCATION::getAll();
 // $loues = VEHICULE::loues();
 // $pretes = VEHICULE::pretes();
 
-$title = "AMB | Entrepot d'équipements ";
+$title = "AMB | Locations & prets de véhicules ";
 ?>

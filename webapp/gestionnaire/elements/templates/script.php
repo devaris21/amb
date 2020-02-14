@@ -15,6 +15,8 @@
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/footable/footable.all.min.js") ?>"></script>
     <!-- IonRangeSlider -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/ionRangeSlider/ion.rangeSlider.min.js") ?>"></script>
+    <!-- Idle Timer plugin -->
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/idle-timer/idle-timer.min.js") ?>"></script>
 
     <!-- iCheck -->
     <script src="<?= $this->rootPath("composants/dist/js/plugins/iCheck/icheck.min.js") ?>"></script>
@@ -31,3 +33,44 @@
     
     <!-- script pour chaque page généré -->
     <script type="text/javascript" src="<?= $this->relativePath("script.js") ?>"></script>
+
+
+
+    <script>
+        $(function(){
+            //sauvegarde de la page en cours
+            sessionStorage.setItem("page", "<?= $this->getUrl() ?>");
+
+
+        // selecteur item de page
+        var url = "<?= $this->getPage() ?>"
+        if (url == "parcauto" || url == "vehicule") {
+            url = "parcauto";
+        }
+        if (url == "prestataires" || url == "prestataire") {
+            url = "prestataires";
+        }
+        $("nav ul.metismenu li").removeClass('active');
+        $("nav ul.metismenu li").each(function(index, el) {
+            if ($(this).attr("id") == url){
+                $(this).addClass("active")
+                $(this).parent("ul.nav-second-level").addClass("in ").attr("aria-expanded", "true");
+                $(this).parent("ul.nav-second-level").parent("li").addClass("active");
+            }
+        });
+
+
+
+        var modul = "<?= $this->getModule() ?>"
+        $("li.section").click(function(event) {
+            $("li.section").removeClass('active')
+            $(this).addClass("active")
+        });
+        $("li.section").each(function(index, el) {
+            if ($(this).attr("id") == modul){
+                $(this).click()
+                $(".navbar-static-side .tabs-container .tab-pane[data-id="+modul+"]").addClass('active');
+            }
+        });
+    });
+</script>

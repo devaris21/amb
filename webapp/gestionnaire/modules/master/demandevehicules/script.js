@@ -43,10 +43,7 @@ $(function(){
 						window.location.reload();
 					});
 				}else{
-					iziToast.error({
-						title: 'Erreur !',
-						message: data.message,
-					});
+					 Alerter.error('Erreur !', data.message);
 				}
 			},"json");
 		})
@@ -80,10 +77,7 @@ $(function(){
 				if (data.status) {
 					window.location.reload()
 				}else{
-					iziToast.error({
-						title: 'Erreur !',
-						message: data.message,
-					});
+					 Alerter.error('Erreur !', data.message);
 				}
 			},"json");
 		})

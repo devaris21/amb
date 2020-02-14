@@ -5668,7 +5668,7 @@ body.mini-navbar.fixed-sidebar .logo-element {
 }
 /* ERROR & LOGIN & LOCKSCREEN*/
 .middle-box {
-  max-width: 400px;
+  max-width: 350px;
   z-index: 100;
   margin: 0 auto;
   padding-top: 40px;

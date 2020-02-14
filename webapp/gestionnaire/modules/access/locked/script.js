@@ -8,7 +8,7 @@ $(function(){
         formData.append('action', 'locked');
         $.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
             if (data.status) {
-                window.location.href = data.url
+                window.location.href = sessionStorage.getItem("page");
             }else{
                 Alerter.error('Erreur !', data.message);
             }

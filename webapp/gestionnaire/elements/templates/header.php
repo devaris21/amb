@@ -107,7 +107,7 @@
 
 
                 <li>
-                    <a href="login.html">
+                    <a href="#" id="btn-deconnexion">
                         <i class="fa fa-sign-out"></i> Déconnexion
                     </a>
                 </li>
