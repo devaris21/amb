@@ -1,57 +1,98 @@
+<!DOCTYPE html>
+<html>
 
-<?php require("../../webapp/administration/assets/includes/head.php") ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/head.php")); ?>
 
-<body>
 
-    <?php require("../../webapp/administration/assets/includes/preloader.php") ?>
+<body class="fixed-sidebar">
 
-    <div id="pcoded" class="pcoded">
-        <div class="pcoded-overlay-box"></div>
-        <div class="pcoded-container navbar-wrapper">
+    <div id="wrapper">
 
-           <?php require("../../webapp/administration/assets/includes/header.php") ?>
+        <?php include($this->rootPath("webapp/administration/elements/templates/sidebar.php")); ?>  
 
-           <!-- Sidebar inner chat end-->
-           <div class="pcoded-main-container">
-            <div class="pcoded-wrapper">
+        <div id="page-wrapper" class="gray-bg">
 
-               <?php require("../../webapp/administration/assets/includes/sidebar.php") ?>
+          <?php include($this->rootPath("webapp/administration/elements/templates/header.php")); ?>  
 
-               <div class="pcoded-content">
-                <div class="pcoded-inner-content"><br>
+          <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-sm-4">
+                <h2 class="text-uppercase">Historiques des actions</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input class="form-control" type="date" name="date1" value="<?= date("Y-m-d") ?>">
+                    </div>
+                    <div class="col-sm-6">
+                        <input class="form-control" type="date" name="date1" value="<?= date("Y-m-d") ?>">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="title-action">
+                    
+                </div>
+            </div>
+        </div>
 
-                    <div class="row">
+        <div class="wrapper wrapper-content">
+            <div class="animated fadeInRightBig">
 
-                        <div class="col-md-3">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div>
-                                        <label>Début de la période</label>
-                                        <input type="date" name="date1" class="form-control" value="2019-09-01">
-                                    </div><br>
-                                    <div>
-                                        <label>Début de la période</label>
-                                        <input type="date" name="date2" class="form-control" value="<?= date("Y-m-d") ?>">
-                                    </div>
-                                </div> 
-                            </div>
-                        </div>
-
-                        <div class="col-md-9 affichage">
-                            <!-- remplit en ajax -->
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <table class="table table-striped table-hover" >
+                            <tbody id="historique">
+                                <?php foreach ($historiques as $key => $historique) { ?>
+                                 <tr>
+                                    <td><i class="fa fa-clock-o fa-3x"></i></td>
+                                    <td>
+                                        <h4 class="mp0"><?= $historique->sentense  ?></h4>
+                                        <small>Par <strong><?= $historique->auteur()  ?></strong> <i class="fa fa-clock-o"></i> <?= depuis($historique->created)  ?></small>
+                                    </td>
+                                    <td class="faq-item" style="width: 250px;">
+                                        <span class="small font-bold">Robert Nowak</span>
+                                        <div class="tag-list">
+                                            <span class="tag-item"><?= $historique->record  ?></span> =>
+                                            <span class="tag-item"><?= $historique->typeSave() ?></span>
+                                        </div>
+                                    </td>
+                                    <td style="width: 100px;">
+                                        <span class="small font-bold"><?= $historique->type() ?> </span><br/>
+                                        <?= $historique->auteur() ?>
+                                    </td>
+                                </tr>
+                            <?php } ?>                        
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ibox-title text-center">
+                    <div class="btn-group">
+                        <div class="pagination">
+                            <?php for ($i=1; $i <= $pagestotale ; $i++) {
+                                if ($i == $page) {  ?>
+                                    <a class="gras"><?= $i  ?></a>
+                                <?php }elseif ($i == $page+1) {  ?>
+                                    <a class="btn btn-xs next" href="<?= $this->url("administration", "parametres", "historiques", $i)  ?>"><?= $i  ?></a>
+                                <?php }else{  ?>
+                                    <a class="btn btn-xs" href="<?= $this->url("administration", "parametres", "historiques", $i)  ?>" ><?= $i  ?></a>
+                                <?php } 
+                            } ?>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
-</div>
+
+
+    <?php include($this->rootPath("webapp/administration/elements/templates/footer.php")); ?>
+
+
 </div>
 </div>
 
 
-<?php require("../../webapp/administration/assets/includes/footer.php") ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/script.php")); ?>
+
 
 </body>
 

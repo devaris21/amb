@@ -22,8 +22,8 @@
                         <li class="text-center">
                             <span>Afficher par ...</span><br>
                             <div class="btn-group">
-                                <a href="<?= $this->url("gestionnaire", "master", "parcauto", "parcauto") ?>" class="btn btn-white btn-xs <?= ($this->getId() == "parcauto")?"active":""?>"><i class="fa fa-comments"></i>  Type d'auto</a>
                                 <a href="<?= $this->url("gestionnaire", "master", "parcauto", "categorie") ?>" class="btn btn-white btn-xs <?= ($this->getId() == "categorie")?"active":""?>"><i class="fa fa-thumbs-up"></i> Groupe</a>
+                                <a href="<?= $this->url("gestionnaire", "master", "parcauto", "parcauto") ?>" class="btn btn-white btn-xs <?= ($this->getId() == "parcauto")?"active":""?>"><i class="fa fa-comments"></i>  Type d'auto</a>
                                 <a href="<?= $this->url("gestionnaire", "master", "parcauto", "fabriquant") ?>" class="btn btn-white btn-xs <?= ($this->getId() == "fabriquant")?"active":""?>"><i class="fa fa-share"></i> Fabriquant</a>
                             </div>
                         </li>
@@ -38,7 +38,7 @@
                                     <h5 class="text-uppercase">Au total</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h2 class="no-margins">40 886,200</h2>
+                                    <h2 class="no-margins"><?= start0(count(Home\VEHICULE::parcauto())); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,7 @@
                                     <h5 class="text-uppercase">Libres</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h2 class="no-margins">275,800</h2>
+                                    <h2 class="no-margins"><?= start0(count(Home\VEHICULE::libres())); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                     <h5 class="text-uppercase">En mission</h5>
                                 </div>
                                 <div class="ibox-content">
-                                    <h2 class="no-margins">106,120</h2>
+                                    <h2 class="no-margins"><?= start0(count(Home\VEHICULE::mission())); ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -81,9 +81,8 @@
                                     <div role="tabpanel" id="parc<?= $type->getId() ?>" class="tab-pane">
                                         <div class="row">
                                             <?php foreach ($type->vehicules as $key => $vehicule) {
-                                                $vehicule->actualise();
-                                                $vehicule->etat(); ?>
-                                                <div class="col-sm-4 col-md-3">
+                                                $vehicule->actualise(); ?>
+                                                <div class="col-sm-4 col-md-3 vehicule">
                                                     <div class="contact-box product-box">
                                                         <a class="row" href="<?= $this->url("gestionnaire", "master", "vehicule", $vehicule->getId()) ?>">
                                                             <div class="col-4">
@@ -92,12 +91,12 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-8">
-                                                                <h3 style="margin: 0"><strong><?= $vehicule->immatriculation ?></strong></h3>
-                                                                <address>
+                                                                <h4 style="margin: 0" class="text-uppercase"><strong><?= $vehicule->immatriculation ?></strong></h4>
+                                                                <span>
                                                                     <strong><?= $vehicule->marque->name ?></strong><br>
                                                                     <?= $vehicule->modele ?> <br>
-                                                                    <small class="label label-success float-right">Monthly</small>
-                                                                </address>
+                                                                    <small class="label label-<?= $vehicule->etatvehicule->class; ?> float-right"><?= $vehicule->etatvehicule->name; ?></small>
+                                                                </span>
                                                             </div>
                                                         </a>
                                                     </div>

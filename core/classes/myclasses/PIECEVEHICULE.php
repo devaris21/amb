@@ -35,9 +35,11 @@ class PIECEVEHICULE extends TABLE
 	public function enregistre(){
 		$data = new RESPONSE;
 		if ($this->price >= 0) {
-			if ($this->name != "" && $this->numero_piece != "") {
+			if ($this->numero_piece != "") {
 				$datas = TYPEPIECEVEHICULE::findBy(["id ="=>$this->typepiecevehicule_id]);
 				if (count($datas) == 1) {
+					$item = $datas[0];
+					$this->name = $item->name." ".date("Y", strtotime($this->date_etablissement));
 					$this->vehicule_id = getSession("vehicule_id");
 					$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 					if (count($datas) == 1) {

@@ -37,19 +37,19 @@
 
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
-                            <label>Groupe de <span1>*</span1></label>
+                            <label>dans la catégorie des <span1>*</span1></label>
                             <div class="form-group">
                                 <?php Native\BINDING::html("select", "groupevehicule") ?>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label>Type Energie <span1>*</span1></label>
+                            <label>Type d'Energie <span1>*</span1></label>
                             <div class="form-group">
                                 <?php Native\BINDING::html("select", "energie") ?>
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label>Type Transmission <span1>*</span1></label>
+                            <label>Type de Transmission <span1>*</span1></label>
                             <div class="form-group">
                                 <?php Native\BINDING::html("select", "typetransmission") ?>
                             </div>
@@ -63,28 +63,16 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-2 col-sm-6">
-                            <label>nbr portes<span1>*</span1></label>
+                        <div class="col-md-3 col-sm-6">
+                            <label>nombre de portes<span1>*</span1></label>
                             <div class="form-group">
                                 <input type="number" class="form-control input-xs" name="nb_porte" min=1 value=5 required>
                             </div>
                         </div>
-                        <div class="col-md-2 col-sm-6">
-                            <label>nbr places<span1>*</span1></label>
+                        <div class="col-md-3 col-sm-6">
+                            <label>nombre de places<span1>*</span1></label>
                             <div class="form-group">
                                 <input type="number" class="form-control input-xs" name="nb_place" min=1 value=5 required>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <label>Couleur </label>
-                            <div class="form-group">
-                                <input type="text" class="form-control input-xs" name="couleur" >
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <label>Etiquette </label>
-                            <div class="form-group">
-                                <input type="text" class="form-control input-xs" name="etiquette" >
                             </div>
                         </div>
                         <div class="col-md-2 col-sm-6">
@@ -93,15 +81,16 @@
                                 <input type="number" class="form-control input-xs" name="kilometrage" min=0 value=0 required>
                             </div>
                         </div>
-                    </div><hr>
-
-                    <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <label>N° de Chasis </label>
                             <div class="form-group">
                                 <input type="text" class="form-control input-xs" name="chasis" uppercase maxlength="17">
                             </div>
                         </div>
+                    </div><hr>
+
+                    <div class="row">
+                        
                         <div class="col-md-3 col-sm-6">
                             <label>Année d'acquisition </label>
                             <div class="form-group">
@@ -120,9 +109,6 @@
                                 <input type="number" class="form-control input-xs" name="price" value="0" min=0>
                             </div>
                         </div>
-                    </div><hr>
-
-                    <div class="row">
                         <div class="col-sm-4 unmodified">
                             <label>Image du véhicule</label>
                             <div class="">

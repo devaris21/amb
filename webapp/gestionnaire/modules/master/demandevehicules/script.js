@@ -22,38 +22,26 @@ $(function(){
 		});
 	});
 
+	$(".vehiculeSelect").click(function(){
+		$(".vehiculeSelect").removeClass('selected');
+			$(this).addClass('selected');
+			session("vehicule", $(this).attr("id"));
+	});
 
-	validerDemandeEntretien = function(id){
-		var url = "../../webapp/gestionnaire/modules/master/demandeentretiens/ajax.php";
-		alerty.confirm("Voulez-vous vraiment valider cette demande d'entretien pour ce véhicule ?", {
-			title: "Validation de la demande",
-			cancelLabel : "Non",
-			okLabel : "OUI, approuver",
-		}, function(){
-			$.post(url, {action:"approuver", id:id}, (data)=>{
-				if (data.status) {
-					Alerter.success("Demande approuvée", "La validation de la demande s'est effectué avec succes !");
-					alerty.confirm("Voulez-vous enregistrer l'entretien en même temps ?", {
-						title: "Entretein immédiatement",
-						cancelLabel : "Non, ça va!",
-						okLabel : "OUI, le faire",
-					}, function(){
-						modal("#modal-entretienvehicule2");
-					}, function(){
-						window.location.reload();
-					});
-				}else{
-					 Alerter.error('Erreur !', data.message);
-				}
-			},"json");
-		})
-	}
 
-	$("form#formEntretien2").submit(function(event) {
+	$(".chauffeurSelect").click(function(){
+		$(".chauffeurSelect").removeClass('selected');
+			$(this).addClass('selected');
+			session("chauffeur", $(this).attr("id"));
+	});
+
+
+
+	$("form#formValiderDemande").submit(function(event) {
 		Loader.start()
-		var url = "../../webapp/gestionnaire/modules/master/demandeentretiens/ajax.php";
+		var url = "../../webapp/gestionnaire/modules/master/demandevehicules/ajax.php";
 		var formdata = new FormData($(this)[0]);
-		formdata.append('action', "entretien2");
+		formdata.append('action', "demandevehicule");
 		$.post({url:url, data:formdata, contentType:false, processData:false}, function(data){
 			if (data.status) {
 				window.location.reload();
@@ -66,23 +54,23 @@ $(function(){
 
 
 
-	annulerDemandeEntretien = function(id){
-		var url = "../../webapp/gestionnaire/modules/master/demandeentretiens/ajax.php";
-		alerty.confirm("Voulez-vous vraiment refuser cette demande d'entretien pour ce véhicule ?", {
-			title: "Annulation de la demande",
+	annuler = function(id){
+		alerty.confirm("Voulez-vous vraiment terminer cette demmande de véhicule ?", {
+			title: "Annuler la demande",
 			cancelLabel : "Non",
-			okLabel : "OUI, refuser",
+			okLabel : "OUI, annuler",
 		}, function(){
-			$.post(url, {action:"refuser", id:id}, (data)=>{
+			Loader.start();
+			var url = "../../webapp/gestionnaire/modules/master/demandevehicules/ajax.php";
+			$.post(url, {action:"annuler", id:id}, (data)=>{
 				if (data.status) {
 					window.location.reload()
 				}else{
-					 Alerter.error('Erreur !', data.message);
+					Alerter.error("Erreur !", data.message);
 				}
 			},"json");
 		})
 	}
-
 
 
 })

@@ -1,4 +1,4 @@
-<div class="modal inmodal fade" id="modal-visitetechnique">
+*<div class="modal inmodal fade" id="modal-visitetechnique">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
               <div class="modal-header">
@@ -10,12 +10,6 @@
                 <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-sm-4">
-                            <label>Nom de la fiche (Titre) <span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="name" required placeholder="Ex... Visite Technique 2019-2020">
-                            </div>
-                        </div>
                         <div class="col-sm-4">
                             <label>Numero de cette fiche <span1>*</span1></label>
                             <div class="form-group">
@@ -50,23 +44,7 @@
                         </div>
                     </div><br>
                     <div class="row">
-                        <div class="col-sm-4">
-                            <label>Exprimer cette période validité <span1>*</span1></label>
-                            <div class="row">
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="duree" required>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <?php Native\BINDING::html("select", "typeduree"); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                         <div class="col-sm-4">
                             <label>Illustration 1</label>
                             <div class="">

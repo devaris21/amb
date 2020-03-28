@@ -24,7 +24,7 @@
                     <button type="button" class="btn btn-sm  btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>
                     <button class="btn btn-sm btn-danger pull-right"><i class="fa fa-refresh"></i> Changer mon login</button>
                 </div>
-                    <br>
+                <br>
             </form>
         </div>
     </div>

@@ -71,6 +71,23 @@ abstract class AUTH extends TABLE
 	}
 
 
+
+	public function lock(){
+		$this->is_allowed = 0;
+		$this->historique("Restriction des accès pour ".$this->name());
+		return $this->save();
+	}
+
+
+	public function unlock(){
+		$this->is_allowed = 1;
+		$this->historique("Deblocage des accès pour ".$this->name());
+		return $this->save();
+	}
+
+
+
+
 	public function resetPassword(){
 		$this->is_new = 1;
 		$this->login = substr(uniqid(), 6);

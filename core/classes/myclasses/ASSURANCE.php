@@ -21,7 +21,6 @@ class ASSURANCE extends TABLE
 	public $date_etablissement; 
 	public $started;
 	public $finished;
-	public $duree;
 	public $price;
 	public $assurance;
 	public $typeduree_id;
@@ -34,10 +33,11 @@ class ASSURANCE extends TABLE
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		if ($this->name != "" && $this->numero_piece != "") {
+		if ($this->numero_piece != "") {
 			$this->vehicule_id = getSession("vehicule_id");
 			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
+				$this->name = "ASSURANCE ".date("m-Y", strtotime($this->date_etablissement));
 				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 				$data = $this->save();
 				if ($data->status) {

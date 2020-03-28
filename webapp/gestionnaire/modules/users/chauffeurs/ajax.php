@@ -21,7 +21,8 @@ if ($action == "afficher") {
 	if (count($datas) == 1) {
 		$chauffeur = $datas[0];
 		$chauffeur->actualise();
-		$chauffeur->fourni("chauffeur_vehicule");
+		$chauffeur->fourni("mission", ["etat_id ="=>0]);
+        $chauffeur->fourni("chauffeur_vehicule");
 		$vehicules = $chauffeur->chauffeur_vehicules;
 		 ?>
 		  <div class="ibox-content">

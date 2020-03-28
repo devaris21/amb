@@ -66,7 +66,7 @@ class BINDING
 					if(isset($item->sigle)){$item->name .= " :: ".$item->sigle; }
 					?>
 					<?= (in_array("startnull", $types))?"<option></option>":""  ?>
-					<option value="<?= $item->getId() ?>" <?= ($item->getId() == $element->$column)?"selected":"" ?>><?= $item->name ?></option>
+					<option value="<?= $item->getId() ?>" <?= ($item->getId() == $element->$column)?"selected":"" ?>><?= $item->name() ?></option>
 				<?php } ?>
 			</select>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/carplan/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/head.php")); ?>
 
 
 <body class="gray-bg">

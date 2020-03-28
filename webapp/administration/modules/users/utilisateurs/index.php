@@ -1,255 +1,129 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/carplan/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/head.php")); ?>
 
 
 <body class="fixed-sidebar">
 
     <div id="wrapper">
 
-        <?php include($this->rootPath("webapp/carplan/elements/templates/sidebar.php")); ?>  
+        <?php include($this->rootPath("webapp/administration/elements/templates/sidebar.php")); ?>  
 
         <div id="page-wrapper" class="gray-bg">
-          
-          <?php include($this->rootPath("webapp/carplan/elements/templates/header.php")); ?>  
+
+          <?php include($this->rootPath("webapp/administration/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-sm-4">
-                <h2>This is main title</h2>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="index.html">This is</a>
-                    </li>
-                    <li class="breadcrumb-item active">
-                        <strong>Breadcrumb</strong>
-                    </li>
-                </ol>
+            <div class="col-sm-6">
+                <h2 class="text-uppercase">Departements & responsables</h2>
+                <div>
+                    <button data-toggle="modal" data-target="#modal-departement" class="btn btn-primary btn-xs dim"><i class="fa fa-plus"></i> Nouveau departemment</button>
+                    <button data-toggle="modal" data-target="#modal-utilisateur" class="btn btn-primary btn-xs dim"><i class="fa fa-plus"></i> Nouveau responsable</button>
+                </div>
             </div>
-            <div class="col-sm-8">
-                <div class="title-action">
-                    <a href="" class="btn btn-primary">This is action area</a>
+            <div class="col-sm-6">
+                 <div class="row">
+                    <div class="col-sm-6">
+                        <div class="widget style1 lazur-bg">
+                            <div class="row">
+                                <div class="col-3">
+                                    <i class="fa fa-cloud fa-3x"></i>
+                                </div>
+                                <div class="col-9 text-right">
+                                    <span> Total départements </span>
+                                    <h2 class="font-bold"><?= start0(count(Home\DEPARTEMENT::getAll()))  ?></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                                         <div class="col-sm-6">
+                        <div class="widget style1 yellow-bg">
+                            <div class="row">
+                                <div class="col-12 text-right">
+                                    <span> Total responsables</span>
+                                    <h2 class="font-bold"><?= start0(count(Home\UTILISATEUR::getAll()))  ?></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="wrapper wrapper-content">
-            <div class="text-center animated fadeInRightBig">
+            <div class="animated fadeInRightBig">
                 <div class="tabs-container">
-
-                        <div class="tabs-left">
-                            <ul class="nav nav-tabs">
-                                <li><a class="nav-link active" data-toggle="tab" href="#tab-6"> Direction de Lorem ipsum dolor.</a></li>
-                                <li><a class="nav-link" data-toggle="tab" href="#tab-7">Direction de Lorem ipsum dolor</a></li>
-                                <a href="" class="btn btn-primary">This is action area</a>
-                            </ul>
-                            <div class="tab-content ">
-                                <div id="tab-6" class="tab-pane active">
-                                    <div class="panel-body">
-                                                                <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-
-                                                        <th>#</th>
-                                                        <th>Project </th>
-                                                        <th>Name </th>
-                                                        <th>Phone </th>
-                                                        <th>Company </th>
-                                                        <th>Completed </th>
-                                                        <th>Task</th>
-                                                        <th>Date</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Betha project</td>
-                                                        <td>John Smith</td>
-                                                        <td>0800 1111</td>
-                                                        <td>Erat Volutpat</td>
-                                                        <td><span class="pie">3,1</span></td>
-                                                        <td>75%</td>
-                                                        <td>Jul 18, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>Betha project</td>
-                                                        <td>John Smith</td>
-                                                        <td>0800 1111</td>
-                                                        <td>Erat Volutpat</td>
-                                                        <td><span class="pie">3,1</span></td>
-                                                        <td>75%</td>
-                                                        <td>Jul 18, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>Alpha project</td>
-                                                        <td>Alice Jackson</td>
-                                                        <td>0500 780909</td>
-                                                        <td>Nec Euismod In Company</td>
-                                                        <td><span class="pie">6,9</span></td>
-                                                        <td>40%</td>
-                                                        <td>Jul 16, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>Project <small>This is example of project</small></td>
-                                                        <td>Patrick Smith</td>
-                                                        <td>0800 051213</td>
-                                                        <td>Inceptos Hymenaeos Ltd</td>
-                                                        <td><span class="pie">0.52/1.561</span></td>
-                                                        <td>20%</td>
-                                                        <td>Jul 14, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>4</td>
-                                                        <td>Gamma project</td>
-                                                        <td>Anna Jordan</td>
-                                                        <td>(016977) 0648</td>
-                                                        <td>Tellus Ltd</td>
-                                                        <td><span class="pie">4,9</span></td>
-                                                        <td>18%</td>
-                                                        <td>Jul 22, 2013</td>
-                                                        <td><a href="#"><i class="fa fa-check text-navy"></i></a></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
+                    <div class="tabs-left">
+                        <ul class="nav nav-tabs text-center">
+                            <?php foreach ($departements as $key => $dep) { ?>
+                                <li style="width: 100%;"><a class="nav-link" data-toggle="tab" href="#dep-<?= $dep->getId() ?>"> <?= $dep->sigle ?><br> <?= $dep->name ?><br>
+                                    <div class="btn-group">
+                                        <button data-toggle="modal" data-target="#modal-departement" onclick="modification('departement', <?= $dep->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i></button>
+                                        <button onclick="suppressionWithPassword('departement', <?= $dep->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-close text-red"></i> </button>
                                     </div>
-                                </div>
-                                <div id="tab-7" class="tab-pane">
-                                    <div class="panel-body">
-                                        <strong>Donec quam felis</strong>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+                    <div class="tab-content" id="deps">
+                       <?php foreach ($departements as $key => $dep) {
+                        $dep->fourni("utilisateur");
+                        ?>
+                        <div id="dep-<?= $dep->getId() ?>" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead class="bg-navy">
+                                            <tr>
+                                                <th></th>
+                                                <th>Nom & prénoms </th>
+                                                <th>Fonction </th>
+                                                <th>Contact </th>
+                                                <th>Email</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>    
+                                            <?php foreach ($dep->utilisateurs as $key => $user) { ?>
+                                             <tr>
+                                                <td class=""><img style="width: 32px" src="<?= $this->stockage("images", "utilisateurs", $user->image) ?>"></td>
+                                                <td><b><?= $user->name() ?></b><br><?= $user->matricule ?></td>
+                                                <td><?= $user->fonction ?></td>
+                                                <td><?= $user->contact ?></td>
+                                                <td><?= $user->email ?></td>
+                                                <td>
+                                                   <button data-toggle="modal" data-target="#modal-utilisateur" onclick="modification('utilisateur', <?= $user->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil text-green"></i> </button>
+                                                   <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('utilisateur', <?= $user->getId(); ?>)"><i class="fa fa-close text-red"></i> </button>
+                                               </td>
+                                           </tr> 
+                                       <?php } ?>
+                                   </tbody>
+                               </table>
+                           </div>
+                       </div>
+                   </div>
+               <?php } ?>                                               
+           </div>
 
-                                        <p>Thousand unknown plants are noticed by me: when I hear the buzz of the little world among the stalks, and grow familiar with the countless indescribable forms of the insects
-                                            and flies, then I feel the presence of the Almighty, who formed us in his own image, and the breath </p>
+       </div>
 
-                                        <p>I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite
-                                            sense of mere tranquil existence, that I neglect my talents. I should be incapable of drawing a single stroke at the present moment; and yet.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-            </div>
-        </div>
-
-        
-        <?php include($this->rootPath("webapp/carplan/elements/templates/footer.php")); ?>
-        
-
-    </div>
+   </div>
+</div>
 </div>
 
 
-<?php include($this->rootPath("webapp/carplan/elements/templates/script.php")); ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/footer.php")); ?>
+
+<?php include($this->rootPath("composants/assets/modals/modal-departement.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-utilisateur.php")); ?> 
+
+
+</div>
+</div>
+
+
+<?php include($this->rootPath("webapp/administration/elements/templates/script.php")); ?>
 
 
 </body>

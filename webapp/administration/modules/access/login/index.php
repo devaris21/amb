@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/carplan/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/head.php")); ?>
 
 <body class="gray-bg">
 
@@ -9,11 +9,11 @@
         <div class="row">
             <div class="col-md-6">
 
-                <h2 class="font-bold text-uppercase"><i class="fa fa-shield"></i> Bénéficiaire de carplan</h2>
+                <h2 class="font-bold text-uppercase"><i class="fa fa-shield"></i> administration système</h2>
 
                 <p>Veuillez entrer vos informations de connexion pour avoir accès à la plateforme de gestion.</p>
 
-                <p>En cas d'oubli ou de perte de votre mot de passe, vous pouvez le recupérer à l'aide de votre email en cliquant sur <br><a href="<?= $this->url("gestionnaire", "access", "reset") ?>">J'ai oublié mon mot de passe !</a>
+                <p>En cas d'oubli ou de perte de votre mot de passe, vous pouvez le recupérer à l'aide de votre email en cliquant sur <br><a href="<?= $this->url("administration", "access", "reset") ?>">J'ai oublié mon mot de passe !</a>
                 </p>
 
                 <p>Pour tout autre chose, veuillez contacter votre administrateur système.</p>
@@ -37,7 +37,7 @@
                         </div>
                         <button type="submit" class="btn btn-danger block full-width m-b"><i class="fa fa-check"></i> Se connecter</button>
 
-                        <br><p class="text-center"><a href="<?= $this->url("gestionnaire", "access", "reset") ?>">
+                        <br><p class="text-center"><a href="<?= $this->url("administration", "access", "reset") ?>">
                             J'ai oublié mon mot de passe !
                         </a></p>
                     </form>
@@ -80,7 +80,7 @@
 </div>
 
 
-<?php include($this->rootPath("webapp/carplan/elements/templates/script.php")); ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/script.php")); ?>
 
 </body>
 

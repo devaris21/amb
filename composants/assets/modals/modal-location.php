@@ -92,7 +92,7 @@
                                 <div class=" container-fluid scroll">
                                     <div class="chat-users">
                                         <!-- TODO gerer les etats de vehicules -->
-                                        <?php foreach (Home\VEHICULE::in() as $key => $vehicule) {
+                                        <?php foreach (Home\VEHICULE::open() as $key => $vehicule) {
                                             $vehicule->actualise(); ?>
                                             <div class="chat-user cursor vehicule" data-id="<?= $vehicule->getId() ?>">
                                                 <img class="chat-avatar" style="height: 35px" src="<?= $this->stockage("images", "vehicules", $vehicule->image)  ?>" alt="" >

@@ -2,7 +2,7 @@
 namespace Home;
 
 
-$title = "Senergys-ci | Tableau de bord";
+$title = "AMB | Configuration de Base";
 
 
 ?>

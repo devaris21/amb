@@ -16,7 +16,7 @@
 
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-7">
-                    <h2 class="text-uppercase">Les demandes en attente</h2>
+                    <h2 class="text-uppercase">Equipements & Accessoires</h2>
                     <div class="container">
                         <div class="row">
                             <div class="col-xs-7 gras text-capitalize">Afficher toutes les demandes</div>
@@ -33,8 +33,8 @@
                                 </div>
                             </div>
                         </div>
-                        <button data-toggle="modal" data-target="#modal-equipement" class="btn btn-success dim btn-xs"><i class="fa fa-plus"></i> Nouvel Equipement</button>
                     </div>
+                    <button data-toggle="modal" data-target="#modal-equipement" class="btn btn-success dim btn-xs"><i class="fa fa-plus"></i> Nouvel Equipement</button>
                 </div>
                 <div class="col-sm-5">
                     <div class="row">
@@ -65,39 +65,53 @@
                 </div>
             </div>
 
-            <div class="wrapper wrapper-content">
-                <div class="wrapper wrapper-content animated fadeInRight">
-                    <div class="row">
-                        <?php foreach ($equipements as $key => $equip) {
-                            $equip->actualise(); ?>
-                            <div class="col-sm-4 col-md-3">
-                                <div class="ibox">
-                                    <div class="ibox-content">
+            <div class="wrapper wrapper-content" id="autos">
+                <div class="ibox" >
+                    <div class="ibox-content" style="min-height: 400px;">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <?php foreach ($types as $key => $type) {
+                                    $type->fourni("equipement");
+                                    ?>
+                                    <li class=""><a class="nav-link" data-toggle="tab" href="#parc<?= $type->getId() ?>"> <?= $type->name ?> &nbsp;&nbsp;&nbsp;<span class="label bg-aqua"><?= count($type->equipements) ?></span></a></li>
+                                <?php } ?>
+                            </ul>
+                            <div class="tab-content" id="parcs">
+                                <br>
+                                <?php foreach ($types as $key => $type) { ?>
+                                    <div role="tabpanel" id="parc<?= $type->getId() ?>" class="tab-pane">
                                         <div class="row">
-                                            <div class="col-sm-4">
-                                                <img style="width: 100%" src="<?= $this->stockage("images", "equipements", $equip->image) ?>" alt="image">
-                                            </div>
-                                            <div class="col-sm-8">
-                                                <small><?= $equip->typeequipement->name() ?></small>
-                                                <h4 class="mp0"><?= $equip->name() ?></h4>
-                                            </div>
-                                        </div>
-                                        <span style="font-size: 9px;"><?= $equip->comment ?></span>
-                                        <hr class="mp0">
-                                        <div class="contact-box-footer text-center">
-                                            <div class="m-t-xs btn-group">
-                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-cubes"></i> Stock</a>
-                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-pencil"></i> Modifier</a>
-                                                <a href=""  class="btn btn-xs btn-white"><i class="fa fa-close text-red"></i> Supprimer </a>
-                                            </div>
+                                            <?php foreach ($type->equipements as $key => $equip) {
+                                                $equip->actualise(); ?>
+                                                <div class="col-sm-4 col-md-3">
+                                                     <div class="ibox-content mp5 border">
+                                                            <div class="row" >
+                                                                <div class="col-3">
+                                                                    <img style="height: 45px; width: 45px;" src="<?= $this->stockage("images", "equipements", $equip->image) ?>" alt="image">
+                                                                </div>
+                                                                <div class="col-9">
+                                                                    <h4 class="mp0"><?= $equip->name() ?></h4>
+                                                                    <small><?= $equip->typeequipement->name() ?></small>
+                                                                </div>
+                                                            </div>
+                                                            <hr class="mp0"><br>
+                                                            <div class="text-center">
+                                                                <div class="btn-group">
+                                                                    <a href=""  class="btn btn-xs btn-white"><i class="fa fa-cubes"></i> Stock</a>
+                                                                    <a href=""  class="btn btn-xs btn-white"><i class="fa fa-pencil"></i> Modifier</a>
+                                                                    <a href=""  class="btn btn-xs btn-white"><i class="fa fa-close text-red"></i> Supprimer </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
-                                </div>
+                                <?php } ?>
                             </div>
-                        <?php  } ?>
+                        </div>
                     </div>
                 </div>
-
             </div>
 
 

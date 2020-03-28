@@ -5,40 +5,41 @@ if ($this->getId() != null && intval($this->getId()) > 0) {
 	$datas = VEHICULE::findBy(["id="=>$this->getId()]);
 	if (count($datas) == 1) {
 		session("vehicule_id", $this->getId());
-		$vehicule = $datas[0];
-		$vehicule->actualise();
-		$vehicule->etat();
+		$levehicule = $datas[0];
+		$levehicule->actualise();
+		$levehicule->etat();
 
-		$vehicule->fourni("piecevehicule");
-		$vehicule->fourni("assurance");
-		$vehicule->fourni("visitetechnique");
-		$vehicule->fourni("entretienvehicule");
-		$vehicule->fourni("sinistre");
-		$vehicule->fourni("equipement_vehicule");
-		$vehicule->fourni("accessoire_vehicule");
+		$levehicule->fourni("piecevehicule");
+		$levehicule->fourni("assurance");
+		$levehicule->fourni("visitetechnique");
+		$levehicule->fourni("entretienvehicule");
+		$levehicule->fourni("sinistre");
+		$levehicule->fourni("equipement_vehicule");
 
-		$vehicule->fourni("chauffeur_vehicule");
-		$vehicule->fourni("cartegrise");
-		usort($vehicule->cartegrises, function ($a, $b) {
+		$levehicule->fourni("chauffeur_vehicule");
+		$levehicule->fourni("cartegrise");
+		usort($levehicule->cartegrises, function ($a, $b) {
 			return -strcmp($a->date_etablissement, $b->date_etablissement);
 		});
 
-		$vehicule->affectation();
+		///////////////////////////////////////////////////////
+		$carteGrise = $levehicule->carteGrise();
+		$assurance = $levehicule->assurance();
+		$visitetechnique = $levehicule->visitetechnique();
+		$vidange = $assurance; //$levehicule->vidange();
+
+		AFFECTATION::etat();
+		$affectation = $levehicule->affectation();
+
 
 		$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id="=>0]);
 		if (count($datas) > 0) {
 			$affectation = $datas[0];
 			$affectation->actualise();
 		}
-		// $vehicule->fourni("commande");
-		// $commandes = $vehicule->items;
-		// foreach ($commandes as $key => $commande) {
-		// 	if (!$commande->is_encours()) {
-		// 		unset($commandes[$key]);
-		// 	}
-		// }
 
-		$title = "AMB | ".$vehicule->name();
+
+		$title = "AMB | ".$levehicule->name();
 
 	}else{
 		header("Location: ../master/parcauto");

@@ -58,7 +58,7 @@
                             </div>
                             <div class="col-9 text-right">
                                 <span> Disponibles </span>
-                                <h2 class="font-bold"><?= $b = start0(count(Home\CHAUFFEUR::disponibles()))  ?></h2>
+                                <h2 class="font-bold"><?= $b = start0(count(Home\CHAUFFEUR::open()))  ?></h2>
                             </div>
                         </div>
                     </div>
@@ -82,14 +82,13 @@
             <div class="col-sm-8">
                 <div class="ibox">
                     <div class="ibox-content">
-                        <div class="">
-                            <button class="btn btn-xs dim btn-success pull-right" data-toggle="modal" data-target="#modal-chauffeur"><i class="fa fa-plus"></i> Nouveau chauffeur</button>
-                            <div class="table-responsive">
-                                <table class="table table-hover table-chauffeurs">
-                                    <tbody>
-                                       <?php foreach ($chauffeurs as $key => $chauffeur) {
-                                           $chauffeur->actualise() ?>
-                                           <tr>
+                        <button class="btn btn-xs dim btn-success pull-right" data-toggle="modal" data-target="#modal-chauffeur"><i class="fa fa-plus"></i> Nouveau chauffeur</button>
+                        <div class="table-responsive">
+                            <table class="table table-hover table-chauffeurs">
+                                <tbody>
+                                    <?php foreach ($chauffeurs as $key => $chauffeur) {
+                                        $chauffeur->actualise() ?>
+                                        <tr>
                                             <td class=""><img style="width: 32px" src="<?= $this->stockage("images", "chauffeurs", $chauffeur->image) ?>"></td>
                                             <td class="text-uppercase">
                                                 <small>Matricule</small><br>
@@ -100,29 +99,29 @@
                                                 <small><?= $chauffeur->sexe->name ?> // <?= $chauffeur->nationalite ?></small>
                                             </td>
                                             <td class="contact-type"></td>
-                                            <td><?= $chauffeur->contact ?><br>
-                                             <?= $chauffeur->email ?>
-                                         </td>
-                                         <td><button class="btn btn-white btn-sm" onclick="afficherChauffeur(<?= $chauffeur->getId(); ?>)"><i class="fa fa-eye"></i> Afficher</button></td>
-                                     </tr>  
-                                 <?php } ?>
-                             </tbody>
-                         </table>
-                     </div>
-                 </div>
-             </div>
-         </div>
-     </div>
-     <div class="col-sm-4">
-        <div class="ibox affichage">
-            <!-- rempli en Ajax -->
+                                            <td>
+                                                <?= $chauffeur->contact ?><br>
+                                                <?= $chauffeur->email ?>
+                                            </td>
+                                            <td><button class="btn btn-white btn-sm" onclick="afficherChauffeur(<?= $chauffeur->getId(); ?>)"><i class="fa fa-eye"></i> Afficher</button></td>
+                                        </tr>  
+                                    <?php } ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="ibox affichage">
+                    <!-- rempli en Ajax -->
+                </div>
+            </div>
         </div>
     </div>
-</div>
-</div>
 
 
-<?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+    <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
 
 
 </div>

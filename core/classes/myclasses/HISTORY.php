@@ -68,18 +68,50 @@ public static $tableName = __CLASS__;
 	public function auteur(){
 		$this->actualise();
 		if ($this->gestionnaire_id != null) {
-			return $this->gestionnaire->name." ".$this->gestionnaire->lastname." // Gestionnaire GPA";
+			return $this->gestionnaire->name();
 
 		}elseif ($this->utilisateur_id != null) {
-			return $this->utilisateur->name." ".$this->utilisateur->lastname." // Direction";
+			return $this->utilisateur->name();
 
 		}elseif ($this->carplan_id != null) {
-			return $this->carplan->name." ".$this->carplan->lastname." // Car plan";
+			return $this->carplan->name();
 
 		}elseif ($this->prestataire_id != null) {
-			return $this->prestataire->name." ".$this->prestataire->lastname." // Prestataire";
+			return $this->prestataire->name();
 		}
 	}
+
+
+	public function type(){
+		if ($this->gestionnaire_id != null) {
+			return "Gestionnaire AMB";
+
+		}elseif ($this->utilisateur_id != null) {
+			return "Responsable Direction";
+
+		}elseif ($this->carplan_id != null) {
+			return "Bénéficiaire Carplan";
+
+		}elseif ($this->prestataire_id != null) {
+			return "Prestataire";
+		}
+	}
+
+
+	public function typeSave(){
+		if ($this->typeSave == -1) {
+			return "Insertion";
+
+		}elseif ($this->typeSave == 0) {
+			return "Mise à jour";
+
+		}elseif ($this->typeSave == 1) {
+			return "Suppression";
+
+		}
+	}
+
+
 
 
 	public function sentenseCreate(){}

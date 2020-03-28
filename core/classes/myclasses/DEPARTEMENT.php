@@ -26,6 +26,13 @@ class DEPARTEMENT extends TABLE
 	}
 
 
+	public function sigle(){
+		if ($this->sigle != "") {
+			return $this->sigle ;
+		}
+		return $this->name();
+	}
+
 
 	public function sentenseCreate(){
 		return $this->sentense = "Ajout d'un nouvelle direction : $this->name dans les paramétrages";

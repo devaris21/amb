@@ -12,12 +12,6 @@
 
                 <div class="row">
                     <div class="col-sm-4">
-                        <label>Nom la pièce (Titre) <span1>*</span1></label>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="name" required placeholder="Ex... Carte grise de 2020">
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
                         <label>Numero de cette pièce <span1>*</span1></label>
                         <div class="form-group">
                             <input type="text" class="form-control" name="numero_piece" required placeholder="">
@@ -43,12 +37,6 @@
                             <?php Native\BINDING::html("select", "energie"); ?>
                         </div>
                     </div>
-                       <!--  <div class="col-sm-4">
-                            <label>Proprietaire actuel <span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="proprietaire" required >
-                            </div>
-                        </div> -->
                         <div class="col-sm-4">
                             <label>Coût de la pièce </label>
                             <div class="form-group">

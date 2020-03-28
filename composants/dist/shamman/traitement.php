@@ -119,6 +119,66 @@ if ($action === "verifierPassword") {
 }
 
 
+
+//veroouiller un user
+if ($action === "lock") {
+	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
+	if (count($datas) > 0) {
+		$gestionnaire = $datas[0];
+		$gestionnaire->actualise();
+		if ($gestionnaire->checkPassword($password)) {
+			$class = TABLE::fullyClassName($table);
+			if (class_exists($class)) {
+				$element = new $class();
+				$element->setId($id);
+				$element->actualise();
+				$data = $element->lock();
+			}else{
+				$data->status = false;
+				$data->message = "Erreur lors de la suppression de l'element !";
+			}
+		}else{
+			$data->status = false;
+			$data->message = "Votre mot de passe ne correspond pas !";
+		}
+	}else{
+		$data->status = false;
+		$data->message = "Vous ne pouvez pas effectué cette opération !";
+	}
+	echo json_encode($data);
+}
+
+
+//veroouiller un user
+if ($action === "unlock") {
+	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
+	if (count($datas) > 0) {
+		$gestionnaire = $datas[0];
+		$gestionnaire->actualise();
+		if ($gestionnaire->checkPassword($password)) {
+			$class = TABLE::fullyClassName($table);
+			if (class_exists($class)) {
+				$element = new $class();
+				$element->setId($id);
+				$element->actualise();
+				$data = $element->unlock();
+			}else{
+				$data->status = false;
+				$data->message = "Erreur lors de la suppression de l'element !";
+			}
+		}else{
+			$data->status = false;
+			$data->message = "Votre mot de passe ne correspond pas !";
+		}
+	}else{
+		$data->status = false;
+		$data->message = "Vous ne pouvez pas effectué cette opération !";
+	}
+	echo json_encode($data);
+}
+
+
+
 //suppression des elements avec mot de passe
 if ($action === "suppression_with_password") {
 	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);

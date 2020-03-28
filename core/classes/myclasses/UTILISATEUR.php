@@ -97,7 +97,7 @@ class UTILISATEUR extends AUTH
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
-				return $connexion->date_connexion;
+				return date("Y-m-d H:i:s");
 			}else{
 				return $connexion->date_deconnexion;
 			}
@@ -107,8 +107,8 @@ class UTILISATEUR extends AUTH
 
 	public static function getAllConnected(){
 		$datas = self::findBy(["allowed = "=> 1]);
-		foreach ($datas as $key => $employe) {
-			if (!$employe->is_connected()) {
+		foreach ($datas as $key => $utilisateur) {
+			if (!$utilisateur->is_connected()) {
 				unset($datas[$key]);
 			}
 		}
@@ -120,7 +120,7 @@ class UTILISATEUR extends AUTH
 
 
 	public function is_connected(){
-		$datas = CONNEXION::findBy(["employe_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["utilisateur_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
@@ -133,7 +133,7 @@ class UTILISATEUR extends AUTH
 
 
 
-	public function relog_employe(string $login, string $password){
+	public function relog_utilisateur(string $login, string $password){
 		$data = new RESPONSE;
 		if ($password != "" && $login != "") {
 			$datas = self::findBy(["login = "=>$login, "id !="=> $this->getId()]);
@@ -216,8 +216,8 @@ class UTILISATEUR extends AUTH
 			$data->status = true;
 			$data->message = "aucun login semblabe, valide!";
 		}else{
-			$employeTemp = $datas[0];
-			if ($employeTemp->id === $this->id) {
+			$utilisateurTemp = $datas[0];
+			if ($utilisateurTemp->id === $this->id) {
 				$data->status = true;
 				$data->message = "C'est son login'";
 			}else{
@@ -281,7 +281,7 @@ class UTILISATEUR extends AUTH
 	public function getRapportJournalier(){
 		$data = new RESPONSE;
 		$tab = BREAKDAY::getDateByBreakday();
-		$datas = HISTORY::findBy(["employe_id ="=>$this->getId(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
+		$datas = HISTORY::findBy(["utilisateur_id ="=>$this->getId(), "created >="=>$tab["date1"], "created <="=>$tab["date2"]], [], ["created"=>"DESC"]);
 		foreach ($datas as $key => $ligne) {
 			$ligne->actualise();
 			$tab = [];

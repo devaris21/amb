@@ -153,7 +153,6 @@
 
 <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
 
-<?php include($this->rootPath("composants/assets/modals/modal-entretienvehicule2.php")); ?> 
 
 </div>
 </div>

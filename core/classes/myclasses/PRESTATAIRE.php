@@ -99,7 +99,7 @@ class PRESTATAIRE extends AUTH
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
-				return $connexion->date_connexion;
+				return date("Y-m-d H:i:s");
 			}else{
 				return $connexion->date_deconnexion;
 			}

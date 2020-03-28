@@ -1,7 +1,7 @@
 <?php 
 namespace Home;
 
-$equipements = EQUIPEMENT::getAll();
+$types = TYPEEQUIPEMENT::getAll();
 
 $title = "AMB | Equipements & Accessoires";
 ?>

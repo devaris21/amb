@@ -16,7 +16,14 @@ class AFFECTATION extends TABLE
 	public $carplan_id;
 	public $vehicule_id;
 	public $etat_id = 0;
-	public $typeaffectation = 0;
+	public $typeaffectation_id = 0;
+
+	public $matricule;
+	public $name;
+	public $lastname;
+	public $fonction ;
+	public $email ;
+	public $contact ;
 
 	public $comment = 0;
 	public $started = "";
@@ -28,14 +35,16 @@ class AFFECTATION extends TABLE
 	public function enregistre(){
 		$data = new RESPONSE;
 		static::etat();
-		if ($this->started > $this->finished && $this->started >= date("Y-m-d")) {
-			$this->vehicule_id = getSession("vehicule_id");
+		if ($this->finished >= $this->started  && $this->started >= date("Y-m-d")) {
 			$datas = static::findBy(["vehicule_id ="=>$this->vehicule_id, "etat_id ="=>0]);
 			if (count($datas) == 0) {
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
-					$datas = CARPLAN::findBy(["id ="=>$this->carplan_id]);
-					if (count($datas) == 1) {
+					$carplan = new CARPLAN;
+					$carplan->cloner($this);
+					$data = $carplan->enregistre();
+					if ($data->status) {
+						$this->carplan_id = $data->lastid;
 						$data = $this->save();
 						if ($data->status) {
 							$renouv = new RENOUVELEMENTAFFECTATION;
@@ -44,9 +53,6 @@ class AFFECTATION extends TABLE
 							$renouv->gestionnaire_id = getSession("gestionnaire_connecte_id");
 							$data = $renouv->enregistre();
 						}
-					}else{
-						$data->status = false;
-						$data->message = "Une eurreur s'est produite pendant le processus, veuillez recommencer !";
 					}
 				}else{
 					$data->status = false;
@@ -62,6 +68,8 @@ class AFFECTATION extends TABLE
 		}
 		return $data;
 	}
+
+
 
 
 	public static function etat(){
@@ -149,7 +157,7 @@ class AFFECTATION extends TABLE
 			$data->status = false;
 			$data->message = "Veuillez un intervalle de dates correctes !";
 		}
-		
+
 		return $data;	
 	}
 

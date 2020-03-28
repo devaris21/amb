@@ -12,12 +12,6 @@
 
                     <div class="row">
                         <div class="col-sm-4">
-                            <label>Nom l'assurance (Titre) <span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="name" required placeholder="Ex... Assurance 2019-2020">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
                             <label>Numero de cette assurance <span1>*</span1></label>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="numero_piece" required placeholder="">
@@ -57,28 +51,8 @@
                                 <input type="number" class="form-control" name="price"  required >
                             </div>
                         </div>
-
                         <div class="col-sm-4">
-                            <label>Exprimer cette période validité <span1>*</span1></label>
-                            <div class="row">
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="duree" required>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <?php Native\BINDING::html("select", "typeduree"); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div  class="row">
-                        <div class="col-sm-4">
-                            <label>Illustration 1</label>
+                             <label>Illustration 1</label>
                             <div class="">
                                 <img style="width: 80px;" src="" class="img-thumbnail logo">
                                 <input class="hide" type="file" name="image1">

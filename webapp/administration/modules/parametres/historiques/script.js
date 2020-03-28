@@ -1,6 +1,5 @@
 
 $(function(){
-
 	$("input[type=date]").change(function(){
 		var url = "../../webapp/administration/modules/parametres/historiques/ajax.php";
 		var formData = new FormData();
@@ -8,10 +7,19 @@ $(function(){
 		formData.append("date2", $("input[name=date2]").val());
 		formData.append("action", "historiques");
 		$.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
-			$("div.affichage").html(data)
+			$("tbody#historique").html(data)
 		}, "html");
 	})
 
 
 	$("input[name=date1]").change()
+
+
+	var ias = new InfiniteAjaxScroll('tbody#historique', {
+		item: 'tbody#historique tr',
+		next: '.next',
+		pagination: '.pagination',
+		//spinner: '.spinner'
+	});
+
 })

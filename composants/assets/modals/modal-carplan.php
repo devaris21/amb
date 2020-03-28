@@ -9,7 +9,7 @@
             <form method="POST" classname="carplan" class="formShamman"  >
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-4 unmodified">
+                        <div class="col-sm-4">
                             <label>Matricule <span1>*</span1></label>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="matricule" required>
@@ -40,12 +40,6 @@
                             <label>Contact <span1>*</span1></label>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="contact" required>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <label>Situation geographique <span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="adresse" required>
                             </div>
                         </div>
                     </div>

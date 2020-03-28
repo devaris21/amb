@@ -17,12 +17,6 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>Nom la pièce (Titre) <span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="text" class="form-control" name="name" required placeholder="Ex... Patente 2019-2020">
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
                             <label>Numero de cette pièce <span1>*</span1></label>
                             <div class="form-group">
                                 <input type="text" class="form-control" name="numero_piece" required placeholder="">
@@ -56,25 +50,6 @@
                                 <input type="number" class="form-control" name="price" autocomplete="off">
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <label>Exprimer cette période validité <span1>*</span1></label>
-                            <div class="row">
-                                <div class="col-5">
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="duree" required>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <?php Native\BINDING::html("select", "typeduree"); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-sm-4">
                             <label>Illustration 1</label>
                             <div class="">

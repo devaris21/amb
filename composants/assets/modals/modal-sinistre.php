@@ -52,7 +52,7 @@
                                         <!-- //TODO on ne doit pas afficher tous les vehicules, juste ceux qui sont actuellement dans le parc -->
                                         <select class="select2" name="vehicule_id" style="width: 100%">
                                             <?php 
-                                            foreach (Home\VEHICULE::getAll() as $key => $vehicule) { ?>
+                                            foreach (Home\VEHICULE::parcauto() as $key => $vehicule) { ?>
                                                 <option value="<?= $vehicule->getId(); ?>"><?= $vehicule->name() ?></option>
                                             <?php } ?>
                                         </select>

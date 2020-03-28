@@ -11,7 +11,7 @@
                         <div class="col-9">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="block m-t-xs font-bold"><?= $gestionnaire->fullname(); ?></span>
-                                <span class="text-muted text-xs block"><?= $gestionnaire->typeadministrateur->name; ?> <b class="caret"></b></span>
+                                <span class="text-muted text-xs block"><?= $gestionnaire->typegestionnaire->name; ?> <b class="caret"></b></span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="dropdown-item" href="profile.html">Mon profil</a></li>

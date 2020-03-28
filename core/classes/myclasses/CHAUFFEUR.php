@@ -60,29 +60,21 @@ class CHAUFFEUR extends PERSONNE
 
 
 
-	public function etat(){
-		if ($this->etatchauffeur_id != -1) {
-			$datas = CHAUFFEUR_MISSION::findBy(["etat_id="=>0, "chauffeur_id ="=>$this->getId()]);
-			if (count($datas) > 0) {
-				$this->etatchauffeur_id = 1;
-			}else{
-				$this->etatchauffeur_id = 0;
-			}			
-			$this->save();
+	public static function etat(){
+		$requette = "UPDATE chauffeur SET etatchauffeur_id = 1";
+		static::query($requette, []);
+		$requette = "SELECT * FROM chauffeur WHERE chauffeur.id NOT IN (SELECT mission.chauffeur_id FROM mission WHERE etat_id = 1)";
+		$datas =  static::execute($requette, []);
+		foreach ($datas as $key => $chauffeur) {
+			$chauffeur->etatchauffeur_id = 0;
+			$chauffeur->save();
 		}
 	}
 
 
-	public static function disponibles(){
-		// TODO revoir les chauffeurs disponibles
-		$datas = static::getAll();
-		foreach ($datas as $key => $chauffeur) {
-			$chauffeur->etat();
-			if ($chauffeur->etatchauffeur_id != 0) {
-				unset($datas[$key]);
-			}
-		}
-		return $datas;
+	public static function open(){
+		$datas = static::etat();
+		return static::getAll(["etatchauffeur_id =" => 0]);
 	}
 
 

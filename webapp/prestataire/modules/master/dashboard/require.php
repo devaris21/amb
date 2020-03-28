@@ -1,8 +1,11 @@
 <?php 
 namespace Home;
 
+$types = TYPEPRODUIT::findBy([], [], ["name"=>"ASC"]);
+foreach ($types as $key => $type) {
+	$type->fourni("produit", ["prestataire_id = "=> $prestataire->getId()]);
+}
 
-$title = "AMB | Tableau de bord";
-
+$title = "AMB | ".$prestataire->name();
 
 ?>

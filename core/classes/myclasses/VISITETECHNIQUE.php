@@ -34,10 +34,11 @@ class VISITETECHNIQUE extends TABLE
 	public function enregistre(){
 		$data = new RESPONSE;
 		if ($this->price >= 0) {
-			if ($this->name != "" && $this->numero_piece != "") {
+			if ($this->numero_piece != "") {
 				$this->vehicule_id = getSession("vehicule_id");
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
+					$this->name = "VISITE TECHNIQUE ".date("Y", strtotime($this->date_etablissement));
 					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();
 					if ($data->status) {

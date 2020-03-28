@@ -2,13 +2,8 @@
 namespace Home;
 
 
-$title = "AMB-Carplan | Tableau de bord";
+$title = "AMB-Admin systeme | Tableau de bord";
 
-$carplan->fourni("affectation");
-$affectation = $carplan->affectations[0];
-$affectation->actualise();
-
-session("carplan_vehicule_id", $affectation->vehicule->getId());
 
 
 ?>

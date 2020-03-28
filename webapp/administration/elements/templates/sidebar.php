@@ -6,12 +6,12 @@
                 <div class="dropdown profile-element">                        
                     <div class="row">
                         <div class="col-3">
-                            <img alt="image" class="rounded-circle" style="width: 35px" src="<?= $this->stockage("images", "carplans", $affectation->carplan->image) ?>"/>
+                            <img alt="image" class="rounded-circle" style="width: 35px" src="<?= $this->stockage("images", "admins", $admin->image) ?>"/>
                         </div>
                         <div class="col-9">
                             <a data-toggle="tab" href="#">
-                                <span class="block m-t-xs font-bold"><?= coupeMot($affectation->carplan->name(), 2) ?></span>
-                                <span class="text-muted text-xs block">Carplan</span>
+                                <span class="block m-t-xs font-bold"><?= coupeMot($admin->name(), 2) ?></span>
+                                <span class="text-muted text-xs block">Admin Système</span>
                             </a>
                         </div>
                     </div>
@@ -22,26 +22,41 @@
             </li>
             
 
-            <li class="active">
-                <a href="<?= $this->url("carplan", "master", "dashboard") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Tableau de bord</span></a>
+            <li class="">
+                <a href="<?= $this->url("administration", "master", "dashboard") ?>"><i class="fa fa-dashboard"></i> <span class="nav-label">Tableau de bord</span></a>
             </li>
-            
+
+            <br><li class="dropdown-divider"></li><br>
+
             <li>
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Entretiens de véhicules</span> <span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Responsables</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="<?= $this->url("carplan", "master", "demandeentretiens") ?>">Liste des demandes</a></li>
-                    <li><a href="<?= $this->url("carplan", "master", "entretiensencours") ?>">Entretiens en cours</a></li>
-                    <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Nouvel entretien</a></li>
+                    <li id="utilisateurs"><a href="<?= $this->url("administration", "users", "utilisateurs") ?>">Liste des responsables</a></li>
+                    <!-- <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter nouveau</a></li> -->
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Sinistres</span> <span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-pied-piper-alt"></i> <span class="nav-label">Gestionnaire / Admin</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
-                    <li><a href="<?= $this->url("carplan", "master", "sinistres") ?>">Sinistres déclarés</a></li>
-                    <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Déclarer un sinistre</a></li>
+                    <li id="chauffeurs"><a href="<?= $this->url("administration", "users", "gestionnaires") ?>">Liste des Gestionnaire</a></li>
+                    <li id="chauffeurs"><a href="<?= $this->url("administration", "users", "admins") ?>">Liste des admins</a></li>
                 </ul>
             </li>
-    
+
+            <br><li class="dropdown-divider"></li><br>
+            <li class="">
+                <a href="<?= $this->url("administration", "parametres", "suggestions") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Retour Suggestions</span></a>
+            </li>
+            <li class="" id="index">
+                <a href="<?= $this->url("administration", "parametres", "historiques") ?>"><i class="fa fa-steam"></i> <span class="nav-label">Traçabilité </span></a>
+            </li>
+
+            <br><li class="dropdown-divider"></li><br>
+
+            <li class="">
+                <a href="<?= $this->url("administration", "master", "dashboard") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Abonnement AMB</span></a>
+            </li>
+
         </ul>
 
     </div>

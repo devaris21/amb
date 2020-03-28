@@ -14,31 +14,17 @@ extract($_POST);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-if ($action == "approuver") {
-	$datas = DEMANDEENTRETIEN::findBy(["id ="=>$id]);
-	if (count($datas) == 1) {
+if ($action == "demandevehicule") {
+	$datas = DEMANDEVEHICULE::findBy(["id ="=>getSession("demandevehicule")]);
+	if (count($datas) > 0) {
 		$demande = $datas[0];
-		$data = $demande->approuver();
-	}else{
-		$data->status = false;
-		$data->message = "Une erreur s'est produite lors de l'opération! Veuillez recommencer";
-	}
-	echo json_encode($data);
-}
-
-
-
-if ($action == "entretien2") {
-	if (getSession("demandeentretien") != null) {
-		$entretien = new ENTRETIENVEHICULE;
-		$demande = getSession("demandeentretien");
-		$entretien->cloner($demande);
-		$entretien->hydrater($_POST);
-		$entretien->name = $demande->typeentretienvehicule->name." suite à la demande d'entretien ".$demande->ticket;
-		$entretien->setId(null);
-		$data = $entretien->enregistre();
+		$demande->vehicule_id = getSession("vehicule");
+		$demande->chauffeur_id = getSession("chauffeur");
+		$data = $demande->approuverFinal();
 		if ($data->status) {
 			unset_session("demandeentretien");
+			unset_session("vehicule");
+			unset_session("chauffeur");
 		}
 	}else{
 		$data->status = false;
@@ -48,13 +34,11 @@ if ($action == "entretien2") {
 }
 
 
-
-
 if ($action == "refuser") {
-	$datas = DEMANDEENTRETIEN::findBy(["id ="=>$id]);
+	$datas = DEMANDEVEHICULE::findBy(["id ="=>getSession("demandevehicule")]);
 	if (count($datas) == 1) {
 		$demande = $datas[0];
-		$data = $demande->refuser();
+		$data = $demande->refuser($comment);
 	}else{
 		$data->status = false;
 		$data->message = "Une erreur s'est produite lors de l'opération! Veuillez recommencer";

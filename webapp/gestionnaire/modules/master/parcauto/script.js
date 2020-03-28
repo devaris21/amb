@@ -5,7 +5,7 @@ $(function(){
 	
 		$("#top-search").on("keyup", function() {
     		var value = $(this).val().toLowerCase();
-    		$("div.product-box").filter(function() {
+    		$("div.vehicule").filter(function() {
     			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     		});
     	});

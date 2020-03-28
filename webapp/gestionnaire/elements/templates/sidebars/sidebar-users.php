@@ -11,13 +11,6 @@
         <a href="<?= $this->url("gestionnaire", "master", "affectations") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Bénéficiaires Carplan</span></a>
     </li>
     <li>
-        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Les Directions</span> <span class="fa arrow"></span></a>
-        <ul class="nav nav-second-level collapse">
-            <li id="utilisateurs"><a href="<?= $this->url("gestionnaire", "users", "utilisateurs") ?>">Liste des responsables</a></li>
-            <!-- <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter nouveau</a></li> -->
-        </ul>
-    </li>
-    <li>
         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Prestataires</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">
             <li id="prestataires"><a href="<?= $this->url("gestionnaire", "users", "prestataires") ?>">Liste des prestataires</a></li>

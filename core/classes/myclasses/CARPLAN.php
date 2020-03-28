@@ -17,9 +17,11 @@ class CARPLAN extends AUTH
 	public $matricule;
 	public $name;
 	public $lastname;
-	public $is_allowed = 1;
-	public $sexe_id = 1;
 	public $fonction ;
+	public $email ;
+	public $contact ;
+	public $sexe_id = 1;
+	public $is_allowed = 1;
 	public $is_connecte = false;
 	public $image = "default.png";
 	
@@ -39,7 +41,8 @@ class CARPLAN extends AUTH
 						include(__DIR__."/../../sections/home/elements/mails/welcome_carplan.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
-						EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+						//TODO gerer les emails
+						//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
 					}
 				}else{
 					$data->status = false;
@@ -57,17 +60,18 @@ class CARPLAN extends AUTH
 
 
 
-	public function create_compte(){
-		$pass = substr(uniqid(), 5);
-		$this->login = substr(uniqid(), 5);
+	public function creerCompte(){
+		$pass = substr(uniqid(), 6);
+		$this->login = substr(uniqid(), 6);
 		$this->password = hasher($pass);
 		$data = $this->save();
 		if ($data->status) {
 			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/welcome_carplan.php");
+			//include(__DIR__."/../../sections/home/elements/mails/welcome_carplan.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
-			EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+			//TODO gerer les email de carplan
+			//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
 		}
 		return $data;
 	}
@@ -95,7 +99,7 @@ class CARPLAN extends AUTH
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
-				return $connexion->date_connexion;
+				return date("Y-m-d H:i:s");
 			}else{
 				return $connexion->date_deconnexion;
 			}
@@ -105,8 +109,8 @@ class CARPLAN extends AUTH
 
 	public static function getAllConnected(){
 		$datas = self::findBy(["allowed = "=> 1]);
-		foreach ($datas as $key => $employe) {
-			if (!$employe->is_connected()) {
+		foreach ($datas as $key => $carplan) {
+			if (!$carplan->is_connected()) {
 				unset($datas[$key]);
 			}
 		}
@@ -118,7 +122,7 @@ class CARPLAN extends AUTH
 
 
 	public function is_connected(){
-		$datas = CONNEXION::findBy(["employe_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
+		$datas = CONNEXION::findBy(["carplan_id = "=> $this->getId()], [], ["id"=>"DESC"], 1);
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
@@ -131,7 +135,7 @@ class CARPLAN extends AUTH
 
 
 
-	public function relog_employe(string $login, string $password){
+	public function relog_carplan(string $login, string $password){
 		$data = new RESPONSE;
 		if ($password != "" && $login != "") {
 			$datas = self::findBy(["login = "=>$login, "id !="=> $this->getId()]);
@@ -214,8 +218,8 @@ class CARPLAN extends AUTH
 			$data->status = true;
 			$data->message = "aucun login semblabe, valide!";
 		}else{
-			$employeTemp = $datas[0];
-			if ($employeTemp->id === $this->id) {
+			$carplanTemp = $datas[0];
+			if ($carplanTemp->id === $this->id) {
 				$data->status = true;
 				$data->message = "C'est son login'";
 			}else{

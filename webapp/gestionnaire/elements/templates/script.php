@@ -1,15 +1,23 @@
     <!-- Mainly scripts -->
-
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/jquery-3.1.1.min.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/popper.min.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/bootstrap.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/metisMenu/jquery.metisMenu.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/slimscroll/jquery.slimscroll.min.js") ?>"></script>
 
+    <!-- Flot -->
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.tooltip.min.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.spline.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.resize.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.pie.js") ?>"></script>
+
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/inspinia.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/pace/pace.min.js") ?>"></script>
     <!-- ChartJS-->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/chartJs/Chart.min.js") ?>"></script>
+    <!-- Sparkline -->
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/sparkline/jquery.sparkline.min.js") ?>"></script>
     <!-- Toastr -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/toastr/toastr.min.js") ?>"></script>   <!-- Footable -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/footable/footable.all.min.js") ?>"></script>
@@ -17,6 +25,13 @@
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/ionRangeSlider/ion.rangeSlider.min.js") ?>"></script>
     <!-- Idle Timer plugin -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/idle-timer/idle-timer.min.js") ?>"></script>
+
+    <!-- mansory -->
+    <script src="<?= $this->rootPath("composants/dist/js/plugins/masonary/masonry.pkgd.min.js") ?>"></script>
+
+    <!-- datatables -->
+    <script src="<?= $this->rootPath("composants/dist/js/plugins/dataTables/datatables.min.js") ?>"></script>
+    <script src="<?= $this->rootPath("composants/dist/js/plugins/dataTables/dataTables.bootstrap4.min.js") ?>" ></script>
 
     <!-- iCheck -->
     <script src="<?= $this->rootPath("composants/dist/js/plugins/iCheck/icheck.min.js") ?>"></script>

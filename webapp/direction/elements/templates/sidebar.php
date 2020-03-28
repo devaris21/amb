@@ -23,15 +23,17 @@
             
 
             <li class="active">
-                <a href="<?= $this->url("carplan", "master", "dashboard") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Tableau de bord</span></a>
+                <a href="<?= $this->url("direction", "master", "dashboard") ?>"><i class="fa fa-dashboard"></i> <span class="nav-label">Tableau de bord</span></a>
             </li>
             <li class="">
-                <a href="<?= $this->url("gestionnaire", "master", "demandevehicules") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Les missions</span></a>
+                <a href="<?= $this->url("direction", "master", "missions") ?>"><i class="fa fa-plane"></i> <span class="nav-label">Les missions</span></a>
             </li>
-            <li class="dropdown-divider"></li>
-            <li class="">
-                <a href="<?= $this->url("gestionnaire", "master", "demandevehicules") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Les Demandes à valider</span></a>
-            </li>
+            <?php if (in_array($utilisateur->departement->getId(), [1,2])) { ?>
+                <li class="dropdown-divider"></li>
+                <li class="">
+                    <a href="<?= $this->url("direction", "master", "demandevehicules") ?>"><i class="fa fa-check"></i> <span class="nav-label">Les Demandes à valider</span></a>
+                </li>
+            <?php } ?>
 
         </ul>
 

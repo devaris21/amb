@@ -19,7 +19,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li><a class="nav-link active" data-toggle="tab" href="#menu-1">Infos Générale</a></li>
                     <li><a class="nav-link" data-toggle="tab" href="#menu-2">Personnel Roulant</a></li>
-                    <li><a class="nav-link" data-toggle="tab" href="#menu-3">Equiments</a></li>
+                    <li><a class="nav-link" data-toggle="tab" href="#menu-3">Equiments & Accessoires</a></li>
                     <li><a class="nav-link" data-toggle="tab" href="#menu-4">Géolocalisation</a></li>
                     <li><a class="nav-link" data-toggle="tab" href="#menu-5">Historique du véhicule</a></li>
                 </ul>
@@ -31,36 +31,84 @@
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="text-center" data-toggle="tooltip" title="Double-cliquez sur l'image pour la changer">
-                                            <img class="cursor" data-toggle="modal" data-target="#modal-image" src="<?= $this->stockage("images", "vehicules", $vehicule->image) ?>" class="img-thumbnail cursor" style="height: 110px;">
+                                            <img class="cursor" data-toggle="modal" data-target="#modal-image" src="<?= $this->stockage("images", "vehicules", $levehicule->image) ?>" class="img-thumbnail cursor" style="height: 110px;">
                                         </div>
                                     </div>
                                     <div class="col-7">
-                                        <span class="label label-success float-right mp5">Monthly</span>
-                                        <h1 class="gras text-navy" style="margin: 0"><strong><?= $vehicule->immatriculation ?></strong></h1>
+                                        <small class="label label-<?= $levehicule->etatvehicule->class; ?> float-right mp5"><?= $levehicule->etatvehicule->name; ?></small>
+                                        <h1 class="gras text-navy" style="margin: 0"><strong><?= $levehicule->immatriculation ?></strong></h1>
                                         <address>
-                                            <h3 style="margin-top: 6px;"><strong><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></strong></h3>
-                                            Véhicule de <u><?= $vehicule->groupevehicule->name ?></u> <br>
+                                            <h3 style="margin-top: 6px;"><strong><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></strong></h3>
+                                            Véhicule de <u><?= $levehicule->groupevehicule->name ?></u> <br>
                                         </address>
                                     </div>
                                     <div class="col-1 text-center">
-                                        <span  data-toggle=modal data-target="#modal-vehicule" class="cursor" onclick="modification('vehicule', <?= $vehicule->getId() ?>)"><i data-toggle='tooltip' title="Modiifer les infos du véhicule" class="fa fa-pencil fa-2x cursor"></i></span><br><br>
-                                        <span data-toggle='tooltip' title="Supprimer le véhicule" onclick="suppressionWithPassword('vehicule', <?= $vehicule->getId() ?>)" class="cursor" ><i class="fa fa-close text-red fa-2x cursor"></i></span><br>                                                                            
+                                        <span  data-toggle=modal data-target="#modal-vehicule" class="cursor" onclick="modification('vehicule', <?= $levehicule->getId() ?>)"><i data-toggle='tooltip' title="Modiifer les infos du véhicule" class="fa fa-pencil fa-2x cursor"></i></span><br><br>
+                                        <span data-toggle='tooltip' title="Supprimer le véhicule" onclick="suppressionWithPassword('vehicule', <?= $levehicule->getId() ?>)" class="cursor" ><i class="fa fa-close text-red fa-2x cursor"></i></span><br>                                                                            
                                     </div>
                                 </div>
-                                <button class="btn btn-warning btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Nouvel entretien du véhicule</button>
+                                <button data-toggle=modal data-target="#modal-entretienvehicule1" class="btn btn-warning btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Nouvel entretien du véhicule</button>
                             </div>
                             <div class="col-md-4 col-sm-4 border-right">
-                                <span class="float-right mp5"><i class="fa fa-gears fa-2x"></i></span>
-                                <h4 class="text-green gras">Affecté à </h4>
-                                <h2 class="mp0 gras text-navy" style="margin-top: 6px;">Koné Mamadou</h2>
-                                <h5 class="gras">Président de lorem</h5>
-                                <h4>Du date1 au date2</h4>
-                                <button class="btn btn-success btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Affecter le véhicule</button>
+                                <?php if ($affectation != null) {
+                                    $affectation->fourni("renouvelementaffectation");
+                                    $renouv = new Home\RENOUVELEMENTAFFECTATION;
+                                    if (count($affectation->renouvelementaffectations) > 0) {
+                                        $renouv = end($affectation->renouvelementaffectations);
+                                    }
+                                    ?>
+                                    <div class="btn-group float-right">
+                                        <span data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mp5 cursor dropdown-toggle"><i class="fa fa-gears fa-2x"></i></span>
+                                        <div class="dropdown-menu">
+                                            <?php if ($affectation->etat_id != 0) { ?>
+                                                <a class="dropdown-item" onclick="renouveler(<?= $affectation->getId() ?>)" data-toggle="tooltip" title="Renouveler l'affectation" href="#"><i class="fa fa-refresh"></i> Renouveler l'affectation</a>
+                                            <?php } ?>
+
+                                            <?php if ($affectation->etat_id == 0) { ?>
+                                                <a class="dropdown-item" onclick="creerCompte(<?= $affectation->getId() ?>)" href="#"><i class="fa fa-user"></i> Créer son compte Carplan</a>
+                                                <a class="dropdown-item" onclick="modification('carplan', <?= $affectation->carplan->getId() ?>)" data-toggle="modal" data-target="#modal-carplan" href="#"><i class="fa fa-pencil"></i> Modifier les infos du bénéficiaire</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item" onclick="terminerAffectation(<?= $affectation->getId() ?>)" data-toggle="tooltip" title="Terminer l'affectation" href="#"><i class="fa fa-check text-green"></i> Affectation terminée</a>
+                                                <a class="dropdown-item"  onclick="annulerAffectation(<?= $affectation->getId() ?>)" data-toggle="tooltip" title="Annuler l'affectation" href="#"><i class="fa fa-close text-red"></i> Annuler l'affectation</a>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <h4 class="text-green gras">Affecté à </h4>
+                                    <h2 class="mp0 gras text-navy" style="margin-top: 6px;"><?= coupeMot($affectation->carplan->name(), 2)  ?></h2>
+                                    <h5 class="gras"><?= $affectation->carplan->fonction;  ?></h5>
+                                    <h4>Du <b><?= datecourt($renouv->started);  ?></b> au <b><?= datecourt($renouv->finished);  ?></b> (<?= count($affectation->renouvelementaffectations) ?>)</h4>
+                                    <span class="gras"><u><?= $affectation->typeaffectation->name;  ?></u></span> &nbsp;&nbsp;&nbsp; <small class="label label-<?= $affectation->etat->class ?>"><?= $affectation->etat->name ?></small>
+                                    <?php if ($affectation->etat_id != 0) { ?>
+                                        <button data-toggle="modal" data-target="#modal-affectation" class="btn btn-success btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Nouvelle affectation</button>
+                                    <?php } ?>
+
+                                <?php }else{ ?>
+                                    <h4 class="text-green gras">Affecté à </h4>
+                                    <h2 class="text-muted text-center">Pas encore affecté</h2>
+                                    <br>
+                                    <button data-toggle="modal" data-target="#modal-affectation" class="btn btn-success btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Affecter le véhicule</button>
+                                <?php } ?>
                             </div>
-                            <div class="col-md-2 optionsbtn">                               
-                                <button class="btn btn-success btn-block  btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-handshake-o"></i> Faire louer ce véhicule</button>
-                                <button class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre indisponible</button>
-                                <button class="btn btn-danger  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-close"></i> Il n'est plus dans le parc</button>
+                            <div class="col-md-2 optionsbtn">  
+                                <?php if($levehicule->etatvehicule_id == 0 && in_array($levehicule->groupevehicule_id, Home\VEHICULEOPEN::get())){ ?>
+                                    <button data-toggle="modal" data-target="#modal-pret1" class="btn btn-success btn-block  btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-handshake-o"></i> Prêter ce véhicule</button>
+                                <?php } ?>  
+
+                                <?php if($levehicule->etatvehicule_id >= 0){ ?>
+                                    <button onclick="disponibilite(0)" class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre indisponible</button>
+                                <?php }else{ ?>
+                                    <button onclick="disponibilite(1)" class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre à nouveau disponible
+                                    </button>
+                                <?php } ?>
+
+                                <?php if($levehicule->etatvehicule_id != -2){ ?>
+                                    <button onclick="declassement(0)" class="btn btn-danger  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-close"></i> Déclasser le véhicule</button>
+                                <?php }else{ ?>
+                                    <button onclick="declassement(1)" class="btn btn-success  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-refresh"></i> Reclasser le véhicule</button>
+                                <?php } ?>       
+
+
+                                
                             </div>
                         </div><hr>
 
@@ -70,19 +118,19 @@
                                     <tbody>
                                         <tr>
                                             <td>Marque</td>
-                                            <td><?= $vehicule->marque->name ?></td>
+                                            <td><?= $levehicule->marque->name ?></td>
                                         </tr>                                            
                                         <tr>
                                             <td>Modèle</td>
-                                            <td><?= $vehicule->modele ?></td>
+                                            <td><?= $levehicule->modele ?></td>
                                         </tr>
                                         <tr>
                                             <td>Couleur</td>
-                                            <td><?= $vehicule->couleur ?></td>
+                                            <td><?= $carteGrise->couleur ?></td>
                                         </tr>
                                         <tr>
                                             <td>N°Chasis</td>
-                                            <td><?= $vehicule->chasis ?></td>
+                                            <td><?= $levehicule->chasis ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -92,19 +140,19 @@
                                     <tbody>
                                         <tr>
                                             <td>Energie</td>
-                                            <td><?= $vehicule->energie->name ?></td>
+                                            <td><?= $levehicule->energie->name ?></td>
                                         </tr>
                                         <tr>
                                             <td>Puissance</td>
-                                            <td><?= $vehicule->puissance ?> chevaux</td>
+                                            <td><?= $levehicule->puissance ?> chevaux</td>
                                         </tr>
                                         <tr>
                                             <td>Transmission</td>
-                                            <td><?= $vehicule->typetransmission->name ?></td>
+                                            <td><?= $levehicule->typetransmission->name ?></td>
                                         </tr>
                                         <tr>
                                             <td>Portieres / Places</td>
-                                            <td><?= $vehicule->nb_porte ?> portières / <?= $vehicule->nb_place ?> places</td>
+                                            <td><?= $levehicule->nb_porte ?> portières / <?= $levehicule->nb_place ?> places</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -114,19 +162,19 @@
                                     <tbody>
                                         <tr>
                                             <td>Mise en circulation</td>
-                                            <td><?= datecourt($vehicule->date_mise_circulation) ?></td>
+                                            <td><?= datecourt($levehicule->date_mise_circulation) ?></td>
                                         </tr>
                                         <tr>
                                             <td>Kilometrage actuel</td>
-                                            <td><?= $vehicule->kilometrage ?> Kms</td>
+                                            <td><?= $levehicule->kilometrage ?> Kms</td>
                                         </tr>
                                         <tr>
                                             <td>Sortie de Circulation</td>
-                                            <td><?= datecourt($vehicule->date_sortie) ?></td>
+                                            <td><?= datecourt($levehicule->date_sortie) ?></td>
                                         </tr>
                                         <tr>
                                             <td>Propriétaire</td>
-                                            <td><?= $vehicule->prestataire->name ?></td>
+                                            <td><?= $levehicule->prestataire->name ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -142,9 +190,9 @@
                                         <td>Kilometrage actuel</td>
                                     </tr>
                                     <tr>
-                                        <td><label class="m-b-5 f-w-400 label label-<?= ($vehicule->finAssurance() > dateAjoute())?"success":"danger" ?>"><?= datecourt($vehicule->finAssurance()); ?></label></td>
-                                        <td><label class="m-b-5 f-w-400 label label-<?= ($vehicule->finVisite() > dateAjoute())?"success":"danger" ?>"><?= datecourt($vehicule->finVisite()); ?></label></td>
-                                        <td><label class="m-b-5 f-w-400 label label-<?= ($vehicule->finVidange() > dateAjoute())?"success":"danger" ?>"><?= datecourt($vehicule->finVidange()); ?></label></td>
+                                        <td><label class="m-b-5 f-w-400 label label-<?= ($assurance->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($assurance->finished); ?></label></td>
+                                        <td><label class="m-b-5 f-w-400 label label-<?= ($visitetechnique->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($visitetechnique->finished); ?></label></td>
+                                        <td><label class="m-b-5 f-w-400 label label-<?= ($vidange->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($vidange->finished); ?></label></td>
                                         <td></td>
                                     </tr>
                                 </tbody>
@@ -156,28 +204,35 @@
                 <div role="tabpanel" id="menu-2" class="tab-pane">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-10">
-                                <strong>S'il y en a, veuillez spécifier le personnel roulant de ce véhicule !</strong>
-                                <button class="btn btn-success btn-sm btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Ajouter nouveau</button>
+                            <div class="col-md-9">
+                                <div>
+                                    <strong>S'il y en a, veuillez spécifier le personnel roulant de ce véhicule !</strong>
+                                    <button data-toggle="modal" data-target="#modal-chauffeur-vehicule" class="btn btn-success btn-sm btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Ajouter nouveau</button>
+                                </div>
+                                <br>
                                 <table class="table table-striped table-hover table-sm">
-                                    <thead>
+                                    <thead class="bg-blue">
                                         <tr>
                                             <th>Matricule</th>
                                             <th>Nom & prénoms</th>
                                             <th>Type de permis</th>
                                             <th>Contact</th>
                                             <th>Email</th>
-                                            <th colspan="2">Options</th>
+                                            <th>Options</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Mise en circulation</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        <?php foreach ($levehicule->chauffeur_vehicules as $key => $ch) {
+                                            $ch->actualise(); ?>
+                                            <tr>
+                                                <td><i class="fa fa-user"></i> <?= $ch->chauffeur->matricule; ?></td>
+                                                <td class="gras text-uppercase"><?= $ch->chauffeur->name(); ?></td>
+                                                <td><?= $ch->chauffeur->typepermis; ?></td>
+                                                <td><?= $ch->chauffeur->contact; ?></td>
+                                                <td><?= $ch->chauffeur->email; ?></td>
+                                                <th><i data-toggle="tooltip" title="Supprimer le chauffeur" class="fa fa-close text-red cursor" onclick="suppression('chauffeur_vehicule', <?= $ch->getId(); ?>)"></i></th>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -188,25 +243,32 @@
 
                 <div role="tabpanel" id="menu-3" class="tab-pane">
                     <div class="panel-body">
-                     <div class="row">
+                       <div class="row">
                         <div class="col-md-6">
-                            <button class="btn btn-success btn-sm btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Ajouter nouveau</button>
+                            <div>
+                                <strong>Les équipements ajoutés sur ce véhicule</strong>
+                                <button data-toggle="modal" data-target="#modal-equipement-vehicule" class="btn btn-success btn-sm btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Ajouter nouveau</button>
+                            </div><br>
                             <table class="table table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>Désignation</th>
                                         <th>Quantité</th>
                                         <th colspan="2">Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Mise en circulation</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
+                                    <?php foreach ($levehicule->equipement_vehicules as $key => $ch) {
+                                        $ch->actualise(); ?>
+                                        <tr>
+                                            <td class=""><img style="width: 32px" src="<?= $this->stockage("images", "equipements", $ch->equipement->image) ?>"></td>
+                                            <td class="gras text-uppercase"><?= $ch->equipement->name(); ?></td>
+                                            <td><?= $ch->quantite; ?> unités</td>
+                                            <th><i data-toggle="tooltip" title="Riterer l'equipement" class="fa fa-close cursor" onclick="retirer(<?= $ch->getId(); ?>)"></i></th>
+                                            <th><i data-toggle="tooltip" title="Equipement usé ou abimé, changer!" class="fa fa-trash text-red cursor" onclick="suppression('equipement_vehicule', <?= $ch->getId(); ?>)"></i></th>
+                                        </tr>
+                                    <?php } ?>                                
                                 </tbody>
                             </table>
                         </div>
@@ -236,7 +298,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-8 border-right">
-                         <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+                           <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
                             <div class="vertical-timeline-block">
                                 <div class="vertical-timeline-icon navy-bg">
                                     <i class="fa fa-briefcase"></i>
@@ -334,7 +396,6 @@
 
 <br><br>
 
-
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="tabs-container">
         <ul class="nav nav-tabs" role="tablist">
@@ -342,15 +403,15 @@
             <li><a class="nav-link" data-toggle="tab" href="#tab-assurance">Assurances</a></li>
             <li><a class="nav-link" data-toggle="tab" href="#tab-visitetechnique">Visites Techniques</a></li>
             <li><a class="nav-link" data-toggle="tab" href="#tab-piecevehicule">Autres pièces du véhicules</a></li>
-            <li><a class="nav-link" data-toggle="tab" href="#pieces-5">Entretiens du véhicule</a></li>
-            <li><a class="nav-link" data-toggle="tab" href="#pieces-5">Sinistres</a></li>
+            <li><a class="nav-link" data-toggle="tab" href="#tab-entretienvehicule">Entretiens du véhicule</a></li>
+            <li><a class="nav-link" data-toggle="tab" href="#tab-sinistres">Sinistres</a></li>
         </ul>
         <div class="tab-content">
             <div role="tabpanel" id="tab-cartegrise" class="tab-pane active">
                 <div class="panel-body">
                     <div class="ibox">
                         <div class="ibox-title">
-                            <h5 class="text-uppercase">Toutes les cartes grises de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
+                            <h5 class="text-uppercase">Toutes les cartes grises de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
                             <div class="ibox-tools">
                                 <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-cartegrise" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Ajouter Nouvelle Carte Grise</button>
                             </div>
@@ -358,7 +419,7 @@
                         <div class="ibox-content">
                             <table class="table table-hover">
                                 <tbody>
-                                   <?php foreach ($vehicule->cartegrises as $key => $carte) {
+                                 <?php foreach ($levehicule->cartegrises as $key => $carte) {
                                     $carte->actualise(); ?>
                                     <tr>
                                         <td class="project-status">
@@ -376,10 +437,10 @@
                                             <h4><?= money($carte->price) ?> <?= $params->devise ?></h4>
                                         </td>
                                         <td class="project-people">
-                                         <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
-                                         <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
-                                     </td>
-                                     <td class="project-actions">
+                                           <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
+                                           <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
+                                       </td>
+                                       <td class="project-actions">
                                         <button data-toggle="modal" data-target="#modal-cartegrise"  onclick="modification('cartegrise', <?= $carte->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                                         <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('cartegrise', <?= $carte->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                                     </td>
@@ -397,7 +458,7 @@
         <div class="panel-body">
             <div class="ibox">
                 <div class="ibox-title">
-                    <h5 class="text-uppercase">Toutes les assurances de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
+                    <h5 class="text-uppercase">Toutes les assurances de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
                     <div class="ibox-tools">
                         <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-assurance" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Ajouter Nouvelle Assurance</button>
                     </div>
@@ -405,7 +466,7 @@
                 <div class="ibox-content">
                     <table class="table table-hover">
                         <tbody>
-                           <?php foreach ($vehicule->assurances as $key => $assurance) {
+                         <?php foreach ($levehicule->assurances as $key => $assurance) {
                             $assurance->actualise(); ?>
                             <tr>
                                 <td class="project-status">
@@ -427,10 +488,10 @@
                                     <h4><?= money($assurance->price) ?> <?= $params->devise ?></h4>
                                 </td>
                                 <td class="project-people">
-                                 <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
-                                 <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
-                             </td>
-                             <td class="project-actions">
+                                   <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
+                                   <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
+                               </td>
+                               <td class="project-actions">
                                 <button data-toggle="modal" data-target="#modal-assurance"  onclick="modification('assurance', <?= $assurance->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                                 <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('assurance', <?= $assurance->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                             </td>
@@ -448,7 +509,7 @@
     <div class="panel-body">
         <div class="ibox">
             <div class="ibox-title">
-                <h5 class="text-uppercase">Toutes les visites techniques de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
+                <h5 class="text-uppercase">Toutes les visites techniques de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
                 <div class="ibox-tools">
                     <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-visitetechnique" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Enregistrer nouvelle visite</button>
                 </div>
@@ -456,7 +517,7 @@
             <div class="ibox-content">
                 <table class="table table-hover">
                     <tbody>
-                       <?php foreach ($vehicule->visitetechniques as $key => $vist) {
+                     <?php foreach ($levehicule->visitetechniques as $key => $vist) {
                         $vist->actualise(); ?>
                         <tr>
                             <td class="project-status">
@@ -477,10 +538,10 @@
                                 <h4><?= money($vist->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
-                         </td>
-                         <td class="project-actions">
+                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
+                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
+                           </td>
+                           <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-visitetechnique"  onclick="modification('visitetechnique', <?= $vist->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                             <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('visitetechnique', <?= $vist->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                         </td>
@@ -499,15 +560,15 @@
     <div class="panel-body">
         <div class="ibox">
             <div class="ibox-title">
-                <h5 class="text-uppercase">Autres pièces administratives de la <u><?= $vehicule->marque->name ?> <?= $vehicule->modele ?></u> </h5>
+                <h5 class="text-uppercase">Autres pièces administratives de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
                 <div class="ibox-tools">
-                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-piecevehicule" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Enregistrer nouvelle visite</button>
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-piecevehicule" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Enregistrer nouvelle pièce</button>
                 </div>
             </div>
             <div class="ibox-content">
                 <table class="table table-hover">
                     <tbody>
-                       <?php foreach ($vehicule->piecevehicules as $key => $piece) {
+                     <?php foreach ($levehicule->piecevehicules as $key => $piece) {
                         $piece->actualise(); ?>
                         <tr>
                             <td class="project-status">
@@ -529,10 +590,10 @@
                                 <h4><?= money($piece->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
-                         </td>
-                         <td class="project-actions">
+                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
+                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
+                           </td>
+                           <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-piecevehicule"  onclick="modification('piecevehicule', <?= $piece->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                             <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('piecevehicule', <?= $piece->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                         </td>
@@ -541,6 +602,174 @@
             </tbody>
         </table>
     </div>
+</div>
+</div>
+</div>
+
+
+<div role="tabpanel" id="tab-entretienvehicule" class="tab-pane">
+    <div class="panel-body">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5 class="text-uppercase">Les entretiens de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
+                <div class="ibox-tools">
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-entretienvehicule1" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Nouvel entretien du véhicule</button>
+                </div>
+            </div>
+            <div class="ibox-content">
+             <?php foreach ($levehicule->entretienvehicules as $key => $entretien) {
+                $entretien->actualise(); ?>
+                <div class="vote-item <?= ($entretien->etat_id != 0)?'fini':'' ?>">
+                    <div class="row">
+                        <div class="col-md-7 border-right">
+                            <div class="vote-actions" style="margin-right: 7%; height: 100%">
+                                <div class="vote-icon">
+                                    <span class="label label-<?= $entretien->etat->class ?>"><?= $entretien->etat->name ?></span>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="vote-title"><u class="text-info">#<?= $entretien->ticket ?></u> // <?= $entretien->typeentretienvehicule->name ?></span>
+                                <span><?= $entretien->comment ?></span>
+                                <div class="vote-info">
+                                  <i class="fa fa-clock-o"></i> 
+                                  <?php if ($entretien->etat_id == -1) { ?>
+                                    <a href="#">Annulée <?= depuis($entretien->date_approuve) ?></a>
+                                <?php }else if ($entretien->etat_id == 0){ ?>
+                                    <a href="#">Emise <?= depuis($entretien->created) ?></a>
+                                <?php }else if ($entretien->etat_id == 1){ ?>
+                                    <a href="#">Du <?= datecourt($entretien->started) ?> au <?= datecourt($entretien->finished) ?></a>
+                                <?php } ?>
+                                <i class="fa fa-wrench"></i> <a href="#">Entretien par <?= $entretien->prestataire->name() ?></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 border-right">
+                        <a class="row" style="color: black; margin-top: 10%" href="<?= $this->url("gestionnaire", "master", "vehicule", $entretien->vehicule_id) ?>">
+                            <div class="col-4">
+                                <div class="text-center">
+                                    <img alt="image" style="height: 40px;" class="m-t-xs" src="<?= $this->stockage("images", "vehicules", $entretien->vehicule->image) ?>">
+                                </div>
+                            </div>
+                            <div class="col-8" style="font-size: 11px;">
+                                <h3 style="margin: 0"><strong><?= $entretien->vehicule->immatriculation ?></strong></h3>
+                                <address>
+                                    <strong><?= $entretien->vehicule->marque->name ?></strong><br>
+                                    <?= $entretien->vehicule->modele ?>
+                                </address>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-1 text-right border-right">
+                        <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>">
+                    </div>
+                    <div class="col-md-1 text-right">
+                        <?php if ($entretien->etat_id == 1) { ?>
+                            <div class="vote-icon">
+                                <i class="fa fa-check text-green" data-toggle="tooltip" title="Entretien terminé avec succes"> </i>
+                            </div>
+                        <?php } else if ($entretien->etat_id == -1) { ?>
+                            <div class="vote-icon">
+                                <i class="fa fa-close text-red" data-toggle="tooltip" title="Entretien annulé"> </i>
+                            </div>
+
+                        <?php }else if ($entretien->etat_id == 0){ ?>
+                            <div class="btn-group">
+                                <button data-toggle="tooltip" title="Entretien terminé avec succes !" onclick="validerEntretien(<?= $entretien->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> </button>
+                                <button data-toggle="tooltip" title="Entretien échoué" class="btn btn-white btn-sm" onclick="annulerEntretien(<?= $entretien->getId() ?>)"><i class="fa fa-close text-red"></i></button>
+                            </div>
+                        <?php } ?>                                      
+                    </div>
+                </div>
+            </div>
+        <?php  } ?>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+<div role="tabpanel" id="tab-sinistres" class="tab-pane">
+    <div class="panel-body">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5 class="text-uppercase">Les sinistres de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
+                <div class="ibox-tools">
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-sinistre1" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
+                </div>
+            </div>
+            <div class="ibox-content">
+             <table class="table table-hover table-sinistre">
+                <tbody>
+                    <?php foreach ($levehicule->sinistres as $key => $sinistre) {
+                        $sinistre->actualise(); ?>
+                        <tr class=" <?= ($sinistre->etat_id != 0)?'fini':'' ?> border-bottom">
+                            <td class="project-status">
+                                <span class="label label-<?= $sinistre->etat->class ?>"><?= $sinistre->etat->name ?></span>
+                            </td>
+                            <td class="project-title border-right" style="width: 50%;">
+                                <h3 class="mp0"><u class="text-info">#<?= $sinistre->ticket ?></u> // <?= $sinistre->typesinistre->name ?></h3>
+                                <h5 class="mp0">Survenu le <?= datecourt($sinistre->date_etablissement) ?> à <?= $sinistre->lieudrame ?></h5>
+                                <span><?= $sinistre->comment ?></span>
+                                <p> <small><?= $sinistre->constat() ?></small> // <small><?= $sinistre->pompier() ?></small></p>
+                                <div class="vote-info mp0">
+                                  <i class="fa fa-clock-o"></i> 
+                                  <?php if ($sinistre->etat_id == -1) { ?>
+                                    <a href="#">Annulée <?= depuis($sinistre->date_approbation) ?></a>
+                                <?php }else if ($sinistre->etat_id == 0){ ?>
+                                    <a href="#">Emise <?= depuis($sinistre->created) ?></a>
+                                <?php }else if ($sinistre->etat_id == 1){ ?>
+                                    <a href="#">Approuvée <?= depuis($sinistre->date_approbation) ?></a>
+                                <?php } ?>
+                                <i class="fa fa-user"></i> <a href="#">Par <?= $sinistre->auteur() ?> - <?= $sinistre->matricule ?></a>
+                            </div>
+                        </td>
+                        <td class="border-right">
+                            <a class="row" style="color: black; margin-top: 10%" href="<?= $this->url("gestionnaire", "master", "vehicule", $sinistre->vehicule_id) ?>">
+                                <div class="col-4">
+                                    <div class="text-center">
+                                        <img alt="image" style="height: 40px;" class="m-t-xs" src="<?= $this->stockage("images", "vehicules", $sinistre->vehicule->image) ?>">
+                                    </div>
+                                </div>
+                                <div class="col-8" style="font-size: 11px;">
+                                    <h3 style="margin: 0"><strong><?= $sinistre->vehicule->immatriculation ?></strong></h3>
+                                    <address>
+                                        <strong><?= $sinistre->vehicule->marque->name ?></strong><br>
+                                        <?= $sinistre->vehicule->modele ?>
+                                    </address>
+                                </div>
+                            </a><hr>
+                            <div class="text-center">
+                              <img alt="" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "sinistres", $sinistre->image1) ?>')" style="height: 40px; width: 40px;" src="<?= $this->stockage("images", "sinistres", $sinistre->image1) ?>">
+                              <img alt="" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "sinistres", $sinistre->image2) ?>')" style="height: 40px; width: 40px;" src="<?= $this->stockage("images", "sinistres", $sinistre->image2) ?>">
+                              <img alt="" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "sinistres", $sinistre->image3) ?>')" style="height: 40px; width: 40px;" src="<?= $this->stockage("images", "sinistres", $sinistre->image3) ?>">
+                          </div>
+                      </td>
+                      <td class="project-title">
+                        <small>L'autre partie</small>
+                        <h5><?= $sinistre->nomautre ?></h5>
+                        <h5 class="mp0"><?= $sinistre->vehiculeautre ?></h5>
+                        <h5 class="mp0"><?= $sinistre->immatriculationautre ?></h5>
+                        <h5 class="mp0"><i class="fa fa-phone"></i> <?= $sinistre->contactautre ?></h5>
+                        <h5 class="mp0"><i class="fa fa-bank"></i> <?= $sinistre->assuranceautre ?></h5>
+
+                    </td>
+                    <td class="project-actions">
+                     <?php if ($sinistre->etat_id == 0) { ?>
+                        <div class="btn-group btn-group-vertical">
+                            <?php if ($sinistre->carplan_id == null) { ?>
+                             <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations du sinistre" class="fa fa-pencil"></i> </button>
+                         <?php } ?>                                
+                         <button data-toggle="tooltip" title="Valider cette déclaration" class="btn btn-white btn-sm" onclick="validerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-check text-green"></i></button>
+                         <button data-toggle="tooltip" title="Annuler cette déclaration" class="btn btn-white btn-sm" onclick="annulerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                     </div>
+                 <?php } ?>
+             </td>
+         </tr>
+     <?php  } ?>
+ </tbody>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -597,10 +826,74 @@
     </div>
 </div>
 
+
+<div class="modal fade inmodal" id="modal-chauffeur-vehicule">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Choisir le chauffeur</h4>
+            </div>
+            <form method="POST" class="formShamman" classname="chauffeur_vehicule">
+                <div class="modal-body">
+                    <div class="">
+                        <label>Personnel roulant</label>
+                        <?php Native\BINDING::html("select", "chauffeur")  ?>
+                    </div>
+                </div><hr class="">
+                <div class="container">
+                    <input type="hidden" name="vehicule_id" value="<?= $levehicule->getId() ?>">
+                    <button type="button" class="btn btn-sm  btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>
+                    <button class="btn btn-sm btn-success pull-right"><i class="fa fa-check"></i> Valider</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade inmodal" id="modal-equipement-vehicule">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Choisir l'equipement</h4>
+            </div>
+            <form method="POST" class="formShamman" classname="equipement_vehicule">
+                <div class="modal-body">
+                    <div class="">
+                        <label>Equipement</label>
+                        <?php Native\BINDING::html("select", "equipement")  ?>
+                    </div><br>
+                    <div class="">
+                        <label>quantité</label>
+                        <input type="number" class="form-control" name="quantite" required>
+                    </div>
+                </div><hr class="">
+                <div class="container">
+                    <input type="hidden" name="vehicule_id" value="<?= $levehicule->getId() ?>">
+                    <button type="button" class="btn btn-sm  btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>
+                    <button class="btn btn-sm btn-success pull-right"><i class="fa fa-check"></i> Valider</button>
+                </div>
+                <br>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 <?php include($this->rootPath("composants/assets/modals/modal-cartegrise.php")); ?> 
 <?php include($this->rootPath("composants/assets/modals/modal-assurance.php")); ?> 
 <?php include($this->rootPath("composants/assets/modals/modal-visitetechnique.php")); ?> 
-<?php include($this->rootPath("composants/assets/modals/modal-piecevehicule.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-piecevehicule.php")); ?>  
+<?php include($this->rootPath("composants/assets/modals/modal-carplan.php")); ?>  
+<?php include($this->rootPath("composants/assets/modals/modal-affectation.php")); ?>  
+<?php include($this->rootPath("composants/assets/modals/modal-pret1.php")); ?>  
+<?php include($this->rootPath("composants/assets/modals/modal-sinistre1.php")); ?>  
+<?php include($this->rootPath("composants/assets/modals/modal-entretienvehicule1.php")); ?>  
+
+
 
 </div>
 </div>

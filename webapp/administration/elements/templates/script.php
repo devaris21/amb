@@ -8,6 +8,9 @@
 
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/inspinia.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/pace/pace.min.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/masonary/masonry.pkgd.min.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/footable/footable.all.min.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/infinite-scroll/script.js") ?>"></script>
     <!-- ChartJS-->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/chartJs/Chart.min.js") ?>"></script>
     <!-- Toastr -->
@@ -28,3 +31,4 @@
 
     <!-- script pour chaque page généré -->
     <script type="text/javascript" src="<?= $this->relativePath("script.js") ?>"></script>
+

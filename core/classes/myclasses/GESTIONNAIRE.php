@@ -13,12 +13,13 @@ class GESTIONNAIRE extends AUTH
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
+	public $matricule;
 	public $name;
 	public $lastname;
 	public $is_allowed = 1;
 	public $started;
 	public $is_new = 1;
-	public $typeadministrateur_id = 1;
+	public $typegestionnaire_id = 1;
 	public $code;
 	public $image = "default.png";
 	public $is_connecte = false;
@@ -43,7 +44,7 @@ class GESTIONNAIRE extends AUTH
 					include(__DIR__."/../../sections/home/elements/mails/welcome_gestionnaire.php");
 					$contenu = ob_get_contents();
 					ob_end_clean();
-					EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+					//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
 				}else{
 					$data->status = false;
 					$data->message = "Ce login ne peut plus etre utilisé !";
@@ -96,7 +97,7 @@ class GESTIONNAIRE extends AUTH
 		if (count($datas) == 1) {
 			$connexion = $datas[0];
 			if ($connexion->date_deconnexion == null) {
-				return $connexion->date_connexion;
+				return date("Y-m-d H:i:s");
 			}else{
 				return $connexion->date_deconnexion;
 			}

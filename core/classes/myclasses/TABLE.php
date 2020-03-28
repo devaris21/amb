@@ -142,7 +142,7 @@ abstract class TABLE
 
 
     //executer manuellement une requette sur un static
-    public static function execute(String $requette, Array $params){
+    public static function execute(String $requette, Array $params = []){
         extract(static::tableName());
         $req = $bdd->prepare($requette);
         $req->execute($params);
@@ -442,13 +442,14 @@ abstract class TABLE
 
 
 
-    public function fourni($nomTable){
+    public function fourni($nomTable, $params = []){
         extract(static::tableName());
         $this->actualise();
         $name = strtolower($nomTable)."s";
         $table .="_id";
         $class =  self::fullyClassName($nomTable);
-        $datas = $class::findBy(["$table = "=> $this->getId()]);
+        $array = array_merge(["$table = "=> $this->getId()], $params);
+        $datas = $class::findBy($array);
         $this->$name = $this->items = $datas;
     }
 

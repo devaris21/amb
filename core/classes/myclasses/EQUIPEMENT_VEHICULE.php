@@ -12,14 +12,13 @@ class EQUIPEMENT_VEHICULE extends TABLE
 
 	public $vehicule_id;
 	public $equipement_id;
-	public $gestionnaire_id;
 	public $quantite = 0;
+	public $gestionnaire_id;
 
 
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		$this->vehicule_id = getSession("vehicule_id");
 		$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 		if (count($datas) == 1) {
 			$datas = EQUIPEMENT::findBy(["id ="=>$this->equipement_id]);
@@ -50,7 +49,7 @@ class EQUIPEMENT_VEHICULE extends TABLE
 		if ($data->status) {
 			$data = $this->delete();
 		}
-				return $data;
+		return $data;
 	}
 
 

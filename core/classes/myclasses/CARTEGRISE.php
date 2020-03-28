@@ -26,10 +26,11 @@ class CARTEGRISE extends TABLE
 	public function enregistre(){
 		$data = new RESPONSE;
 		if ($this->price >= 0) {
-			if ($this->name != "" && $this->numero_piece != "") {
+			if ($this->numero_piece != "") {
 				$this->vehicule_id = getSession("vehicule_id");
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
+					$this->name = "CARTE GRISE ".date("Y", strtotime($this->date_etablissement));
 					$data = $this->save();
 					if ($data->status) {
 						$this->uploading();

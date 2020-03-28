@@ -1,11 +1,13 @@
 <?php 
 namespace Native;
 use Native\SHAMMAN;
+use Home\ADMIN;
 use Home\GESTIONNAIRE;
 use Home\UTILISATEUR;
 use Home\CARPLAN;
 use Home\PRESTATAIRE;
 use Home\PARAMS;
+use Home\MYCOMPTE;
 /**
  * 
  */
@@ -70,6 +72,20 @@ class ROOTER extends PATH
             $data = PARAMS::checkTimeout($this->section);
             if ($data->status == true) {
                 $params = PARAMS::findLastId();
+
+                if ($this->section == "administration") {
+                    $datas = ADMIN::findBy(["id = "=>getSession("admin_connecte_id")]);
+                    if (count($datas) >0) {
+                        $admin = $datas[0];
+                        $admin->actualise();
+                        $mycompte = MYCOMPTE::findLastId();
+                    }else{
+                        $this->new_root($this->section, "access", "login");
+                        $this->render();
+                        return false;
+                    }
+                }
+
                 
                 if ($this->section == "gestionnaire") {
                     $datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);

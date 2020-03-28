@@ -1,9 +1,8 @@
 <?php 
 namespace Home;
 
+$title = "AMB | Les missions ";
 
-$encours = MISSION::findBy(["etat_id = "=>0]);
-$autres = MISSION::findBy(["etat_id != "=>0]);
+$missions = MISSION::getAll();
 
-$title = "AMB | Tous votre Parc Auto ";
 ?>

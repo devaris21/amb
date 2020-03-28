@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/carplan/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/head.php")); ?>
 
 
 <body class="fixed-sidebar">
 
     <div id="wrapper">
 
-        <?php include($this->rootPath("webapp/carplan/elements/templates/sidebar.php")); ?>  
+        <?php include($this->rootPath("webapp/administration/elements/templates/sidebar.php")); ?>  
 
         <div id="page-wrapper" class="gray-bg">
           
-          <?php include($this->rootPath("webapp/carplan/elements/templates/header.php")); ?>  
+          <?php include($this->rootPath("webapp/administration/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
@@ -45,14 +45,14 @@
         </div>
 
         
-        <?php include($this->rootPath("webapp/carplan/elements/templates/footer.php")); ?>
+        <?php include($this->rootPath("webapp/administration/elements/templates/footer.php")); ?>
         
 
     </div>
 </div>
 
 
-<?php include($this->rootPath("webapp/carplan/elements/templates/script.php")); ?>
+<?php include($this->rootPath("webapp/administration/elements/templates/script.php")); ?>
 
 
 </body>

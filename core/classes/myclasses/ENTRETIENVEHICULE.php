@@ -34,9 +34,10 @@ class ENTRETIENVEHICULE extends TABLE
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		if ($this->name != "") {
-			$datas = TYPEENTRETIENVEHICULE::findBy(["id ="=>$this->typeentretienvehicule_id]);
+		$datas = TYPEENTRETIENVEHICULE::findBy(["id ="=>$this->typeentretienvehicule_id]);
 			if (count($datas) == 1) {
+				$item = $datas[0];
+				$this->name = $item->name;
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
 					$this->ticket = strtoupper(substr(uniqid(), 5, 6));
@@ -44,6 +45,9 @@ class ENTRETIENVEHICULE extends TABLE
 					// TODO champ pour rejouter au commentaire quand ca vient des demandes d'entretien
 					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();
+						if ($data->status) {
+							$this->uploading();
+						}
 				}else{
 					$data->status = false;
 					$data->message = "Une erreur s'est produite lors de l'opération b, veuillez recommencer !";
@@ -51,14 +55,33 @@ class ENTRETIENVEHICULE extends TABLE
 			}else{
 				$data->status = false;
 				$data->message = "Une erreur s'est produite lors de l'opération n, veuillez recommencer !";
-			}
-		}else{
-			$data->status = false;
-			$data->message = "Veuillez renseigner les champs marqués d'un * !";
-		}		
+			}		
 		return $data;
 	}
 
+
+public function uploading(){
+		if (isset($this->image1) && $this->image1["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image1);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "entretienvehicules", $a);
+				$this->image1 = $result->filename;
+				$this->save();
+			}
+		}
+		if (isset($this->image2) && $this->image2["tmp_name"] != "") {
+			$image = new FICHIER();
+			$image->hydrater($this->image2);
+			if ($image->is_image()) {
+				$a = substr(uniqid(), 5);
+				$result = $image->upload("images", "entretienvehicules", $a);
+				$this->image2 = $result->filename;
+				$this->save();
+			}
+		}
+	}
 
 
 	public function approuver(){

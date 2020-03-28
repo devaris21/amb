@@ -1,10 +1,12 @@
 <?php 
 namespace Home;
 
-$title = "Tous les sinistres enregistrés";
+$carplan->fourni("affectation");
+$affectation = $carplan->affectations[0];
+$affectation->actualise();
 
-$sinistres = SINISTRE::findBy(["etat_id ="=>1]);
-$declarations = SINISTRE::findBy(["etat_id ="=>0]);
+$entretiens = ENTRETIENVEHICULE::findBy(["vehicule_id = "=> $affectation->vehicule_id]);
 
+$title = "AMB | Demandes d'entretien de véhicules";
 
 ?>
