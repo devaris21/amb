@@ -19,7 +19,7 @@
                     <h2 class="text-uppercase">Les demandes en attente</h2>
                     <div class="container">
                         <div class="row">
-                            <div class="col-xs-7 gras text-capitalize">Afficher toutes les demandes</div>
+                            <div class="col-xs-7 gras">Afficher toutes les demandes</div>
                             <div class="offset-1"></div>
                             <div class="col-xs-4">
                              <div class="switch">
@@ -36,16 +36,13 @@
                 </div>
             </div>
             <div class="col-sm-5">
-                <div class="row">
+                 <div class="row">
                     <div class="col-sm-6">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
-                                <div class="col-3">
-                                    <i class="fa fa-cloud fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <span> Demande en cours </span>
-                                    <h2 class="font-bold"><?= start0(count(Home\DEMANDEVEHICULE::encours()))  ?></h2>
+                                <div class="col-12 text-right">
+                                    <span> Validées ce mois </span>
+                                    <h2 class="font-bold"><?= start0(count(Home\DEMANDEVEHICULE::valideesCeMois()))  ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -54,8 +51,8 @@
                         <div class="widget style1 yellow-bg">
                             <div class="row">
                                 <div class="col-12 text-right">
-                                    <span> Validées/Annulées ce mois</span>
-                                    <h2 class="font-bold"><?php //start0(count(Home\DEMANDEVEHICULE::valideesCeMois()))  ?> / <?php //start0(count(Home\DEMANDEVEHICULE::annuleesCeMois()))  ?></h2>
+                                    <span> Annulées ce mois</span>
+                                    <h2 class="font-bold"><?= start0(count(Home\DEMANDEVEHICULE::annuleesCeMois()))  ?></h2>
                                 </div>
                             </div>
                         </div>

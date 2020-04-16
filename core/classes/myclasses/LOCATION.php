@@ -36,6 +36,18 @@ class LOCATION extends TABLE
 	}
 
 
+	public static function delai(){
+		$params = PARAMS::findLastId();
+		$datas = static::findBy(["etat_id = "=>0]);
+		foreach ($datas as $key => $loc) {
+			if (!(dateDiffe(dateAjoute(), $loc->finished) <= $params->delai_alert) ) {
+				unset($datas[$key]);
+			}
+		}
+		return $datas;
+	}
+
+
 	public function name(){
 		if ($this->typelocation_id == 1) {
 			$this->actualise();

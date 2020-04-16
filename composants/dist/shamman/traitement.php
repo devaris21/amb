@@ -11,6 +11,16 @@ if ($action == "session") {
 }
 
 
+if ($action == "unsetSession") {
+	unset_session($name);
+}
+
+
+if ($action == "getSession") {
+	return getSession($name);
+}
+
+
 
 if ($action === "save-formShamman") {
 	$class = TABLE::fullyClassName($classname);
@@ -249,7 +259,7 @@ if ($action === "delete_with_password") {
 }
 
 
-if ($action === "session") {
+if ($action === "session__") {
 	session($name, $value);
 	echo ($name == "last_access" && is_null(getSession("page_session")));
 	if ($name == "last_access" && is_null(getSession("page_session"))) {
@@ -257,10 +267,6 @@ if ($action === "session") {
 	}
 }
 
-
-if ($action === "getSession") {
-	return getSession($name);
-}
 
 
 if ($action === "params") {

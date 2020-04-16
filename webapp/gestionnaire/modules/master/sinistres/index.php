@@ -15,11 +15,11 @@
           <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-sm-6">
+            <div class="col-sm-9">
                 <h2 class="text-uppercase text-red gras">Les sinistres déclarés</h2>
                 <div class="container">
                     <div class="row">
-                        <div class="col-xs-7 gras text-capitalize">Afficher tous les sinistres</div>
+                        <div class="col-xs-7 gras ">Afficher tous les sinistres</div>
                         <div class="offset-1"></div>
                         <div class="col-xs-4">
                            <div class="switch">
@@ -35,26 +35,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-3">
          <div class="row">
-            <div class="col-md-6">
-                <div class="widget style1 navy-bg">
+            <div class="col-md-12">
+                <div class="widget style1 red-bg">
                     <div class="row">
                         <div class="col-4">
-                            <i class="fa fa-cloud fa-3x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span>Déclaration en cours </span>
-                            <h2 class="font-bold"><?= start0(count(Home\SINISTRE::encours()))  ?></h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="widget style1 lazur-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-envelope-o fa-3x"></i>
+                            <i class="fa fa-unlink fa-3x"></i>
                         </div>
                         <div class="col-8 text-right">
                             <span> Sinistres ce mois </span>

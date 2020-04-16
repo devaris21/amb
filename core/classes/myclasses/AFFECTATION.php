@@ -89,6 +89,18 @@ class AFFECTATION extends TABLE
 	}
 
 
+	public static function delai(){
+		$params = PARAMS::findLastId();
+		$datas = static::findBy(["etat_id = "=>0]);
+		foreach ($datas as $key => $loc) {
+			if (!(dateDiffe(dateAjoute(), $loc->finished) <= $params->delai_alert) ) {
+				unset($datas[$key]);
+			}
+		}
+		return $datas;
+	}
+
+	
 	public function name(){
 		$this->actualise();
 		return $this->carplan->name." ".$this->carplan->lastname." <br> // Car plan";
@@ -161,6 +173,10 @@ class AFFECTATION extends TABLE
 		return $data;	
 	}
 
+
+	public static function encours(){
+		return static::findBy(["etat_id ="=>0]);
+	}
 
 
 	public function sentenseCreate(){

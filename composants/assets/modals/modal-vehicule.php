@@ -119,7 +119,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="modal-footer">
                     <input type="hidden" name="id">
                     <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>

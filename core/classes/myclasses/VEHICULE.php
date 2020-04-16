@@ -130,7 +130,7 @@ class VEHICULE extends TABLE
 					//véhicule déclassé
 					$vehicule->etatvehicule_id = -2;
 				}else{
-					if (in_array($vehicule->etatvehicule_id, VEHICULEOPEN::get())) {
+					if (in_array($vehicule->etatvehicule_id, GROUPEVEHICULEOPEN::get())) {
 						if($vehicule->is_affecte()) {
 							//véhicule affecté
 							$vehicule->etatvehicule_id = 3;
@@ -275,39 +275,13 @@ class VEHICULE extends TABLE
 		static::etat();
 		$datas = static::findBy(["etatvehicule_id ="=>0]);
 		foreach ($datas as $key => $vehicule) {
-			if (!in_array($vehicule->groupevehicule_id, VEHICULEOPEN::get())) {
+			if (!in_array($vehicule->groupevehicule_id, GROUPEVEHICULEOPEN::get())) {
 				unset($datas[$key]);
 			}
 		}
 		return $datas;
 	}
 
-	// public static function artci(){
-	// 	return static::findBy(["prestataire_id ="=> 1]);
-	// }
-
-	// public static function noArtci(){
-	// 	return static::findBy(["prestataire_id !="=> 1, "possession ="=>1]);
-	// }
-
-
-
-	// public static function loues(){
-	// 	return static::findBy(["location ="=>1, "possession ="=>1]);
-	// }
-
-	
-
-	// public static function pretes(){
-	// 	$datas = static::findBy(["possession ="=>1]);
-	// 	foreach ($datas as $key => $vehicule) {
-	// 		$vehicule->etat();
-	// 		if (!in_array($vehicule->etatvehicule_id, [4])) {
-	// 			unset($datas[$key]);
-	// 		}
-	// 	}
-	// 	return $datas;
-	// }
 
 
 	public static function pret_location(){
@@ -323,7 +297,33 @@ class VEHICULE extends TABLE
 		return array_merge($datas, $datas1);
 	}
 
+////////////////////////////////////////////////////////////////////////////
 
+	public static function co2(){
+		$datas = static::findBy(["etatvehicule_id !="=> -2]);
+		foreach ($datas as $key => $vehicule) {
+			$carte = $vehicule->carteGrise();
+			$total += dateDiffe($vehicule->date_mise_circulation, date("Y-m-d"));
+		}
+	}
+
+	public static function carburant(){
+		$datas = static::findBy(["etatvehicule_id !="=> -2]);
+	}
+
+	public static function avgKM(){
+		$datas = static::findBy(["etatvehicule_id !="=> -2]);
+		return comptage($datas, "kilometrage", "avg");
+	}
+
+	public static function avgAge(){
+		$total = 0;
+		$datas = static::findBy(["etatvehicule_id !="=> -2]);
+		foreach ($datas as $key => $vehicule) {
+			$total += dateDiffe($vehicule->date_mise_circulation, date("Y-m-d"));
+		}
+		return ceil($total / 30);
+	}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

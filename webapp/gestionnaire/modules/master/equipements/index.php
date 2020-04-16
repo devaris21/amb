@@ -17,23 +17,6 @@
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-7">
                     <h2 class="text-uppercase">Equipements & Accessoires</h2>
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xs-7 gras text-capitalize">Afficher toutes les demandes</div>
-                            <div class="offset-1"></div>
-                            <div class="col-xs-4">
-                                <div class="switch">
-                                    <div class="onoffswitch">
-                                        <input type="checkbox" class="onoffswitch-checkbox" id="example1">
-                                        <label class="onoffswitch-label" for="example1">
-                                            <span class="onoffswitch-inner"></span>
-                                            <span class="onoffswitch-switch"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <button data-toggle="modal" data-target="#modal-equipement" class="btn btn-success dim btn-xs"><i class="fa fa-plus"></i> Nouvel Equipement</button>
                 </div>
                 <div class="col-sm-5">
@@ -45,17 +28,17 @@
                                         <i class="fa fa-cloud fa-3x"></i>
                                     </div>
                                     <div class="col-9 text-right">
-                                        <span> Demande en cours </span>
-                                        <h2 class="font-bold"><?= start0(count(Home\DEMANDEVEHICULE::encours()))  ?></h2>
+                                        <span> Tous les équipements </span>
+                                        <h2 class="font-bold"><?= start0(count(Home\EQUIPEMENT::getAll()))  ?></h2>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <div class="widget style1 yellow-bg">
+                            <div class="widget style1 red-bg">
                                 <div class="row">
                                     <div class="col-12 text-right">
-                                        <span> Validées/Annulées ce mois</span>
+                                        <span> En rupture de stock</span>
                                         <h2 class="font-bold"><?php //start0(count(Home\DEMANDEVEHICULE::valideesCeMois()))  ?> / <?php //start0(count(Home\DEMANDEVEHICULE::annuleesCeMois()))  ?></h2>
                                     </div>
                                 </div>

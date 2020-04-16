@@ -44,7 +44,7 @@
                                 <i class="fa fa-cloud fa-3x"></i>
                             </div>
                             <div class="col-8 text-right">
-                                <span>Déclaration en cours </span>
+                                <span>Locations ce mois </span>
                                 <h2 class="font-bold"><?= start0(count(Home\SINISTRE::encours()))  ?></h2>
                             </div>
                         </div>
@@ -57,7 +57,7 @@
                                 <i class="fa fa-envelope-o fa-3x"></i>
                             </div>
                             <div class="col-8 text-right">
-                                <span> Sinistres ce mois </span>
+                                <span> Prêts ce mois </span>
                                 <h2 class="font-bold"><?= start0(count(Home\SINISTRE::valideesCeMois()))  ?></h2>
                             </div>
                         </div>

@@ -1,6 +1,8 @@
 <?php
 namespace Home;
 use Native\RESPONSE;
+use Native\EMAIL;
+use Native\SHAMMAN;
 /**
  * 
  */
@@ -98,7 +100,7 @@ abstract class AUTH extends TABLE
 		if ($data->status) {
 			ob_start();
 			//TODO mettre le mail a jour
-			include(__DIR__."/../../sections/home/elements/mails/reset.php");
+			include(__DIR__."/../../../composants/assets/mails/reset.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
 			EMAIL::send([$this->email], "Reinitialisation de vos parametres de connexion", $contenu);

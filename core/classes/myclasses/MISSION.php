@@ -72,6 +72,16 @@ class MISSION extends TABLE
 	}
 
 
+
+	public static function commencerCeMois(){
+		return static::findBy(["started >="=>date("Y-m")."-01", "started < "=>date("Y")."-".(date("m")+1)."-01"]);
+	}
+
+	public static function annuleesCeMois(){
+		return static::findBy(["etat_id ="=>-1, "date_approuve >="=>date("Y-m")."-01"]);
+	}
+
+
 	public static function encours(){
 		return static::findBy(["etat_id ="=>0]);
 	}
@@ -80,6 +90,7 @@ class MISSION extends TABLE
 		$data = new RESPONSE;
 		if ($this->etat_id != 0) {
 			$this->etat_id = 1;
+			$this->date_approuve = date("Y-m-d H:i:s");
 			$this->historique("La mission en reference $this->reference vient d'etre declaré comme 'terminée' !");
 			$data = $this->save();
 		}else{
@@ -94,6 +105,7 @@ class MISSION extends TABLE
 		$data = new RESPONSE;
 		if ($this->etat_id != 0) {
 			$this->etat_id = -1;
+			$this->date_approuve = date("Y-m-d H:i:s");
 			$this->historique("La mission en reference $this->reference vient d'être annulée !");
 			$data = $this->save();
 		}else{

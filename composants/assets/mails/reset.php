@@ -1,75 +1,60 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
+<head> 
+    <meta name="swift-page-name" id="swift-page-name" content="home">
+    <meta name="swift-page-section" id="swift-section-name" content="home">
+    <meta name="msapplication-tileimage" content="//abs.twimg.com/favicons/win8-tile-144.png">
+    <meta name="msapplication-tilecolor" content="#00aced">
 </head>
-<body>
+<body > 
+    <div style="max-width: 680px ; margin: 3% auto ;">
+        <div style=" padding: 4%; background-color: #fff; border: 0.5px solid #ddd; border-bottom: 6px solid #ddd;">
 
-    <table align="center" border="0" cellpadding="0" cellspacing="0" style="border: 5px solid orangered; border-collapse: collapse; width: 100%; max-width: 550px;" class="content">
-<!--         <tr>
-            <td style="padding: 15px 10px 15px 10px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+            <div>
+                <img style="height: 50px; float: right;" src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image">
+                <h1 style="font-size: 50px; color: grey; margin: 0; letter-spacing: 5px; font-weight: bold">AMB</h1>
+                <small>Plateforme de gestion de parc Auto-Moto-Bateau</small>
+            </div>
+            <br><br>
+
+            <h2 style="color: #23B2DBFF; text-align: center;">Reinitialisation de votre mot de passe</h2>
+
+            <span><b>Cher <?= $this->name() ?>,</b> </span>
+            <p>Vos paramètres de connexion ont bien été reinitialisé. Nous vous invitons cette fois-ci à bien les conserver dans un endroit sûr !</p><br>
+
+            <p>Nous tenons à vous rappelez également que les informations de connexion communiquées ci-dessous vous sont individuelles et vous incomberont de tout acte ou action ménée sur ladite plateforme à partir d'une session ouverte par celles-ci!</p><br>
+
+            <table>
+                <tbody >
                     <tr>
-                        <td align="center" style="color: #fff; font-family: Arial, sans-serif; font-size: 12px;">
-                            Email not displaying correctly?  <a href="#" style="color: #0073AA;">View it in your browser</a>
-                        </td>
+                        <td class="gras">Identifiant : </td>
+                        <td><?= $this->login ?></td>
                     </tr>
-                </table>
-            </td>
-        </tr> -->
-        <tr>
-            <td align="center" bgcolor="green" style="padding: 10px 10px 10px 10px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
-                <img src="http://www.dleg.net/logos/auto.png" alt="le logo" width="250" height="110" style="display:block;">
-            </td>
-        </tr>
-        <tr>
-            <td align="justify" bgcolor="#ffffff" style="padding: 20px 20px 20px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px; border-bottom: 1px solid #f6f6f6;">
-                <b>Cher(e) <b><u><?= $this->name ?> <?= $this->lastname ?></u></b>, Vos paramètres de connexion ont bien été reinitialisé. Nous vous invitons cette fois-ci à bien les conserver dans un endroit sûr !<br><br> Nous tenons à vous rappelez également que les informations de connexion communiquées ci-dessous vous sont individuelles et vous incomberont de tout acte ou action ménée sur ladite plateforme à partir d'une session ouverte par celles-ci! <br><br> Vous ne devez donc, en aucun cas, les divulguées à une autre personne !</b>
-            </td>
-        </tr>
-        <tr>
-            <td align="center" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                <b>login de connexion:</b> <?= $this->login ?>;
-            </td>
-        </tr>
-        <tr>
-            <td align="center" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                    <b>Mot de passe:</b> <?= $pass ?>
-            </td>
-        </tr>
-        <tr>
-            <td align="center" bgcolor="#f9f9f9" style="padding: 30px 20px 30px 20px; font-family: Arial, sans-serif; border-bottom: 1px solid #f6f6f6;">
-                <table bgcolor="orangered" border="0" cellspacing="0" cellpadding="0" class="buttonwrapper">
                     <tr>
-                        <td align="center" height="50" style=" padding: 0 25px 0 25px; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold;" class="button">
-                            <a href="http://parcauto.local/carplan" style="color: #ffffff; text-align: center; text-decoration: none;">Aller à mon espace de connexion</a>
-                        </td>
+                        <td class="gras"> Mot de passe :</td>
+                        <td><?= $pass ?></td>
                     </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td align="center" bgcolor="#ffffff" style="padding: 10px 20px 10px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 13px; line-height: 24px; font-style: italic;">
-               Vous serez emmener à changer ces informations lors de votre premiere connexion !
-           </td>
-       </tr>
-       <tr>
-           <td align="center" bgcolor="#dddddd" style="padding: 15px 10px 15px 10px; color: #555555; font-family: Arial, sans-serif; font-size: 12px; line-height: 18px;">
-            <b>Gestion du Parc Automobile.</b><br>Abidjan Côte d'Ivoire. &bull; 01 79 30 00 Tel: +225 56 49 17 13
-        </td>
-    </tr>
-<!--     <tr>
-        <td style="padding: 15px 10px 15px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                    <td align="center" width="100%" style="color: #fff; font-family: Arial, sans-serif; font-size: 12px;">
-                        2017-18 &copy; <a href="http://html.codedthemes.com/mash-able/" style="color: #0073AA;">Mash Able</a>
-                    </td>
-                </tr>
+                </tbody>
             </table>
-        </td>
-    </tr> -->
-</table>
+            <br>
+            <div>
+                <a class="bouton" href="<?= Native\SHAMMAN::getConfig("metadata","website")  ?>" target="_blank">Aller sur la plateforme</a>
+            </div><br>
 
+            <p>Vous serez emmener à changer ces informations lors de votre premiere connexion !.</p><br><br><br>
+
+            <div style="text-align: right;">
+                <h4 style="margin: 5px auto" >Cordialement,</h4>
+                <small style="text-align: right; color: grey;">AMB | Plateforme de gestion de parc Auto-Moto-Bateau</small>
+            </div>
+        </div>
+        <br>
+        
+        <?php include(__DIR__."/templates/footer.php"); ?>
+
+    </div>
 </body>
 </html>
+
+<?php include(__DIR__."/templates/style.css"); ?>
+

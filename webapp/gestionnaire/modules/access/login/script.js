@@ -10,7 +10,7 @@ $(function(){
             if (data.status) {
                 if (data.new) {
                      Loader.stop();
-                    $("#modalNewUser").modal();
+                    $("#modal-newUser").modal();
                 }else{
                     window.location.href = data.url;
                 }

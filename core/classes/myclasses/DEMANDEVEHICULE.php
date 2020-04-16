@@ -29,9 +29,10 @@ class DEMANDEVEHICULE extends TABLE
 	public $vehicule_id;
 	public $chauffeur_id;
 
-	public $date_validation_dapa = null;
+	public $date_validation_amb = null;
 	public $date_validation_dg = null; 
 	public $date_validation_rh = null;
+	public $date_approuve = null;
 	public $refus_comment;
 
 	public $etats = 0; // 0 emise // 1 DRH valide // 2 DG validé // 3 DAPA valide 
@@ -96,7 +97,7 @@ class DEMANDEVEHICULE extends TABLE
 	public static function dg(){
 		return static::findBy(["etat_id ="=>0, "typedemandevehicule_id ="=>1, "etats ="=>1]);
 	}
-	public static function dapa(){
+	public static function amb(){
 		return array_merge(static::findBy(["etat_id ="=>0, "typedemandevehicule_id ="=>2]), static::findBy(["etat_id ="=>0, "typedemandevehicule_id ="=>1, "etats ="=>2])) ;
 	}
 

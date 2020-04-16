@@ -4,11 +4,11 @@ $configs =  [
 
 	// Informations concernant votre applicaton
 	"metadata" => [
-		"name"                 => "Mon application",
-		"description"                 => "C'est ma premiere application avec le framework SHAMMAN",
-		"organization"         => "Shamman Inc.",
-		"email"   => "infos@shamman.com",
-		"website" => "https://www.shamman.com"
+		"appname"         => "Mon application",
+		"description"  => "C'est ma premiere application avec le framework SHAMMAN",
+		"organization" => "DGIMA | Plateforme de collecte de données",
+		"email"        => "infos@shamman.com",
+		"website"      => "https://www.shamman.com"
 	],
 
 
@@ -26,7 +26,7 @@ $configs =  [
 		"charset"  => "utf8",
 		"host"     => "127.0.0.1",
 		"port"     => 3306,
-		"dbname"  => "gpav2",
+		"dbname"   => "gpav2",
 		"login"    => "root",
 		"password" => "12345"
 	],
@@ -34,13 +34,15 @@ $configs =  [
 
 	//Gestionnaire de mail
 	"mail" => [
-		"driver"   => "smtp",
-		"transport"     => "smtp.mailtrap.com",
-		"encryption" => "tls",
-		"charset"   => "utf8",
-		"port"     => 25,
-		"email"  => "",
-		"password"    => ""
+		"driver"     => "smtp",
+		"transport"  => "smtp.mailtrap.com",
+		"encryption" => "ssl",
+		"charset"    => "utf8",
+		"port"       => 465,
+		"email"      => "",
+		"password"   => "",
+
+		"replyto" => "",
 	],
 
 

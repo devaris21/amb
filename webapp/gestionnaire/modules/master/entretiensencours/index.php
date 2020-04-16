@@ -16,10 +16,10 @@
 
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-7">
-                    <h2 class="text-uppercase">Les demandes en attente</h2>
+                    <h2 class="text-uppercase">Les entretiens en cours</h2>
                     <div class="container">
                         <div class="row">
-                            <div class="col-xs-7 gras text-capitalize">Afficher tous les entretiens</div>
+                            <div class="col-xs-7 grase">Afficher tous les entretiens</div>
                             <div class="offset-1"></div>
                             <div class="col-xs-4">
                              <div class="switch">
@@ -40,12 +40,9 @@
                     <div class="col-sm-6">
                         <div class="widget style1 lazur-bg">
                             <div class="row">
-                                <div class="col-3">
-                                    <i class="fa fa-cloud fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <span> Demande en cours </span>
-                                    <h2 class="font-bold"><?= start0(count(Home\DEMANDEENTRETIEN::encours()))  ?></h2>
+                                <div class="col-12 text-right">
+                                    <span> Débutés ce mois </span>
+                                    <h2 class="font-bold"><?= start0(count(Home\ENTRETIENVEHICULE::commencerCeMois()))  ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -54,8 +51,8 @@
                         <div class="widget style1 yellow-bg">
                             <div class="row">
                                 <div class="col-12 text-right">
-                                    <span> Validées/Annulées ce mois</span>
-                                    <h2 class="font-bold"><?= start0(count(Home\DEMANDEENTRETIEN::valideesCeMois()))  ?> / <?= start0(count(Home\DEMANDEENTRETIEN::annuleesCeMois()))  ?></h2>
+                                    <span> Annulées ce mois</span>
+                                    <h2 class="font-bold"><?= start0(count(Home\ENTRETIENVEHICULE::annuleesCeMois()))  ?></h2>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +145,7 @@
 
 <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
 
-<?php include($this->rootPath("composants/assets/modals/modal-entretienvehicule2.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-entretienvehicule.php")); ?> 
 
 
 </div>

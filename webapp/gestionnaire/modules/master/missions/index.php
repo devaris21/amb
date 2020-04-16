@@ -15,7 +15,7 @@
           <?php include($this->rootPath("webapp/gestionnaire/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-sm-5">
+            <div class="col-sm-7">
                 <h2 class="text-uppercase">Les missions</h2>
                 <div class="container">
                     <div class="row">
@@ -35,55 +35,36 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-7">
-         <div class="row">
-            <div class="col-md-4">
-                <div class="widget style1 navy-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-cloud fa-3x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> Today degrees </span>
-                            <h2 class="font-bold">26'C</h2>
+        <div class="col-sm-5">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="widget style1 lazur-bg">
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <span> Débutées ce mois </span>
+                                <h2 class="font-bold"><?= start0(count(Home\MISSION::commencerCeMois()))  ?></h2>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="widget style1 lazur-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-envelope-o fa-3x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> messages </span>
-                            <h2 class="font-bold">260</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="widget style1 yellow-bg">
-                    <div class="row">
-                        <div class="col-4">
-                            <i class="fa fa-music fa-3x"></i>
-                        </div>
-                        <div class="col-8 text-right">
-                            <span> New albums </span>
-                            <h2 class="font-bold">12</h2>
+                <div class="col-sm-6">
+                    <div class="widget style1 yellow-bg">
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <span> Annulées ce mois</span>
+                                <h2 class="font-bold"><?= start0(count(Home\MISSION::annuleesCeMois()))  ?></h2>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="wrapper wrapper-content">
-    <div class="ibox">
-        <div class="ibox-title">
-            <h5>Toutes les missions </h5>
+    <div class="wrapper wrapper-content">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Toutes les missions </h5>
                 <!-- <div class="ibox-tools">
                     <a href="" class="btn btn-primary btn-xs">Create new project</a>
                 </div> -->

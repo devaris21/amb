@@ -79,6 +79,10 @@ class ASSURANCE extends TABLE
 	}
 
 
+	public static function coutAnnuel(){
+		return comptage(static::findBy(["DATE(date_etablissement) >= "=> date("Y")."-01-01"]), "price", "somme");
+	}
+
 
 	public function etat(){
 		if ($this->finished >= dateAjoute()) {

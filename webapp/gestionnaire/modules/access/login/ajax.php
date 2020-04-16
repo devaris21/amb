@@ -15,7 +15,7 @@ if ($action == "connexion") {
 		if (!$data->new) {
 			$user->se_connecter();
 			session("gestionnaire_connecte_id", $user->getId());
-			$data->setUrl("gestionnaire", "master", "dashboard");
+			$data->setUrl("gestionnaire", "master", "dashboard", "1");
 		}else{
 			session("temp_gestionnaire_id", $user->getId());	
 		}
@@ -33,7 +33,7 @@ if ($action == "newUser") {
 		if ($element->setLogin($login)) {
 			if ($pass != "" && $pass == $pass0) {
 				$element->password = hasher($pass);
-				$element->isNew = 0;
+				$element->is_new = 0;
 				$element->historique("Prémière connexion, nouvelle configuration des paramètres de connexion !");
 				$data = $element->save();
 				if ($data->status) {

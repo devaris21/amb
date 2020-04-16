@@ -59,18 +59,25 @@ $(function(){
     session = function(name, value){
     	var url = "../../composants/dist/shamman/traitement.php";
     	$.post(url, {action:"session", name:name, value:value}, (data)=>{
-            //rien
+            return data;
         });
     }
 
+    //mettre en session par ajax
+    unsetSession = function(name){
+        var url = "../../composants/dist/shamman/traitement.php";
+        $.post(url, {action:"unsetSession", name:name}, (data)=>{
+            return data;
+        });
+    }
 
-//mettre en session par ajax
-getSession = function(name){
-	var url = "../../composants/dist/shamman/traitement.php";
-	$.post(url, {action:"getSession", name:name}, (data)=>{
-        return data;
-    });
-}
+    //mettre en session par ajax
+    getSession = function(name){
+    	var url = "../../composants/dist/shamman/traitement.php";
+    	$.post(url, {action:"getSession", name:name}, (data)=>{
+            return data;
+        });
+    }
 
 
 
@@ -98,9 +105,10 @@ getSession = function(name){
     }
 
     $("input[uppercase]").keyup(function(){
-    	alert(this.val())
-    	this.val(this.val().toUpperCase());
+    	$(this).val($(this).val().toUpperCase());
     })
+
+     $("input[required]").prev("label").append(" &nbsp;<span style='color:red'>*</span>")
 
 
     $("a#btn-deconnexion").click(function(event) {

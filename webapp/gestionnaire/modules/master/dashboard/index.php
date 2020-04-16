@@ -20,36 +20,30 @@
                     <div class="col-lg-3">
                         <div class="ibox ">
                             <div class="ibox-title">
-                                <h5>Kilometrage total du parc</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <h1 class="no-margins">275800-AP</h1>
-                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
-                                <small>Admins</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="ibox ">
-                            <div class="ibox-title">
                                 <h5>Kilometrage moyen du parc</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">AUTO-MOTO</h1>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
-                                <small>Kilometrage moyen du parc</small>
+                                <h2 class="no-margins"><?= start0(Home\VEHICULE::avgKM())  ?> Km</h2>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="ibox ">
                             <div class="ibox-title">
-                                <h5>Bugs et Suggestions</h5>
+                                <h5>Taux d'émission CO<sup>2</sup> du parc</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">106,120</h1>
-                                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
-                                <small>Departements</small>
+                                <h2 class="no-margins">**</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox ">
+                            <div class="ibox-title">
+                                <h5>Conso totale de carburant</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h2 class="no-margins">**</h2>
                             </div>
                         </div>
                     </div>
@@ -59,186 +53,280 @@
                                 <h5>Âge moyen du parc</h5>
                             </div>
                             <div class="ibox-content">
-                                <h2 class="no-margins">22 Démbre 2021</h2>
-                                <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
-                                <small>Age moyen du parc</small>
+                                <h2 class="no-margins"><?= start0(Home\VEHICULE::avgAge())  ?> mois</h2>
                             </div>
                         </div>
                     </div>
                 </div>
-<div class="row" style="margin-top: -2%;">
+                <div class="row" style="margin-top: -2%;">
                     <div class="col-lg-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-3">
-                                    <i class="fa fa-car fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <h2 class="font-bold">217</h2>
+                        <a href="<?= $this->url("gestionnaire", "master", "parcauto")  ?>" data-toggle="tooltip" title="Véhicules du parc">
+                            <div class="widget style1 bg-white text-muted">
+                                <div class="row vertical-align">
+                                    <div class="col-3">
+                                        <i class="fa fa-car fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <h2 class="font-bold"><?= start0(count(Home\VEHICULE::parcauto())) ?></h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-lg-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-3">
-                                    <i class="fa fa-car fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <h2 class="font-bold">400</h2>
+                        <a href="<?= $this->url("gestionnaire", "master", "parcauto")  ?>" data-toggle="tooltip" title="Véhicules disponibles">
+                            <div class="widget style1 lazur-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-3">
+                                        <i class="fa fa-car fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <h2 class="font-bold"><?= start0(count(Home\VEHICULE::libres())) ?></h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-lg-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-3">
-                                    <i class="fa fa-wrench fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <h2 class="font-bold">10</h2>
+                        <a href="<?= $this->url("gestionnaire", "master", "entretiensencours")  ?>" data-toggle="tooltip" title="Véhicules en entretiens">
+                            <div class="widget style1 yellow-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-3">
+                                        <i class="fa fa-wrench fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <h2 class="font-bold"><?= start0(count(Home\ENTRETIENVEHICULE::encours())) ?></h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-lg-2">
-                        <div class="widget style1 lazur-bg">
-                            <div class="row vertical-align">
-                                <div class="col-3">
-                                    <i class="fa fa-unlink fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <h2 class="font-bold">120</h2>
+                        <a href="<?= $this->url("gestionnaire", "master", "sinistres")  ?>" data-toggle="tooltip" title="Déclarations de sinistres en cours">
+                            <div class="widget style1 red-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-3">
+                                        <i class="fa fa-unlink fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <h2 class="font-bold"><?= start0(count(Home\SINISTRE::encours())) ?></h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-lg-2">
-                        <div class="widget style1 lazur-bg">
-                            <div class="row vertical-align">
-                                <div class="col-3">
-                                    <i class="fa fa-plane fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <h2 class="font-bold">462</h2>
+                        <a href="<?= $this->url("gestionnaire", "master", "missions")  ?>" data-toggle="tooltip" title="missions toujours en cours">
+                            <div class="widget style1 blue-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-3">
+                                        <i class="fa fa-plane fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <h2 class="font-bold"><?= start0(count(Home\MISSION::encours())) ?></h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <div class="col-lg-2">
-                        <div class="widget style1 yellow-bg">
-                            <div class="row vertical-align">
-                                <div class="col-3">
-                                    <i class="fa fa-users fa-3x"></i>
-                                </div>
-                                <div class="col-9 text-right">
-                                    <h2 class="font-bold">610</h2>
+                        <a href="<?= $this->url("gestionnaire", "master", "Affectations")  ?>" data-toggle="tooltip" title="Affectations toujours en cours">
+                            <div class="widget style1 bg-orange">
+                                <div class="row vertical-align">
+                                    <div class="col-3">
+                                        <i class="fa fa-users fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <h2 class="font-bold"><?= start0(count(Home\AFFECTATION::encours())) ?></h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
-                <div class="row border-bottom white-bg dashboard-header">
-                    <div class="col-md-3">
-                        <h2>Bienvenue - AMB</h2>
-                        <ul class="list-group clear-list m-t">
-                            <li class="list-group-item fist-item">
-                                <i class="fa fa-car"></i>&nbsp;&nbsp;&nbsp; Demande de véhicule
-                                <span class="float-right">
-                                    <span class="label label-default">4</span>
-                                </span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fa fa-wrench"></i>&nbsp;&nbsp;&nbsp; Demande d'entretien
-                                <span class="float-right">
-                                    <span class="label label-default">4</span>
-                                </span>
-                            </li>
-                             <li class="list-group-item">
-                                <i class="fa fa-wrench"></i>&nbsp;&nbsp;&nbsp; Alerte conduite
-                                <span class="float-right">
-                                    <span class="label label-default">4</span>
-                                </span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fa fa-tint"></i>&nbsp;&nbsp;&nbsp; Alerte vidange
-                                <span class="float-right">
-                                    <span class="label label-default">4</span>
-                                </span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fa fa-paste"></i>&nbsp;&nbsp;&nbsp; Alerte contrat
-                                <span class="float-right">
-                                    <span class="label label-default">4</span>
-                                </span>
-                            </li>
-                            <li class="list-group-item">
-                                <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp; Alerte Carplan
-                                <span class="float-right">
-                                    <span class="label label-default">4</span>
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="flot-chart dashboard-chart">
-                            <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-                        </div>
-                        <div class="row text-left">
-                            <div class="col">
-                                <div class=" m-l-md">
-                                    <span class="h5 font-bold m-t block">$ 406,100</span>
-                                    <small class="text-muted m-b block">Coût d'entretien de l'année</small>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <span class="h5 font-bold m-t block">$ 150,401</span>
-                                <small class="text-muted m-b block">Coût annuel de la paperasse</small>
-                            </div>
-                            <div class="col">
-                                <span class="h5 font-bold m-t block">$ 16,822</span>
-                                <small class="text-muted m-b block">Half-year revenue margin</small>
-                            </div>
+                <div class="border-bottom white-bg dashboard-header">
+                    <?php 
 
+                    // $tableau = [];
+                    // $datas = Home\VEHICULE::getAll();
+                    // foreach ($datas as $key => $veh) {
+                    //     $veh->actualise();
+
+                    //     $veh->piecevehicules();
+                    //     foreach (Home\TYPEPIECEVEHICULE::getAll() as $key => $piece) {
+                    //         $name = "piece".$piece->get_id();
+                    //         if (dateDiffe(dateAjoute(), $veh->$name) <= $params->delai_alert) {
+                    //             $data = new stdclass;
+                    //             $data->title = $veh->marque->name." immatriculé ".$veh->immatriculation;
+                    //             $data->id = $veh->get_id();
+                    //             $data->image = $this->image("vehicules", $veh->image);
+                    //             if (dateDiffe($veh->finAssurance(), dateAjoute()) < 0 ) {
+                    //                 $data->message = "La pièce '$piece->name' du véhicule expire dans moins de $params->delai_alert jours";
+                    //             }else{
+                    //                 $data->message = "La pièce '$piece->name' du véhicule a expiré dépuis ".depuis($veh->finAssurance());
+                    //             }
+                    //             $tableau[] = $data;
+                    //         }
+                    //     }
+
+                    //     if (dateDiffe(dateAjoute(), $veh->finAssurance()) <= $params->delai_alert ) {
+                    //         $data = new stdclass;
+                    //         $data->title = $veh->marque->name." immatriculé ".$veh->immatriculation;
+                    //         $data->id = $veh->get_id();
+                    //         $data->image = $this->image("vehicules", $veh->image);
+                    //         if (dateDiffe($veh->finAssurance(), dateAjoute()) < 0 ) {
+                    //             $data->message = "L'assurance du véhicule expire dans moins de $params->delai_alert jours";
+                    //         }else{
+                    //             $data->message = "L'assurance du véhicule a expiré dépuis ".depuis($veh->finAssurance());
+                    //         }
+                    //         $tableau[] = $data;
+                    //     }
+
+                    //     if (dateDiffe(dateAjoute(), $veh->finAssurance()) <= $params->delai_alert ) {
+                    //         $data = new stdclass;
+                    //         $data->title = $veh->marque->name." immatriculé ".$veh->immatriculation;
+                    //         $data->id = $veh->get_id();
+                    //         $data->image = $this->image("vehicules", $veh->image);
+                    //         if (dateDiffe($veh->finAssurance(), dateAjoute()) < 0 ) {
+                    //             $data->message = "L'assurance du véhicule expire dans moins de $params->delai_alert jours";
+                    //         }else{
+                    //             $data->message = "L'assurance du véhicule a expiré dépuis ".depuis($veh->finAssurance());
+                    //         }
+                    //         $tableau[] = $data;
+                    //     }
+
+                    //     if (dateDiffe(dateAjoute(), $veh->finVisite()) <= $params->delai_alert ) {
+                    //         $data = new stdclass;
+                    //         $data->title = $veh->marque->name." immatriculé ".$veh->immatriculation;
+                    //         $data->id = $veh->get_id();
+                    //         $data->image = $this->image("vehicules", $veh->image);
+                    //         if (dateDiffe($veh->finVisite(), dateAjoute()) < 0 ) {
+                    //             $data->message = "La visite technique du véhicule expire dans moins de $params->delai_alert jours";
+                    //         }else{
+                    //             $data->message = "La visite technique du véhicule a expiré dépuis ".depuis($veh->finVisite());
+                    //         }
+                    //         $tableau[] = $data;
+                    //     }
+
+
+                    //     if (dateDiffe(dateAjoute(), $veh->finVidange()) <= $params->delai_alert ) {
+                    //         $data = new stdclass;
+                    //         $data->title = $veh->marque->name." immatriculé ".$veh->immatriculation;
+                    //         $data->id = $veh->get_id();
+                    //         $data->image = $this->image("vehicules", $veh->image);
+                    //         if (dateDiffe($veh->finVidange(), dateAjoute()) < 0 ) {
+                    //             $data->message = "La vidange du véhicule doit etre faite dans moins de $params->delai_alert jours";
+                    //         }else{
+                    //             $data->message = "La vidange du véhicule a est dépassé et devrait être refaite dépuis ".depuis($veh->finVidange());
+                    //         }
+                    //         $tableau[] = $data;
+                    //     }
+                    // }
+
+                    ?>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <ul class="list-group clear-list m-t">
+
+                                <?php $datas = Home\DEMANDEVEHICULE::encours(); ?>
+                                <li class="list-group-item fist-item cursor">
+                                    <a class="text-dark" href="<?= $this->url("gestionnaire", "master", "demandevehicules")  ?>">
+                                        <i class="fa fa-cab"></i>&nbsp;&nbsp;&nbsp; Demandes de véhicules
+                                        <span class="float-right">
+                                            <span class="label label-<?= (count($datas) > 0) ? 'danger':'default' ?>"><?= count($datas)  ?></span>
+                                        </span>
+                                    </a>
+                                </li>
+
+                                <?php $datas = Home\DEMANDEENTRETIEN::encours(); ?>
+                                <li class="list-group-item cursor">
+                                    <a class="text-dark" href="<?= $this->url("gestionnaire", "master", "demandeentretiens")  ?>">
+                                        <i class="fa fa-wrench"></i>&nbsp;&nbsp;&nbsp; Demandes d'entretiens
+                                        <span class="float-right">
+                                            <span class="label label-<?= (count($datas) > 0) ? 'danger':'default' ?>"><?= count($datas)  ?></span>
+                                        </span>
+                                    </a>
+                                </li>
+
+
+                                <li class="list-group-item cursor" id="group3" data-toggle="dropdown">
+                                    <i class="fa fa-ge"></i>&nbsp;&nbsp;&nbsp; Alertes conduites
+                                    <span class="float-right">
+                                        <span class="label label-<?= ($c > 0) ? 'danger':'default' ?>">**</span>
+                                    </span>
+                                    <ul class="dropdown-menu" aria-labelledby="group3">
+                                        <a class="dropdown-item" href="#">Dropdown link a</a>
+                                        <a class="dropdown-item" href="#">Dropdown link</a>
+                                    </ul>
+                                </li>
+
+
+                                <?php $datas = Home\AFFECTATION::delai(); ?>
+                                <li class="list-group-item cursor">
+                                    <a class="text-dark" href="<?= $this->url("gestionnaire", "master", "affectations")  ?>">
+                                        <i class="fa fa-user"></i>&nbsp;&nbsp;&nbsp; Alertes Affectations
+                                        <span class="float-right">
+                                            <span class="label label-<?= (count($datas) > 0) ? 'danger':'default' ?>"><?= count($datas)  ?></span>
+                                        </span>
+                                    </a>
+                                </li>
+
+
+                                <?php $datas = Home\LOCATION::delai(); ?>
+                                <li class="list-group-item cursor">
+                                    <a class="text-dark" href="<?= $this->url("gestionnaire", "master", "locations")  ?>">
+                                        <i class="fa fa-handshake-o"></i>&nbsp;&nbsp;&nbsp; Alertes Locations
+                                        <span class="float-right">
+                                            <span class="label label-<?= (count($datas) > 0) ? 'danger':'default' ?>"><?= count($datas)  ?></span>
+                                        </span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="statistic-box">
-                            <h4>
-                                Project Beta progress
-                            </h4>
-                            <p>
-                                You have two project with not compleated task.
-                            </p>
+                        <div class="col-md-6">
+                            <h4>Courbe du Kilometrage moyen par mois</h4>
+                            <div class="flot-chart dashboard-chart">
+                                <div class="flot-chart-content" id="flot-dashboard-chart"></div>
+                            </div><hr class="mp0">
                             <div class="row text-center">
-                                <div class="col-lg-6">
-                                    <canvas id="doughnutChart2" width="80" height="80" style="margin: 18px auto 0"></canvas>
-                                    <h5 >Kolter</h5>
+                                <div class="col">
+                                    <div class=" m-l-md">
+                                        <span class="h5 font-bold m-t block"><?= money(Home\ENTRETIENVEHICULE::coutAnnuel()) ?> <?= $params->devise ?></span>
+                                        <small class="text-muted m-b block">Coût d'entretien de l'année</small>
+                                    </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <canvas id="doughnutChart" width="80" height="80" style="margin: 18px auto 0"></canvas>
-                                    <h5 >Maxtor</h5>
+                                <div class="col">
+                                    <span class="h5 font-bold m-t block"><?= money(Home\CARTEGRISE::coutAnnuel() + Home\PIECEVEHICULE::coutAnnuel() + Home\ASSURANCE::coutAnnuel() + Home\VISITETECHNIQUE::coutAnnuel()) ?> <?= $params->devise ?></span>
+                                    <small class="text-muted m-b block">Coût annuel de la paperasse</small>
                                 </div>
-                            </div>
-                            <div class="m-t">
-                                <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-                            </div>
+                                <div class="col">
+                                    <span class="h5 font-bold m-t block">**</span>
+                                    <small class="text-muted m-b block">Amendes et péages (annuel)</small>
+                                </div>
 
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-md-3 text-center">
+                            <h4>Repartition des véhicules</h4><br>
+                            <div class="">
+                                <canvas id="doughnutChart" style="height: 350px;"></canvas>
+                            </div><br>
+                            <p>Nombre de véhicule en fonction de leur état actuel</p>    
+                        </div>
+                    </div>                    
                 </div>
 
 
 
             </div>
         </div>
+        <br>
 
-        
         <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
-        
+
 
     </div>
 </div>
@@ -249,16 +337,21 @@
 
 <script>
     $(document).ready(function() {
-        setTimeout(function() {
-            toastr.options = {
-                closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
-                timeOut: 4000
-            };
-            toastr.success('Responsive Admin Theme', 'Welcome to INSPINIA');
 
-        }, 1300);
+        var id = "<?= $this->getId();  ?>";
+        if (id == 1) {
+            setTimeout(function() {
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.success('Content de vous revoir de nouveau!', 'Bonjour <?= $gestionnaire->name(); ?>');
+                unset_session("new");
+            }, 1300);
+        }
+        
 
 
         var data1 = [
@@ -305,6 +398,8 @@
             }
             );
 
+
+
         var doughnutData = {
             labels: ["App","Software","Laptop" ],
             datasets: [{
@@ -321,29 +416,13 @@
             }
         };
 
-
         var ctx4 = document.getElementById("doughnutChart").getContext("2d");
         new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
 
-        var doughnutData = {
-            labels: ["App","Software","Laptop" ],
-            datasets: [{
-                data: [70,27,85],
-                backgroundColor: ["#a3e1d4","#dedede","#9CC3DA"]
-            }]
-        } ;
 
 
-        var doughnutOptions = {
-            responsive: false,
-            legend: {
-                display: false
-            }
-        };
 
-
-        var ctx4 = document.getElementById("doughnutChart2").getContext("2d");
-        new Chart(ctx4, {type: 'doughnut', data: doughnutData, options:doughnutOptions});
+        
 
     });
 </script>

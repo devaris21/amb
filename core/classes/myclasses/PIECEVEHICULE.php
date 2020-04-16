@@ -103,6 +103,11 @@ class PIECEVEHICULE extends TABLE
 	}
 
 
+	public static function coutAnnuel(){
+		return comptage(static::findBy(["DATE(date_etablissement) >= "=> date("Y")."-01-01"]), "price", "somme");
+	}
+
+	
 	public function sentenseCreate(){
 		return $this->sentense = "Nouvelle piece administrative pour la ".$this->vehicule->name();
 	}

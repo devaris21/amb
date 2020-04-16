@@ -7,9 +7,6 @@
             <li data-toggle="modal" data-target="#modal-chauffeur"><a href="#"><i class="fa fa-plus"></i> Ajouter nouveau</a></li>
         </ul>
     </li>
-    <li class="" id="affectations">
-        <a href="<?= $this->url("gestionnaire", "master", "affectations") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Bénéficiaires Carplan</span></a>
-    </li>
     <li>
         <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Prestataires</span> <span class="fa arrow"></span></a>
         <ul class="nav nav-second-level collapse">

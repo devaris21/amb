@@ -74,7 +74,7 @@ function comptage(Array $tableau, $propriete, $type="somme"){
 		foreach ($tableau as $key => $obj) {
 			$total += intval($obj->$propriete);
 		}
-		$total = $total / count($tableau);
+		$total = round($total / count($tableau), 2);
 	}
 
 	return $total;

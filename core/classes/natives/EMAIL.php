@@ -14,31 +14,34 @@ class EMAIL
 
 
 	public static function send(Array $destinateurs, String $subject, $lemessage, $format = false){
-		// Create the Transport
-		$transport = (new Swift_SmtpTransport('mail32.lwspanel.com', 465))
-		->setUsername('info@damedoreeconcept.com')
-		->setPassword('@dmin_DD2019')
-		->setEncryption('ssl');
-		$mailer = new Swift_Mailer($transport);
+		if (@fsockopen("www.google.com", 80)) {
+			// Create the Transport
+			$transport = (new Swift_SmtpTransport(SHAMMAN::getConfig("mail", "transport"), SHAMMAN::getConfig("mail", "transport")))
+			->setUsername(SHAMMAN::getConfig("mail", "email"))
+			->setPassword(SHAMMAN::getConfig("mail", "password"))
+			->setEncryption(SHAMMAN::getConfig("mail", "encryption"));
+			$mailer = new Swift_Mailer($transport);
 
-		//create the message 
-		$message = (new Swift_Message())
-		->setFrom(['info@damedoreeconcept.com' => 'DGIMA | Plateforme de collecte de données'])
-		->setSubject($subject)
-		->setBody($lemessage,'text/html');
+			//create the message 
+			$message = (new Swift_Message())
+			->setFrom([SHAMMAN::getConfig("mail", "email") => SHAMMAN::getConfig("metadata", "organization")])
+			->setSubject($subject)
+			->setBody($lemessage,'text/html');
 
-		if ($format) {
-			$decorator = new Swift_Plugins_DecoratorPlugin($destinateurs);
-			$mailer->registerPlugin($decorator);
-			foreach ($destinateurs as $key => $value) {
-				$message->addTo($key);
+			if ($format) {
+				$decorator = new Swift_Plugins_DecoratorPlugin($destinateurs);
+				$mailer->registerPlugin($decorator);
+				foreach ($destinateurs as $key => $value) {
+					$message->addTo($key);
+				}
+			}else{
+				$message->setTo($destinateurs);
 			}
+
+			$result = $mailer->send($message);
 		}else{
-			$message->setTo($destinateurs);
+			mail("21shamman06@gmail.com", $subject, $lemessage);
 		}
-		
-		//send
-		$result = $mailer->send($message);
 	}
 
 

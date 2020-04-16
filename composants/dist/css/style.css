@@ -4499,7 +4499,7 @@ video {
   z-index: 2200;
 }
 .modal-body {
-  padding: 20px 30px 30px 30px;
+  padding: 15px 25px 10px 25px;
 }
 .inmodal .modal-body {
   background: #f8fafb;
@@ -5016,7 +5016,7 @@ table.table-mail tr td {
 }
 .lazur-bg,
 .bg-info {
-  background-color: #23c6c8 !important;
+  background-color: #23c677 !important;
   color: #ffffff;
 }
 .yellow-bg,

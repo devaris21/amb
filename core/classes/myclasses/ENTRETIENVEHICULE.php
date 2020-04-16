@@ -35,32 +35,32 @@ class ENTRETIENVEHICULE extends TABLE
 	public function enregistre(){
 		$data = new RESPONSE;
 		$datas = TYPEENTRETIENVEHICULE::findBy(["id ="=>$this->typeentretienvehicule_id]);
+		if (count($datas) == 1) {
+			$item = $datas[0];
+			$this->name = $item->name;
+			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
-				$item = $datas[0];
-				$this->name = $item->name;
-				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
-				if (count($datas) == 1) {
-					$this->ticket = strtoupper(substr(uniqid(), 5, 6));
+				$this->ticket = strtoupper(substr(uniqid(), 5, 6));
 					// TODO verifier les dates
 					// TODO champ pour rejouter au commentaire quand ca vient des demandes d'entretien
-					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
-					$data = $this->save();
-						if ($data->status) {
-							$this->uploading();
-						}
-				}else{
-					$data->status = false;
-					$data->message = "Une erreur s'est produite lors de l'opération b, veuillez recommencer !";
+				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
+				$data = $this->save();
+				if ($data->status) {
+					$this->uploading();
 				}
 			}else{
 				$data->status = false;
-				$data->message = "Une erreur s'est produite lors de l'opération n, veuillez recommencer !";
-			}		
+				$data->message = "Une erreur s'est produite lors de l'opération b, veuillez recommencer !";
+			}
+		}else{
+			$data->status = false;
+			$data->message = "Une erreur s'est produite lors de l'opération n, veuillez recommencer !";
+		}		
 		return $data;
 	}
 
 
-public function uploading(){
+	public function uploading(){
 		if (isset($this->image1) && $this->image1["tmp_name"] != "") {
 			$image = new FICHIER();
 			$image->hydrater($this->image1);
@@ -82,6 +82,22 @@ public function uploading(){
 			}
 		}
 	}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/// 
+
+	public static function commencerCeMois(){
+		return static::findBy(["started >="=>date("Y-m")."-01", "started < "=>date("Y")."-".(date("m")+1)."-01"]);
+	}
+
+	public static function annuleesCeMois(){
+		return static::findBy(["etat_id ="=>-1, "date_approuve >="=>date("Y-m")."-01"]);
+	}
+
+	public static function coutAnnuel(){
+		return comptage(static::findBy(["DATE(started) >= "=> date("Y")."-01-01"]), "price", "somme");
+	}
+
 
 
 	public function approuver(){
