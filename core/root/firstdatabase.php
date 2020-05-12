@@ -30,7 +30,7 @@ foreach ($datas as $key => $value) {
 
 $datas = ["Affectation permanente", "Affectation temporaire"];
 foreach ($datas as $key => $value) {
-	$item = new TYPAAFFECTATION();
+	$item = new TYPEAFFECTATION();
 	$item->name = $value;
 	$item->setProtected(1);
 	$item->save();
@@ -69,15 +69,6 @@ foreach ($datas as $key => $value) {
 	$item->save();
 }
 
-
-$datas = ["Entrée de caisse", "Sortie de caisse"];
-foreach ($datas as $key => $value) {
-	$item = new TYPEOPERATIONCAISSE();
-	$item->name = $value;
-	$item->setProtected(1);
-	$item->save();
-}
-
 $datas = ["Léger accrochage", "Crevaison", "Défaillance moteur", "Accident grave", "Vol", "Autre"];
 foreach ($datas as $key => $value) {
 	$item = new TYPEENTRETIENVEHICULE();
@@ -110,21 +101,15 @@ $item->save();
 
 
 
-$datas = ["master", "production", "caisse", "parametres", "paye des manoeuvre", "modifier-supprimer", "archives"];
-foreach ($datas as $key => $value) {
-	$item = new ROLE();
-	$item->name = $value;
-	$item->setProtected(1);
-	$item->save();
-}
-
 
 $item = new PARAMS();
 $item->societe = "Devaris 21";
 $item->email = "info@devaris21.com";
+$item->email_rh = "info@devaris21.com";
+$item->email_dg = "info@devaris21.com";
 $item->devise = "Fcfa";
-$item->tva = 0;
-$item->seuilCredit = 0;
+$item->timeout = 10;
+$item->delai_alert = 10;
 $item->setProtected(1);
 $item->enregistre();
 
@@ -146,6 +131,7 @@ foreach ($datas as $key => $value) {
 }
 
 $item = new PRESTATAIRE();
+$item->typeprestataire_id = TYPEPRESTATAIRE::AUTRE;
 $item->name = "Devaris PRESTATAIRE";
 $item->email = "info@devaris21.com";
 $item->login = "...";
@@ -270,13 +256,6 @@ $item->login = "root";
 $item->password = "5e9795e3f3ab55e7790a6283507c085db0d764fc";
 $item->setProtected(1);
 $data = $item->save();
-foreach (ROLE::getAll() as $key => $value) {
-	$tr = new ROLE_EMPLOYE();
-	$tr->employe_id = $data->lastid;
-	$tr->role_id = $value->getId();
-	$tr->setProtected(1);
-	$tr->enregistre();
-}
 
 
 $datas = ["Gestionnaire en chef", "Gestionnaire"];
@@ -288,7 +267,8 @@ foreach ($datas as $key => $value) {
 }
 
 $item = new GESTIONNAIRE();
-$item->name = "Super Administrateur";
+$item->typegestionnaire_id = TYPEGESTIONNAIRE::CHEF;
+$item->name = "Super Gestionnaire";
 $item->email = "info@devaris21.com";
 $item->adresse = "...";
 $item->contact = "...";
@@ -296,13 +276,7 @@ $item->login = "root";
 $item->password = "5e9795e3f3ab55e7790a6283507c085db0d764fc";
 $item->setProtected(1);
 $data = $item->save();
-foreach (ROLE::getAll() as $key => $value) {
-	$tr = new ROLE_EMPLOYE();
-	$tr->employe_id = $data->lastid;
-	$tr->role_id = $value->getId();
-	$tr->setProtected(1);
-	$tr->enregistre();
-}
+
 
 
 

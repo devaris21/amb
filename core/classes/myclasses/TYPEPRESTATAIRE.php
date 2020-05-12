@@ -11,6 +11,8 @@ class TYPEPRESTATAIRE extends TABLE
 
 	public $name;
 
+	const AUTRE = 4;
+
 	public function enregistre(){
 		$data = new RESPONSE;
 		if ($this->name != "") {

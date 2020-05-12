@@ -43,12 +43,6 @@
                             </div>
                         </div>
                         <div class="col-md-3 col-sm-6">
-                            <label>Type d'Energie <span1>*</span1></label>
-                            <div class="form-group">
-                                <?php Native\BINDING::html("select", "energie") ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
                             <label>Type de Transmission <span1>*</span1></label>
                             <div class="form-group">
                                 <?php Native\BINDING::html("select", "typetransmission") ?>
@@ -58,6 +52,12 @@
                             <label>Puissance<span1>*</span1></label>
                             <div class="form-group">
                                 <input type="number" class="form-control input-xs" min=1 value=1 name="puissance" required>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <label>kilometrage <span1>*</span1></label>
+                            <div class="form-group">
+                                <input type="number" class="form-control input-xs" name="kilometrage" min=0 value=0 required>
                             </div>
                         </div>
                     </div>
@@ -75,16 +75,10 @@
                                 <input type="number" class="form-control input-xs" name="nb_place" min=1 value=5 required>
                             </div>
                         </div>
-                        <div class="col-md-2 col-sm-6">
-                            <label>kilometrage <span1>*</span1></label>
-                            <div class="form-group">
-                                <input type="number" class="form-control input-xs" name="kilometrage" min=0 value=0 required>
-                            </div>
-                        </div>
                         <div class="col-md-4 col-sm-6">
                             <label>N° de Chasis </label>
                             <div class="form-group">
-                                <input type="text" class="form-control input-xs" name="chasis" uppercase maxlength="17">
+                                <input type="text" uppercase class="form-control input-xs" name="chasis" uppercase maxlength="17">
                             </div>
                         </div>
                     </div><hr>
