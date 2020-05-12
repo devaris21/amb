@@ -356,7 +356,7 @@ abstract class TABLE
         $where = $groupe = $orders =""; $i =0;
         foreach ($params as $key => $value) {
             $i++;
-            $where .= "$conn $key :$i ";
+            $where .= (is_null($value))? "$conn $key NULL " :"$conn $key :$i ";
         }
         //les group
         if (count($group) > 0) {
@@ -390,7 +390,9 @@ abstract class TABLE
         $i =0;
         foreach ($params as $key => $value) {
             $i++;
-            $req->bindValue(":$i", $value);
+            if (!is_null($value)) {
+                $req->bindValue(":$i", $value);
+            }
         }
         $req->execute();
         return $req->fetchAll(PDO::FETCH_CLASS, "$tableClass");         
@@ -462,5 +464,6 @@ abstract class TABLE
         $datas = $class::findBy(["$table != "=> $this->getId()]);
         $this->items = $datas;
     }
+
 }
 ?>

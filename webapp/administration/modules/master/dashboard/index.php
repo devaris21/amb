@@ -25,8 +25,8 @@
                                 <h5 class="text-uppercase">Licence AMB</h5>
                             </div>
                             <div class="ibox-content">
-                                <h2 class="no-margins">AUTO-MOTO</h2>
-                                <small>Version 2.0.1-bêta</small>
+                                <h2 class="no-margins"><?= $compte->typecompte->name ?></h2>
+                                <small>Version <?= $compte->version; ?></small>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="ibox-content">
                                 <h2 class="no-margins"><?= $mycompte->identifiant ?></h2>
-                                <small>Votre uniq-ID</small>
+                                <small>Votre uniq-ID : <span class="font-weight-bold" style="font-size: 16px;"><?= $compte->id; ?></span></small>
                             </div>
                         </div>
                     </div>
@@ -88,17 +88,17 @@
                                     <div class="col-md-3 col-sm-6 col-12">
                                         <ul class="stat-list">
                                             <li>
-                                                <h2 class="no-margins">46</h2>
-                                                <small>Personnes connectées</small>
-                                                <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
+                                                <h2 class="no-margins"><?= $personnelle ?> Utilisateurs</h2>
+                                                <small>Personnes actuellement connectées</small>
+                                                <div class="stat-percent"><?= $nbre_connecte ?> <i class="fa fa-level-up text-navy"></i></div>
                                                 <div class="progress progress-mini">
                                                     <div style="width: 48%;" class="progress-bar"></div>
                                                 </div>
                                             </li>
                                             <li>
-                                                <h2 class="no-margins ">4,422</h2>
+                                                <h2 class="no-margins "><?= $flux_total ?> Flux Total(s)</h2>
                                                 <small>Flux journalier de données</small>
-                                                <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
+                                                <div class="stat-percent"><?= $flux_jour ?> <i class="fa fa-level-down text-navy"></i></div>
                                                 <div class="progress progress-mini">
                                                     <div style="width: 60%;" class="progress-bar"></div>
                                                 </div>

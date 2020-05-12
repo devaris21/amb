@@ -90,6 +90,8 @@ if ($action == "get_data") {
 		$data->status = false;
 		$data->message = "Une erreur s'est produite, veuillez recommencer !";
 	}
+	var_dump($data);
+	die();
 	echo json_encode($data);
 }
 
