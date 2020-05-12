@@ -259,16 +259,16 @@ class VEHICULE extends TABLE
 
 	public static function parcauto(){
 		static::etat();
-		return static::findBy(["etatvehicule_id !="=> -2]);
+		return static::findBy(["etatvehicule_id !="=> ETATVEHICULE::DECLASSEE]);
 	}
 
 	public static function libres(){
 		static::etat();
-		return static::findBy(["etatvehicule_id ="=>0]);
+		return static::findBy(["groupevehicule_id ="=>GROUPEVEHICULE::VEHICULEMISSION, "etatvehicule_id ="=>ETATVEHICULE::RAS]);
 	}
 
 	public static function mission(){
-		return static::findBy(["etatvehicule_id ="=>2]);
+		return static::findBy(["groupevehicule_id ="=>GROUPEVEHICULE::VEHICULEMISSION, "etatvehicule_id ="=>ETATVEHICULE::MISSION]);
 	}
 
 	public static function open(){

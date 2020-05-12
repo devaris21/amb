@@ -90,7 +90,7 @@
                                 <?php } ?>
                             </div>
                             <div class="col-md-2 optionsbtn">  
-                                <?php if($levehicule->etatvehicule_id == 0 && in_array($levehicule->groupevehicule_id, Home\VEHICULEOPEN::get())){ ?>
+                                <?php if($levehicule->etatvehicule_id == 0 && in_array($levehicule->groupevehicule_id, Home\GROUPEVEHICULEOPEN::get())){ ?>
                                     <button data-toggle="modal" data-target="#modal-pret1" class="btn btn-success btn-block  btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-handshake-o"></i> Prêter ce véhicule</button>
                                 <?php } ?>  
 

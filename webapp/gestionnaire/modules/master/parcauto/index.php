@@ -35,7 +35,7 @@
                         <div class="col-md-4">
                             <div class="ibox text-blue">
                                 <div class="ibox-title">
-                                    <h5 class="text-uppercase">Au total</h5>
+                                    <h5 class="text-uppercase">Effectif du auto</h5>
                                 </div>
                                 <div class="ibox-content">
                                     <h2 class="no-margins"><?= start0(count(Home\VEHICULE::parcauto())); ?></h2>
@@ -94,8 +94,11 @@
                                                                 <h4 style="margin: 0" class="text-uppercase"><strong><?= $vehicule->immatriculation ?></strong></h4>
                                                                 <span>
                                                                     <strong><?= $vehicule->marque->name ?></strong><br>
-                                                                    <?= $vehicule->modele ?> <br>
-                                                                    <small class="label label-<?= $vehicule->etatvehicule->class; ?> float-right"><?= $vehicule->etatvehicule->name; ?></small>
+                                                                    <?= $vehicule->modele ?> 
+                                                                    <?php if ($vehicule->groupevehicule_id == Home\GROUPEVEHICULE::VEHICULEMISSION || $vehicule->etatvehicule_id != Home\ETATVEHICULE::RAS) { ?>
+                                                                        <br>
+                                                                        <small class="label label-<?= $vehicule->etatvehicule->class; ?> float-right"><?= $vehicule->etatvehicule->name; ?></small>
+                                                                    <?php } ?>
                                                                 </span>
                                                             </div>
                                                         </a>

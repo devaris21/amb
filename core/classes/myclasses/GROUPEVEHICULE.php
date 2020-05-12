@@ -9,6 +9,8 @@ class GROUPEVEHICULE extends TABLE
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
+	const VEHICULEMISSION = 1;
+
 	public $name;
 
 	public function enregistre(){
