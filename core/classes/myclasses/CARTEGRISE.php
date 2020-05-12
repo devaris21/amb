@@ -21,6 +21,8 @@ class CARTEGRISE extends TABLE
 	public $price;
 	public $couleur;
 	public $energie_id;
+	public $image1;
+	public $image2;
 
 
 	public function enregistre(){
