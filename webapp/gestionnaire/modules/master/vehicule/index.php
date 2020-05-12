@@ -60,11 +60,11 @@
                                     <div class="btn-group float-right">
                                         <span data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mp5 cursor dropdown-toggle"><i class="fa fa-gears fa-2x"></i></span>
                                         <div class="dropdown-menu">
-                                            <?php if ($affectation->etat_id != 0) { ?>
+                                            <?php if ($affectation->etat_id != Home\ETAT::ENCOURS) { ?>
                                                 <a class="dropdown-item" onclick="renouveler(<?= $affectation->getId() ?>)" data-toggle="tooltip" title="Renouveler l'affectation" href="#"><i class="fa fa-refresh"></i> Renouveler l'affectation</a>
                                             <?php } ?>
 
-                                            <?php if ($affectation->etat_id == 0) { ?>
+                                            <?php if ($affectation->etat_id == Home\ETAT::ENCOURS) { ?>
                                                 <a class="dropdown-item" onclick="creerCompte(<?= $affectation->getId() ?>)" href="#"><i class="fa fa-user"></i> Créer son compte Carplan</a>
                                                 <a class="dropdown-item" onclick="modification('carplan', <?= $affectation->carplan->getId() ?>)" data-toggle="modal" data-target="#modal-carplan" href="#"><i class="fa fa-pencil"></i> Modifier les infos du bénéficiaire</a>
                                                 <div class="dropdown-divider"></div>
@@ -78,7 +78,7 @@
                                     <h5 class="gras"><?= $affectation->carplan->fonction;  ?></h5>
                                     <h4>Du <b><?= datecourt($renouv->started);  ?></b> au <b><?= datecourt($renouv->finished);  ?></b> (<?= count($affectation->renouvelementaffectations) ?>)</h4>
                                     <span class="gras"><u><?= $affectation->typeaffectation->name;  ?></u></span> &nbsp;&nbsp;&nbsp; <small class="label label-<?= $affectation->etat->class ?>"><?= $affectation->etat->name ?></small>
-                                    <?php if ($affectation->etat_id != 0) { ?>
+                                    <?php if ($affectation->etat_id != Home\ETAT::ENCOURS) { ?>
                                         <button data-toggle="modal" data-target="#modal-affectation" class="btn btn-success btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Nouvelle affectation</button>
                                     <?php } ?>
 
@@ -619,7 +619,7 @@
             <div class="ibox-content">
              <?php foreach ($levehicule->entretienvehicules as $key => $entretien) {
                 $entretien->actualise(); ?>
-                <div class="vote-item <?= ($entretien->etat_id != 0)?'fini':'' ?>">
+                <div class="vote-item <?= ($entretien->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?>">
                     <div class="row">
                         <div class="col-md-7 border-right">
                             <div class="vote-actions" style="margin-right: 7%; height: 100%">
@@ -632,9 +632,9 @@
                                 <span><?= $entretien->comment ?></span>
                                 <div class="vote-info">
                                   <i class="fa fa-clock-o"></i> 
-                                  <?php if ($entretien->etat_id == -1) { ?>
+                                  <?php if ($entretien->etat_id == Home\ETAT::ENCOURS) { ?>
                                     <a href="#">Annulée <?= depuis($entretien->date_approuve) ?></a>
-                                <?php }else if ($entretien->etat_id == 0){ ?>
+                                <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                                     <a href="#">Emise <?= depuis($entretien->created) ?></a>
                                 <?php }else if ($entretien->etat_id == 1){ ?>
                                     <a href="#">Du <?= datecourt($entretien->started) ?> au <?= datecourt($entretien->finished) ?></a>
@@ -660,19 +660,20 @@
                         </a>
                     </div>
                     <div class="col-md-1 text-right border-right">
-                        <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>">
+                        <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image1) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image1) ?>"><br>
+                        <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>">
                     </div>
                     <div class="col-md-1 text-right">
                         <?php if ($entretien->etat_id == 1) { ?>
                             <div class="vote-icon">
                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Entretien terminé avec succes"> </i>
                             </div>
-                        <?php } else if ($entretien->etat_id == -1) { ?>
+                        <?php } else if ($entretien->etat_id == Home\ETAT::ENCOURS) { ?>
                             <div class="vote-icon">
                                 <i class="fa fa-close text-red" data-toggle="tooltip" title="Entretien annulé"> </i>
                             </div>
 
-                        <?php }else if ($entretien->etat_id == 0){ ?>
+                        <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                             <div class="btn-group">
                                 <button data-toggle="tooltip" title="Entretien terminé avec succes !" onclick="validerEntretien(<?= $entretien->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> </button>
                                 <button data-toggle="tooltip" title="Entretien échoué" class="btn btn-white btn-sm" onclick="annulerEntretien(<?= $entretien->getId() ?>)"><i class="fa fa-close text-red"></i></button>
@@ -703,7 +704,7 @@
                 <tbody>
                     <?php foreach ($levehicule->sinistres as $key => $sinistre) {
                         $sinistre->actualise(); ?>
-                        <tr class=" <?= ($sinistre->etat_id != 0)?'fini':'' ?> border-bottom">
+                        <tr class=" <?= ($sinistre->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?> border-bottom">
                             <td class="project-status">
                                 <span class="label label-<?= $sinistre->etat->class ?>"><?= $sinistre->etat->name ?></span>
                             </td>
@@ -714,9 +715,9 @@
                                 <p> <small><?= $sinistre->constat() ?></small> // <small><?= $sinistre->pompier() ?></small></p>
                                 <div class="vote-info mp0">
                                   <i class="fa fa-clock-o"></i> 
-                                  <?php if ($sinistre->etat_id == -1) { ?>
+                                  <?php if ($sinistre->etat_id == Home\ETAT::ENCOURS) { ?>
                                     <a href="#">Annulée <?= depuis($sinistre->date_approbation) ?></a>
-                                <?php }else if ($sinistre->etat_id == 0){ ?>
+                                <?php }else if ($sinistre->etat_id == Home\ETAT::ENCOURS){ ?>
                                     <a href="#">Emise <?= depuis($sinistre->created) ?></a>
                                 <?php }else if ($sinistre->etat_id == 1){ ?>
                                     <a href="#">Approuvée <?= depuis($sinistre->date_approbation) ?></a>
@@ -755,7 +756,7 @@
 
                     </td>
                     <td class="project-actions">
-                     <?php if ($sinistre->etat_id == 0) { ?>
+                     <?php if ($sinistre->etat_id == Home\ETAT::ENCOURS) { ?>
                         <div class="btn-group btn-group-vertical">
                             <?php if ($sinistre->carplan_id == null) { ?>
                              <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations du sinistre" class="fa fa-pencil"></i> </button>

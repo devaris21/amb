@@ -27,7 +27,7 @@ class MISSION extends TABLE
 	public $finished;
 	public $vehicule_id;
 	public $chauffeur_id;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;
 
 
@@ -83,13 +83,13 @@ class MISSION extends TABLE
 
 
 	public static function encours(){
-		return static::findBy(["etat_id ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 	}
 
 	public function terminer(){
 		$data = new RESPONSE;
-		if ($this->etat_id != 0) {
-			$this->etat_id = 1;
+		if ($this->etat_id != ETAT::ENCOURS) {
+			$this->etat_id = ETAT::ENCOURS;
 			$this->date_approuve = date("Y-m-d H:i:s");
 			$this->historique("La mission en reference $this->reference vient d'etre declaré comme 'terminée' !");
 			$data = $this->save();
@@ -103,8 +103,8 @@ class MISSION extends TABLE
 
 	public function annuler(){
 		$data = new RESPONSE;
-		if ($this->etat_id != 0) {
-			$this->etat_id = -1;
+		if ($this->etat_id != ETAT::ENCOURS) {
+			$this->etat_id = ETAT::ANNULEE;
 			$this->date_approuve = date("Y-m-d H:i:s");
 			$this->historique("La mission en reference $this->reference vient d'être annulée !");
 			$data = $this->save();

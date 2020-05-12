@@ -17,7 +17,7 @@ class LOCATION extends TABLE
 	public $finished;
 	public $comment;
 	public $date_fin;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 	public $vehicules;
 
@@ -38,7 +38,7 @@ class LOCATION extends TABLE
 
 	public static function delai(){
 		$params = PARAMS::findLastId();
-		$datas = static::findBy(["etat_id = "=>0]);
+		$datas = static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 		foreach ($datas as $key => $loc) {
 			if (!(dateDiffe(dateAjoute(), $loc->finished) <= $params->delai_alert) ) {
 				unset($datas[$key]);
@@ -103,7 +103,7 @@ class LOCATION extends TABLE
 	public function terminer(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = 1;
+		$this->etat_id = ETAT::ENCOURS;;
 		$this->date_fin = date("Y-m-d H:i:s");
 		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();
@@ -126,7 +126,7 @@ class LOCATION extends TABLE
 	public function refuser(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = -1;
+		$this->etat_id = ETAT::ANNULEE;;
 		$this->date_fin = date("Y-m-d H:i:s");
 		$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();

@@ -15,7 +15,7 @@ class VEHICULE_MISSION extends TABLE
 
 	public $mission_id;
 	public $vehicule_id;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 

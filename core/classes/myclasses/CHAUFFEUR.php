@@ -72,7 +72,7 @@ class CHAUFFEUR extends PERSONNE
 	public static function etat(){
 		$requette = "UPDATE chauffeur SET etatchauffeur_id = 1";
 		static::query($requette, []);
-		$requette = "SELECT * FROM chauffeur WHERE chauffeur.id NOT IN (SELECT mission.chauffeur_id FROM mission WHERE etat_id = 1)";
+		$requette = "SELECT * FROM chauffeur WHERE chauffeur.id NOT IN (SELECT mission.chauffeur_id FROM mission WHERE etat_id = ETAT::ENCOURS;)";
 		$datas =  static::execute($requette, []);
 		foreach ($datas as $key => $chauffeur) {
 			$chauffeur->etatchauffeur_id = 0;

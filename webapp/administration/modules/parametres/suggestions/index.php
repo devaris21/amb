@@ -84,7 +84,7 @@
                                         <?php foreach ($suggestions as $key => $suggestion) {
                                             $suggestion->actualise();
                                             ?>
-                                            <tr class=" <?= ($suggestion->etat_id == 0)?'encours':'' ?> border-bottom" >    
+                                            <tr class=" <?= ($suggestion->etat_id == Home\ETAT::ENCOURS;)?'encours':'' ?> border-bottom" >    
                                                 <td class="project-status">
                                                     <span class="label label-<?= $suggestion->etat->class ?>"><?= $suggestion->etat->name ?></span>
                                                 </td>                                            
@@ -101,7 +101,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="" style="min-width: 100px">
-                                                    <?php if ($suggestion->etat_id == 0) { ?>
+                                                    <?php if ($suggestion->etat_id == Home\ETAT::ENCOURS;) { ?>
 
                                                         <button onclick="modification('suggestion', <?= $suggestion->getId() ?>)" data-toggle="modal" data-target="#modal-suggestion" class="btn btn-outline btn-warning btn-xs dim" type="button"><i data-toggle="tooltip" title="Modifier les infos de l'suggestion" class="fa fa-check"></i> Ok, compris !</button>
                                                     <?php }else{ ?>

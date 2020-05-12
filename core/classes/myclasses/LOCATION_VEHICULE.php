@@ -12,7 +12,7 @@ class LOCATION_VEHICULE extends TABLE
 
 	public $location_id;
 	public $vehicule_id;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 	public $zones;

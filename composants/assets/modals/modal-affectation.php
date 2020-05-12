@@ -32,13 +32,13 @@
                         <div class="col-sm-4">
                             <label>Fonction <span1>*</span1></label>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="fonction">
+                                <input type="text" class="form-control" name="fonction" required>
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>Email <span1>*</span1></label>
+                            <label>Email </label>
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" required>
+                                <input type="email" class="form-control" name="email">
                             </div>
                         </div>
                         <div class="col-sm-4">

@@ -17,14 +17,14 @@ class RENOUVELEMENTAFFECTATION extends TABLE
 	public $started = "";
 	public $finished = "";
 	public $date_fin;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;
 
 
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		if ($this->finished > $this->started && $this->started >= date("Y-m-d")) {
+		if ($this->finished >= $this->started && $this->started >= date("Y-m-d")) {
 			$data = $this->save();			
 		}else{
 			$data->status = false;
@@ -36,9 +36,9 @@ class RENOUVELEMENTAFFECTATION extends TABLE
 
 	public function etat(){
 		if ($this->finished > date("Y-m-d")) {
-			$this->etat_id = 0;
+			$this->etat_id = ETAT::ENCOURS;
 		}else{
-			$this->etat_id = -2;
+			$this->etat_id = ETAT::VALIDEE;
 		}
 		$this->save();
 	}
@@ -52,11 +52,11 @@ class RENOUVELEMENTAFFECTATION extends TABLE
 
 	public function terminer(){
 		$data = new RESPONSE;
-		if ($this->etat_id == 0) {
+		if ($this->etat_id == ETAT::ENCOURS) {
 			$this->actualise();
 			$this->historique("Fin de l'affectation du vehicule ".$this->affectation->vehicule->name()." à ".$this->affectation->name());
 			$this->date_fin = date("Y-m-d");
-			$this->etat_id = 2;
+			$this->etat_id = ETAT::VALIDEE;
 			$data = $this->save();
 		}else{
 			$data->status = false;
@@ -68,11 +68,11 @@ class RENOUVELEMENTAFFECTATION extends TABLE
 
 	public function annuler(){
 		$data = new RESPONSE;
-		if ($this->etat_id == 0) {
+		if ($this->etat_id == ETAT::ENCOURS) {
 			$this->actualise();
 			$this->historique("Annulation de l'affectation du vehicule ".$this->affectation->vehicule->name()." à ".$this->affectation->name());
 			$this->date_fin = date("Y-m-d");
-			$this->etat_id = -1;
+			$this->etat_id = ETAT::ANNULEE;;
 			$data = $this->save();
 		}else{
 			$data->status = false;

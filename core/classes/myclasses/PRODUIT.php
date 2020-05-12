@@ -42,7 +42,7 @@ class PRODUIT extends TABLE
 
 
 
-		public function uploading(Array $files){
+	public function uploading(Array $files){
 		//les proprites d'images;
 		$tab = ["image"];
 		if (is_array($files) && count($files) > 0) {

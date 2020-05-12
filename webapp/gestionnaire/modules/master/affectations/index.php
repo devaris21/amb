@@ -92,7 +92,7 @@
                                                 $renouv = end($affectation->renouvelementaffectations);
                                             }
                                             ?>
-                                            <tr class=" <?= ($affectation->etat_id == 0)?'encours':'' ?> border-bottom" >    
+                                            <tr class=" <?= ($affectation->etat_id == Home\ETAT::ENCOURS;)?'encours':'' ?> border-bottom" >    
                                                 <td class="project-status">
                                                     <span class="label label-<?= $affectation->etat->class ?>"><?= $affectation->etat->name ?></span>
                                                 </td>                                            
@@ -126,7 +126,7 @@
                                                     </div>
                                                 </td>
                                                 <td class="text-right">
-                                                    <?php if ($affectation->etat_id == 0) { ?>
+                                                    <?php if ($affectation->etat_id == Home\ETAT::ENCOURS;) { ?>
 
                                                         <button onclick="modification('affectation', <?= $affectation->getId() ?>)" data-toggle="modal" data-target="#modal-affectation" class="btn btn-outline btn-warning  dim" type="button"><i data-toggle="tooltip" title="Modifier les infos de l'affectation" class="fa fa-pencil"></i></button> <br>                 
                                                         <button onclick="terminerAffectation(<?= $affectation->getId() ?>)" data-toggle="tooltip" title="Terminer l'affectation" class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-check"></i></button>

@@ -31,7 +31,7 @@ class SINISTRE extends TABLE
 	public $image1;
 	public $image2;
 	public $image3;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 	public $date_approbation = null;
 
 	public $constat;
@@ -142,7 +142,7 @@ class SINISTRE extends TABLE
 
 
 	public static function encours(){
-		return static::findBy(["etat_id ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 	}
 
 	public static function valideesCeMois(){
@@ -158,7 +158,7 @@ class SINISTRE extends TABLE
 	public function approuver(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = 1;
+		$this->etat_id = ETAT::ENCOURS;;
 		$this->date_approbation = date("Y-m-d H:i:s");
 		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();
@@ -182,7 +182,7 @@ class SINISTRE extends TABLE
 	public function refuser(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = -1;
+		$this->etat_id = ETAT::ANNULEE;;
 		$this->date_approbation = date("Y-m-d H:i:s");
 		$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();

@@ -16,7 +16,7 @@ class ATTRIBUTION extends TABLE
 	public $commande_id;
 	public $livreur_id;
 	public $entrepriselivreur_id;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 

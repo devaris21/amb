@@ -34,6 +34,7 @@ class VEHICULE extends TABLE
 	public $date_assurance;
 	public $etatvehicule_id = 0;
 	public $location = 0;
+	public $possession = 1;
 
 
 	public function enregistre(){
@@ -48,16 +49,7 @@ class VEHICULE extends TABLE
 				if (count($datas) == 1) {
 					$data = $this->save();
 					if ($data->status) {
-						if (isset($this->photo) && $this->photo["tmp_name"] != "") {
-							$image = new FICHIER();
-							$image->hydrater($this->photo);
-							if ($image->is_image()) {
-								$a = substr(uniqid(), 5);
-								$result = $image->upload("images", "vehicules", $a);
-								$this->image = $result->filename;
-								$this->save();
-							}
-						}
+						$this->uploading($this->files);
 					}
 				}else{
 					$data->status = false;
@@ -74,6 +66,29 @@ class VEHICULE extends TABLE
 		return $data;
 	}
 	
+
+
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "vehicules", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
+		}
+	}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -125,42 +140,42 @@ class VEHICULE extends TABLE
 
 	public static function etat(){
 		foreach (static::getAll() as $key => $vehicule) {
-			if ($vehicule->etatvehicule_id != -1) {
-				if ($vehicule->date_sortie != null || $vehicule->etatvehicule_id != -2) {
+			if ($vehicule->etatvehicule_id != ETATVEHICULE::INDISPONIBLE) {
+				if ($vehicule->date_sortie != null || $vehicule->etatvehicule_id == ETATVEHICULE::DECLASSEE) {
 					//véhicule déclassé
-					$vehicule->etatvehicule_id = -2;
+					$vehicule->etatvehicule_id = ETATVEHICULE::DECLASSEE;
 				}else{
 					if (in_array($vehicule->etatvehicule_id, GROUPEVEHICULEOPEN::get())) {
 						if($vehicule->is_affecte()) {
 							//véhicule affecté
-							$vehicule->etatvehicule_id = 3;
+							$vehicule->etatvehicule_id = ETATVEHICULE::AFFECTE;
 
 						}else{
-							$datas = ENTRETIENVEHICULE::findBy(["etat_id="=>0, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
+							$datas = ENTRETIENVEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
 							if (count($datas) > 0) {
 								//en entretien
-								$vehicule->etatvehicule_id = 1;
+								$vehicule->etatvehicule_id = ETATVEHICULE::ENTRETIEN;
 
 							}else{
-								$datas = SINISTRE::findBy(["etat_id="=>0, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
+								$datas = SINISTRE::findBy(["etat_id = "=>ETAT::ENCOURS, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
 								if (count($datas) > 0) {
 									//sinistré
-									$vehicule->etatvehicule_id = 5;
+									$vehicule->etatvehicule_id = ETATVEHICULE::SINISTRE;
 
 								}else{
-									$datas = VEHICULE_MISSION::findBy(["etat_id="=>0, "vehicule_id ="=>$vehicule->getId()]);
+									$datas = VEHICULE_MISSION::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
 									if (count($datas) > 0) {
 										//en mission
-										$vehicule->etatvehicule_id = 2;
+										$vehicule->etatvehicule_id = ETATVEHICULE::MISSION;
 
 									}else{
-										$vehicule->etatvehicule_id = 0;
-										$datas = LOCATION_VEHICULE::findBy(["etat_id="=>0, "vehicule_id ="=>$vehicule->getId()]);
+										$vehicule->etatvehicule_id = ETATVEHICULE::RAS;
+										$datas = LOCATION_VEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
 										foreach ($datas as $key => $value) {
 											$value->actualise();
 											if ($value->location->started <= dateAjoute() && dateAjoute() <= $value->location->finished) {
 												//preté
-												$vehicule->etatvehicule_id = 4;
+												$vehicule->etatvehicule_id = ETATVEHICULE::PRETE;
 												break;
 											}
 										}
@@ -170,7 +185,6 @@ class VEHICULE extends TABLE
 						}
 					}
 				}
-				$vehicule->etatvehicule_id = 0;
 				$vehicule->save();
 			}
 		}
@@ -188,7 +202,7 @@ class VEHICULE extends TABLE
 		$this->actualise();
 		$this->fonction = "";
 		if ($this->is_affecte()) {
-			$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id="=>0]);
+			$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id = "=>ETAT::ENCOURS]);
 			if (count($datas) > 0) {
 				$affectation = $datas[0];
 				return $affectation->actualise();
@@ -199,7 +213,7 @@ class VEHICULE extends TABLE
 
 
 	public function is_affecte(){
-		$datas = AFFECTATION::findBy(["vehicule_id ="=> $this->getId(), "etat_id="=>0]);
+		$datas = AFFECTATION::findBy(["vehicule_id ="=> $this->getId(), "etat_id = "=>ETAT::ENCOURS]);
 		if (count($datas) > 0) {
 			return true;
 		}else{

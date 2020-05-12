@@ -88,7 +88,7 @@
                                 <tbody>
                                     <?php foreach ($locations as $key => $location) {
                                         $location->actualise() ?>
-                                        <tr class=" <?= ($location->etat_id != 0)?'fini':'' ?> border-bottom">
+                                        <tr class=" <?= ($location->etat_id != Home\ETAT::ENCOURS;)?'fini':'' ?> border-bottom">
 
                                             <td class="border-right">                                                
                                                 <br>
@@ -137,7 +137,7 @@
                                             <button onclick="voirVehicule('<?= $location->getId() ?>')" class="btn btn-rounded btn-outline btn-xs btn-info"><i class="fa fa-eye"></i> Voir les véhicules</button>
                                         </td>
                                         <td class="text-right">
-                                            <?php if ($location->etat_id == 0) { ?>
+                                            <?php if ($location->etat_id == Home\ETAT::ENCOURS;) { ?>
                                                 <button onclick="modification('location', <?= $location->getId() ?>)" data-toggle="modal" data-target="#modal-<?= ($location->typelocation_id == 1)?'location2':'pret2' ?>" class="btn btn-outline btn-warning  dim" type="button"><i data-toggle="tooltip" title="Modifier les infos de la location" class="fa fa-pencil"></i></button>
 
                                                 <?php if ($location->typelocation_id == 2){ ?>

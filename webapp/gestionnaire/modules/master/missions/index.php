@@ -74,7 +74,7 @@
                     <tbody>
                         <?php foreach ($missions as $key => $mission){
                             $mission->actualise();  ?>
-                            <tr class=" <?= ($mission->etat_id != 0)?'fini':'' ?> border-bottom">
+                            <tr class=" <?= ($mission->etat_id != Home\ETAT::ENCOURS;)?'fini':'' ?> border-bottom">
                                 <td class="project-status">
                                     <span class="label label-<?= $mission->etat->class ?>"><?= $mission->etat->name ?></span>
                                 </td>

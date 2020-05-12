@@ -100,7 +100,7 @@
                                                 <div class="animated fadeInRight">
                                                     <?php foreach ($demandes as $key => $demande) {
                                                         $demande->actualise(); ?>
-                                                        <div class="vote-item  <?= ($demande->etat_id != 0)?'fini':'' ?>">
+                                                        <div class="vote-item  <?= ($demande->etat_id != Home\ETAT::ENCOURS;)?'fini':'' ?>">
                                                             <div class="row">
                                                                 <div class="col-md-9">
                                                                     <div class="vote-actions" style="margin-right: 6%; height: 100%">
@@ -119,7 +119,7 @@
                                                                 <div class="col-md-3 text-right">
                                                                     <div class="vote-icon">
                                                                         <?php 
-                                                                        if ($demande->etat_id == 0) {
+                                                                        if ($demande->etat_id == Home\ETAT::ENCOURS;) {
                                                                           if ($demande->typedemandevehicule_id == 1) {
                                                                              if ($demande->etats >= 1) { ?>
                                                                                  <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DRH"> </i>
@@ -140,7 +140,7 @@
                                                                  <?php }
                                                                  ?>
                                                              </div>
-                                                             <?php if ($demande->etat_id == 0) { ?>
+                                                             <?php if ($demande->etat_id == Home\ETAT::ENCOURS;) { ?>
                                                                 En attente d'approbations
                                                             <?php } ?>
                                                         </div>
