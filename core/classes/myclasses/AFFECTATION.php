@@ -16,7 +16,7 @@ class AFFECTATION extends TABLE
 	public $carplan_id;
 	public $vehicule_id;
 	public $etat_id = ETAT::ENCOURS;
-	public $typeaffectation_id = 0;
+	public $typeaffectation_id = TYPEAFFECTATION::TEMPORAIRE;
 
 	public $matricule;
 	public $name;
@@ -75,7 +75,7 @@ class AFFECTATION extends TABLE
 
 	public static function etat(){
 		foreach (static::getAll() as $key => $item) {
-			$datas = RENOUVELEMENTAFFECTATION::findBy(["affectation_id ="=>$item->getId()]);
+			$datas = $item->fourni("renouvelementaffectation", ["etat_id ="=>ETAT::ENCOURS]);
 			if (count($datas) > 0) {
 				$last = end($datas);
 				if ($last->etat_id == ETAT::ENCOURS) {

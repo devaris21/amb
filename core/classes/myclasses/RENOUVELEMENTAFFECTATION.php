@@ -35,7 +35,7 @@ class RENOUVELEMENTAFFECTATION extends TABLE
 
 
 	public function etat(){
-		if ($this->finished > date("Y-m-d")) {
+		if ($this->finished >= date("Y-m-d")) {
 			$this->etat_id = ETAT::ENCOURS;
 		}else{
 			$this->etat_id = ETAT::VALIDEE;

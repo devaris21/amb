@@ -200,15 +200,13 @@ class VEHICULE extends TABLE
 
 	public function affectation(){
 		$this->actualise();
-		$this->fonction = "";
 		if ($this->is_affecte()) {
-			$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id = "=>ETAT::ENCOURS]);
+			$datas = $this->fourni("affectation", ["etat_id = "=>ETAT::ENCOURS]);
 			if (count($datas) > 0) {
 				$affectation = $datas[0];
-				return $affectation->actualise();
+				return $affectation;
 			}
 		}
-		return null;
 	}
 
 

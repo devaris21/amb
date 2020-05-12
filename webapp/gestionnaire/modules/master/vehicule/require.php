@@ -30,14 +30,7 @@ if ($this->getId() != null && intval($this->getId()) > 0) {
 
 		AFFECTATION::etat();
 		$affectation = $levehicule->affectation();
-
-
-		$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id="=>0]);
-		if (count($datas) > 0) {
-			$affectation = $datas[0];
-			$affectation->actualise();
-		}
-
+		$affectation->actualise();
 
 		$title = "AMB | ".$levehicule->name();
 
