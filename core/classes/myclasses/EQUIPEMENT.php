@@ -23,7 +23,7 @@ class EQUIPEMENT extends TABLE
 		if ($this->name != "") {
 			$data = $this->save();
 			if ($data->status) {
-				$this->uploading();
+				$this->uploading($this->files);
 			}
 		}else{
 			$data->status = false;
@@ -33,16 +33,25 @@ class EQUIPEMENT extends TABLE
 	}
 
 
-	public function uploading(){
-		if (isset($this->image) && $this->image["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "equipements", $a);
-				$this->image = $result->filename;
-				$this->save();
-			}
+		public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "equipements", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
 		}
 	}
 

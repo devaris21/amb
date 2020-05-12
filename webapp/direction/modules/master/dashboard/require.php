@@ -10,6 +10,6 @@ $demandes = $utilisateur->departement->demandevehicules;
 $utilisateur->departement->fourni("utilisateur");
 $utilisateurs = $utilisateur->departement->utilisateurs;
 
-
+$datas = DEPARTEMENT::getAll();
 
 ?>

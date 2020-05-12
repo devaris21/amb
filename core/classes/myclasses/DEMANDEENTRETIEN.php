@@ -36,7 +36,7 @@ class DEMANDEENTRETIEN extends TABLE
 			$this->ticket = strtoupper(substr(uniqid(), 5, 6));
 			$data = $this->save();
 			if ($data->status) {
-				$this->uploading();
+				$this->uploading($this->files);
 				$this->setId($data->lastid)->actualise();
 				$params = PARAMS::findLastId();
 
@@ -56,16 +56,25 @@ class DEMANDEENTRETIEN extends TABLE
 	}
 
 
-	public function uploading(){
-		if (isset($this->image) && $this->image["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "demandeentretiens", $a);
-				$this->image = $result->filename;
-				$this->save();
-			}
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "demandeentretiens", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
 		}
 	}
 

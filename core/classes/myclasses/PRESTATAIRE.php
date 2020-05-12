@@ -38,7 +38,7 @@ class PRESTATAIRE extends AUTH
 					$this->password = hasher($pass);
 					$data = $this->save();
 					if ($data->status) {
-						$this->uploading();
+						$this->uploading($this->files);
 						ob_start();
 						include(__DIR__."/../../sections/home/elements/mails/welcome_prestataire.php");
 						$contenu = ob_get_contents();
@@ -64,16 +64,25 @@ class PRESTATAIRE extends AUTH
 
 
 
-	public function uploading(){
-		if (isset($this->image) && $this->image["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "prestataires", $a);
-				$this->image = $result->filename;
-				$this->save();
-			}
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "prestataires", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
 		}
 	}
 

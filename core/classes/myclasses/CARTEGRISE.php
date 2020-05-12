@@ -33,7 +33,7 @@ class CARTEGRISE extends TABLE
 					$this->name = "CARTE GRISE ".date("Y", strtotime($this->date_etablissement));
 					$data = $this->save();
 					if ($data->status) {
-						$this->uploading();
+						$this->uploading($this->files);
 					}
 				}else{
 					$data->status = false;
@@ -51,26 +51,25 @@ class CARTEGRISE extends TABLE
 	}
 
 
-	public function uploading(){
-		if (isset($this->image1) && $this->image1["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image1);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "cartegrises", $a);
-				$this->image1 = $result->filename;
-				$this->save();
-			}
-		}
-		if (isset($this->image2) && $this->image2["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image2);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "cartegrises", $a);
-				$this->image2 = $result->filename;
-				$this->save();
-			}
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image1", "image2"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "cartegrises", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
 		}
 	}
 

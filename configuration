@@ -28,7 +28,7 @@ $configs =  [
 		"port"     => 3306,
 		"dbname"   => "gpav2",
 		"login"    => "root",
-		"password" => "12345"
+		"password" => ""
 	],
 
 
