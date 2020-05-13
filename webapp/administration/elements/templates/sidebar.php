@@ -35,6 +35,12 @@
                     <!-- <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter nouveau</a></li> -->
                 </ul>
             </li>
+            <li class="">
+                <a href="<?= $this->url("administration", "users", "carplans") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Bénéficiaires CARPLAN</span></a>
+            </li>
+            <li class="">
+                <a href="<?= $this->url("administration", "users", "prestataires") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Prestataires</span></a>
+            </li>
             <li>
                 <a href="#"><i class="fa fa-pied-piper-alt"></i> <span class="nav-label">Gestionnaire / Admin</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">

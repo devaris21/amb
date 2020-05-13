@@ -335,7 +335,7 @@ CREATE TABLE `connexion` (
   `modified` datetime DEFAULT NULL,
   `protected` int(11) NOT NULL DEFAULT 1,
   `valide` int(11) NOT NULL DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `connexion`
@@ -809,7 +809,7 @@ CREATE TABLE `history` (
   `protected` int(11) NOT NULL DEFAULT 1,
   `valide` int(11) NOT NULL DEFAULT 1,
   `record_key` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `history`
@@ -2529,7 +2529,7 @@ CREATE TABLE `params` (
   `delai_alert` int(11) NOT NULL,
   `protected` int(11) NOT NULL DEFAULT 1,
   `valide` int(11) NOT NULL DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `params`
@@ -2687,7 +2687,7 @@ CREATE TABLE `sexe` (
   `icon` varchar(50) NOT NULL,
   `protected` int(11) NOT NULL DEFAULT 1,
   `valide` int(11) NOT NULL DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `sexe`

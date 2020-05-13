@@ -40,7 +40,7 @@
                     <div class="ibox-content">
                         <table class="table table-striped table-hover" >
                             <tbody id="historique">
-                                <?php foreach ($historiques as $key => $historique) { ?>
+                                <?php foreach ($historiques as $key => $historique) {?>
                                  <tr>
                                     <td><i class="fa fa-clock-o fa-3x"></i></td>
                                     <td>
@@ -59,7 +59,7 @@
                                         <?= $historique->auteur() ?>
                                     </td>
                                 </tr>
-                            <?php } ?>                        
+                            <?php  } ?>                        
                         </tbody>
                     </table>
                 </div>

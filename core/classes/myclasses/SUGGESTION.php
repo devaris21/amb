@@ -97,21 +97,29 @@ class SUGGESTION extends TABLE
 		return $data;
 	}
 
-
+	public function validerEtat()
+	{
+		$this->etat_id = 2;
+        $this->date_approuve = date("Y-m-d H:i:s");
+        $data = $this->save();
+		$admin = ADMIN::findLastId(getSession("admin_connecte_id"));
+        $this->historique("Suggestion N° $this->ticket a été approuvé par l\'administrateur ".$admin->name());
+        return $data;
+	}
 
 
 	public function sentenseCreate(){
-		return $this->sentense = "Enregistrement d'un nouveau equipement $this->name .";
+		return $this->sentense = "Enregistrement d'un nouveau equipement .";
 	}
 
 
 	public function sentenseUpdate(){
-		return $this->sentense = "Modification des infos de l'equipement N°$this->id  $this->name .";
+		return $this->sentense = "Modification des infos de l'equipement N°$this->id  .";
 	}
 
 
 	public function sentenseDelete(){
-		return $this->sentense = "Suppression définitive de l'equipement $this->name  dans la base de données.";
+		return $this->sentense = "Suppression définitive de l'equipement  dans la base de données.";
 	}
 
 }

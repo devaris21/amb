@@ -8,7 +8,7 @@ $(function(){
         $.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
             if (data.status) {
                 if (data.new) {
-                    $("#modalNewUser").modal();
+                    $("#formNewUser").modal();
                 }else{
                     window.location.href = data.url;
                 }

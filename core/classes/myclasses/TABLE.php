@@ -124,6 +124,13 @@ abstract class TABLE
         $this->sentense = $texte;
     }
 
+    public function validerEtat()
+    {
+        $this->etat_id = 2;
+        $this->date_approuve = date("Y-m-d H:i:s");
+        $data = $this->save();
+        return $data;
+    }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //initialiser la connexion et recuperer le nom de la table
@@ -375,7 +382,7 @@ abstract class TABLE
         $where = $groupe = $orders =""; $i =0;
         foreach ($params as $key => $value) {
             $i++;
-            $where .= "$conn $key :$i ";
+            $where .= (is_null($value))? "$conn $key NULL " :"$conn $key :$i ";
         }
         //les group
         if (count($group) > 0) {
@@ -409,7 +416,9 @@ abstract class TABLE
         $i =0;
         foreach ($params as $key => $value) {
             $i++;
-            $req->bindValue(":$i", $value);
+            if (!is_null($value)) {
+                $req->bindValue(":$i", $value);
+            }
         }
         $req->execute();
         return $req->fetchAll(PDO::FETCH_CLASS, "$tableClass");         
@@ -482,5 +491,6 @@ abstract class TABLE
         $datas = $class::findBy(["$table != "=> $this->getId()]);
         return $this->items = $datas;
     }
+
 }
 ?>

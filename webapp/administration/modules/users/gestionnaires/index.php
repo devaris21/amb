@@ -44,7 +44,7 @@
 
                  <div class="col-lg-3">
                     <div class="contact-box center-version">
-                        <a href="profile.html">
+                        <a>
                             <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "gestionnaires", $gestionnaire->image) ?>">
                             <br><?php if ($gestionnaire->is_new == 1) { ?>
                                     <label class="label label-success">N</label>
@@ -59,16 +59,19 @@
                             </address>
                         </a>
                         <div class="contact-box-footer ">
-                            <?php if ($gestionnaire->is_allowed == 0) { ?>
-                                <label class="label label-danger">Bloqué</label>
-                            <?php } ?>
                             <div class="m-t-xs btn-group">
-                                                                <?php if ($gestionnaire->is_allowed == 1) { ?>
+                            <?php if ($gestionnaire->is_allowed == 0) { ?>
+                                <button style="cursor: default;" class="btn btn-xs btn-danger"><i class="fa fa-lock"></i> Bloqué</button>
+                            <?php } ?>
+                             <?php if ($gestionnaire->is_allowed == 1) { ?>
                                     <button onclick="lock('gestionnaire', <?= $gestionnaire->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-lock"></i> Bloquer</button>
                                 <?php }else{ ?>
                                     <button onclick="unlock('gestionnaire', <?= $gestionnaire->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-unlock"></i> Debloquer</button>
                                 <?php } ?>
                                 <button onclick="suppressionWithPassword('gestionnaire', <?= $gestionnaire->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-close text-danger"></i> Supprimer</button>
+                                <?php if ($gestionnaire->is_allowed != 0) { ?>
+                                    <button  onclick="resetPassword('gestionnaire', <?= $gestionnaire->getId(); ?>)" style="cursor: default;" class="btn btn-xs btn-secondary"><i class="fa fa-refresh"></i> Reinitialisé</button>
+                                <?php } ?>
                             </div>
                         </div>
 

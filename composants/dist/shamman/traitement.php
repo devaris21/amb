@@ -94,6 +94,19 @@ if ($action == "get_data") {
 	echo json_encode($data);
 }
 
+if ($action == "validerEtat") {
+	$class = TABLE::fullyClassName($table);
+	$datas = $class::findBy(["id ="=>$id]);
+	if (count($datas) == 1) {
+		$item = $datas[0];
+		$data = $item->validerEtat();
+	}else{
+		$data->status = false;
+		$data->message = "Une erreur s'est produite, veuillez recommencer !";
+	}
+	echo json_encode($data);
+}
+
 
 //suppression des elements
 if ($action === "suppression") {
@@ -131,13 +144,13 @@ if ($action === "verifierPassword") {
 
 
 
-//veroouiller un user
+//verouiller un user
 if ($action === "lock") {
-	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
+	$datas = ADMIN::findBy(["id = "=>getSession("admin_connecte_id")]);
 	if (count($datas) > 0) {
-		$gestionnaire = $datas[0];
-		$gestionnaire->actualise();
-		if ($gestionnaire->checkPassword($password)) {
+		$admin = $datas[0];
+		$admin->actualise();
+		if ($admin->checkPassword($password)) {
 			$class = TABLE::fullyClassName($table);
 			if (class_exists($class)) {
 				$element = new $class();
@@ -146,7 +159,7 @@ if ($action === "lock") {
 				$data = $element->lock();
 			}else{
 				$data->status = false;
-				$data->message = "Erreur lors de la suppression de l'element !";
+				$data->message = "Erreur lors du verouillage de cet element !";
 			}
 		}else{
 			$data->status = false;
@@ -160,13 +173,37 @@ if ($action === "lock") {
 }
 
 
+//Reinitialiser un mot de passe
+if ($action === "resetPassword") {
+	$datas = ADMIN::findBy(["id = "=>getSession("admin_connecte_id")]);
+	if (count($datas) > 0) {
+		$admin = $datas[0];
+		$admin->actualise();
+			$class = TABLE::fullyClassName($table);
+			if (class_exists($class)) {
+				$element = new $class();
+				$element->setId($id);
+				$element->actualise();
+				$data = $element->resetPassword();
+			}else{
+				$data->status = false;
+				$data->message = "Erreur lors de la reinitialisation du mot de passe !";
+			}
+	}else{
+		$data->status = false;
+		$data->message = "Vous ne pouvez pas effectué cette opération !";
+	}
+	echo json_encode($data);
+}
+
+
 //veroouiller un user
 if ($action === "unlock") {
-	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
+	$datas = ADMIN::findBy(["id = "=>getSession("admin_connecte_id")]);
 	if (count($datas) > 0) {
-		$gestionnaire = $datas[0];
-		$gestionnaire->actualise();
-		if ($gestionnaire->checkPassword($password)) {
+		$admin = $datas[0];
+		$admin->actualise();
+		if ($admin->checkPassword($password)) {
 			$class = TABLE::fullyClassName($table);
 			if (class_exists($class)) {
 				$element = new $class();
@@ -175,7 +212,7 @@ if ($action === "unlock") {
 				$data = $element->unlock();
 			}else{
 				$data->status = false;
-				$data->message = "Erreur lors de la suppression de l'element !";
+				$data->message = "Erreur lors du deverouillage de cet element !";
 			}
 		}else{
 			$data->status = false;
@@ -192,7 +229,7 @@ if ($action === "unlock") {
 
 //suppression des elements avec mot de passe
 if ($action === "suppression_with_password") {
-	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
+	$datas = ADMIN::findBy(["id = "=>getSession("admin_connecte_id")]);
 	if (count($datas) > 0) {
 		$gestionnaire = $datas[0];
 		$gestionnaire->actualise();

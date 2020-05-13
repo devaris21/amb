@@ -41,7 +41,7 @@
                         <div class="widget style1 navy-bg">
                             <div class="row">
                                 <div class="col-4">
-                                    <i class="fa fa-cloud fa-3x"></i>
+                                    <i class="fa fa-wpbeginner fa-3x"></i>
                                 </div>
                                 <div class="col-8 text-right">
                                     <span>Déclaration en cours </span>
@@ -54,7 +54,7 @@
                         <div class="widget style1 lazur-bg">
                             <div class="row">
                                 <div class="col-4">
-                                    <i class="fa fa-envelope-o fa-3x"></i>
+                                    <i class="fa fa-car fa-3x"></i>
                                 </div>
                                 <div class="col-8 text-right">
                                     <span> Sinistres ce mois </span>
@@ -103,9 +103,9 @@
                                                 <td class="" style="min-width: 100px">
                                                     <?php if ($suggestion->etat_id == Home\ETAT::ENCOURS;) { ?>
 
-                                                        <button onclick="modification('suggestion', <?= $suggestion->getId() ?>)" data-toggle="modal" data-target="#modal-suggestion" class="btn btn-outline btn-warning btn-xs dim" type="button"><i data-toggle="tooltip" title="Modifier les infos de l'suggestion" class="fa fa-check"></i> Ok, compris !</button>
+                                                        <button onclick="validerEtat('suggestion', <?= $suggestion->getId() ?>)" data-toggle="modal" data-target="#modal-suggestion" class="btn btn-outline btn-<?= $suggestion->etat->class ?>  btn-xs dim" type="button"><i data-toggle="tooltip" title="Modifier les infos de l'suggestion" class="fa fa-check"></i> Ok, compris !</button>
                                                     <?php }else{ ?>
-                                                        <button onclick="renouveler(<?= $suggestion->getId() ?>)" data-toggle="tooltip" title="Renouveler l'suggestion" class="btn btn-outline btn-success dim" type="button"><i class="fa fa-refresh"></i></button>
+                                                        <button data-toggle="tooltip" title="Renouveler l'suggestion" class="btn btn-outline btn-primary dim" type="button"><?= $suggestion->etat->name ?> <i class="fa fa-check"></i></button>
                                                     <?php } ?>
                                                     
                                                 </td>

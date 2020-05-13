@@ -11,19 +11,19 @@
 
             <div class="col-md-12">
                 <div class="ibox-content text-center">
-<h1 class="logo-name text-center" style="font-size: 120px; margin: 0% !important; padding: 0% !important;">AMB</h1>
+                    <h1 class="logo-name text-center" style="font-size: 120px; margin: 0% !important; padding: 0% !important;">AMB</h1>
                     <h2 class="font-bold">J'ai oublié mon mot de passe</h2>
 
                     <p>Entrer votre adresse email pour reiniatialiser votre mot de passe !</p>
 
                     <div class="row">
                         <div class="col-lg-12">
-                            <form class="m-t" id="resetForm" role="form" method="POST">
+                            <form class="m-t" id="resetForm" role="form">
                                 <div class="form-group">
-                                    <input type="email" class="form-control" placeholder="Adresse email" required>
+                                    <input type="email" name="email" class="form-control" placeholder="Adresse email" required>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary block full-width m-b">Reiniatialiser mon mot de passe</button>
+                                <button class="btn btn-primary block full-width m-b">Reiniatialiser mon mot de passe</button>
                             </form>
                         </div>
                     </div>
@@ -41,6 +41,7 @@
      </div>
     </div>
 
+<?php include($this->rootPath("webapp/administration/elements/templates/script.php")); ?>
 </body>
 
 </html>
