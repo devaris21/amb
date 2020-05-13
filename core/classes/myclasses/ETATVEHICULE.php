@@ -17,6 +17,7 @@ class ETATVEHICULE extends TABLE
 	const SINISTRE = 6;
 	const AFFECTE = 7;
 	const PRETE = 8;
+	const LOUEE = 9;
 
 	public $name;
 	public $class;

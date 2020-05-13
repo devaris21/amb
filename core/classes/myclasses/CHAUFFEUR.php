@@ -25,7 +25,7 @@ class CHAUFFEUR extends PERSONNE
 	public $email;
 	public $contact;
 	public $image = "default.png";
-	public $etatchauffeur_id;
+	public $etatchauffeur_id = ETATCHAUFFEUR::RAS;
 
 
 
@@ -70,13 +70,16 @@ class CHAUFFEUR extends PERSONNE
 
 
 	public static function etat(){
-		$requette = "UPDATE chauffeur SET etatchauffeur_id = 1";
-		static::query($requette, []);
-		$requette = "SELECT * FROM chauffeur WHERE chauffeur.id NOT IN (SELECT mission.chauffeur_id FROM mission WHERE etat_id = ETAT::ENCOURS;)";
-		$datas =  static::execute($requette, []);
-		foreach ($datas as $key => $chauffeur) {
-			$chauffeur->etatchauffeur_id = 0;
-			$chauffeur->save();
+		foreach (static::getAll() as $key => $chauffeur) {
+			if ($chauffeur->etatchauffeur_id != ETATCHAUFFEUR::INDISPONIBLE) {
+				$datas = $chauffeur->fourni("mission", ["etat_id ="=>ETAT::ENCOURS]);
+				if (count($datas) > 0) {
+					$chauffeur->etatchauffeur_id = ETATCHAUFFEUR::MISSION;
+				}else{
+					$chauffeur->etatchauffeur_id = ETATCHAUFFEUR::RAS;
+				}
+				$chauffeur->save();
+			}
 		}
 	}
 

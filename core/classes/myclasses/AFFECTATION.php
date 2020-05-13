@@ -40,11 +40,16 @@ class AFFECTATION extends TABLE
 			if (count($datas) == 0) {
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
-					$carplan = new CARPLAN;
-					$carplan->cloner($this);
-					$data = $carplan->enregistre();
+					$data->status = true;
+					if ($this->carplan_id == null) {
+						$carplan = new CARPLAN;
+						$carplan->cloner($this);
+						$data = $carplan->enregistre();
+						if ($data->status) {
+							$this->carplan_id = $data->lastid;
+						}
+					}
 					if ($data->status) {
-						$this->carplan_id = $data->lastid;
 						$data = $this->save();
 						if ($data->status) {
 							$renouv = new RENOUVELEMENTAFFECTATION;
@@ -111,14 +116,12 @@ class AFFECTATION extends TABLE
 	public function terminer(){
 		$data = new RESPONSE;
 		if ($this->etat_id == ETAT::ENCOURS) {
-			$datas = RENOUVELEMENTAFFECTATION::findBy(["etat_id = "=>ETAT::ENCOURS, "affectation_id ="=>$this->getId()], [], ["finished"=>"DESC"]);
-			if (count($datas) > 0) {
-				$last = end($datas);
-				$data = $last->terminer();
-			}else{
-				$item->etat_id = ETAT::ANNULEE;;
-				$data = $this->save();
+			$datas = $this->fourni("renouvelementaffectation", ["etat_id = "=>ETAT::ENCOURS]);
+			foreach ($datas as $key => $value) {
+				$value->terminer();
 			}
+			$this->etat_id = ETAT::VALIDEE;
+			$data = $this->save();
 		}else{
 			$data->status = false;
 			$data->message = "Vous ne pouvez plus effectuer cette action sur cette affectation !";
@@ -130,14 +133,12 @@ class AFFECTATION extends TABLE
 	public function annuler(){
 		$data = new RESPONSE;
 		if ($this->etat_id == ETAT::ENCOURS) {
-			$datas = RENOUVELEMENTAFFECTATION::findBy(["etat_id = "=>ETAT::ENCOURS, "affectation_id ="=>$this->getId()], [], ["finished"=>"DESC"]);
-			if (count($datas) > 0) {
-				$last = end($datas);
-				$data = $last->annuler();
-			}else{
-				$item->etat_id = -2;
-				$data = $this->save();
+			$datas = $this->fourni("renouvelementaffectation", ["etat_id = "=>ETAT::ENCOURS]);
+			foreach ($datas as $key => $value) {
+				$value->annuler();
 			}
+			$this->etat_id = ETAT::VALIDEE;
+			$data = $this->save();
 		}else{
 			$data->status = false;
 			$data->message = "Vous ne pouvez plus effectuer cette action sur cette affectation !";

@@ -22,11 +22,11 @@
 
 <!-- Le loader est placé dans le fichier head.php -->
 
-<?php //include($this->rootPath("composants/assets/modals/modal-vehicule.php")); ?> 
-<?php //include($this->rootPath("composants/assets/modals/modal-sinistre.php")); ?> 
-<?php //include($this->rootPath("composants/assets/modals/modal-entretienvehicule.php")); ?> 
-<?php //include($this->rootPath("composants/assets/modals/modal-equipement.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-vehicule.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-sinistre.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-entretienvehicule.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-equipement.php")); ?> 
 
-<?php //include($this->rootPath("composants/assets/modals/modal-chauffeur.php")); ?> 
-<?php //include($this->rootPath("composants/assets/modals/modal-prestataire.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-chauffeur.php")); ?> 
+<?php include($this->rootPath("composants/assets/modals/modal-prestataire.php")); ?> 
 

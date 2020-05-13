@@ -91,7 +91,6 @@
                             <div class="preter">
                                 <div class=" container-fluid scroll">
                                     <div class="chat-users">
-                                        <!-- TODO gerer les etats de vehicules -->
                                         <?php foreach (Home\VEHICULE::open() as $key => $vehicule) {
                                             $vehicule->actualise(); ?>
                                             <div class="chat-user cursor vehicule" data-id="<?= $vehicule->getId() ?>">
@@ -137,7 +136,7 @@
                     <div class="col-md-3 col-sm-6">
                         <label>Immatriculation <span1>*</span1></label>
                         <div class="form-group">
-                            <input type="text" class="form-control input-xs" name="immatriculation" required placeholder="EX... 0102 FG 01">
+                            <input type="text" class="form-control input-xs" name="immatriculation" required>
                         </div>
                     </div>
                     <div class="col-md-3 col-sm-6">
@@ -155,7 +154,7 @@
                     <div class="col-md-3 col-sm-6">
                         <label>Le modèle du vehicule<span1>*</span1></label>
                         <div class="form-group">
-                            <input type="text" class="form-control input-xs" name="modele" required placeholder="Ex...BMW 362 X2">
+                            <input type="text" class="form-control input-xs" name="modele" required>
                         </div>
                     </div>
                 </div><hr>
@@ -179,16 +178,22 @@
                             <input type="number" class="form-control input-xs" min=1 value=1 name="puissance" required>
                         </div>
                     </div>
+                    <div class="col-md-3 col-sm-6">
+                        <label>kilometrage au compteur <span1>*</span1></label>
+                        <div class="form-group">
+                            <input type="number" class="form-control input-xs" name="kilometrage" min=0 value=0 required>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2 col-sm-6">
+                    <div class="col-md-3 col-sm-6">
                         <label>nbr portes<span1>*</span1></label>
                         <div class="form-group">
                             <input type="number" class="form-control input-xs" name="nb_porte" min=1 value=5 required>
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-6">
+                    <div class="col-md-3 col-sm-6">
                         <label>nbr places<span1>*</span1></label>
                         <div class="form-group">
                             <input type="number" class="form-control input-xs" name="nb_place" min=1 value=5 required>
@@ -200,21 +205,10 @@
                             <input type="text" class="form-control input-xs" name="couleur" >
                         </div>
                     </div>
-                    <div class="col-md-2 col-sm-6">
-                        <label>kilometrage <span1>*</span1></label>
-                        <div class="form-group">
-                            <input type="number" class="form-control input-xs" name="kilometrage" min=0 value=0 required>
-                        </div>
-                    </div>
+                    
                 </div><hr>
 
                 <div class="row">
-                    <div class="col-md-2 col-sm-6">
-                        <label>kilometrage au compteur<span1>*</span1></label>
-                        <div class="form-group">
-                            <input type="number" class="form-control input-xs" name="kilometrage" min=0 value=0 required>
-                        </div>
-                    </div>
                     <div class="col-md-4 col-sm-6">
                         <label>N° de Chasis </label>
                         <div class="form-group">

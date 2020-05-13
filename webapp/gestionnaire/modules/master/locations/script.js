@@ -2,6 +2,30 @@
 
 $(function(){
 
+
+	$("tr.fini").hide()
+
+	$("input[type=checkbox].onoffswitch-checkbox").change(function(event) {
+		if($(this).is(":checked")){
+			Loader.start()
+			setTimeout(function(){
+				Loader.stop()
+				$("tr.fini").fadeIn(400)
+			}, 500);
+		}else{
+			$("tr.fini").fadeOut(400)
+		}
+	});
+
+	$("#top-search").on("keyup", function() {
+		var value = $(this).val().toLowerCase();
+		$("table.table-location tr").filter(function() {
+			$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+		});
+	});
+
+
+
 	$("div.preter").hide();
 	$("select[name=typelocation_id]").change(function(){
 		if ($(this).val() == 1) {
@@ -22,12 +46,14 @@ $("div.louer .vehicule").click(function(event) {
 	formData.append('id', $(this).attr("data-id"));
 	formData.append('action', 'vehicule-louer');
 	$.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
+		Loader.start();
 		if (data.status) {
 			$this.addClass('active-vehicule')
 		}else{
 			$this.removeClass('active-vehicule')
 		}
 		$(".nb-loues").text(data.nb)
+		Loader.stop();
 	}, 'json');
 	return false;
 });
@@ -36,12 +62,15 @@ $("div.louer .vehicule").click(function(event) {
 
 
 $("form#formVehicule").submit(function(event) {
+	Loader.start();
 	var url = "../../webapp/gestionnaire/modules/master/locations/ajax.php";
 	var formData = new FormData($(this)[0]);
-	formData.append('action', 'vehicule-preter');
+	formData.append('action', 'vehicule-louer');
 	$.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
-		$(".affichage").html(data)
-		$("#modal-vehicule-preter").modal("hide")
+		$(".affichage").html(data);
+		$("#modal-vehicule-preter").find("form input").val("");
+		$("#modal-vehicule-preter").modal("hide");
+		Loader.stop();
 	}, 'html');
 	return false;
 });
@@ -49,12 +78,14 @@ $("form#formVehicule").submit(function(event) {
 
 
 supVehicule = function(id){
+	Loader.start();
 	var url = "../../webapp/gestionnaire/modules/master/locations/ajax.php";
 	var formData = new FormData();
 	formData.append('id', id);
 	formData.append('action', 'supVehicule');
 	$.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
 		$(".affichage").html(data)
+		Loader.stop();
 	}, 'html');
 }
 
@@ -70,13 +101,11 @@ $("form#formLocation").submit(function(event) {
 		var formData = new FormData($("form#formLocation")[0]);
 		formData.append('action', 'location');
 		$.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
+			Loader.stop();
 			if (data.status) {
 				location.reload();
 			}else{
-				iziToast.error({
-					title: 'Erreur !',
-					message: data.message,
-				});
+				Alerter.error('Erreur !', data.message);
 			}
 		}, 'json');
 	})
@@ -86,64 +115,68 @@ $("form#formLocation").submit(function(event) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 voirVehicule = function(id){
+	Loader.start();
 	var url = "../../webapp/gestionnaire/modules/master/locations/ajax.php";
 	var formData = new FormData();
 	formData.append('id', id);
 	formData.append('action', 'listevehicules');
 	$.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
 		$(".modal .listevehicules").html(data)
-		modal("#modal-listevehicule")
+		modal("#modal-listevehicule");
+		Loader.stop();
 	}, 'html');
 }
 
 
-    terminerLocation = function(id){
-        var url = "../../webapp/gestionnaire/modules/master/locations/ajax.php";
-        alerty.confirm("Voulez-vous vraiment terminer cette affectation de véhicule ?", {
-            title: "Affectation terminée",
-            cancelLabel : "Non",
-            okLabel : "OUI, approuver",
-        }, function(){
-            alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
-                title: 'Récupération du mot de passe !',
-                inputType : "password",
-                cancelLabel : "Annuler",
-                okLabel : "Mot de passe"
-            }, function(password){
-                $.post(url, {action:"approuver", id:id, password:password}, (data)=>{
-                    if (data.status) {
-                        window.location.reload();
-                    }else{
-                        Alerter.error('Erreur !', data.message);
-                    }
-                },"json");
-            })
-        })
-    }
+terminerLocation = function(id){
+	var url = "../../webapp/gestionnaire/modules/master/locations/ajax.php";
+	alerty.confirm("Voulez-vous vraiment terminer cette location/Pret de véhicule ?", {
+		title: "Location/Pret terminée",
+		cancelLabel : "Non",
+		okLabel : "OUI, approuver",
+	}, function(){
+		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
+			title: 'Récupération du mot de passe !',
+			inputType : "password",
+			cancelLabel : "Annuler",
+			okLabel : "Mot de passe"
+		}, function(password){
+			Loader.start();
+			$.post(url, {action:"approuver", id:id, password:password}, (data)=>{
+				if (data.status) {
+					window.location.reload();
+				}else{
+					Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
+	})
+}
 
 
-    annulerLocation = function(id){
-        var url = "../../webapp/gestionnaire/modules/master/locations/ajax.php";
-        alerty.confirm("Voulez-vous vraiment refuser cette declaration de sinistre de ce véhicule ?", {
-            title: "Annulation de la declaration",
-            cancelLabel : "Non",
-            okLabel : "OUI, refuser",
-        }, function(){
-            alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
-                title: 'Récupération du mot de passe !',
-                inputType : "password",
-                cancelLabel : "Annuler",
-                okLabel : "Mot de passe"
-            }, function(password){
-                $.post(url, {action:"refuser", id:id, password:password}, (data)=>{
-                    if (data.status) {
-                        window.location.reload()
-                    }else{
-                        Alerter.error('Erreur !', data.message);
-                    }
-                },"json");
-            })
-        })
-    }
+annulerLocation = function(id){
+	var url = "../../webapp/gestionnaire/modules/master/locations/ajax.php";
+	alerty.confirm("Voulez-vous vraiment annuler cette location/Pret de véhicule ?", {
+		title: "Annulation de la declaration",
+		cancelLabel : "Non",
+		okLabel : "OUI, annuler",
+	}, function(){
+		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
+			title: 'Récupération du mot de passe !',
+			inputType : "password",
+			cancelLabel : "Annuler",
+			okLabel : "Mot de passe"
+		}, function(password){
+			Loader.start();
+			$.post(url, {action:"annuler", id:id, password:password}, (data)=>{
+				if (data.status) {
+					window.location.reload()
+				}else{
+					Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
+	})
+}
 
 })

@@ -70,7 +70,7 @@
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <?php foreach ($demandes as $key => $demande) {
                             $demande->actualise(); ?>
-                            <div class="vote-item <?= ($demande->etat_id != Home\ETAT::ENCOURS;)?'fini':'' ?>">
+                            <div class="vote-item <?= ($demande->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?>">
                                 <div class="row">
                                     <div class="col-md-7 border-right">
                                         <div class="vote-actions" style="margin-right: 7%; height: 100%">
@@ -83,11 +83,11 @@
                                             <span><?= $demande->comment ?></span>
                                             <div class="vote-info">
                                               <i class="fa fa-clock-o"></i> 
-                                              <?php if ($demande->etat_id == Home\ETAT::ENCOURS;) { ?>
+                                              <?php if ($demande->etat_id == Home\ETAT::ANNULEE) { ?>
                                                 <a href="#">Annulée <?= depuis($demande->date_approuve) ?></a>
-                                            <?php }else if ($demande->etat_id == Home\ETAT::ENCOURS;){ ?>
+                                            <?php }else if ($demande->etat_id == Home\ETAT::ENCOURS){ ?>
                                                 <a href="#">Emise <?= depuis($demande->created) ?></a>
-                                            <?php }else if ($demande->etat_id == 1){ ?>
+                                            <?php }else if ($demande->etat_id == Home\ETAT::VALIDEE){ ?>
                                                 <a href="#">Approuvée <?= depuis($demande->date_approuve) ?></a>
                                             <?php } ?>
                                             <i class="fa fa-user"></i> <a href="#">Par <?= $demande->carplan->name() ?></a>
@@ -114,16 +114,16 @@
                                     <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "demandeentretiens", $demande->image) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "demandeentretiens", $demande->image) ?>">
                                 </div>
                                 <div class="col-md-1 text-right">
-                                    <?php if ($demande->etat_id == 1) { ?>
+                                    <?php if ($demande->etat_id == Home\ETAT::VALIDEE) { ?>
                                         <div class="vote-icon">
                                             <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée"> </i>
                                         </div>
-                                    <?php } else if ($demande->etat_id == Home\ETAT::ENCOURS;) { ?>
+                                    <?php } else if ($demande->etat_id == Home\ETAT::ANNULEE) { ?>
                                         <div class="vote-icon">
                                             <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée"> </i>
                                         </div>
 
-                                    <?php }else if ($demande->etat_id == Home\ETAT::ENCOURS;){ ?>
+                                    <?php }else if ($demande->etat_id == Home\ETAT::ENCOURS){ ?>
                                         <div class="btn-group">
                                             <button data-toggle="tooltip" title="Valider la demande" onclick="validerDemandeEntretien(<?= $demande->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> </button>
                                             <button data-toggle="tooltip" title="annuler la demande" class="btn btn-white btn-sm" onclick="annulerDemandeEntretien(<?= $demande->getId() ?>)"><i class="fa fa-close text-red"></i></button>

@@ -14,13 +14,13 @@
                     <div class="col-sm-4">
                         <label>Numero de cette pièce <span1>*</span1></label>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="numero_piece" required placeholder="">
+                            <input type="text" class="form-control" name="numero_piece" uppercase required placeholder="">
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <label>Etablie le <span1>*</span1></label>
                         <div class="form-group">
-                            <input type="date" class="form-control" name="date_etablissement" required >
+                            <input type="date" class="form-control" name="date_etablissement" value="<?= dateAjoute() ?>" required >
                         </div>
                     </div>
                 </div><br>

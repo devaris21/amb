@@ -34,7 +34,6 @@ class VEHICULE extends TABLE
 	public $date_assurance;
 	public $etatvehicule_id = 0;
 	public $location = 0;
-	public $possession = 1;
 
 
 	public function enregistre(){
@@ -119,7 +118,9 @@ class VEHICULE extends TABLE
 	public function carteGrise(){
 		$datas = CARTEGRISE::findBy(["vehicule_id ="=> $this->getId()], [], ["date_etablissement"=>"DESC"]);
 		if (count($datas) >= 1) {
-			return $datas[0];
+			$item = $datas[0];
+			$item->actualise();
+			return $item;
 		}else{
 			return new CARTEGRISE();
 		}
@@ -145,38 +146,38 @@ class VEHICULE extends TABLE
 					//véhicule déclassé
 					$vehicule->etatvehicule_id = ETATVEHICULE::DECLASSEE;
 				}else{
-					if (in_array($vehicule->etatvehicule_id, GROUPEVEHICULEOPEN::get())) {
-						if($vehicule->is_affecte()) {
-							//véhicule affecté
-							$vehicule->etatvehicule_id = ETATVEHICULE::AFFECTE;
-
-						}else{
-							$datas = ENTRETIENVEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
-							if (count($datas) > 0) {
+					if($vehicule->is_affecte()) {
+						//véhicule affecté
+						$vehicule->etatvehicule_id = ETATVEHICULE::AFFECTE;
+					}else{
+						$datas = ENTRETIENVEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
+						if (count($datas) > 0) {
 								//en entretien
-								$vehicule->etatvehicule_id = ETATVEHICULE::ENTRETIEN;
-
-							}else{
-								$datas = SINISTRE::findBy(["etat_id = "=>ETAT::ENCOURS, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
-								if (count($datas) > 0) {
+							$vehicule->etatvehicule_id = ETATVEHICULE::ENTRETIEN;
+						}else{
+							$datas = SINISTRE::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
+							if (count($datas) > 0) {
 									//sinistré
-									$vehicule->etatvehicule_id = ETATVEHICULE::SINISTRE;
-
-								}else{
-									$datas = VEHICULE_MISSION::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
-									if (count($datas) > 0) {
+								$vehicule->etatvehicule_id = ETATVEHICULE::SINISTRE;
+							}else{
+								$datas = MISSION::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
+								if (count($datas) > 0) {
 										//en mission
-										$vehicule->etatvehicule_id = ETATVEHICULE::MISSION;
-
-									}else{
-										$vehicule->etatvehicule_id = ETATVEHICULE::RAS;
-										$datas = LOCATION_VEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
-										foreach ($datas as $key => $value) {
-											$value->actualise();
-											if ($value->location->started <= dateAjoute() && dateAjoute() <= $value->location->finished) {
-												//preté
-												$vehicule->etatvehicule_id = ETATVEHICULE::PRETE;
-												break;
+									$vehicule->etatvehicule_id = ETATVEHICULE::MISSION;
+								}else{
+									$vehicule->etatvehicule_id = ETATVEHICULE::RAS;
+									if ($vehicule->location == 1) {
+										$vehicule->etatvehicule_id = ETATVEHICULE::LOUEE;
+									}
+									$datas = LOCATION_VEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
+									foreach ($datas as $key => $value) {
+										$value->actualise();
+										if ($value->location->started <= dateAjoute() && dateAjoute() <= $value->location->finished) {
+											//preté
+											if ($value->location->typelocation_id == TYPELOCATION::LOCATION) {
+												$vehicule->etatvehicule_id = ETATVEHICULE::LOUEE;
+											}else{
+												$vehicule->etatvehicule_id = ETATVEHICULE::PRETE;										
 											}
 										}
 									}
@@ -204,6 +205,7 @@ class VEHICULE extends TABLE
 			$datas = $this->fourni("affectation", ["etat_id = "=>ETAT::ENCOURS]);
 			if (count($datas) > 0) {
 				$affectation = $datas[0];
+				$affectation->actualise();
 				return $affectation;
 			}
 		}
@@ -211,7 +213,7 @@ class VEHICULE extends TABLE
 
 
 	public function is_affecte(){
-		$datas = AFFECTATION::findBy(["vehicule_id ="=> $this->getId(), "etat_id = "=>ETAT::ENCOURS]);
+		$datas = $this->fourni("affectation", ["etat_id = "=>ETAT::ENCOURS]);
 		if (count($datas) > 0) {
 			return true;
 		}else{
@@ -285,7 +287,7 @@ class VEHICULE extends TABLE
 
 	public static function open(){
 		static::etat();
-		$datas = static::findBy(["etatvehicule_id ="=>0]);
+		$datas = static::findBy(["etatvehicule_id ="=>ETATVEHICULE::RAS]);
 		foreach ($datas as $key => $vehicule) {
 			if (!in_array($vehicule->groupevehicule_id, GROUPEVEHICULEOPEN::get())) {
 				unset($datas[$key]);

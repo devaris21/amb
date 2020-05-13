@@ -23,34 +23,39 @@ class ASSURANCE extends TABLE
 	public $finished;
 	public $price;
 	public $assurance;
-	public $typeduree_id;
 	public $image1;
 	public $image2;
-	public $etatpiece_id = 1;
+	public $etatpiece_id = ETATPIECE::VALIDE;
 	public $gestionnaire_id;
 
 
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		if ($this->numero_piece != "") {
-			$this->vehicule_id = getSession("vehicule_id");
-			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
-			if (count($datas) == 1) {
-				$this->name = "ASSURANCE ".date("m-Y", strtotime($this->date_etablissement));
-				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
-				$data = $this->save();
-				if ($data->status) {
+		if ($this->date_etablissement <= dateAjoute()) {
+			if ($this->numero_piece != "") {
+				$this->vehicule_id = getSession("vehicule_id");
+				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
+				if (count($datas) == 1) {
+					$this->name = "ASSURANCE ".date("m-Y", strtotime($this->date_etablissement));
+					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
+					$data = $this->save();
+					if ($data->status) {
 						$this->uploading($this->files);
 					}
+				}else{
+					$data->status = false;
+					$data->message = "Une erreur s'est produite lors de l'opération, veuillez recommencer !";
+				}
 			}else{
 				$data->status = false;
-				$data->message = "Une erreur s'est produite lors de l'opération, veuillez recommencer !";
+				$data->message = "Veuillez renseigner les champs marqués d'un * !";
 			}
 		}else{
 			$data->status = false;
-			$data->message = "Veuillez renseigner les champs marqués d'un * !";
-		}		
+			$data->message = "La date d'établissement de la pièce n'est pas correcte !";
+		}
+		
 		return $data;
 	}
 

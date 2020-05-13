@@ -92,20 +92,20 @@
                                 <?php } ?>
                             </div>
                             <div class="col-md-2 optionsbtn">  
-                                <?php if($levehicule->etatvehicule_id == 0 && in_array($levehicule->groupevehicule_id, Home\GROUPEVEHICULEOPEN::get())){ ?>
+                                <?php if(in_array($levehicule->etatvehicule_id, [Home\ETATVEHICULE::RAS, Home\ETATVEHICULE::LOUEE]) && in_array($levehicule->groupevehicule_id, Home\GROUPEVEHICULEOPEN::get())){ ?>
                                     <button data-toggle="modal" data-target="#modal-pret1" class="btn btn-success btn-block  btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-handshake-o"></i> Prêter ce véhicule</button>
                                 <?php } ?>  
 
-                                <?php if($levehicule->etatvehicule_id >= 0){ ?>
+                                <?php if(in_array($levehicule->etatvehicule_id, [Home\ETATVEHICULE::RAS, Home\ETATVEHICULE::ENTRETIEN, Home\ETATVEHICULE::MISSION, Home\ETATVEHICULE::SINISTRE])){ ?>
                                     <button onclick="disponibilite(0)" class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre indisponible</button>
-                                <?php }else{ ?>
+                                <?php }elseif($levehicule->etatvehicule_id == Home\ETATVEHICULE::INDISPONIBLE){ ?>
                                     <button onclick="disponibilite(1)" class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre à nouveau disponible
                                     </button>
                                 <?php } ?>
 
-                                <?php if($levehicule->etatvehicule_id != -2){ ?>
+                                <?php if($levehicule->etatvehicule_id != Home\ETATVEHICULE::DECLASSEE && $levehicule->location == 0){ ?>
                                     <button onclick="declassement(0)" class="btn btn-danger  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-close"></i> Déclasser le véhicule</button>
-                                <?php }else{ ?>
+                                <?php }elseif($levehicule->etatvehicule_id == Home\ETATVEHICULE::DECLASSEE){ ?>
                                     <button onclick="declassement(1)" class="btn btn-success  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-refresh"></i> Reclasser le véhicule</button>
                                 <?php } ?>       
 
@@ -142,7 +142,7 @@
                                     <tbody>
                                         <tr>
                                             <td>Energie</td>
-                                            <td><?= $levehicule->energie->name ?></td>
+                                            <td><?= ($carteGrise->energie_id > 0)?$carteGrise->energie->name:"" ?></td>
                                         </tr>
                                         <tr>
                                             <td>Puissance</td>
@@ -195,7 +195,7 @@
                                         <td><label class="m-b-5 f-w-400 label label-<?= ($assurance->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($assurance->finished); ?></label></td>
                                         <td><label class="m-b-5 f-w-400 label label-<?= ($visitetechnique->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($visitetechnique->finished); ?></label></td>
                                         <td><label class="m-b-5 f-w-400 label label-<?= ($vidange->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($vidange->finished); ?></label></td>
-                                        <td></td>
+                                        <td><?= $levehicule->kilometrage ?> Kms</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -432,15 +432,15 @@
                                             <small>Etablie le <?= datecourt($carte->date_etablissement) ?></small>
                                         </td>
                                         <td class="project-completion">
-                                            <span><?= $carte->energie->name ?></span><br>
+                                            <span>Voiture <?= $carte->energie->name ?></span><br>
                                             <span>Couleur <?= $carte->couleur ?></span>
                                         </td>
                                         <td>
                                             <h4><?= money($carte->price) ?> <?= $params->devise ?></h4>
                                         </td>
                                         <td class="project-people">
-                                         <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
-                                         <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
+                                         <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
+                                         <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
                                      </td>
                                      <td class="project-actions">
                                         <button data-toggle="modal" data-target="#modal-cartegrise"  onclick="modification('cartegrise', <?= $carte->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
@@ -484,14 +484,14 @@
                                 </td>
                                 <td class="project-completion">
                                     <span><?= $assurance->assurance ?></span><br>
-                                    <span>Validité de <?= $assurance->duree ?> <?= $assurance->typeduree->name ?></span>
+                                    <span>Validité de <?= $assurance->finished ?></span>
                                 </td>
                                 <td>
                                     <h4><?= money($assurance->price) ?> <?= $params->devise ?></h4>
                                 </td>
                                 <td class="project-people">
-                                 <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
-                                 <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
+                                 <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
+                                 <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
                              </td>
                              <td class="project-actions">
                                 <button data-toggle="modal" data-target="#modal-assurance"  onclick="modification('assurance', <?= $assurance->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
@@ -534,14 +534,14 @@
                                 <span class="italic gras">Au <?= datecourt($vist->finished) ?></span>
                             </td>
                             <td class="project-completion">
-                                <span>Validité de <?= $vist->duree ?> <?= $vist->typeduree->name ?></span>
+                                <span>Validité de <?= $vist->finished ?></span>
                             </td>
                             <td>
                                 <h4><?= money($vist->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
                          </td>
                          <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-visitetechnique"  onclick="modification('visitetechnique', <?= $vist->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
@@ -586,14 +586,14 @@
                                 <span class="italic gras">Au <?= datecourt($piece->finished) ?></span>
                             </td>
                             <td class="project-completion">
-                                <span>Validité de <?= $piece->duree ?> <?= $piece->typeduree->name ?></span>
+                                <span>Validité de <?= $piece->finished ?></span>
                             </td>
                             <td>
                                 <h4><?= money($piece->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
-                             <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
                          </td>
                          <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-piecevehicule"  onclick="modification('piecevehicule', <?= $piece->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
@@ -698,7 +698,7 @@
             <div class="ibox-title">
                 <h5 class="text-uppercase">Les sinistres de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
                 <div class="ibox-tools">
-                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-sinistre1" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-sinistre1" class="btn btn-danger dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
                 </div>
             </div>
             <div class="ibox-content">
@@ -903,6 +903,8 @@
 
 
 <?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>
+
+<script type="text/javascript" src="<?= $this->relativePath("../sinistres/script.js"); ?>"></script>
 
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>

@@ -113,6 +113,9 @@ if ($action == "location") {
 				foreach (getSession("vehicules-louer") as $key => $vehicule) {					
 					$vehicule->prestataire_id = $location->prestataire_id;
 					$vehicule->date_mise_circulation = $location->started;
+					$vehicule->groupevehicule_id = GROUPEVEHICULE::VEHICULELOUEE;
+					$vehicule->location = 1;
+					$vehicule->files = [];
 					$res = $vehicule->enregistre();
 
 					if ($res->status) {
@@ -169,10 +172,10 @@ if ($action == "approuver") {
 		$gestionnaire = $datas[0];
 		$gestionnaire->actualise();
 		if ($gestionnaire->checkPassword($password)) {
-			$datas = AFFECTATION::findBy(["id ="=>$id]);
+			$datas = LOCATION::findBy(["id ="=>$id]);
 			if (count($datas) == 1) {
-				$affectation = $datas[0];
-				$data = $affectation->terminer();
+				$location = $datas[0];
+				$data = $location->terminer();
 			}else{
 				$data->status = false;
 				$data->message = "Une erreur s'est produite lors de l'opération! Veuillez recommencer";
@@ -190,16 +193,16 @@ if ($action == "approuver") {
 
 
 
-if ($action == "refuser") {
+if ($action == "annuler") {
 	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
 	if (count($datas) > 0) {
 		$gestionnaire = $datas[0];
 		$gestionnaire->actualise();
 		if ($gestionnaire->checkPassword($password)) {
-			$datas = AFFECTATION::findBy(["id ="=>$id]);
+			$datas = LOCATION::findBy(["id ="=>$id]);
 			if (count($datas) == 1) {
-				$affectation = $datas[0];
-				$data = $affectation->annuler();
+				$location = $datas[0];
+				$data = $location->annuler();
 			}else{
 				$data->status = false;
 				$data->message = "Une erreur s'est produite lors de l'opération! Veuillez recommencer";

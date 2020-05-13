@@ -86,11 +86,11 @@
                                         <span><?= $entretien->comment ?></span>
                                         <div class="vote-info">
                                           <i class="fa fa-clock-o"></i> 
-                                          <?php if ($entretien->etat_id == Home\ETAT::ENCOURS) { ?>
+                                          <?php if ($entretien->etat_id == Home\ETAT::ANNULEE) { ?>
                                             <a href="#">Annulée <?= depuis($entretien->date_approuve) ?></a>
                                         <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                                             <a href="#">Emise <?= depuis($entretien->created) ?></a>
-                                        <?php }else if ($entretien->etat_id == 1){ ?>
+                                        <?php }else if ($entretien->etat_id == Home\ETAT::VALIDEE){ ?>
                                             <a href="#">Du <?= datecourt($entretien->started) ?> au <?= datecourt($entretien->finished) ?></a>
                                         <?php } ?>
                                         <i class="fa fa-wrench"></i> <a href="#">Entretien par <?= $entretien->prestataire->name() ?></a>
@@ -118,11 +118,11 @@
                                 <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>">
                             </div>
                             <div class="col-md-1 text-right">
-                                <?php if ($entretien->etat_id == 1) { ?>
+                                <?php if ($entretien->etat_id == Home\ETAT::VALIDEE) { ?>
                                     <div class="vote-icon">
                                         <i class="fa fa-check text-green" data-toggle="tooltip" title="Entretien terminé avec succes"> </i>
                                     </div>
-                                <?php } else if ($entretien->etat_id == Home\ETAT::ENCOURS) { ?>
+                                <?php } else if ($entretien->etat_id == Home\ETAT::ANNULEE) { ?>
                                     <div class="vote-icon">
                                         <i class="fa fa-close text-red" data-toggle="tooltip" title="Entretien annulé"> </i>
                                     </div>

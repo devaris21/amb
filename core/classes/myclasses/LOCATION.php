@@ -102,45 +102,29 @@ class LOCATION extends TABLE
 
 	public function terminer(){
 		$data = new RESPONSE;
-		$rooter = new ROOTER;
-		$this->etat_id = ETAT::ENCOURS;;
-		$this->date_fin = date("Y-m-d H:i:s");
-		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
-		$data = $this->save();
-		if ($data->status) {
-			$this->actualise();
-			$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été prise en compte et approuver par la gestion du parc automobile de l'ARTCI !";
-			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
-			$objet = "Demande d'entretien de véhicule approuvé";
-
-			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
-			$contenu = ob_get_contents();
-			ob_end_clean();
-			//EMAIL::send([$this->email()], $objet, $contenu);
+		if ($this->etat_id == ETAT::ENCOURS) {
+			$this->etat_id = ETAT::VALIDEE;
+			$this->date_fin = date("Y-m-d H:i:s");
+			$this->historique("Location de véhicule N° $this->ticket vient d'être terminé");
+			$data = $this->save();
+		}else{
+			$data->status = false;
+			$data->message = "Vous ne pouvez effectuer cette opération sur cette location !";
 		}
 		return $data;
 	}
 	
 
-	public function refuser(){
+	public function annuler(){
 		$data = new RESPONSE;
-		$rooter = new ROOTER;
-		$this->etat_id = ETAT::ANNULEE;;
-		$this->date_fin = date("Y-m-d H:i:s");
-		$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
-		$data = $this->save();
-		if ($data->status) {
-			$this->actualise();
-			$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été refusé par la gestion du parc automobile de l'ARTCI !";
-			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
-			$objet = "Demande d'entretien de véhicule refusé";
-
-			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
-			$contenu = ob_get_contents();
-			ob_end_clean();
-			//EMAIL::send([$this->email()], $objet, $contenu);
+		if ($this->etat_id == ETAT::ENCOURS) {
+			$this->etat_id = ETAT::ANNULEE;
+			$this->date_fin = date("Y-m-d H:i:s");
+			$this->historique("Location de véhicule N° $this->ticket vient d'être annulé");
+			$data = $this->save();
+		}else{
+			$data->status = false;
+			$data->message = "Vous ne pouvez effectuer cette opération sur cette location !";
 		}
 		return $data;
 	}

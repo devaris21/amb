@@ -3,6 +3,7 @@ namespace Home;
 use Native\RESPONSE;
 use Native\EMAIL;
 use Native\ROOTER;
+use Native\FICHIER;
 
 
 
@@ -105,7 +106,7 @@ class ENTRETIENVEHICULE extends TABLE
 	public function approuver(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = 2;
+		$this->etat_id = ETAT::VALIDEE;
 		$this->date_approuve = date("Y-m-d H:i:s");
 		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();
@@ -129,7 +130,7 @@ class ENTRETIENVEHICULE extends TABLE
 	public function refuser(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = ETAT::ANNULEE;;
+		$this->etat_id = ETAT::ANNULEE;
 		$this->date_approuve = date("Y-m-d H:i:s");
 		$this->historique("Echec de l'entretien de véhicule N° $this->id");
 		$data = $this->save();

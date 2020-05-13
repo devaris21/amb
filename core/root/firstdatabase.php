@@ -69,7 +69,7 @@ foreach ($datas as $key => $value) {
 	$item->save();
 }
 
-$datas = ["Léger accrochage", "Crevaison", "Défaillance moteur", "Accident grave", "Vol", "Autre"];
+$datas = ["Entretien dû au sinistre", "vidange simple", "Vidange complète", "Lavage Auto", "Autre"];
 foreach ($datas as $key => $value) {
 	$item = new TYPEENTRETIENVEHICULE();
 	$item->name = $value;
@@ -77,7 +77,7 @@ foreach ($datas as $key => $value) {
 	$item->save();
 }
 
-$datas = ["Véhicule de mission", "Véhicule de Pool", "Car de ramassage"];
+$datas = ["Véhicules de mission", "Véhicules de Pool", "Cars de ramassage", "Véhicules loués"];
 foreach ($datas as $key => $value) {
 	$item = new GROUPEVEHICULE();
 	$item->name = $value;
@@ -85,7 +85,22 @@ foreach ($datas as $key => $value) {
 	$item->save();
 }
 
+$datas = [GROUPEVEHICULE::VEHICULEMISSION, GROUPEVEHICULE::VEHICULELOUEE];
+foreach ($datas as $key => $value) {
+	$item = new GROUPEVEHICULEOPEN();
+	$item->groupevehicule_id = $value;
+	$item->setProtected(1);
+	$item->save();
+}
 
+
+$datas = ["Léger accrochage", "Crevaison", "Défaillance moteur", "Accident grave", "Vol", "Autre"];
+foreach ($datas as $key => $value) {
+	$item = new TYPESINISTRE();
+	$item->name = $value;
+	$item->setProtected(1);
+	$item->save();
+}
 
 $item = new SEXE();
 $item->name = "Homme";
@@ -170,6 +185,27 @@ $item->save();
 
 
 
+$item = new ETATPIECE();
+$item->name = "Annulé";
+$item->class = "info";
+$item->setProtected(1);
+$item->save();
+
+$item = new ETATPIECE();
+$item->name = "Périmé";
+$item->class = "danger";
+$item->setProtected(1);
+$item->save();
+
+$item = new ETATPIECE();
+$item->name = "Valide";
+$item->class = "warning";
+$item->setProtected(1);
+$item->save();
+
+
+
+
 $item = new ETATVEHICULE();
 $item->name = "Déclassé";
 $item->class = "danger";
@@ -220,7 +256,7 @@ $item->save();
 
 $item = new ETATVEHICULE();
 $item->name = "Véhicule loué";
-$item->class = "info";
+$item->class = "navy";
 $item->setProtected(1);
 $item->save();
 
