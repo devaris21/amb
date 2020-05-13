@@ -15,7 +15,7 @@ class MESSAGE extends TABLE
 	public $email;
 	public $subject;
 	public $content;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 	public function enregistre(){

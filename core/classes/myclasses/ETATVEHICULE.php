@@ -6,23 +6,28 @@ use Native\RESPONSE;/**
 class ETATVEHICULE extends TABLE
 {
 
-	/* -1 = annuler;
-		0= encours
-		1= terminer
-		*/
+	public static $tableName = __CLASS__;
+	public static $namespace = __NAMESPACE__;
 
-		public static $tableName = __CLASS__;
-		public static $namespace = __NAMESPACE__;
+	const DECLASSEE = 1;
+	const INDISPONIBLE = 2;
+	const RAS = 3;
+	const ENTRETIEN = 4;
+	const MISSION = 5;
+	const SINISTRE = 6;
+	const AFFECTE = 7;
+	const PRETE = 8;
+	const LOUEE = 9;
 
-		public $name;
-		public $class;
+	public $name;
+	public $class;
 
-		public function enregistre(){}
+	public function enregistre(){}
 
 
-		public function sentenseCreate(){}
-		public function sentenseUpdate(){}
-		public function sentenseDelete(){}
+	public function sentenseCreate(){}
+	public function sentenseUpdate(){}
+	public function sentenseDelete(){}
 
-	}
-	?>
+}
+?>

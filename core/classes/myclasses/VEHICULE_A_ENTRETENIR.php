@@ -15,7 +15,7 @@ class VEHICULE_A_ENTRETENIR extends TABLE
 
 	public $demandeentretien_id;
 	public $vehicule_id;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 

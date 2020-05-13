@@ -73,7 +73,7 @@
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <?php foreach ($entretiens as $key => $entretien) {
                             $entretien->actualise(); ?>
-                            <div class="vote-item <?= ($entretien->etat_id != 0)?'fini':'' ?>">
+                            <div class="vote-item <?= ($entretien->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?>">
                                 <div class="row">
                                     <div class="col-md-7 border-right">
                                         <div class="vote-actions" style="margin-right: 7%; height: 100%">
@@ -86,11 +86,11 @@
                                         <span><?= $entretien->comment ?></span>
                                         <div class="vote-info">
                                           <i class="fa fa-clock-o"></i> 
-                                          <?php if ($entretien->etat_id == -1) { ?>
+                                          <?php if ($entretien->etat_id == Home\ETAT::ANNULEE) { ?>
                                             <a href="#">Annulée <?= depuis($entretien->date_approuve) ?></a>
-                                        <?php }else if ($entretien->etat_id == 0){ ?>
+                                        <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                                             <a href="#">Emise <?= depuis($entretien->created) ?></a>
-                                        <?php }else if ($entretien->etat_id == 1){ ?>
+                                        <?php }else if ($entretien->etat_id == Home\ETAT::VALIDEE){ ?>
                                             <a href="#">Du <?= datecourt($entretien->started) ?> au <?= datecourt($entretien->finished) ?></a>
                                         <?php } ?>
                                         <i class="fa fa-wrench"></i> <a href="#">Entretien par <?= $entretien->prestataire->name() ?></a>
@@ -114,19 +114,20 @@
                                 </a>
                             </div>
                             <div class="col-md-1 text-right border-right">
-                                <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>">
+                                <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image1) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image1) ?>"><br>
+                                <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>">
                             </div>
                             <div class="col-md-1 text-right">
-                                <?php if ($entretien->etat_id == 1) { ?>
+                                <?php if ($entretien->etat_id == Home\ETAT::VALIDEE) { ?>
                                     <div class="vote-icon">
                                         <i class="fa fa-check text-green" data-toggle="tooltip" title="Entretien terminé avec succes"> </i>
                                     </div>
-                                <?php } else if ($entretien->etat_id == -1) { ?>
+                                <?php } else if ($entretien->etat_id == Home\ETAT::ANNULEE) { ?>
                                     <div class="vote-icon">
                                         <i class="fa fa-close text-red" data-toggle="tooltip" title="Entretien annulé"> </i>
                                     </div>
 
-                                <?php }else if ($entretien->etat_id == 0){ ?>
+                                <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                                     <div class="btn-group">
                                         <button data-toggle="tooltip" title="Entretien terminé avec succes !" onclick="validerEntretien(<?= $entretien->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> </button>
                                         <button data-toggle="tooltip" title="Entretien échoué" class="btn btn-white btn-sm" onclick="annulerEntretien(<?= $entretien->getId() ?>)"><i class="fa fa-close text-red"></i></button>

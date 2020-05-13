@@ -69,7 +69,7 @@
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <?php foreach ($demandes as $key => $demande) {
                                     $demande->actualise(); ?>
-                                    <div class="vote-item  <?= ($demande->etat_id != 0)?'fini':'' ?> ">
+                                    <div class="vote-item  <?= ($demande->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?> ">
                                         <div class="row">
                                             <div class="col-md-9">
                                                 <div class="vote-actions" style="margin-right: 6%; height: 100%">
@@ -89,7 +89,7 @@
                                            <div class="col-md-3 text-right">
                                             <div class="vote-icon">
                                                 <?php 
-                                                if ($demande->etat_id == 0) {
+                                                if ($demande->etat_id == Home\ETAT::ENCOURS) {
                                                   if ($demande->typedemandevehicule_id == 1) {
                                                      if ($demande->etats >= 1) { ?>
                                                          <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DRH"> </i>
@@ -110,7 +110,7 @@
                                          <?php }
                                          ?>
                                      </div>
-                                     <?php if ($demande->etat_id == 0) { ?>
+                                     <?php if ($demande->etat_id == Home\ETAT::ENCOURS) { ?>
                                          <button data-toggle="modal" data-target="#modal-validerdemande" onclick="session('demandevehicule', <?= $demande->getId(); ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> Valider </button>
                                          <button class="btn btn-white btn-sm" data-toggle=tooltip title="refuser la demande" onclick="annuler(  <?= $demande->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                                      <?php } ?>

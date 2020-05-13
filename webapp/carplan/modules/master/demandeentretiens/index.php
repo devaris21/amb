@@ -73,7 +73,7 @@
                     <div class="wrapper wrapper-content animated fadeInRight">
                         <?php foreach ($demandes as $key => $demande) {
                             $demande->actualise(); ?>
-                            <div class="vote-item <?= ($demande->etat_id != 0)?'fini':'' ?>">
+                            <div class="vote-item <?= ($demande->etat_id != Home\ETAT::ENCOURS;)?'fini':'' ?>">
                                 <div class="row">
                                     <div class="col-md-7 border-right">
                                         <div class="vote-actions" style="margin-right: 7%; height: 100%">
@@ -86,9 +86,9 @@
                                             <span><?= $demande->comment ?></span>
                                             <div class="vote-info">
                                               <i class="fa fa-clock-o"></i> 
-                                              <?php if ($demande->etat_id == -1) { ?>
+                                              <?php if ($demande->etat_id == Home\ETAT::ENCOURS;) { ?>
                                                 <a href="#">Annulée <?= depuis($demande->date_approuve) ?></a>
-                                            <?php }else if ($demande->etat_id == 0){ ?>
+                                            <?php }else if ($demande->etat_id == Home\ETAT::ENCOURS;){ ?>
                                                 <a href="#">Emise <?= depuis($demande->created) ?></a>
                                             <?php }else if ($demande->etat_id == 1){ ?>
                                                 <a href="#">Approuvée <?= depuis($demande->date_approuve) ?></a>
@@ -121,12 +121,12 @@
                                         <div class="vote-icon">
                                             <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée"> </i>
                                         </div>
-                                    <?php } else if ($demande->etat_id == -1) { ?>
+                                    <?php } else if ($demande->etat_id == Home\ETAT::ENCOURS;) { ?>
                                         <div class="vote-icon">
                                             <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée"> </i>
                                         </div>
 
-                                    <?php }else if ($demande->etat_id == 0){ ?>
+                                    <?php }else if ($demande->etat_id == Home\ETAT::ENCOURS;){ ?>
                                         <div class="text-center">
                                                 <div class="btn-group btn-group-vertical">
                             <button data-toggle="modal" data-target="#modal-demandeentretien"  onclick="modification('demandeentretien', <?= $demande->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations de la demande" class="fa fa-pencil"></i> </button>                               

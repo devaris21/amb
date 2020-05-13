@@ -61,7 +61,7 @@ if ($action == "renouveler") {
 
 
 
-if ($action == "refuser") {
+if ($action == "annuler") {
 	$datas = GESTIONNAIRE::findBy(["id = "=>getSession("gestionnaire_connecte_id")]);
 	if (count($datas) > 0) {
 		$gestionnaire = $datas[0];

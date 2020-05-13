@@ -15,8 +15,8 @@ class AFFECTATION extends TABLE
 
 	public $carplan_id;
 	public $vehicule_id;
-	public $etat_id = 0;
-	public $typeaffectation_id = 0;
+	public $etat_id = ETAT::ENCOURS;
+	public $typeaffectation_id = TYPEAFFECTATION::TEMPORAIRE;
 
 	public $matricule;
 	public $name;
@@ -36,21 +36,27 @@ class AFFECTATION extends TABLE
 		$data = new RESPONSE;
 		static::etat();
 		if ($this->finished >= $this->started  && $this->started >= date("Y-m-d")) {
-			$datas = static::findBy(["vehicule_id ="=>$this->vehicule_id, "etat_id ="=>0]);
+			$datas = static::findBy(["vehicule_id ="=>$this->vehicule_id, "etat_id = "=>ETAT::ENCOURS]);
 			if (count($datas) == 0) {
 				$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 				if (count($datas) == 1) {
-					$carplan = new CARPLAN;
-					$carplan->cloner($this);
-					$data = $carplan->enregistre();
+					$data->status = true;
+					if ($this->carplan_id == null) {
+						$carplan = new CARPLAN;
+						$carplan->cloner($this);
+						$data = $carplan->enregistre();
+						if ($data->status) {
+							$this->carplan_id = $data->lastid;
+						}
+					}
 					if ($data->status) {
-						$this->carplan_id = $data->lastid;
 						$data = $this->save();
 						if ($data->status) {
 							$renouv = new RENOUVELEMENTAFFECTATION;
 							$renouv->cloner($this);
 							$renouv->affectation_id = $data->lastid;
 							$renouv->gestionnaire_id = getSession("gestionnaire_connecte_id");
+							$renouv->setId(null);
 							$data = $renouv->enregistre();
 						}
 					}
@@ -74,15 +80,15 @@ class AFFECTATION extends TABLE
 
 	public static function etat(){
 		foreach (static::getAll() as $key => $item) {
-			$datas = RENOUVELEMENTAFFECTATION::findBy(["affectation_id ="=>$item->getId()]);
+			$datas = $item->fourni("renouvelementaffectation", ["etat_id ="=>ETAT::ENCOURS]);
 			if (count($datas) > 0) {
 				$last = end($datas);
-				if ($last->etat_id == 0) {
+				if ($last->etat_id == ETAT::ENCOURS) {
 					$last->etat();
 				}
 				$item->etat_id = $last->etat_id;
 			}else{
-				$item->etat_id = -2;
+				$item->etat_id = ETAT::VALIDEE;
 			}
 			$item->save();
 		}
@@ -91,7 +97,7 @@ class AFFECTATION extends TABLE
 
 	public static function delai(){
 		$params = PARAMS::findLastId();
-		$datas = static::findBy(["etat_id = "=>0]);
+		$datas = static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 		foreach ($datas as $key => $loc) {
 			if (!(dateDiffe(dateAjoute(), $loc->finished) <= $params->delai_alert) ) {
 				unset($datas[$key]);
@@ -109,15 +115,13 @@ class AFFECTATION extends TABLE
 
 	public function terminer(){
 		$data = new RESPONSE;
-		if ($this->etat_id == 0) {
-			$datas = RENOUVELEMENTAFFECTATION::findBy(["etat_id ="=>0, "affectation_id ="=>$this->getId()], [], ["finished"=>"DESC"]);
-			if (count($datas) > 0) {
-				$last = end($datas);
-				$data = $last->terminer();
-			}else{
-				$item->etat_id = -1;
-				$data = $this->save();
+		if ($this->etat_id == ETAT::ENCOURS) {
+			$datas = $this->fourni("renouvelementaffectation", ["etat_id = "=>ETAT::ENCOURS]);
+			foreach ($datas as $key => $value) {
+				$value->terminer();
 			}
+			$this->etat_id = ETAT::VALIDEE;
+			$data = $this->save();
 		}else{
 			$data->status = false;
 			$data->message = "Vous ne pouvez plus effectuer cette action sur cette affectation !";
@@ -128,15 +132,13 @@ class AFFECTATION extends TABLE
 
 	public function annuler(){
 		$data = new RESPONSE;
-		if ($this->etat_id == 0) {
-			$datas = RENOUVELEMENTAFFECTATION::findBy(["etat_id ="=>0, "affectation_id ="=>$this->getId()], [], ["finished"=>"DESC"]);
-			if (count($datas) > 0) {
-				$last = end($datas);
-				$data = $last->annuler();
-			}else{
-				$item->etat_id = -2;
-				$data = $this->save();
+		if ($this->etat_id == ETAT::ENCOURS) {
+			$datas = $this->fourni("renouvelementaffectation", ["etat_id = "=>ETAT::ENCOURS]);
+			foreach ($datas as $key => $value) {
+				$value->annuler();
 			}
+			$this->etat_id = ETAT::VALIDEE;
+			$data = $this->save();
 		}else{
 			$data->status = false;
 			$data->message = "Vous ne pouvez plus effectuer cette action sur cette affectation !";
@@ -149,7 +151,7 @@ class AFFECTATION extends TABLE
 	public function renouveler($started, $finished){
 		$data = new RESPONSE;
 		if($started >= date("Y-m-d") && $finished >= $started){
-			if ($this->etat_id != 0) {
+			if ($this->etat_id != ETAT::ENCOURS) {
 				$renouv = new RENOUVELEMENTAFFECTATION;
 				$renouv->affectation_id = $this->getId();
 				$renouv->started = $started;
@@ -175,7 +177,7 @@ class AFFECTATION extends TABLE
 
 
 	public static function encours(){
-		return static::findBy(["etat_id ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 	}
 
 

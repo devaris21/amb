@@ -31,7 +31,7 @@ class SINISTRE extends TABLE
 	public $image1;
 	public $image2;
 	public $image3;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 	public $date_approbation = null;
 
 	public $constat;
@@ -46,52 +46,41 @@ class SINISTRE extends TABLE
 	public function enregistre(){
 		$data = new RESPONSE;
 		$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
-			if (count($datas) == 1) {
-				$this->ticket = strtoupper(substr(uniqid(), 5, 6));
-				$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
-				$data = $this->save();
-				if ($data->status) {
-					$this->uploading();
-				}
-				$data->message = "La déclaration de sinistre a été enregistré avec succes !";
-			}else{
-				$data->status = false;
-				$data->message = "Une erreur s'est produite lors de l'opération, veuillez recommencer !";
-			}		
+		if (count($datas) == 1) {
+			$this->ticket = strtoupper(substr(uniqid(), 5, 6));
+			$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
+			$data = $this->save();
+			if ($data->status) {
+				$this->uploading($this->files);
+			}
+			$data->message = "La déclaration de sinistre a été enregistré avec succes !";
+		}else{
+			$data->status = false;
+			$data->message = "Une erreur s'est produite lors de l'opération, veuillez recommencer !";
+		}		
 		return $data;
 	}
 
 
-	public function uploading(){
-		if (isset($this->image1) && $this->image1["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image1);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "sinistres", $a);
-				$this->image1 = $result->filename;
-				$this->save();
-			}
-		}
-		if (isset($this->image2) && $this->image2["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image2);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "sinistres", $a);
-				$this->image2 = $result->filename;
-				$this->save();
-			}
-		}
-		if (isset($this->image3) && $this->image3["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image3);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "sinistres", $a);
-				$this->image3 = $result->filename;
-				$this->save();
-			}
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image1", "image2", "image3"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "sinistres", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
 		}
 	}
 
@@ -153,7 +142,7 @@ class SINISTRE extends TABLE
 
 
 	public static function encours(){
-		return static::findBy(["etat_id ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 	}
 
 	public static function valideesCeMois(){
@@ -169,7 +158,7 @@ class SINISTRE extends TABLE
 	public function approuver(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = 1;
+		$this->etat_id = ETAT::ENCOURS;;
 		$this->date_approbation = date("Y-m-d H:i:s");
 		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();
@@ -193,7 +182,7 @@ class SINISTRE extends TABLE
 	public function refuser(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = -1;
+		$this->etat_id = ETAT::ANNULEE;;
 		$this->date_approbation = date("Y-m-d H:i:s");
 		$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();

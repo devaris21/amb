@@ -16,9 +16,9 @@ abstract class TABLE
     public $id = null;
     public $created = null;
     public $modified = null;
+    public $visibility = 1;
     protected $protected = 0;
     protected $valide = 1;
-    protected $visibility = 1;
     public static $lastId;
 
 
@@ -26,7 +26,7 @@ abstract class TABLE
 
 
     abstract public function enregistre();
-    public function uploading(){}
+    public function uploading(Array $files){}
 
 
     public function hydrater(Array $table1){
@@ -45,6 +45,11 @@ abstract class TABLE
     }
 
 
+    public static function encours(){
+        return static::findBy(["etat_id ="=>ETAT::ENCOURS]);
+    }
+
+    
     public function getProperties(){
         return get_object_vars($this);
     }
@@ -55,8 +60,8 @@ abstract class TABLE
     }
 
 
-    public function is_protected(){
-        if ($this->get_protected() == 1) {
+    public function isProtected(){
+        if ($this->getProtected() == 1) {
             return true;
         }else{
             return false;
@@ -85,11 +90,11 @@ abstract class TABLE
     }
 
 /////////////////////////////////////////////////
-    public function get_protected(){
+    public function getProtected(){
         return $this->protected;
     }
 
-    public function set_protected(int $protected){
+    public function setProtected(int $protected){
         $this->protected = $protected;
         return $this;
     }
@@ -98,13 +103,19 @@ abstract class TABLE
         return $this->created;
     }
 
-    public function set_created(){
-        $this->created = date("Y-m-d H:i:s");
+    public function setCreated($date = null){
+        $this->created = $date;
+        if ($date == null) {
+           $this->created = date("Y-m-d H:i:s");
+        }
         return $this;
     }
     
-    public function set_modified(){
-        $this->modified = date("Y-m-d H:i:s");
+    public function setModified($date = null){
+        $this->modified = $date;
+        if ($date == null) {
+         $this->modified = date("Y-m-d H:i:s");
+        }
         return $this;
     }
 
@@ -194,13 +205,21 @@ abstract class TABLE
             $data->mode ="update";
             //c'est une mise a jour (update)
             $id = $this->getId();
-            $this->set_modified() ;
+            if ($this->modified == null) {
+                $this->setModified();
+            }
             $requette = "UPDATE $table SET $setter WHERE id=$id";
         }else{
             $data->mode ="insert";
             //c'est un ajout (insert)
-            $this->set_created();
-            $this->set_modified();
+            if ($this->created == null) {
+              $this->setCreated();
+            }
+            if ($this->modified == null) {
+                $this->setModified();
+            }
+            
+           
             $requette = "INSERT INTO $table SET $setter";
         }
         //liste des proprietes de la classe
@@ -451,15 +470,16 @@ abstract class TABLE
 
 
 
-    public function fourni($nomTable, $params = []){
+    public function fourni($nomTable, $params = [], Array $group =[], Array $order = [], int $limit=0, $conn="AND"){
         extract(static::tableName());
         $this->actualise();
         $name = strtolower($nomTable)."s";
         $table .="_id";
         $class =  self::fullyClassName($nomTable);
         $array = array_merge(["$table = "=> $this->getId()], $params);
-        $datas = $class::findBy($array);
+        $datas = $class::findBy($array, $group, $order, $limit, $conn);
         $this->$name = $this->items = $datas;
+        return $datas;
     }
 
 
@@ -469,7 +489,7 @@ abstract class TABLE
         $table .="_id";
         $class =  self::fullyClassName($nomTable);
         $datas = $class::findBy(["$table != "=> $this->getId()]);
-        $this->items = $datas;
+        return $this->items = $datas;
     }
 
 }

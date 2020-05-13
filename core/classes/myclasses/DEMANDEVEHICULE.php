@@ -36,7 +36,7 @@ class DEMANDEVEHICULE extends TABLE
 	public $refus_comment;
 
 	public $etats = 0; // 0 emise // 1 DRH valide // 2 DG validé // 3 DAPA valide 
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;
 
 	public $carburant;
@@ -87,18 +87,18 @@ class DEMANDEVEHICULE extends TABLE
 
 
 	public static function encours(){
-		return static::findBy(["etat_id ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 	}
 
 
 	public static function drh(){
-		return static::findBy(["etat_id ="=>0, "typedemandevehicule_id ="=>1, "etats ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>1, "etats ="=>0]);
 	}
 	public static function dg(){
-		return static::findBy(["etat_id ="=>0, "typedemandevehicule_id ="=>1, "etats ="=>1]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>1, "etats ="=>1]);
 	}
 	public static function amb(){
-		return array_merge(static::findBy(["etat_id ="=>0, "typedemandevehicule_id ="=>2]), static::findBy(["etat_id ="=>0, "typedemandevehicule_id ="=>1, "etats ="=>2])) ;
+		return array_merge(static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>2]), static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>1, "etats ="=>2])) ;
 	}
 
 
@@ -141,7 +141,7 @@ class DEMANDEVEHICULE extends TABLE
 
 
 	public function annuler(){
-		$this->etat_id = -1;
+		$this->etat_id = ETAT::ANNULEE;;
 		$this->historique("Annulation de la demande de véhicule N° $this->id par le demandeur");
 		return $this->save();
 	}
@@ -149,7 +149,7 @@ class DEMANDEVEHICULE extends TABLE
 
 	public function refuser(String $commentaire){
 		$data = new RESPONSE;
-		$this->etat_id = -1;
+		$this->etat_id = ETAT::ANNULEE;;
 		$this->refus_comment = $commentaire;
 		$this->date_approuve = date("Y-m-d H:i:s");
 		$this->historique("Refus de la demande de véhicule N° $this->id");
@@ -200,7 +200,7 @@ class DEMANDEVEHICULE extends TABLE
 		$mission->demandevehicule_id = $this->getId();
 		$data = $mission->enregistre();
 		if ($data->status) {
-			$this->etat_id = 1;
+			$this->etat_id = ETAT::ENCOURS;;
 			$this->etats = 3;   
 			$this->date_approuve = date("Y-m-d H:i:s");
 			$this->historique("Approbation de la demande de véhicule N° $this->id");

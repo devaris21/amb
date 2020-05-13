@@ -48,16 +48,7 @@ class VEHICULE extends TABLE
 				if (count($datas) == 1) {
 					$data = $this->save();
 					if ($data->status) {
-						if (isset($this->photo) && $this->photo["tmp_name"] != "") {
-							$image = new FICHIER();
-							$image->hydrater($this->photo);
-							if ($image->is_image()) {
-								$a = substr(uniqid(), 5);
-								$result = $image->upload("images", "vehicules", $a);
-								$this->image = $result->filename;
-								$this->save();
-							}
-						}
+						$this->uploading($this->files);
 					}
 				}else{
 					$data->status = false;
@@ -74,6 +65,29 @@ class VEHICULE extends TABLE
 		return $data;
 	}
 	
+
+
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "vehicules", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
+		}
+	}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -104,7 +118,9 @@ class VEHICULE extends TABLE
 	public function carteGrise(){
 		$datas = CARTEGRISE::findBy(["vehicule_id ="=> $this->getId()], [], ["date_etablissement"=>"DESC"]);
 		if (count($datas) >= 1) {
-			return $datas[0];
+			$item = $datas[0];
+			$item->actualise();
+			return $item;
 		}else{
 			return new CARTEGRISE();
 		}
@@ -125,43 +141,43 @@ class VEHICULE extends TABLE
 
 	public static function etat(){
 		foreach (static::getAll() as $key => $vehicule) {
-			if ($vehicule->etatvehicule_id != -1) {
-				if ($vehicule->date_sortie != null || $vehicule->etatvehicule_id != -2) {
+			if ($vehicule->etatvehicule_id != ETATVEHICULE::INDISPONIBLE) {
+				if ($vehicule->date_sortie != null || $vehicule->etatvehicule_id == ETATVEHICULE::DECLASSEE) {
 					//véhicule déclassé
-					$vehicule->etatvehicule_id = -2;
+					$vehicule->etatvehicule_id = ETATVEHICULE::DECLASSEE;
 				}else{
-					if (in_array($vehicule->etatvehicule_id, GROUPEVEHICULEOPEN::get())) {
-						if($vehicule->is_affecte()) {
-							//véhicule affecté
-							$vehicule->etatvehicule_id = 3;
-
-						}else{
-							$datas = ENTRETIENVEHICULE::findBy(["etat_id="=>0, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
-							if (count($datas) > 0) {
+					if($vehicule->is_affecte()) {
+						//véhicule affecté
+						$vehicule->etatvehicule_id = ETATVEHICULE::AFFECTE;
+					}else{
+						$datas = ENTRETIENVEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
+						if (count($datas) > 0) {
 								//en entretien
-								$vehicule->etatvehicule_id = 1;
-
-							}else{
-								$datas = SINISTRE::findBy(["etat_id="=>0, "started >="=>dateAjoute(), "vehicule_id ="=>$vehicule->getId()]);
-								if (count($datas) > 0) {
+							$vehicule->etatvehicule_id = ETATVEHICULE::ENTRETIEN;
+						}else{
+							$datas = SINISTRE::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
+							if (count($datas) > 0) {
 									//sinistré
-									$vehicule->etatvehicule_id = 5;
-
-								}else{
-									$datas = VEHICULE_MISSION::findBy(["etat_id="=>0, "vehicule_id ="=>$vehicule->getId()]);
-									if (count($datas) > 0) {
+								$vehicule->etatvehicule_id = ETATVEHICULE::SINISTRE;
+							}else{
+								$datas = MISSION::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
+								if (count($datas) > 0) {
 										//en mission
-										$vehicule->etatvehicule_id = 2;
-
-									}else{
-										$vehicule->etatvehicule_id = 0;
-										$datas = LOCATION_VEHICULE::findBy(["etat_id="=>0, "vehicule_id ="=>$vehicule->getId()]);
-										foreach ($datas as $key => $value) {
-											$value->actualise();
-											if ($value->location->started <= dateAjoute() && dateAjoute() <= $value->location->finished) {
-												//preté
-												$vehicule->etatvehicule_id = 4;
-												break;
+									$vehicule->etatvehicule_id = ETATVEHICULE::MISSION;
+								}else{
+									$vehicule->etatvehicule_id = ETATVEHICULE::RAS;
+									if ($vehicule->location == 1) {
+										$vehicule->etatvehicule_id = ETATVEHICULE::LOUEE;
+									}
+									$datas = LOCATION_VEHICULE::findBy(["etat_id = "=>ETAT::ENCOURS, "vehicule_id ="=>$vehicule->getId()]);
+									foreach ($datas as $key => $value) {
+										$value->actualise();
+										if ($value->location->started <= dateAjoute() && dateAjoute() <= $value->location->finished) {
+											//preté
+											if ($value->location->typelocation_id == TYPELOCATION::LOCATION) {
+												$vehicule->etatvehicule_id = ETATVEHICULE::LOUEE;
+											}else{
+												$vehicule->etatvehicule_id = ETATVEHICULE::PRETE;										
 											}
 										}
 									}
@@ -170,7 +186,6 @@ class VEHICULE extends TABLE
 						}
 					}
 				}
-				$vehicule->etatvehicule_id = 0;
 				$vehicule->save();
 			}
 		}
@@ -186,20 +201,19 @@ class VEHICULE extends TABLE
 
 	public function affectation(){
 		$this->actualise();
-		$this->fonction = "";
 		if ($this->is_affecte()) {
-			$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id="=>0]);
+			$datas = $this->fourni("affectation", ["etat_id = "=>ETAT::ENCOURS]);
 			if (count($datas) > 0) {
 				$affectation = $datas[0];
-				return $affectation->actualise();
+				$affectation->actualise();
+				return $affectation;
 			}
 		}
-		return null;
 	}
 
 
 	public function is_affecte(){
-		$datas = AFFECTATION::findBy(["vehicule_id ="=> $this->getId(), "etat_id="=>0]);
+		$datas = $this->fourni("affectation", ["etat_id = "=>ETAT::ENCOURS]);
 		if (count($datas) > 0) {
 			return true;
 		}else{
@@ -259,21 +273,21 @@ class VEHICULE extends TABLE
 
 	public static function parcauto(){
 		static::etat();
-		return static::findBy(["etatvehicule_id !="=> -2]);
+		return static::findBy(["etatvehicule_id !="=> ETATVEHICULE::DECLASSEE]);
 	}
 
 	public static function libres(){
 		static::etat();
-		return static::findBy(["etatvehicule_id ="=>0]);
+		return static::findBy(["groupevehicule_id ="=>GROUPEVEHICULE::VEHICULEMISSION, "etatvehicule_id ="=>ETATVEHICULE::RAS]);
 	}
 
 	public static function mission(){
-		return static::findBy(["etatvehicule_id ="=>2]);
+		return static::findBy(["groupevehicule_id ="=>GROUPEVEHICULE::VEHICULEMISSION, "etatvehicule_id ="=>ETATVEHICULE::MISSION]);
 	}
 
 	public static function open(){
 		static::etat();
-		$datas = static::findBy(["etatvehicule_id ="=>0]);
+		$datas = static::findBy(["etatvehicule_id ="=>ETATVEHICULE::RAS]);
 		foreach ($datas as $key => $vehicule) {
 			if (!in_array($vehicule->groupevehicule_id, GROUPEVEHICULEOPEN::get())) {
 				unset($datas[$key]);

@@ -27,19 +27,20 @@ if ($action === "save-formShamman") {
 	if (class_exists($class)) {
 		$item = new $class();
 		$item->hydrater($_POST);
+		$files = [];
 		if (isset($_FILES)) {
 			foreach ($_FILES as $key => $value) {
-				if ($key !== "id") {
-					$item->$key = $value;
+				if ($key !== "id" && $value != "") {
+					$files[] = $value;
 				}
 			}
 		}
-		//print_r($item);
 		if ($item->getId() != null) {
 			$item->sentenseUpdate();
 			$data = $item->save();
-			$item->uploading();
+			$item->uploading($files);
 		}else{
+			$item->files = $files;
 			$data = $item->enregistre();
 		}
 	}else{

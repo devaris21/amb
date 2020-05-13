@@ -11,7 +11,7 @@
         <?php include($this->rootPath("webapp/carplan/elements/templates/sidebar.php")); ?>  
 
         <div id="page-wrapper" class="gray-bg">
-          
+
           <?php include($this->rootPath("webapp/carplan/elements/templates/header.php")); ?>  
 
           <div class="row wrapper border-bottom white-bg page-heading">
@@ -40,6 +40,7 @@
                     You can create here any grid layout you want. And any variation layout you imagine:) Check out
                     main dashboard and other site. It use many different layout.
                     <br/><a href="index.html" class="btn btn-primary m-t">Dashboard</a>
+
                 </div>
             </div>
         </div>

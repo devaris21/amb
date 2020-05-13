@@ -84,11 +84,11 @@
                     <div class="ibox-content">
 
                         <div class="table-responsive">
-                            <table class="table ">
+                            <table class="table table-location">
                                 <tbody>
                                     <?php foreach ($locations as $key => $location) {
                                         $location->actualise() ?>
-                                        <tr class=" <?= ($location->etat_id != 0)?'fini':'' ?> border-bottom">
+                                        <tr class=" <?= ($location->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?> border-bottom">
 
                                             <td class="border-right">                                                
                                                 <br>
@@ -102,13 +102,13 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <?php if ($location->typelocation_id == 1){ ?>
+                                                <?php if ($location->typelocation_id == Home\TYPELOCATION::LOCATION){ ?>
                                                     <i class="fa fa-long-arrow-left fa-4x text-warning"></i>
-                                                <?php }elseif ($location->typelocation_id == 2) { ?>
+                                                <?php }elseif ($location->typelocation_id == Home\TYPELOCATION::PRET) { ?>
                                                     <i class="fa fa-long-arrow-right fa-4x text-info"></i>
                                                 <?php } ?>
                                             </td>
-                                            <?php if ($location->typelocation_id == 1){ ?>
+                                            <?php if ($location->typelocation_id == Home\TYPELOCATION::LOCATION){ ?>
                                              <td>
                                                 <a href="profile.html">
                                                     <h3 class="m-b-xs"><strong><?= $location->prestataire->name() ?></strong></h3>
@@ -120,7 +120,7 @@
                                                 </a>
                                             </td>
 
-                                        <?php }elseif ($location->typelocation_id == 2) {
+                                        <?php }elseif ($location->typelocation_id == Home\TYPELOCATION::PRET) {
                                             $location->fourni("preteur");
                                             $preteur = $location->preteurs[0]; ?>
                                             <td>
@@ -137,17 +137,17 @@
                                             <button onclick="voirVehicule('<?= $location->getId() ?>')" class="btn btn-rounded btn-outline btn-xs btn-info"><i class="fa fa-eye"></i> Voir les véhicules</button>
                                         </td>
                                         <td class="text-right">
-                                            <?php if ($location->etat_id == 0) { ?>
+                                            <?php if ($location->etat_id == Home\ETAT::ENCOURS) { ?>
                                                 <button onclick="modification('location', <?= $location->getId() ?>)" data-toggle="modal" data-target="#modal-<?= ($location->typelocation_id == 1)?'location2':'pret2' ?>" class="btn btn-outline btn-warning  dim" type="button"><i data-toggle="tooltip" title="Modifier les infos de la location" class="fa fa-pencil"></i></button>
 
-                                                <?php if ($location->typelocation_id == 2){ ?>
+                                                <?php if ($location->typelocation_id == Home\TYPELOCATION::PRET){ ?>
                                                     <button onclick="modification('preteur', <?= $preteur->getId() ?>)" data-toggle="modal" data-target="#modal-preteur" class="btn btn-outline btn-primary  dim" type="button"><i data-toggle="tooltip" title="Modifier les infos du bénéficiaire" class="fa fa-user"></i></button>
                                                 <?php } ?>
 
                                                 <br>  
 
-                                                <button onclick="terminerlocation(<?= $location->getId() ?>)" data-toggle="tooltip" title="Terminer la location" class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-check"></i></button>
-                                                <button onclick="annulerlocation(<?= $location->getId() ?>)" data-toggle="tooltip" title="Annuler l'location" class="btn btn-outline btn-danger  dim" type="button"><i class="fa fa-close"></i> </button>
+                                                <button onclick="terminerLocation(<?= $location->getId() ?>)" data-toggle="tooltip" title="Terminer la location" class="btn btn-outline btn-primary dim" type="button"><i class="fa fa-check"></i></button>
+                                                <button onclick="annulerLocation(<?= $location->getId() ?>)" data-toggle="tooltip" title="Annuler l'location" class="btn btn-outline btn-danger  dim" type="button"><i class="fa fa-close"></i> </button>
                                             <?php } ?>
 
                                         </td>

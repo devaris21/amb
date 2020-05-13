@@ -55,7 +55,7 @@
                             <label>Illustration 1</label>
                             <div class="">
                                 <img style="width: 80px;" src="" class="img-thumbnail logo">
-                                <input class="hide" type="file" name="photo1">
+                                <input class="hide" type="file" name="image1">
                                 <button type="button" class="btn btn-sm bg-orange pull-right btn_image"><i class="fa fa-image"></i> Ajouter une image</button>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <label>Illustration 2</label>
                             <div class="">
                                 <img style="width: 80px;" src="" class="img-thumbnail logo">
-                                <input class="hide" type="file" name="photo2">
+                                <input class="hide" type="file" name="image2">
                                 <button type="button" class="btn btn-sm bg-orange pull-right btn_image"><i class="fa fa-image"></i> Ajouter une image</button>
                             </div>
                         </div>

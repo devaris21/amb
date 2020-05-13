@@ -16,7 +16,7 @@ class COTATION extends TABLE
 	public $started;
 	public $finished;
 	public $gestionnaire_id;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 	public function enregistre(){

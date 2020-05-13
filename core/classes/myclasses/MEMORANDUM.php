@@ -18,7 +18,7 @@ class MEMORANDUM extends TABLE
 	public $reference;
 	public $contenu;
 	public $objet;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;
 
 	public $validation_gc = 0; 

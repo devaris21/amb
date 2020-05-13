@@ -60,6 +60,7 @@ class CARPLAN extends AUTH
 
 
 
+	//Creation du compte utilisateur
 	public function creerCompte(){
 		$pass = substr(uniqid(), 6);
 		$this->login = substr(uniqid(), 6);

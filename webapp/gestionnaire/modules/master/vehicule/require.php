@@ -1,5 +1,6 @@
 <?php 
 namespace Home;
+VEHICULE::etat();
 
 if ($this->getId() != null && intval($this->getId()) > 0) {
 	$datas = VEHICULE::findBy(["id="=>$this->getId()]);
@@ -30,14 +31,6 @@ if ($this->getId() != null && intval($this->getId()) > 0) {
 
 		AFFECTATION::etat();
 		$affectation = $levehicule->affectation();
-
-
-		$datas = AFFECTATION::findBy(["vehicule_id="=>$this->getId(), "etat_id="=>0]);
-		if (count($datas) > 0) {
-			$affectation = $datas[0];
-			$affectation->actualise();
-		}
-
 
 		$title = "AMB | ".$levehicule->name();
 

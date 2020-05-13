@@ -50,7 +50,7 @@
                                 <button data-toggle=modal data-target="#modal-entretienvehicule1" class="btn btn-warning btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Nouvel entretien du véhicule</button>
                             </div>
                             <div class="col-md-4 col-sm-4 border-right">
-                                <?php if ($affectation != null) {
+                                <?php if ($levehicule->is_affecte()) {
                                     $affectation->fourni("renouvelementaffectation");
                                     $renouv = new Home\RENOUVELEMENTAFFECTATION;
                                     if (count($affectation->renouvelementaffectations) > 0) {
@@ -60,12 +60,14 @@
                                     <div class="btn-group float-right">
                                         <span data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="mp5 cursor dropdown-toggle"><i class="fa fa-gears fa-2x"></i></span>
                                         <div class="dropdown-menu">
-                                            <?php if ($affectation->etat_id != 0) { ?>
+                                            <?php if ($affectation->etat_id != Home\ETAT::ENCOURS) { ?>
                                                 <a class="dropdown-item" onclick="renouveler(<?= $affectation->getId() ?>)" data-toggle="tooltip" title="Renouveler l'affectation" href="#"><i class="fa fa-refresh"></i> Renouveler l'affectation</a>
                                             <?php } ?>
 
-                                            <?php if ($affectation->etat_id == 0) { ?>
-                                                <a class="dropdown-item" onclick="creerCompte(<?= $affectation->getId() ?>)" href="#"><i class="fa fa-user"></i> Créer son compte Carplan</a>
+                                            <?php if ($affectation->etat_id == Home\ETAT::ENCOURS) { ?>
+                                                <?php if ($affectation->carplan->email != ""){ ?>
+                                                    <a class="dropdown-item" onclick="creerCompte(<?= $affectation->getId() ?>)" href="#"><i class="fa fa-user"></i> Créer son compte Carplan</a>
+                                                <?php } ?>
                                                 <a class="dropdown-item" onclick="modification('carplan', <?= $affectation->carplan->getId() ?>)" data-toggle="modal" data-target="#modal-carplan" href="#"><i class="fa fa-pencil"></i> Modifier les infos du bénéficiaire</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" onclick="terminerAffectation(<?= $affectation->getId() ?>)" data-toggle="tooltip" title="Terminer l'affectation" href="#"><i class="fa fa-check text-green"></i> Affectation terminée</a>
@@ -78,7 +80,7 @@
                                     <h5 class="gras"><?= $affectation->carplan->fonction;  ?></h5>
                                     <h4>Du <b><?= datecourt($renouv->started);  ?></b> au <b><?= datecourt($renouv->finished);  ?></b> (<?= count($affectation->renouvelementaffectations) ?>)</h4>
                                     <span class="gras"><u><?= $affectation->typeaffectation->name;  ?></u></span> &nbsp;&nbsp;&nbsp; <small class="label label-<?= $affectation->etat->class ?>"><?= $affectation->etat->name ?></small>
-                                    <?php if ($affectation->etat_id != 0) { ?>
+                                    <?php if (!$levehicule->is_affecte() && in_array($levehicule->groupevehicule_id, Home\GROUPEVEHICULEOPEN::get()) ) { ?>
                                         <button data-toggle="modal" data-target="#modal-affectation" class="btn btn-success btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-plus"></i> Nouvelle affectation</button>
                                     <?php } ?>
 
@@ -90,20 +92,20 @@
                                 <?php } ?>
                             </div>
                             <div class="col-md-2 optionsbtn">  
-                                <?php if($levehicule->etatvehicule_id == 0 && in_array($levehicule->groupevehicule_id, Home\VEHICULEOPEN::get())){ ?>
+                                <?php if(in_array($levehicule->etatvehicule_id, [Home\ETATVEHICULE::RAS, Home\ETATVEHICULE::LOUEE]) && in_array($levehicule->groupevehicule_id, Home\GROUPEVEHICULEOPEN::get())){ ?>
                                     <button data-toggle="modal" data-target="#modal-pret1" class="btn btn-success btn-block  btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-handshake-o"></i> Prêter ce véhicule</button>
                                 <?php } ?>  
 
-                                <?php if($levehicule->etatvehicule_id >= 0){ ?>
+                                <?php if(in_array($levehicule->etatvehicule_id, [Home\ETATVEHICULE::RAS, Home\ETATVEHICULE::ENTRETIEN, Home\ETATVEHICULE::MISSION, Home\ETATVEHICULE::SINISTRE])){ ?>
                                     <button onclick="disponibilite(0)" class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre indisponible</button>
-                                <?php }else{ ?>
+                                <?php }elseif($levehicule->etatvehicule_id == Home\ETATVEHICULE::INDISPONIBLE){ ?>
                                     <button onclick="disponibilite(1)" class="btn btn-warning btn-block  btn-xs btn-rounded pull-right"><i class="fa fa-ban"></i> Le Rendre à nouveau disponible
                                     </button>
                                 <?php } ?>
 
-                                <?php if($levehicule->etatvehicule_id != -2){ ?>
+                                <?php if($levehicule->etatvehicule_id != Home\ETATVEHICULE::DECLASSEE && $levehicule->location == 0){ ?>
                                     <button onclick="declassement(0)" class="btn btn-danger  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-close"></i> Déclasser le véhicule</button>
-                                <?php }else{ ?>
+                                <?php }elseif($levehicule->etatvehicule_id == Home\ETATVEHICULE::DECLASSEE){ ?>
                                     <button onclick="declassement(1)" class="btn btn-success  btn-block btn-xs btn-rounded pull-right"><i class="fa fa-refresh"></i> Reclasser le véhicule</button>
                                 <?php } ?>       
 
@@ -140,7 +142,7 @@
                                     <tbody>
                                         <tr>
                                             <td>Energie</td>
-                                            <td><?= $levehicule->energie->name ?></td>
+                                            <td><?= ($carteGrise->energie_id > 0)?$carteGrise->energie->name:"" ?></td>
                                         </tr>
                                         <tr>
                                             <td>Puissance</td>
@@ -193,7 +195,7 @@
                                         <td><label class="m-b-5 f-w-400 label label-<?= ($assurance->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($assurance->finished); ?></label></td>
                                         <td><label class="m-b-5 f-w-400 label label-<?= ($visitetechnique->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($visitetechnique->finished); ?></label></td>
                                         <td><label class="m-b-5 f-w-400 label label-<?= ($vidange->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($vidange->finished); ?></label></td>
-                                        <td></td>
+                                        <td><?= $levehicule->kilometrage ?> Kms</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -243,7 +245,7 @@
 
                 <div role="tabpanel" id="menu-3" class="tab-pane">
                     <div class="panel-body">
-                       <div class="row">
+                     <div class="row">
                         <div class="col-md-6">
                             <div>
                                 <strong>Les équipements ajoutés sur ce véhicule</strong>
@@ -298,7 +300,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-8 border-right">
-                           <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+                         <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
                             <div class="vertical-timeline-block">
                                 <div class="vertical-timeline-icon navy-bg">
                                     <i class="fa fa-briefcase"></i>
@@ -419,7 +421,7 @@
                         <div class="ibox-content">
                             <table class="table table-hover">
                                 <tbody>
-                                 <?php foreach ($levehicule->cartegrises as $key => $carte) {
+                                   <?php foreach ($levehicule->cartegrises as $key => $carte) {
                                     $carte->actualise(); ?>
                                     <tr>
                                         <td class="project-status">
@@ -430,17 +432,17 @@
                                             <small>Etablie le <?= datecourt($carte->date_etablissement) ?></small>
                                         </td>
                                         <td class="project-completion">
-                                            <span><?= $carte->energie->name ?></span><br>
+                                            <span>Voiture <?= $carte->energie->name ?></span><br>
                                             <span>Couleur <?= $carte->couleur ?></span>
                                         </td>
                                         <td>
                                             <h4><?= money($carte->price) ?> <?= $params->devise ?></h4>
                                         </td>
                                         <td class="project-people">
-                                           <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
-                                           <img alt="carte grise" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
-                                       </td>
-                                       <td class="project-actions">
+                                         <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
+                                         <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
+                                     </td>
+                                     <td class="project-actions">
                                         <button data-toggle="modal" data-target="#modal-cartegrise"  onclick="modification('cartegrise', <?= $carte->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                                         <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('cartegrise', <?= $carte->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                                     </td>
@@ -466,7 +468,7 @@
                 <div class="ibox-content">
                     <table class="table table-hover">
                         <tbody>
-                         <?php foreach ($levehicule->assurances as $key => $assurance) {
+                           <?php foreach ($levehicule->assurances as $key => $assurance) {
                             $assurance->actualise(); ?>
                             <tr>
                                 <td class="project-status">
@@ -482,16 +484,16 @@
                                 </td>
                                 <td class="project-completion">
                                     <span><?= $assurance->assurance ?></span><br>
-                                    <span>Validité de <?= $assurance->duree ?> <?= $assurance->typeduree->name ?></span>
+                                    <span>Validité de <?= $assurance->finished ?></span>
                                 </td>
                                 <td>
                                     <h4><?= money($assurance->price) ?> <?= $params->devise ?></h4>
                                 </td>
                                 <td class="project-people">
-                                   <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
-                                   <img alt="assurance" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
-                               </td>
-                               <td class="project-actions">
+                                 <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
+                                 <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
+                             </td>
+                             <td class="project-actions">
                                 <button data-toggle="modal" data-target="#modal-assurance"  onclick="modification('assurance', <?= $assurance->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                                 <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('assurance', <?= $assurance->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                             </td>
@@ -517,7 +519,7 @@
             <div class="ibox-content">
                 <table class="table table-hover">
                     <tbody>
-                     <?php foreach ($levehicule->visitetechniques as $key => $vist) {
+                       <?php foreach ($levehicule->visitetechniques as $key => $vist) {
                         $vist->actualise(); ?>
                         <tr>
                             <td class="project-status">
@@ -532,16 +534,16 @@
                                 <span class="italic gras">Au <?= datecourt($vist->finished) ?></span>
                             </td>
                             <td class="project-completion">
-                                <span>Validité de <?= $vist->duree ?> <?= $vist->typeduree->name ?></span>
+                                <span>Validité de <?= $vist->finished ?></span>
                             </td>
                             <td>
                                 <h4><?= money($vist->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
-                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
-                           </td>
-                           <td class="project-actions">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
+                         </td>
+                         <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-visitetechnique"  onclick="modification('visitetechnique', <?= $vist->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                             <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('visitetechnique', <?= $vist->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                         </td>
@@ -568,7 +570,7 @@
             <div class="ibox-content">
                 <table class="table table-hover">
                     <tbody>
-                     <?php foreach ($levehicule->piecevehicules as $key => $piece) {
+                       <?php foreach ($levehicule->piecevehicules as $key => $piece) {
                         $piece->actualise(); ?>
                         <tr>
                             <td class="project-status">
@@ -584,16 +586,16 @@
                                 <span class="italic gras">Au <?= datecourt($piece->finished) ?></span>
                             </td>
                             <td class="project-completion">
-                                <span>Validité de <?= $piece->duree ?> <?= $piece->typeduree->name ?></span>
+                                <span>Validité de <?= $piece->finished ?></span>
                             </td>
                             <td>
                                 <h4><?= money($piece->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
-                               <img alt="visite technique" class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
-                           </td>
-                           <td class="project-actions">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
+                         </td>
+                         <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-piecevehicule"  onclick="modification('piecevehicule', <?= $piece->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                             <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('piecevehicule', <?= $piece->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                         </td>
@@ -617,9 +619,9 @@
                 </div>
             </div>
             <div class="ibox-content">
-             <?php foreach ($levehicule->entretienvehicules as $key => $entretien) {
+               <?php foreach ($levehicule->entretienvehicules as $key => $entretien) {
                 $entretien->actualise(); ?>
-                <div class="vote-item <?= ($entretien->etat_id != 0)?'fini':'' ?>">
+                <div class="vote-item <?= ($entretien->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?>">
                     <div class="row">
                         <div class="col-md-7 border-right">
                             <div class="vote-actions" style="margin-right: 7%; height: 100%">
@@ -632,9 +634,9 @@
                                 <span><?= $entretien->comment ?></span>
                                 <div class="vote-info">
                                   <i class="fa fa-clock-o"></i> 
-                                  <?php if ($entretien->etat_id == -1) { ?>
+                                  <?php if ($entretien->etat_id == Home\ETAT::ENCOURS) { ?>
                                     <a href="#">Annulée <?= depuis($entretien->date_approuve) ?></a>
-                                <?php }else if ($entretien->etat_id == 0){ ?>
+                                <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                                     <a href="#">Emise <?= depuis($entretien->created) ?></a>
                                 <?php }else if ($entretien->etat_id == 1){ ?>
                                     <a href="#">Du <?= datecourt($entretien->started) ?> au <?= datecourt($entretien->finished) ?></a>
@@ -660,19 +662,20 @@
                         </a>
                     </div>
                     <div class="col-md-1 text-right border-right">
-                        <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "demandeentretiens", $entretien->image) ?>">
+                        <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image1) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image1) ?>"><br>
+                        <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>">
                     </div>
                     <div class="col-md-1 text-right">
                         <?php if ($entretien->etat_id == 1) { ?>
                             <div class="vote-icon">
                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Entretien terminé avec succes"> </i>
                             </div>
-                        <?php } else if ($entretien->etat_id == -1) { ?>
+                        <?php } else if ($entretien->etat_id == Home\ETAT::ENCOURS) { ?>
                             <div class="vote-icon">
                                 <i class="fa fa-close text-red" data-toggle="tooltip" title="Entretien annulé"> </i>
                             </div>
 
-                        <?php }else if ($entretien->etat_id == 0){ ?>
+                        <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                             <div class="btn-group">
                                 <button data-toggle="tooltip" title="Entretien terminé avec succes !" onclick="validerEntretien(<?= $entretien->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> </button>
                                 <button data-toggle="tooltip" title="Entretien échoué" class="btn btn-white btn-sm" onclick="annulerEntretien(<?= $entretien->getId() ?>)"><i class="fa fa-close text-red"></i></button>
@@ -695,15 +698,15 @@
             <div class="ibox-title">
                 <h5 class="text-uppercase">Les sinistres de la <u><?= $levehicule->marque->name ?> <?= $levehicule->modele ?></u> </h5>
                 <div class="ibox-tools">
-                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-sinistre1" class="btn btn-primary dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
+                    <button style="margin-top: -5%;" data-toggle="modal" data-target="#modal-sinistre1" class="btn btn-danger dim btn-xs"><i class="fa fa-plus"></i> Déclarer nouveau sinistre</button>
                 </div>
             </div>
             <div class="ibox-content">
-             <table class="table table-hover table-sinistre">
+               <table class="table table-hover table-sinistre">
                 <tbody>
                     <?php foreach ($levehicule->sinistres as $key => $sinistre) {
                         $sinistre->actualise(); ?>
-                        <tr class=" <?= ($sinistre->etat_id != 0)?'fini':'' ?> border-bottom">
+                        <tr class=" <?= ($sinistre->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?> border-bottom">
                             <td class="project-status">
                                 <span class="label label-<?= $sinistre->etat->class ?>"><?= $sinistre->etat->name ?></span>
                             </td>
@@ -714,9 +717,9 @@
                                 <p> <small><?= $sinistre->constat() ?></small> // <small><?= $sinistre->pompier() ?></small></p>
                                 <div class="vote-info mp0">
                                   <i class="fa fa-clock-o"></i> 
-                                  <?php if ($sinistre->etat_id == -1) { ?>
+                                  <?php if ($sinistre->etat_id == Home\ETAT::ENCOURS) { ?>
                                     <a href="#">Annulée <?= depuis($sinistre->date_approbation) ?></a>
-                                <?php }else if ($sinistre->etat_id == 0){ ?>
+                                <?php }else if ($sinistre->etat_id == Home\ETAT::ENCOURS){ ?>
                                     <a href="#">Emise <?= depuis($sinistre->created) ?></a>
                                 <?php }else if ($sinistre->etat_id == 1){ ?>
                                     <a href="#">Approuvée <?= depuis($sinistre->date_approbation) ?></a>
@@ -755,19 +758,19 @@
 
                     </td>
                     <td class="project-actions">
-                     <?php if ($sinistre->etat_id == 0) { ?>
+                       <?php if ($sinistre->etat_id == Home\ETAT::ENCOURS) { ?>
                         <div class="btn-group btn-group-vertical">
                             <?php if ($sinistre->carplan_id == null) { ?>
-                             <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations du sinistre" class="fa fa-pencil"></i> </button>
-                         <?php } ?>                                
-                         <button data-toggle="tooltip" title="Valider cette déclaration" class="btn btn-white btn-sm" onclick="validerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-check text-green"></i></button>
-                         <button data-toggle="tooltip" title="Annuler cette déclaration" class="btn btn-white btn-sm" onclick="annulerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                     </div>
-                 <?php } ?>
-             </td>
-         </tr>
-     <?php  } ?>
- </tbody>
+                               <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations du sinistre" class="fa fa-pencil"></i> </button>
+                           <?php } ?>                                
+                           <button data-toggle="tooltip" title="Valider cette déclaration" class="btn btn-white btn-sm" onclick="validerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-check text-green"></i></button>
+                           <button data-toggle="tooltip" title="Annuler cette déclaration" class="btn btn-white btn-sm" onclick="annulerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                       </div>
+                   <?php } ?>
+               </td>
+           </tr>
+       <?php  } ?>
+   </tbody>
 </table>
 </div>
 </div>
@@ -900,6 +903,8 @@
 
 
 <?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>
+
+<script type="text/javascript" src="<?= $this->relativePath("../sinistres/script.js"); ?>"></script>
 
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70"></script>

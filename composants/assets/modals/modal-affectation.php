@@ -9,16 +9,26 @@
             <form method="POST" classname="affectation" class="formShamman">
                 <div class="modal-body">
                     <div class="row">
+                        <div class="col-sm-6 unmodified">
+                            <label>Veuillez choisir le bénéficiaire <span1>*</span1></label>
+                            <?php Native\BINDING::html("select-startnull", "carplan"); ?>
+                        </div>
+                        <div class="col-sm-4">
+                            <h2>OU</h2>
+                        </div>
+                    </div><hr>
+
+                    <div class="row">
                         <div class="col-sm-4 unmodified">
                             <label>Matricule du bénéficiaire <span1>*</span1></label>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="matricule" required>
+                                <input type="text" class="form-control" name="matricule">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label>Nom du bénéficiaire <span1>*</span1></label>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="name" required>
+                                <input type="text" class="form-control" name="name">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -36,15 +46,15 @@
                             </div>
                         </div>
                         <div class="col-sm-4">
-                            <label>Email <span1>*</span1></label>
+                            <label>Email </label>
                             <div class="form-group">
-                                <input type="email" class="form-control" name="email" required>
+                                <input type="email" class="form-control" name="email">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <label>Contacts <span1>*</span1></label>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="contact" required>
+                                <input type="text" class="form-control" name="contact">
                             </div>
                         </div>
                         

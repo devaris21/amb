@@ -228,6 +228,7 @@
 
                     <div class="row">
                         <div class="col-md-3">
+                            <h3 class="">ALERTES</h3>
                             <ul class="list-group clear-list m-t">
 
                                 <?php $datas = Home\DEMANDEVEHICULE::encours(); ?>
@@ -287,7 +288,7 @@
                             </ul>
                         </div>
                         <div class="col-md-6">
-                            <h4>Courbe du Kilometrage moyen par mois</h4>
+                            <h3 class="text-uppercase text-center">Courbe du Kilometrage moyen par mois</h3>
                             <div class="flot-chart dashboard-chart">
                                 <div class="flot-chart-content" id="flot-dashboard-chart"></div>
                             </div><hr class="mp0">

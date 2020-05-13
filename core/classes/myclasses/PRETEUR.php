@@ -36,12 +36,12 @@ class PRETEUR extends PERSONNE
 
 
 	public function etat(){
-		if ($this->etatchauffeur_id != -1) {
-			$datas = CHAUFFEUR_MISSION::findBy(["etat_id="=>0, "chauffeur_id ="=>$this->getId()]);
+		if ($this->etatchauffeur_id != ETATCHAUFFEUR::INDISPONIBLE) {
+			$datas = CHAUFFEUR_MISSION::findBy(["etat_id = "=>ETAT::ENCOURS, "chauffeur_id ="=>$this->getId()]);
 			if (count($datas) > 0) {
-				$this->etatchauffeur_id = 1;
+				$this->etatchauffeur_id = ETATCHAUFFEUR::MISSION;
 			}else{
-				$this->etatchauffeur_id = 0;
+				$this->etatchauffeur_id = ETATCHAUFFEUR::RAS;
 			}			
 			$this->save();
 		}

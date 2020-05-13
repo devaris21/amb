@@ -24,6 +24,7 @@
                 </div>
             </div>
 
+
             <div class="wrapper wrapper-content">
                 <div class="row">
                     <div class="col-md-9">
@@ -99,7 +100,7 @@
                                                 <div class="animated fadeInRight">
                                                     <?php foreach ($demandes as $key => $demande) {
                                                         $demande->actualise(); ?>
-                                                        <div class="vote-item  <?= ($demande->etat_id != 0)?'fini':'' ?>">
+                                                        <div class="vote-item  <?= ($demande->etat_id != Home\ETAT::ENCOURS;)?'fini':'' ?>">
                                                             <div class="row">
                                                                 <div class="col-md-9">
                                                                     <div class="vote-actions" style="margin-right: 6%; height: 100%">
@@ -118,77 +119,77 @@
                                                                 <div class="col-md-3 text-right">
                                                                     <div class="vote-icon">
                                                                         <?php 
-                                                                        if ($demande->etat_id == 0) {
+                                                                        if ($demande->etat_id == Home\ETAT::ENCOURS;) {
                                                                           if ($demande->typedemandevehicule_id == 1) {
-                                                                           if ($demande->etats >= 1) { ?>
-                                                                               <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DRH"> </i>
-                                                                           <?php }
-                                                                           if ($demande->etats >= 2) { ?>
-                                                                               <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
-                                                                           <?php }
-                                                                           if ($demande->etats >= 3) { ?>
-                                                                               <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DAPA"> </i>
-                                                                           <?php }
-                                                                       }else{
-                                                                        if($demande->etat_id == 1){ ?>
-                                                                           <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
-                                                                       <?php }
-                                                                   }
-                                                               }else{ ?>
-                                                                   <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée pour '<?= $demande->refus_comment ?>' "> </i>
-                                                               <?php }
-                                                               ?>
-                                                           </div>
-                                                           <?php if ($demande->etat_id == 0) { ?>
-                                                            En attente d'approbations
-                                                        <?php } ?>
+                                                                             if ($demande->etats >= 1) { ?>
+                                                                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DRH"> </i>
+                                                                             <?php }
+                                                                             if ($demande->etats >= 2) { ?>
+                                                                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
+                                                                             <?php }
+                                                                             if ($demande->etats >= 3) { ?>
+                                                                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DAPA"> </i>
+                                                                             <?php }
+                                                                         }else{
+                                                                            if($demande->etat_id == 1){ ?>
+                                                                             <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
+                                                                         <?php }
+                                                                     }
+                                                                 }else{ ?>
+                                                                     <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée pour '<?= $demande->refus_comment ?>' "> </i>
+                                                                 <?php }
+                                                                 ?>
+                                                             </div>
+                                                             <?php if ($demande->etat_id == Home\ETAT::ENCOURS;) { ?>
+                                                                En attente d'approbations
+                                                            <?php } ?>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        <?php  } ?>
+                                            <?php  } ?>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <div class="col-md-3">
-            <div class="sidebar-panel" style="width: 100%;">
-                <div>
-                    <h4>Les responsables <span class="badge badge-info float-right"><?= start0(count($utilisateurs));  ?></span></h4>
-                    <hr>
-                    <?php foreach ($utilisateurs as $key => $user) { ?>
-                        <div class="feed-element">
-                            <a href="#" class="float-left">
-                                <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "utilisateurs", $utilisateur->image) ?>">
-                            </a>
-                            <div class="media-body">
-                                <span class="gras"><?= $user->name() ?></span>
-                                <br>
-                                <small class="text-muted">Dernière connexion, <?= depuis($user->last_connexion()) ?></small>
-                                <!-- TODO faire les last connexion -->
+            <div class="col-md-3">
+                <div class="sidebar-panel" style="width: 100%;">
+                    <div>
+                        <h4>Les responsables <span class="badge badge-info float-right"><?= start0(count($utilisateurs));  ?></span></h4>
+                        <hr>
+                        <?php foreach ($utilisateurs as $key => $user) { ?>
+                            <div class="feed-element">
+                                <a href="#" class="float-left">
+                                    <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "utilisateurs", $utilisateur->image) ?>">
+                                </a>
+                                <div class="media-body">
+                                    <span class="gras"><?= $user->name() ?></span>
+                                    <br>
+                                    <small class="text-muted">Dernière connexion, <?= depuis($user->last_connexion()) ?></small>
+                                    <!-- TODO faire les last connexion -->
+                                </div>
                             </div>
-                        </div>
-                    <?php } ?>
+                        <?php } ?>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 
 
 
-<?php include($this->rootPath("composants/assets/modals/modal-demandevehicule.php")); ?> 
+    <?php include($this->rootPath("composants/assets/modals/modal-demandevehicule.php")); ?> 
 
-<?php include($this->rootPath("webapp/direction/elements/templates/footer.php")); ?>
+    <?php include($this->rootPath("webapp/direction/elements/templates/footer.php")); ?>
 
 
 </div>

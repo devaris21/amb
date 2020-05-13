@@ -24,20 +24,27 @@ $(function(){
 //AFFECTATION
 
 creerCompte = function(id){
-	var url = "../../webapp/gestionnaire/modules/master/affectations/ajax.php";
+	var url = "../../webapp/gestionnaire/modules/master/vehicule/ajax.php";
 	alerty.confirm("Voulez-vous vraiment un compte en tant que bénéficiaire de carplan pour ce utilisateur ?", {
 		title: "Creation de compte",
 		cancelLabel : "Non",
-		okLabel : "OUI, Créer",
+		okLabel : "OUI, Créer le compte",
 	}, function(){
-		Loader.start();
-		$.post(url, {action:"creationCompte", id:id}, (data)=>{
-			if (data.status) {
-				Alerter.error('Compte créé !', data.message);
-			}else{
-				Alerter.error('Erreur !', data.message);
-			}
-		},"json");
+		alerty.prompt("Entrez l'adresse email de ce bénéficiaire !", {
+			title: 'Adresse email !',
+			inputType : "email",
+			cancelLabel : "Annuler",
+			okLabel : "Valider"
+		}, function(email){
+			Loader.start();
+			$.post(url, {action:"creationCompte", id:id, email:email}, (data)=>{
+				if (data.status) {
+					Alerter.success('Compte créé !', data.message);
+				}else{
+					Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
 	})
 }
 
@@ -55,6 +62,7 @@ terminerAffectation = function(id){
 			cancelLabel : "Annuler",
 			okLabel : "Mot de passe"
 		}, function(password){
+			Loader.start();
 			$.post(url, {action:"approuver", id:id, password:password}, (data)=>{
 				if (data.status) {
 					window.location.reload();
@@ -65,6 +73,33 @@ terminerAffectation = function(id){
 		})
 	})
 }
+
+
+annulerAffectation = function(id){
+	var url = "../../webapp/gestionnaire/modules/master/affectations/ajax.php";
+	alerty.confirm("Voulez-vous vraiment refuser cette affectation de véhicule ?", {
+		title: "Annulation de l'affectation",
+		cancelLabel : "Non",
+		okLabel : "OUI, annuler",
+	}, function(){
+		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
+			title: 'Récupération du mot de passe !',
+			inputType : "password",
+			cancelLabel : "Annuler",
+			okLabel : "Mot de passe"
+		}, function(password){
+			Loader.start();
+			$.post(url, {action:"annuler", id:id, password:password}, (data)=>{
+				if (data.status) {
+					window.location.reload()
+				}else{
+					Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
+	})
+}
+
 
 
 renouveler = function(id){
@@ -111,30 +146,6 @@ $("form#formRenouvelement").submit( function(event) {
 });
 
 
-annulerAffectation = function(id){
-	var url = "../../webapp/gestionnaire/modules/master/affectations/ajax.php";
-	alerty.confirm("Voulez-vous vraiment refuser cette declaration de sinistre de ce véhicule ?", {
-		title: "Annulation de la declaration",
-		cancelLabel : "Non",
-		okLabel : "OUI, refuser",
-	}, function(){
-		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
-			title: 'Récupération du mot de passe !',
-			inputType : "password",
-			cancelLabel : "Annuler",
-			okLabel : "Mot de passe"
-		}, function(password){
-			$.post(url, {action:"refuser", id:id, password:password}, (data)=>{
-				if (data.status) {
-					window.location.reload()
-				}else{
-					Alerter.error('Erreur !', data.message);
-				}
-			},"json");
-		})
-	})
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// PRETEUR
@@ -166,58 +177,58 @@ $("form#formPret").submit(function(event){
 //////////////////////////////////////////////////////////////////////////////////////////////
 // DISPONIBILITE
 
-    disponibilite = function(i){
-        message = (i == 1) ? "Voulez-vous vraiment rendre ce vehicule indisponible pour les futures opérations ? " : "Voulez-vous vraiment rendre ce vehicule de nouvau disponible ?";
-    	var url = "../../webapp/gestionnaire/modules/master/vehicule/ajax.php";
-    	alerty.confirm(message, {
-    		title: "indisponibilité du véhicule",
-    		cancelLabel : "Non",
-    		okLabel : "OUI, valider",
-    	}, function(){
-    		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
-    			title: 'Récupération du mot de passe !',
-    			inputType : "password",
-    			cancelLabel : "Annuler",
-    			okLabel : "Confirmer"
-    		}, function(password){
-    			Loader.start()
-    			$.post(url, {action:"disponibilite", type:i, password:password}, (data)=>{
-    				if (data.status) {
-    					window.location.reload()
-    				}else{
-    					Alerter.error('Erreur !', data.message);
-    				}
-    			},"json");
-    		})
-    	})
-    }
+disponibilite = function(i){
+	message = (i == 1) ? "Voulez-vous vraiment rendre ce vehicule indisponible pour les futures opérations ? " : "Voulez-vous vraiment rendre ce vehicule de nouvau disponible ?";
+	var url = "../../webapp/gestionnaire/modules/master/vehicule/ajax.php";
+	alerty.confirm(message, {
+		title: "indisponibilité du véhicule",
+		cancelLabel : "Non",
+		okLabel : "OUI, valider",
+	}, function(){
+		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
+			title: 'Récupération du mot de passe !',
+			inputType : "password",
+			cancelLabel : "Annuler",
+			okLabel : "Confirmer"
+		}, function(password){
+			Loader.start()
+			$.post(url, {action:"disponibilite", type:i, password:password}, (data)=>{
+				if (data.status) {
+					window.location.reload()
+				}else{
+					Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
+	})
+}
 
 
-    declassement = function(i){
-        message = (i == 1) ? "Voulez-vous vraiment déclasser ce véhicule du parc automobile ? " : "Voulez-vous vraiment reclasser de nouveau ce véhicule dans le parc automobile ";
-    	var url = "../../webapp/gestionnaire/modules/master/vehicule/ajax.php";
-    	alerty.confirm(message, {
-    		title: "Disponibilité du véhicule",
-    		cancelLabel : "Non",
-    		okLabel : "OUI, valider",
-    	}, function(){
-    		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
-    			title: 'Récupération du mot de passe !',
-    			inputType : "password",
-    			cancelLabel : "Annuler",
-    			okLabel : "Confirmer"
-    		}, function(password){
-    			Loader.start()
-    			$.post(url, {action:"declassement", type:i, password:password}, (data)=>{
-    				if (data.status) {
-    					window.location.reload()
-    				}else{
-    					Alerter.error('Erreur !', data.message);
-    				}
-    			},"json");
-    		})
-    	})
-    }
+declassement = function(i){
+	message = (i == 1) ? "Voulez-vous vraiment déclasser ce véhicule du parc automobile ? " : "Voulez-vous vraiment reclasser de nouveau ce véhicule dans le parc automobile ";
+	var url = "../../webapp/gestionnaire/modules/master/vehicule/ajax.php";
+	alerty.confirm(message, {
+		title: "Disponibilité du véhicule",
+		cancelLabel : "Non",
+		okLabel : "OUI, valider",
+	}, function(){
+		alerty.prompt("Entrer votre mot de passe pour confirmer l'opération !", {
+			title: 'Récupération du mot de passe !',
+			inputType : "password",
+			cancelLabel : "Annuler",
+			okLabel : "Confirmer"
+		}, function(password){
+			Loader.start()
+			$.post(url, {action:"declassement", type:i, password:password}, (data)=>{
+				if (data.status) {
+					window.location.reload()
+				}else{
+					Alerter.error('Erreur !', data.message);
+				}
+			},"json");
+		})
+	})
+}
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// 
@@ -267,40 +278,40 @@ $("form#formPret").submit(function(event){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //ENTRETIEN DU VEHICULE
 
-    validerEntretien = function(id){
-        var url = "../../webapp/gestionnaire/modules/master/entretiensencours/ajax.php";
-        alerty.confirm("Voulez-vous vraiment valider cet entretien comme étant terminé ?", {
-            title: "Entretein terminé ",
-            cancelLabel : "Non",
-            okLabel : "OUI, approuver",
-        }, function(){
-            $.post(url, {action:"approuver", id:id}, (data)=>{
-                if (data.status) {
-                    window.location.reload();
-                }else{
-                     Alerter.error('Erreur !', data.message);
-                }
-            },"json");
-        })
-    }
+validerEntretien = function(id){
+	var url = "../../webapp/gestionnaire/modules/master/entretiensencours/ajax.php";
+	alerty.confirm("Voulez-vous vraiment valider cet entretien comme étant terminé ?", {
+		title: "Entretein terminé ",
+		cancelLabel : "Non",
+		okLabel : "OUI, approuver",
+	}, function(){
+		$.post(url, {action:"approuver", id:id}, (data)=>{
+			if (data.status) {
+				window.location.reload();
+			}else{
+				Alerter.error('Erreur !', data.message);
+			}
+		},"json");
+	})
+}
 
 
-    annulerEntretien = function(id){
-        var url = "../../webapp/gestionnaire/modules/master/entretiensencours/ajax.php";
-        alerty.confirm("Voulez-vous vraiment refuser cette demande d'entretien pour ce véhicule ?", {
-            title: "Annulation de la demande",
-            cancelLabel : "Non",
-            okLabel : "OUI, refuser",
-        }, function(){
-            $.post(url, {action:"refuser", id:id}, (data)=>{
-                if (data.status) {
-                    window.location.reload()
-                }else{
-                     Alerter.error('Erreur !', data.message);
-                }
-            },"json");
-        })
-    }
+annulerEntretien = function(id){
+	var url = "../../webapp/gestionnaire/modules/master/entretiensencours/ajax.php";
+	alerty.confirm("Voulez-vous vraiment refuser cette demande d'entretien pour ce véhicule ?", {
+		title: "Annulation de la demande",
+		cancelLabel : "Non",
+		okLabel : "OUI, refuser",
+	}, function(){
+		$.post(url, {action:"refuser", id:id}, (data)=>{
+			if (data.status) {
+				window.location.reload()
+			}else{
+				Alerter.error('Erreur !', data.message);
+			}
+		},"json");
+	})
+}
 
 
 

@@ -55,21 +55,22 @@ if ($action == "comment") {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /// AFFECTATION
 /// 
-if ($action == "creerCompte") {
-	$datas = CARPLAN::findBy(["id="=> $id]);
+if ($action == "creationCompte") {
+	$datas = AFFECTATION::findBy(["id="=> $id]);
 	if (count($datas) == 1) {
-		$carplan = $datas[0];
-		if (filter_var($carplan->email, FILTER_VALIDATE_EMAIL)) {
-			$datas = AFFECTATION::findBy(["carplan_id ="=> $id]);
-			if (count($datas) == 0) {
-				$data = $carplan->creerCompte();
+		$affectation = $datas[0];
+		$affectation->actualise();
+		if ($affectation->carplan->email == "") {
+			$affectation->carplan->email = $email;
+			if ($affectation->carplan->emailIsValide($email)) {
+				$data = $affectation->carplan->creerCompte();
 			}else{
 				$data->status = false;
-				$data->message = "Ce bénéficiaire a déjà un compte dédié !";
+				$data->message = "Veuillez renseigner l'email du bénéficiaire ou le corriger !!!";
 			}
 		}else{
 			$data->status = false;
-			$data->message = "Veuillez renseigner l'email du bénéficiaire ou le corriger !!!";
+			$data->message = "Ce bénéficiaire a déjà un compte sur la plateforme !!!";
 		}
 	}else{
 		$data->status = false;
@@ -93,7 +94,7 @@ if ($action == "disponibilite") {
 				if($type == 0){
 					$data = $vehicule->indisponible();
 				}else{
-					$data = $vehicule->isponible();
+					$data = $vehicule->disponible();
 				}
 			}else{
 				$data->status = false;

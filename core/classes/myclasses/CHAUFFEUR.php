@@ -25,7 +25,7 @@ class CHAUFFEUR extends PERSONNE
 	public $email;
 	public $contact;
 	public $image = "default.png";
-	public $etatchauffeur_id;
+	public $etatchauffeur_id = ETATCHAUFFEUR::RAS;
 
 
 
@@ -34,7 +34,7 @@ class CHAUFFEUR extends PERSONNE
 		if ($this->name ) {
 			$data = $this->save();
 			if ($data->status) {
-				$this->uploading();
+				$this->uploading($this->files);
 			}
 		}else{
 			$data->status = false;
@@ -44,16 +44,25 @@ class CHAUFFEUR extends PERSONNE
 	}
 
 
-	public function uploading(){
-		if (isset($this->image) && $this->image["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "chauffeurs", $a);
-				$this->image = $result->filename;
-				$this->save();
-			}
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "chauffeurs", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
 		}
 	}
 
@@ -61,13 +70,16 @@ class CHAUFFEUR extends PERSONNE
 
 
 	public static function etat(){
-		$requette = "UPDATE chauffeur SET etatchauffeur_id = 1";
-		static::query($requette, []);
-		$requette = "SELECT * FROM chauffeur WHERE chauffeur.id NOT IN (SELECT mission.chauffeur_id FROM mission WHERE etat_id = 1)";
-		$datas =  static::execute($requette, []);
-		foreach ($datas as $key => $chauffeur) {
-			$chauffeur->etatchauffeur_id = 0;
-			$chauffeur->save();
+		foreach (static::getAll() as $key => $chauffeur) {
+			if ($chauffeur->etatchauffeur_id != ETATCHAUFFEUR::INDISPONIBLE) {
+				$datas = $chauffeur->fourni("mission", ["etat_id ="=>ETAT::ENCOURS]);
+				if (count($datas) > 0) {
+					$chauffeur->etatchauffeur_id = ETATCHAUFFEUR::MISSION;
+				}else{
+					$chauffeur->etatchauffeur_id = ETATCHAUFFEUR::RAS;
+				}
+				$chauffeur->save();
+			}
 		}
 	}
 

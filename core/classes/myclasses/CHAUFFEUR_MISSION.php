@@ -15,7 +15,7 @@ class CHAUFFEUR_MISSION extends TABLE
 
 	public $mission_id;
 	public $chauffeur_id;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 
@@ -26,7 +26,7 @@ class CHAUFFEUR_MISSION extends TABLE
 
 
 	public static function encours(){
-		return static::findBy(["etat_id ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 	}
 	
 

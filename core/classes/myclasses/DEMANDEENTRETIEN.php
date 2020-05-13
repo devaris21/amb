@@ -24,7 +24,7 @@ class DEMANDEENTRETIEN extends TABLE
 	public $image;
 	public $date_approuve;
 
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;
 
 
@@ -36,7 +36,7 @@ class DEMANDEENTRETIEN extends TABLE
 			$this->ticket = strtoupper(substr(uniqid(), 5, 6));
 			$data = $this->save();
 			if ($data->status) {
-				$this->uploading();
+				$this->uploading($this->files);
 				$this->setId($data->lastid)->actualise();
 				$params = PARAMS::findLastId();
 
@@ -56,23 +56,32 @@ class DEMANDEENTRETIEN extends TABLE
 	}
 
 
-	public function uploading(){
-		if (isset($this->image) && $this->image["tmp_name"] != "") {
-			$image = new FICHIER();
-			$image->hydrater($this->image);
-			if ($image->is_image()) {
-				$a = substr(uniqid(), 5);
-				$result = $image->upload("images", "demandeentretiens", $a);
-				$this->image = $result->filename;
-				$this->save();
-			}
+	public function uploading(Array $files){
+		//les proprites d'images;
+		$tab = ["image"];
+		if (is_array($files) && count($files) > 0) {
+			$i = 0;
+			foreach ($files as $key => $file) {
+				if ($file["tmp_name"] != "") {
+					$image = new FICHIER();
+					$image->hydrater($file);
+					if ($image->is_image()) {
+						$a = substr(uniqid(), 5);
+						$result = $image->upload("images", "demandeentretiens", $a);
+						$name = $tab[$i];
+						$this->$name = $result->filename;
+						$this->save();
+					}
+				}	
+				$i++;			
+			}			
 		}
 	}
 
 
 
 	public static function encours(){
-		return static::findBy(["etat_id ="=>0]);
+		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
 	}
 
 	public static function valideesCeMois(){
@@ -114,7 +123,7 @@ class DEMANDEENTRETIEN extends TABLE
 
 
 	public function annuler(){
-		$this->etat_id = -1;
+		$this->etat_id = ETAT::ANNULEE;;
 		$this->historique("Annulation de la demande d'entretien de véhicule N° $this->id par le demandeur");
 		return $this->save();
 	}
@@ -123,7 +132,7 @@ class DEMANDEENTRETIEN extends TABLE
 	public function approuver(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = 1;
+		$this->etat_id = ETAT::ENCOURS;;
 		$this->date_approuve = date("Y-m-d H:i:s");
 		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();
@@ -148,7 +157,7 @@ class DEMANDEENTRETIEN extends TABLE
 	public function refuser(){
 		$data = new RESPONSE;
 		$rooter = new ROOTER;
-		$this->etat_id = -1;
+		$this->etat_id = ETAT::ANNULEE;;
 		$this->date_approuve = date("Y-m-d H:i:s");
 		$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
 		$data = $this->save();

@@ -20,14 +20,14 @@ class CESSION extends TABLE
 	public $objet;
 	public $started;
 	public $finished;
-	public $etat_id = 0;
+	public $etat_id = ETAT::ENCOURS;
 
 
 
 	public function enregistre(){
 		$data = new RESPONSE;
 		$this->vehicule_id = getSession("vehicule_id");
-		$datas = static::findBy(["vehicule_id ="=>$this->vehicule_id, "etat_id ="=>0]);
+		$datas = static::findBy(["vehicule_id ="=>$this->vehicule_id, "etat_id = "=>ETAT::ENCOURS]);
 		if (count($datas) == 0) {
 			if ($this->objet != "") {
 				if ($this->started >= date("Y-m-d") && $this->finished >= $this->started) {

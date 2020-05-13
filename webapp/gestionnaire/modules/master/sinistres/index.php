@@ -67,7 +67,7 @@
                     <tbody>
                         <?php foreach ($sinistres as $key => $sinistre) {
                             $sinistre->actualise(); ?>
-                            <tr class=" <?= ($sinistre->etat_id != 0)?'fini':'' ?> border-bottom">
+                            <tr class=" <?= ($sinistre->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?> border-bottom">
                                 <td class="project-status">
                                     <span class="label label-<?= $sinistre->etat->class ?>"><?= $sinistre->etat->name ?></span>
                                 </td>
@@ -78,11 +78,11 @@
                                     <p> <small><?= $sinistre->constat() ?></small> // <small><?= $sinistre->pompier() ?></small></p>
                                     <div class="vote-info mp0">
                                       <i class="fa fa-clock-o"></i> 
-                                      <?php if ($sinistre->etat_id == -1) { ?>
+                                      <?php if ($sinistre->etat_id == Home\ETAT::ANNULEE) { ?>
                                         <a href="#">Annulée <?= depuis($sinistre->date_approbation) ?></a>
-                                    <?php }else if ($sinistre->etat_id == 0){ ?>
+                                    <?php }else if ($sinistre->etat_id == Home\ETAT::ENCOURS){ ?>
                                         <a href="#">Emise <?= depuis($sinistre->created) ?></a>
-                                    <?php }else if ($sinistre->etat_id == 1){ ?>
+                                    <?php }else if ($sinistre->etat_id == Home\ETAT::VALIDEE){ ?>
                                         <a href="#">Approuvée <?= depuis($sinistre->date_approbation) ?></a>
                                     <?php } ?>
                                     <i class="fa fa-user"></i> <a href="#">Par <?= $sinistre->auteur() ?> - <?= $sinistre->matricule ?></a>
@@ -119,7 +119,7 @@
 
                         </td>
                         <td class="project-actions">
-                         <?php if ($sinistre->etat_id == 0) { ?>
+                         <?php if ($sinistre->etat_id == Home\ETAT::ENCOURS) { ?>
                             <div class="btn-group btn-group-vertical">
                                 <?php if ($sinistre->carplan_id == null) { ?>
                                  <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations du sinistre" class="fa fa-pencil"></i> </button>

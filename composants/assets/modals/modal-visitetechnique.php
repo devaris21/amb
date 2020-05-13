@@ -13,7 +13,7 @@
                         <div class="col-sm-4">
                             <label>Numero de cette fiche <span1>*</span1></label>
                             <div class="form-group">
-                                <input type="text" class="form-control" name="numero_piece" required placeholder="">
+                                <input type="text" class="form-control" name="numero_piece" uppercase required placeholder="">
                             </div>
                         </div>
                         <div class="col-sm-4">
