@@ -113,6 +113,13 @@ abstract class TABLE
         $this->sentense = $texte;
     }
 
+    public function validerEtat()
+    {
+        $this->etat_id = 2;
+        $this->date_approuve = date("Y-m-d H:i:s");
+        $data = $this->save();
+        return $data;
+    }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //initialiser la connexion et recuperer le nom de la table

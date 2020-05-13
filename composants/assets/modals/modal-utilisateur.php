@@ -8,7 +8,7 @@
                 <h4 class="modal-title">Formulaire pour les responsables</h4>
                 <small class="font-bold">Renseigner ces champs pour enregistrer les informations</small>
             </div>
-            <form method="POST" class="formShamman" classname="utilisateur" reload='false'>
+            <form method="POST" class="formShamman" classname="utilisateur">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-sm-6 col-sm-6">

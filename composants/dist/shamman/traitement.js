@@ -75,6 +75,25 @@
             },"json");
         }
 
+        validerEtat = function(table, id){
+            url = "../../composants/dist/shamman/traitement.php";
+            alerty.confirm("Voulez-vous vraiment bloquer tout accès à cette personne ?", {
+                title: "Restriction d'accès",
+                cancelLabel : "Non",
+                okLabel : "OUI, bloquer",
+            }, function(password){
+                    Loader.start();
+                    $.post(url, {action:"validerEtat", table:table, id:id}, function(data){
+                        console.log(data);
+                        if (data.status) {
+                            window.location.reload()
+                        }else{
+                            Alerter.error('Erreur !', data.message);
+                        }
+                    },"json");
+                })
+            }
+
 
          lock = function(table, id){
             url = "../../composants/dist/shamman/traitement.php";
@@ -99,6 +118,24 @@
                     },"json");
                 })
             })
+        }
+
+        resetPassword = function(table, id){
+            url = "../../composants/dist/shamman/traitement.php";
+            alerty.confirm("Voulez-vous vraiment reinitialiser le mot de passe pour cet utilisateur ?", {
+                title: "Restriction d'accès",
+                cancelLabel : "Non",
+                okLabel : "OUI, Reinitialiser",
+            }, function(password){
+                    Loader.start();
+                    $.post(url, {action:"resetPassword", table:table, id:id}, (data)=>{
+                        if (data.status) {
+                            window.location.reload()
+                        }else{
+                            Alerter.error('Erreur !', data.message);
+                        }
+                    },"json");
+                })
         }
 
 

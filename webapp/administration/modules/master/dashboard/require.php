@@ -13,7 +13,7 @@ $personnelle = (
 	count(PRESTATAIRE::getAll())
 );
 
-$nbre_connecte = count(CONNEXION::findBy(['date_deconnexion =' => null]));
+$nbre_connecte = (count(CONNEXION::getAll()) - count(CONNEXION::findBy(['date_deconnexion !=' => ""])));
 
 $flux_jour = count(HISTORY::findBy(['created >' => date('Y-m-d'). ' 00:00:00']));
 $flux_total = count(HISTORY::getAll());

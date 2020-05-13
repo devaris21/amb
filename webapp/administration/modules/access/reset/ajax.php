@@ -7,10 +7,9 @@ use Native\RESPONSE;
 $data = new RESPONSE;
 extract($_POST);
 
-
 if ($action == "resetPassword") {
-	$datas = GESTIONNAIRE::findBy(["email ="=>$email]);
-	if (count($datas) > 0) {
+	$datas = ADMIN::findBy(["email ="=>$email]);
+	if (count($datas) == 1) {
 		$element = $datas[0];
 		$data = $element->resetPassword();
 	}else{

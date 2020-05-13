@@ -96,7 +96,7 @@
                                                 </div>
                                             </li>
                                             <li>
-                                                <h2 class="no-margins "><?= $flux_total ?> Flux Total(s)</h2>
+                                                <h2 class="no-margins "><?= $flux_total ?> Flux Totaux</h2>
                                                 <small>Flux journalier de données</small>
                                                 <div class="stat-percent"><?= $flux_jour ?> <i class="fa fa-level-down text-navy"></i></div>
                                                 <div class="progress progress-mini">

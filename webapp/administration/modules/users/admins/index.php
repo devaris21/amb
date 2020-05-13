@@ -41,39 +41,70 @@
 
                 <?php foreach ($admins as $key => $admin) {
                    $admin->actualise() ?>
+                   <?php if ($admin->id == $idAdmin) { ?>
+                       <div class="col-lg-3">
+                        <div class="contact-box center-version">
+                            <a href="profile.html">
+                                <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "admins", $admin->image) ?>">
+                                <br><strong>#<?= $admin->matricule ?></strong><br>
+                                <h3 class="m-b-xs text-danger"><strong><?= $admin->name() ?></strong></h3>
 
-                   <div class="col-lg-3">
-                    <div class="contact-box center-version">
-                        <a href="profile.html">
-                            <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "admins", $admin->image) ?>">
-                            <br><strong>#<?= $admin->matricule ?></strong><br>
-                            <h3 class="m-b-xs text-danger"><strong><?= $admin->name() ?></strong></h3>
-
-                            <div class="font-bold text-danger">Admin système</div>
-                            <address class="m-t-md">
-                                <?= $admin->contact ?><br>
-                                <?= $admin->email ?><br>
-                                <?php if ($admin->is_new == 1) { ?>
-                                    <label class="label label-success">Nouveau</label>
-                                <?php } ?>
-                            </address>
-                        </a>
-                        <div class="contact-box-footer ">
-                            <?php if ($admin->is_allowed == 0) { ?>
-                                    <label class="label label-danger">Bloqué</label>
-                                <?php } ?>
-                            <div class="m-t-xs btn-group">
-                                <?php if ($admin->is_allowed == 1) { ?>
-                                    <button onclick="lock('admin', <?= $admin->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-lock"></i> Bloquer</button>
-                                <?php }else{ ?>
-                                    <button onclick="unlock('admin', <?= $admin->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-unlock"></i> Debloquer</button>
-                                <?php } ?>
-                                <button onclick="suppressionWithPassword('admin', <?= $admin->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-close text-danger"></i> Supprimer</button>
+                                <div class="font-bold text-danger">Admin système</div>
+                                <address class="m-t-md">
+                                    <?= $admin->contact ?><br>
+                                    <?= $admin->email ?><br>
+                                    <?php if ($admin->is_new == 1) { ?>
+                                        <label class="label label-success">Nouveau</label>
+                                    <?php } ?>
+                                </address>
+                            </a>
+                            <div class="contact-box-footer ">
+                                <div class="m-t-xs btn-group">
+                                    <?php if ($admin->is_allowed != 0) { ?>
+                                        <button  onclick="resetPassword('admin', <?= $admin->getId(); ?>)" style="cursor: default;" class="btn btn-xs btn-secondary"><i class="fa fa-refresh"></i> Reinitialisé mon compte</button>
+                                    <?php } ?>
+                                </div>
                             </div>
-                        </div>
 
-                    </div>
-                </div>
+                        </div>
+                   </div>
+                   <?php }else{ ?>
+                   <div class="col-lg-3">
+                        <div class="contact-box center-version">
+                            <a href="profile.html">
+                                <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "admins", $admin->image) ?>">
+                                <br><strong>#<?= $admin->matricule ?></strong><br>
+                                <h3 class="m-b-xs text-danger"><strong><?= $admin->name() ?></strong></h3>
+
+                                <div class="font-bold text-danger">Admin système</div>
+                                <address class="m-t-md">
+                                    <?= $admin->contact ?><br>
+                                    <?= $admin->email ?><br>
+                                    <?php if ($admin->is_new == 1) { ?>
+                                        <label class="label label-success">Nouveau</label>
+                                    <?php } ?>
+                                </address>
+                            </a>
+                            <div class="contact-box-footer ">
+                                <div class="m-t-xs btn-group">
+                                <?php if ($admin->is_allowed == 0) { ?>
+                                    <button style="cursor: default;" class="btn btn-xs btn-danger"><i class="fa fa-lock"></i> Bloqué</button>
+                                <?php } ?>
+                                    <?php if ($admin->is_allowed == 1) { ?>
+                                        <button onclick="lock('admin', <?= $admin->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-lock"></i> Bloquer</button>
+                                    <?php }else{ ?>
+                                        <button onclick="unlock('admin', <?= $admin->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-unlock"></i> Debloquer</button>
+                                    <?php } ?>
+                                    <button onclick="suppressionWithPassword('admin', <?= $admin->getId(); ?>)" class="btn btn-xs btn-white"><i class="fa fa-close text-danger"></i> Supprimer</button>
+                                    <?php if ($admin->is_allowed != 0) { ?>
+                                        <button  onclick="resetPassword('admin', <?= $admin->getId(); ?>)" style="cursor: default;" class="btn btn-xs btn-secondary"><i class="fa fa-refresh"></i> Reinitialisé</button>
+                                    <?php } ?>
+                                </div>
+                            </div>
+
+                        </div>
+                   </div>
+                   <?php } ?>
 
             <?php } ?>
         </div>

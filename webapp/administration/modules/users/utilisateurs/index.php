@@ -88,13 +88,20 @@
                                             <?php foreach ($dep->utilisateurs as $key => $user) { ?>
                                              <tr>
                                                 <td class=""><img style="width: 32px" src="<?= $this->stockage("images", "utilisateurs", $user->image) ?>"></td>
-                                                <td><b><?= $user->name() ?></b><br><?= $user->matricule ?></td>
+                                                <td><b><?= $user->name() ?></b> 
+                                                  <?php if ($user->is_new == 1) { ?>
+                                                  <span style="display: inline-block;padding: 3px; background: #23C677; color: #fff; border-radius: 4px; float: right;">Nouveau</span>
+                                                  <?php } ?>
+                                                  <br><?= $user->matricule ?></td>
                                                 <td><?= $user->fonction ?></td>
                                                 <td><?= $user->contact ?></td>
                                                 <td><?= $user->email ?></td>
                                                 <td>
                                                    <button data-toggle="modal" data-target="#modal-utilisateur" onclick="modification('utilisateur', <?= $user->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil text-green"></i> </button>
                                                    <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('utilisateur', <?= $user->getId(); ?>)"><i class="fa fa-close text-red"></i> </button>
+                                                   <?php if ($user->is_allowed != 0) { ?>
+                                                      <button  onclick="resetPassword('utilisateur', <?= $user->getId(); ?>)" style="cursor: default;" class="btn btn-xs btn-secondary"><i class="fa fa-refresh"></i> Reinitialiser</button>
+                                                  <?php } ?>
                                                </td>
                                            </tr> 
                                        <?php } ?>

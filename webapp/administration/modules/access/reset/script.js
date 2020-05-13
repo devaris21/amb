@@ -3,7 +3,8 @@
 $(function(){
 
     $("form#resetForm").submit(function(event) {
-        var url = "../../webapp/carplan/modules/access/reset/ajax.php";
+        Loader.start();
+        var url = "../../webapp/administration/modules/access/reset/ajax.php";
         var formData = new FormData($(this)[0]);
         formData.append('action', 'resetPassword');
         $.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
