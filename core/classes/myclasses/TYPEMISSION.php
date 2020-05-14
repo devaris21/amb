@@ -9,6 +9,9 @@ class TYPEMISSION extends TABLE
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
+	const PROGRAMMEE = 1;
+	const INOPINEE = 2;
+
 	public $name;
 
 	public function enregistre(){

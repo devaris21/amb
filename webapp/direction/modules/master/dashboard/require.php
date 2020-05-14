@@ -4,11 +4,11 @@ namespace Home;
 
 $title = "AMB-".$utilisateur->departement->name." | Tableau de bord";
 
-$utilisateur->departement->fourni("demandevehicule");
-$demandes = $utilisateur->departement->demandevehicules;
+$demandes = $utilisateur->departement->fourni("demandevehicule", ["etat_id ="=>ETAT::ENCOURS]);
 
-$utilisateur->departement->fourni("utilisateur");
-$utilisateurs = $utilisateur->departement->utilisateurs;
+$utilisateurs = $utilisateur->departement->fourni("utilisateur");
+
+$missions = $utilisateur->departement->fourni("mission", ["etat_id ="=>ETAT::ENCOURS]);
 
 $datas = DEPARTEMENT::getAll();
 

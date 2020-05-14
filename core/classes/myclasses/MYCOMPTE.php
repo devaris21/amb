@@ -1,6 +1,7 @@
 <?php
 namespace Home;
-use Native\RESPONSE;/**
+use Native\RESPONSE;
+use Native\SHAMMAN;/**
  * 
  */
 class MYCOMPTE extends TABLE
@@ -9,6 +10,7 @@ class MYCOMPTE extends TABLE
 	public static $namespace = __NAMESPACE__;
 
 	public $identifiant;
+	public $typecompte_id;
 	public $expired;
 	
 

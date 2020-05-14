@@ -113,7 +113,7 @@ class CLIENT extends PERSONNE
 			$datas = self::findBy(["login = "=>$login, "id !="=> $this->getId()]);
 			if (count($datas) == 0) {
 				if($this->password != hasher($password)){
-					if ($this->set_login($login)) {
+					if ($this->setLogin($login)) {
 						$this->set_password($password);
 						$this->is_new = 1;
 						$data = $this->save();
@@ -141,7 +141,7 @@ class CLIENT extends PERSONNE
 
 	public function reinitialiserCompte(){
 		$data = new RESPONSE;
-		if ($this->set_login(substr(md5(uniqid()), 0, 9))) {
+		if ($this->setLogin(substr(md5(uniqid()), 0, 9))) {
 			$this->set_password("6ed78djf21ga");
 			$this->is_new = 0;
 			$this->historique("Reinitialisation des parametres de compte de $this->name $this->lastname");

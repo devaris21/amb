@@ -8,7 +8,8 @@ $configs =  [
 		"description"  => "C'est ma premiere application avec le framework SHAMMAN",
 		"organization" => "DGIMA | Plateforme de collecte de données",
 		"email"        => "infos@shamman.com",
-		"website"      => "https://www.shamman.com"
+		"website"      => "https://www.shamman.com",
+		"version"      => "1.0.0"
 	],
 
 
@@ -35,14 +36,14 @@ $configs =  [
 	//Gestionnaire de mail
 	"mail" => [
 		"driver"     => "smtp",
-		"transport"  => "smtp.mailtrap.com",
+		"transport"  => "smtp.gmail.com",
 		"encryption" => "ssl",
 		"charset"    => "utf8",
 		"port"       => 465,
-		"email"      => "",
-		"password"   => "",
+		"email"      => "aristidemanyesse@gmail.com",
+		"password"   => "Samageste1",
 
-		"replyto" => "",
+		"replyto" => "editsira0@gmail.com",
 	],
 
 

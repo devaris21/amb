@@ -16,7 +16,7 @@ class DEMANDEVEHICULE extends TABLE
 
 
 	public $ticket;
-	public $typedemandevehicule_id = 1;
+	public $typemission_id = 1;
 	public $utilisateur_id;
 	public $departement_id;
 	public $objet;
@@ -35,7 +35,7 @@ class DEMANDEVEHICULE extends TABLE
 	public $date_approuve = null;
 	public $refus_comment;
 
-	public $etats = 0; // 0 emise // 1 DRH valide // 2 DG validé // 3 DAPA valide 
+	public $etape = 0;
 	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;
 
@@ -49,23 +49,21 @@ class DEMANDEVEHICULE extends TABLE
 		$this->utilisateur_id = getSession("utilisateur_connecte_id");
 		$this->departement_id = getSession("departement_id");
 		if (dateAjoute() <= $this->started && $this->started <= $this->finished) {
-			$datas = TYPEDEMANDEVEHICULE::findBy(["id ="=>$this->typedemandevehicule_id]);
+			$datas = TYPEMISSION::findBy(["id ="=>$this->typemission_id]);
 			if (count($datas) == 1) {
 				$datas = UTILISATEUR::findBy(["id ="=>$this->utilisateur_id]);
 				if (count($datas) == 1) {
-					$this->ticket = strtoupper(substr(uniqid(), 5, 6));
+					$this->ticket = strtoupper(substr(uniqid(), 5, 6));					
 					$data = $this->save();
 					if ($data->status) {
 						$this->setId($data->lastid)->actualise();
 						$params = PARAMS::findLastId();
 
-						$message = "Vous avez reçu une nouvelle demande de véhicule de la part de ".$this->auteur()." pour ".$this->typedemandevehicule->name;
-
-						//TODO regler les mails
-						// ob_start();
-						// include(__DIR__."/../../sections/home/elements/mails/demandevehicule.php");
-						// $contenu = ob_get_contents();
-						// ob_end_clean();
+						$message = "Vous avez reçu une nouvelle demande de véhicule de la part de ".$this->auteur()." pour ".$this->typemission->name;
+						ob_start();
+						include(__DIR__."/../../webapp/home/elements/mails/demandevehicule.php");
+						$contenu = ob_get_contents();
+						ob_end_clean();
 						// EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande de véhicule", $contenu);
 						
 					}
@@ -86,23 +84,6 @@ class DEMANDEVEHICULE extends TABLE
 	}
 
 
-	public static function encours(){
-		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
-	}
-
-
-	public static function drh(){
-		return static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>1, "etats ="=>0]);
-	}
-	public static function dg(){
-		return static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>1, "etats ="=>1]);
-	}
-	public static function amb(){
-		return array_merge(static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>2]), static::findBy(["etat_id = "=>ETAT::ENCOURS, "typedemandevehicule_id ="=>1, "etats ="=>2])) ;
-	}
-
-
-
 
 	public static function valideesCeMois(){
 		return static::findBy(["etat_id ="=>1, "date_approuve >="=>date("Y-m")."-01"]);
@@ -116,7 +97,7 @@ class DEMANDEVEHICULE extends TABLE
 
 
 	public static function missions(){
-		return static::findBy(["typedemandevehicule_id ="=>1]);
+		return static::findBy(["typemission_id ="=>1]);
 	}
 
 	public function with_chauffeur(){
@@ -157,11 +138,11 @@ class DEMANDEVEHICULE extends TABLE
 		if ($data->status) {
 			//TODO mail
 			// $this->actualise();
-			// $message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typedemandevehicule->name." a été refusé ! Comme motif << $commentaire >> !";
+			// $message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typemission->name." a été refusé ! Comme motif << $commentaire >> !";
 			// $objet = "Demande de véhicule refusé";
 
 			// ob_start();
-			// include(__DIR__."/../../sections/home/elements/mails/demandevehicule1.php");
+			// include(__DIR__."/../../webapp/home/elements/mails/demandevehicule1.php");
 			// $contenu = ob_get_contents();
 			// ob_end_clean();
 			// EMAIL::send([$this->email()], $objet, $contenu);
@@ -172,54 +153,40 @@ class DEMANDEVEHICULE extends TABLE
 
 	public function approuver(){
 		$data = new RESPONSE;
-		$this->etats++;
-		$this->historique("Nouvelle étape pour la demande de véhicule N° $this->id");
+		$this->etape++;
+		$this->historique("Nouvelle étape pour la demande de véhicule N° $this->ticket");
 		$data = $this->save();
 		if ($data->status) {
-			//TODO mail
-			// $this->actualise();
-			// $message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typedemandevehicule->name." a été approuvé par la DAPA, les Ressources humaines et la Direction Générale !";
-			// $objet = "Demande de véhicule approuvé";
+			if (($this->typemission_id == TYPEMISSION::PROGRAMMEE && $this->etape >= DEPARTEMENT::finCircuitProgrammee()) || ($this->typemission_id == TYPEMISSION::INOPINEE && $this->etape >= DEPARTEMENT::finCircuitInopinee())) {
 
-			// ob_start();
-			// include(__DIR__."/../../sections/home/elements/mails/demandevehicule1.php");
-			// $contenu = ob_get_contents();
-			// ob_end_clean();
-			// EMAIL::send([$this->email()], $objet, $contenu);
+				$mission = new MISSION();
+				$mission->cloner($this);
+				$mission->setId(null);
+				$mission->demandevehicule_id = $this->getId();
+				$data = $mission->enregistre();
+				if ($data->status) {
+					$this->etat_id = ETAT::VALIDEE;
+					$this->date_approuve = date("Y-m-d H:i:s");
+					$this->historique("Approbation de la demande de véhicule N° $this->ticket");
+					$data = $this->save();
+					if ($data->status) {
+						$this->actualise();
+						$message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typemission->name." a été approuvé !";
+						$objet = "Demande de véhicule approuvé";
+
+						ob_start();
+						include(__DIR__."/../../webapp/home/elements/mails/demandevehicule1.php");
+						$contenu = ob_get_contents();
+						ob_end_clean();
+						// EMAIL::send([$this->email()], $objet, $contenu);
+					}
+				}
+			}
 		}
 		return $data;
 	}
 
 
-	public function approuverFinal(){
-		$data = new RESPONSE;
-		$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
-		$mission = new MISSION();
-		$mission->cloner($this);
-		$mission->setId(null);
-		$mission->demandevehicule_id = $this->getId();
-		$data = $mission->enregistre();
-		if ($data->status) {
-			$this->etat_id = ETAT::ENCOURS;;
-			$this->etats = 3;   
-			$this->date_approuve = date("Y-m-d H:i:s");
-			$this->historique("Approbation de la demande de véhicule N° $this->id");
-			$data = $this->save();
-			if ($data->status) {
-				//TODO mail
-				// $this->actualise();
-				// $message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typedemandevehicule->name." a été approuvé par la DAPA, les Ressources humaines et la Direction Générale !";
-				// $objet = "Demande de véhicule approuvé";
-
-				// ob_start();
-				// include(__DIR__."/../../sections/home/elements/mails/demandevehicule1.php");
-				// $contenu = ob_get_contents();
-				// ob_end_clean();
-				// EMAIL::send([$this->email()], $objet, $contenu);
-			}			
-		}
-		return $data;
-	}
 
 	public function sentenseCreate(){}
 	public function sentenseUpdate(){}

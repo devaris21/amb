@@ -40,7 +40,7 @@ class PRESTATAIRE extends AUTH
 					if ($data->status) {
 						$this->uploading($this->files);
 						ob_start();
-						include(__DIR__."/../../sections/home/elements/mails/welcome_prestataire.php");
+						include(__DIR__."/../../webapp/home/elements/mails/welcome_prestataire.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
 						// TODO gerer les mails

@@ -37,19 +37,23 @@ class UTILISATEUR extends AUTH
 		if ($this->login != "" && $this->password != "") {
 			$datas = UTILISATEUR::findBy(["login ="=>$this->login]);
 			if (count($datas) == 0) {
-				$data = $this->save();
-				if ($data->status) {
-					$this->uploading($this->files);
-					$this->setId($data->lastid)->actualise();
+				if ($this->emailIsValide($this->email) || true) {
+					$data = $this->save();
+					if ($data->status) {
+						$this->uploading($this->files);
+						$this->setId($data->lastid)->actualise();
 
-					ob_start();
-					include(__DIR__."/../../sections/home/elements/mails/welcome_user.php");
-					$contenu = ob_get_contents();
-					ob_end_clean();
-				//TODO gerer les mails
-				//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+						$poste ="Responsable de ".$this->departement->name();
+						ob_start();
+						include(__DIR__."/../../composants/assets/emails/newcompte.php");
+						$contenu = ob_get_contents();
+						ob_end_clean();
+						//EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
+					}
+				}else{
+					$data->status = false;
+					$data->message = "Veuillez renseigner votre adresse email ou le changer !";
 				}
-
 			}else{
 				$data->status = false;
 				$data->message = "Ce login ne peut plus etre utilisé !";
@@ -148,7 +152,7 @@ class UTILISATEUR extends AUTH
 			$datas = self::findBy(["login = "=>$login, "id !="=> $this->getId()]);
 			if (count($datas) == 0) {
 				if($this->password != hasher($password)){
-					if ($this->set_login($login)) {
+					if ($this->setLogin($login)) {
 						$this->set_password($password);
 						$this->is_new = 1;
 						$data = $this->save();
@@ -176,7 +180,7 @@ class UTILISATEUR extends AUTH
 
 	public function reinitialiserCompte(){
 		$data = new RESPONSE;
-		if ($this->set_login(substr(md5(uniqid()), 0, 9))) {
+		if ($this->setLogin(substr(md5(uniqid()), 0, 9))) {
 			$this->set_password("6ed78djf21ga");
 			$this->is_new = 0;
 			$this->historique("Reinitialisation des parametres de compte de $this->name $this->lastname");

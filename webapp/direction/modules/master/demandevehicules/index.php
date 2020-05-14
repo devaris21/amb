@@ -22,7 +22,7 @@
                             <div class="col-xs-7 gras text-capitalize">Afficher toutes les demandes</div>
                             <div class="offset-1"></div>
                             <div class="col-xs-4">
-                             <div class="switch">
+                               <div class="switch">
                                 <div class="onoffswitch">
                                     <input type="checkbox" class="onoffswitch-checkbox" id="example1">
                                     <label class="onoffswitch-label" for="example1">
@@ -68,7 +68,7 @@
             <div class="ibox">
                 <div class="ibox-content" style="min-height: 350px;">
                     <?php if (count($demandes) > 0) { ?>
-                     <div class="row">
+                       <div class="row">
                         <div class="col-lg-12">
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <?php foreach ($demandes as $key => $demande) {
@@ -91,46 +91,36 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-3 text-right">
-                                                <div class="vote-icon">
-                                                    <?php 
-                                                    if ($demande->etat_id == Home\ETAT::ENCOURS) {
-                                                      if ($demande->typedemandevehicule_id == 1) {
-                                                         if ($demande->etats >= 1) { ?>
-                                                             <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DRH"> </i>
-                                                         <?php }
-                                                         if ($demande->etats >= 2) { ?>
-                                                             <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
-                                                         <?php }
-                                                         if ($demande->etats >= 3) { ?>
-                                                             <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DAPA"> </i>
-                                                         <?php }
-                                                     }else{
-                                                        if($demande->etat_id == Home\ETAT::VALIDEE){ ?>
-                                                         <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
-                                                     <?php }
-                                                 }
-                                             }else{ ?>
-                                                 <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée par <?= $demande->motif ?>"> </i>
-                                             <?php }
-                                             ?>
-                                         </div>
-                                         <?php if ($demande->etat_id == Home\ETAT::ENCOURS) { ?>
-                                             <button onclick="approuver(<?= $demande->getId(); ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> Approuver </button>
-                                             <button class="btn btn-white btn-sm" data-toggle=tooltip title="Refuser la demande" onclick="refuser(<?= $demande->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                                         <?php } ?>
-                                     </div>
-                                 </div>
-                             </div>
-                         <?php  } ?>
+                                              <div class="vote-icon">
+                                                <?php if ($demande->etat_id == Home\ETAT::ENCOURS) {
+                                                    for ($i=0; $i < $demande->etape; $i++) { ?>
+                                                        <i class="fa fa-check text-green" data-toggle="tooltip" title="Etape <?= $demande->etape ?> terminée"> </i>
+                                                    <?php } 
+                                                }elseif($demande->etat_id == Home\ETAT::VALIDEE){ ?>
+                                                    <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
+                                                    <?php       
+                                                }else{ ?>
+                                                    <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée pour '<?= $demande->refus_comment ?>' "> </i>
+                                                <?php }
+                                                ?>
+                                            </div>
+                                            <?php if ($demande->etat_id == Home\ETAT::ENCOURS) { ?>
+                                                <button onclick="approuver(<?= $demande->getId(); ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> Approuver </button>
+                                                <button class="btn btn-white btn-sm" data-toggle=tooltip title="Refuser la demande" onclick="refuser(<?= $demande->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php  } ?>
 
-                     </div>
-                 </div>
-             </div>
-         <?php }else{ ?>
-            <h2 class="text-center" style="margin-top: 7%; color: #ccc"><i class="fa fa-folder-open-o fa-4x"></i><br><br> Aucune demande en attente d'approbation pour le moment !</h2>
-        <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            <?php }else{ ?>
+                <h2 class="text-center" style="margin-top: 7%; color: #ccc"><i class="fa fa-folder-open-o fa-4x"></i><br><br> Aucune demande en attente d'approbation pour le moment !</h2>
+            <?php } ?>
+        </div>
     </div>
-</div>
 </div>
 
 
@@ -179,7 +169,7 @@
                         <div class="col-sm-4"><h4>Choisissez le chauffeur</h4>
                             <!-- TODO liste des chauffeurs disponibles -->
                             <div class="text-left">
-                               <?php foreach (Home\CHAUFFEUR::open() as $key => $chauffeur) { ?>
+                             <?php foreach (Home\CHAUFFEUR::open() as $key => $chauffeur) { ?>
                                 <div class="contact-box cursor chauffeurSelect" id="<?= $chauffeur->getId(); ?>" style="padding: 2px;">
                                     <div class="row">
                                         <div class="col-3">

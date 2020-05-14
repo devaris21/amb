@@ -12,6 +12,8 @@ class DEPARTEMENT extends TABLE
 
 	public $name;
 	public $sigle;
+	public $circuit_programmee;
+	public $circuit_inopinee;
 
 
 	public function enregistre(){
@@ -34,6 +36,31 @@ class DEPARTEMENT extends TABLE
 	}
 
 
+
+
+	public static function finCircuitProgrammee(){
+		$datas = static::findBy(["circuit_programmee > "=> 0], [], ["circuit_programmee"=>"DESC"], 1);
+		if (count($datas) == 1) {
+			$item = $datas[0];
+			return $item->circuit_programmee;
+		}else{
+			return 0;
+		}
+	}
+
+
+	public static function finCircuitInopinee(){
+		$datas = static::findBy(["circuit_inopinee > "=> 0], [], ["circuit_inopinee"=>"DESC"], 1);
+		if (count($datas) == 1) {
+			$item = $datas[0];
+			return $item->circuit_inopinee;
+		}else{
+			return 0;
+		}
+	}
+
+
+
 	public function sentenseCreate(){
 		return $this->sentense = "Ajout d'un nouvelle direction : $this->name dans les paramétrages";
 	}
@@ -47,6 +74,9 @@ class DEPARTEMENT extends TABLE
 	public function sentenseDelete(){
 		return $this->sentense = "Suppression définitive de la direction $this->name.";
 	}
+
+
+
 
 
 }

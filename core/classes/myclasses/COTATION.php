@@ -33,7 +33,7 @@ class COTATION extends TABLE
 				$message = "Vous avez reçu une nouvelle demande de cotation de la part de l'ARTCI par rapport à l'un de vos produit/service. Nous vous invitons donc à vous connecter à votre espace dédié sur la plateforme de gestion de l'ARTCI pour de mieux prendre connaissance de cette nouvelle requette et de ses besoins .";
 
 				// ob_start();
-				// include(__DIR__."/../../sections/home/elements/mails/standard.php");
+				// include(__DIR__."/../../webapp/home/elements/mails/standard.php");
 				// $contenu = ob_get_contents();
 				// ob_end_clean();
 				// EMAIL::send([$this->prestataire->email], $objet, $contenu);

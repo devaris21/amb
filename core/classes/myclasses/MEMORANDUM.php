@@ -46,7 +46,7 @@ class MEMORANDUM extends TABLE
 
 					$message = "Vous avez reçu un nouveau mémorandum soumis à votre approbation faites par ".$this->gestionnaire->name().", avec pour objet : '$this->objet' ! ";
 					ob_start();
-					include(__DIR__."/../../sections/home/elements/mails/memo.php");
+					include(__DIR__."/../../webapp/home/elements/mails/memo.php");
 					$contenu = ob_get_contents();
 					ob_end_clean();
 					$emails = [];

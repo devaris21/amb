@@ -1,15 +1,7 @@
+ .ibox-content{
+ 	padding: 1%;
+ }
 
-.nav-item{
-	font-weight: bold;
-	font-size: 15px;
-	text-transform: uppercase;
-}
-
-.subtitle{
-	font-style: 20px;
-}
-
-.ibox-title{
-	padding-right: 10px;
-	padding-left: 10px;
-}
+ td i.fa{
+ 	font-size: 16px;
+ }

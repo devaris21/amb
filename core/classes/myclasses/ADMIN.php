@@ -40,7 +40,7 @@ class ADMIN extends AUTH
 
 					//@TODO refaire email welcome gestionnaire
 					ob_start();
-					include(__DIR__."/../../sections/home/elements/mails/welcome_gestionnaire.php");
+					include(__DIR__."/../../webapp/home/elements/mails/welcome_gestionnaire.php");
 					$contenu = ob_get_contents();
 					ob_end_clean();
 					EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
@@ -153,7 +153,7 @@ class ADMIN extends AUTH
 			$datas = self::findBy(["login = "=>$login, "id !="=> $this->getId()]);
 			if (count($datas) == 0) {
 				if($this->password != hasher($password)){
-					if ($this->set_login($login)) {
+					if ($this->setLogin($login)) {
 						$this->set_password($password);
 						$this->is_new = 1;
 						$data = $this->save();
@@ -193,7 +193,7 @@ class ADMIN extends AUTH
 
 	public function reinitialiserCompte(){
 		$data = new RESPONSE;
-		if ($this->set_login(substr(md5(uniqid()), 0, 9))) {
+		if ($this->setLogin(substr(md5(uniqid()), 0, 9))) {
 			$this->set_password("6ed78djf21ga");
 			$this->is_new = 0;
 			$this->historique("Reinitialisation des parametres de compte de $this->name $this->lastname");

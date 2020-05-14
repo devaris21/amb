@@ -26,7 +26,7 @@
                             </div>
                             <div class="ibox-content">
                                 <h2 class="no-margins"><?= $compte->typecompte->name ?></h2>
-                                <small>Version <?= $compte->version; ?></small>
+                                <small>Version <?= Native\SHAMMAN::getConfig("metadata", "version") ?></small>
                             </div>
                         </div>
                     </div>

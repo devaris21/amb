@@ -51,6 +51,11 @@
 
             <br><li class="dropdown-divider"></li><br>
             <li class="">
+                <a href="<?= $this->url("administration", "parametres", "configuration") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Configuration</span></a>
+            </li>
+
+            <br><li class="dropdown-divider"></li><br>
+            <li class="">
                 <a href="<?= $this->url("administration", "parametres", "suggestions") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Retour Suggestions</span></a>
             </li>
             <li class="" id="index">

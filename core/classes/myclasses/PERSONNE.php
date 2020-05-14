@@ -129,7 +129,7 @@ abstract class PERSONNE extends TABLE
 		$data = $this->save();
 		if ($data->status) {
 			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/reset.php");
+			include(__DIR__."/../../webapp/home/elements/mails/reset.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
 			EMAIL::send([$this->email], "Reinitialisation de vos parametres de connexion", $contenu);
@@ -152,7 +152,7 @@ abstract class PERSONNE extends TABLE
 		return $this->login;
 	}
 
-	public function set_login($login){
+	public function setLogin($login){
 		if ($login != "") {
 			$login = verification($login);
 			$datas = static::findBy(["login = "=>$login]);

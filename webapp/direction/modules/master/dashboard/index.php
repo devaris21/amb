@@ -35,9 +35,7 @@
                                         <h5>Demandes en cours</h5>
                                     </div>
                                     <div class="ibox-content">
-                                        <h1 class="no-margins">22 285,400</h1>
-                                        <div class="stat-percent font-bold text-navy">20% <i class="fa fa-level-up"></i></div>
-                                        <small>New orders</small>
+                                        <h1 class="no-margins"><?= start0(count($demandes))  ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -49,8 +47,6 @@
                                     </div>
                                     <div class="ibox-content">
                                         <h1 class="no-margins">60 420,600</h1>
-                                        <div class="stat-percent font-bold text-info">40% <i class="fa fa-level-up"></i></div>
-                                        <small>New orders</small>
                                     </div>
                                 </div>
                             </div>
@@ -60,9 +56,7 @@
                                         <h5>Missions en cours</h5>
                                     </div>
                                     <div class="ibox-content">
-                                        <h1 class="no-margins">$ 120 430,800</h1>
-                                        <div class="stat-percent font-bold text-warning">16% <i class="fa fa-level-up"></i></div>
-                                        <small>New orders</small>
+                                        <h1 class="no-margins"><?= start0(count($missions))  ?></h1>
                                     </div>
                                 </div>
                             </div>
@@ -104,8 +98,8 @@
                                                             <div class="row">
                                                                 <div class="col-md-9">
                                                                     <div class="vote-actions" style="margin-right: 6%; height: 100%">
-                                                                        <div class="vote-icon" data-toggle="tooltip" title="<?= ($demande->typedemandevehicule_id == 2)?'Mission programmée':'Mission inopinée'; ?>" >
-                                                                            <i class="fa fa-car <?= ($demande->typedemandevehicule_id == 2)?'text-danger':''  ?>"> </i>
+                                                                        <div class="vote-icon" data-toggle="tooltip" title="<?= ($demande->typemission_id == 2)?'Mission programmée':'Mission inopinée'; ?>" >
+                                                                            <i class="fa fa-car <?= ($demande->typemission_id == 2)?'text-danger':''  ?>"> </i>
                                                                         </div>
                                                                     </div>
                                                                     <span class="vote-title"><u class="text-info">#<?= $demande->ticket ?></u>  // <?= $demande->objet ?></span>
@@ -118,83 +112,73 @@
                                                                 </div>
                                                                 <div class="col-md-3 text-right">
                                                                     <div class="vote-icon">
-                                                                        <?php 
-                                                                        if ($demande->etat_id == Home\ETAT::ENCOURS) {
-                                                                          if ($demande->typedemandevehicule_id == 1) {
-                                                                             if ($demande->etats >= 1) { ?>
-                                                                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DRH"> </i>
-                                                                             <?php }
-                                                                             if ($demande->etats >= 2) { ?>
-                                                                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
-                                                                             <?php }
-                                                                             if ($demande->etats >= 3) { ?>
-                                                                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DAPA"> </i>
-                                                                             <?php }
-                                                                         }else{
-                                                                            if($demande->etat_id == Home\ETAT::VALIDEE){ ?>
-                                                                             <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
-                                                                         <?php }
-                                                                     }
-                                                                 }else{ ?>
-                                                                     <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée pour '<?= $demande->refus_comment ?>' "> </i>
-                                                                 <?php }
-                                                                 ?>
-                                                             </div>
-                                                             <?php if ($demande->etat_id == Home\ETAT::ENCOURS) { ?>
-                                                                En attente d'approbations
-                                                            <?php } ?>
+                                                                        <?php if ($demande->etat_id == Home\ETAT::ENCOURS) {
+                                                                            for ($i=0; $i < $demande->etape; $i++) { ?>
+                                                                                <i class="fa fa-check text-green" data-toggle="tooltip" title="Etape <?= $demande->etape ?> terminée"> </i>
+                                                                            <?php } 
+                                                                        }elseif($demande->etat_id == Home\ETAT::VALIDEE){ ?>
+                                                                            <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
+                                                                            <?php       
+                                                                        }else{ ?>
+                                                                            <i class="fa fa-close text-red" data-toggle="tooltip" title="Demande annulée pour '<?= $demande->refus_comment ?>' "> </i>
+                                                                        <?php }
+                                                                        ?>
+                                                                    </div>
+                                                                    <?php if ($demande->etat_id == Home\ETAT::ENCOURS) { ?>
+                                                                        En attente d'approbations
+                                                                    <?php } ?>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            <?php  } ?>
+                                                    <?php  } ?>
 
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
-
                     </div>
-                </div>
-            </div>
 
 
-            <div class="col-md-3">
-                <div class="sidebar-panel" style="width: 100%;">
-                    <div>
-                        <h4>Les responsables <span class="badge badge-info float-right"><?= start0(count($utilisateurs));  ?></span></h4>
-                        <hr>
-                        <?php foreach ($utilisateurs as $key => $user) { ?>
-                            <div class="feed-element">
-                                <a href="#" class="float-left">
-                                    <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "utilisateurs", $utilisateur->image) ?>">
-                                </a>
-                                <div class="media-body">
-                                    <span class="gras"><?= $user->name() ?></span>
-                                    <br>
-                                    <small class="text-muted">Dernière connexion, <?= depuis($user->last_connexion()) ?></small>
-                                    <!-- TODO faire les last connexion -->
-                                </div>
+                    <div class="col-md-3">
+                        <div class="sidebar-panel" style="width: 100%;">
+                            <div>
+                                <h4>Les responsables <span class="badge badge-info float-right"><?= start0(count($utilisateurs));  ?></span></h4>
+                                <hr>
+                                <?php foreach ($utilisateurs as $key => $user) { ?>
+                                    <div class="feed-element">
+                                        <a href="#" class="float-left">
+                                            <img alt="image" class="rounded-circle" src="<?= $this->stockage("images", "utilisateurs", $utilisateur->image) ?>">
+                                        </a>
+                                        <div class="media-body">
+                                            <span class="gras"><?= $user->name() ?></span>
+                                            <br>
+                                            <small class="text-muted">Dernière connexion, <?= depuis($user->last_connexion()) ?></small>
+                                            <!-- TODO faire les last connexion -->
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
                             </div>
-                        <?php } ?>
-
+                        </div>
                     </div>
                 </div>
             </div>
+
+
+
+
+            <?php include($this->rootPath("composants/assets/modals/modal-demandevehicule.php")); ?> 
+
+            <?php include($this->rootPath("webapp/direction/elements/templates/footer.php")); ?>
+
+
         </div>
+
     </div>
-
-
-
-
-    <?php include($this->rootPath("composants/assets/modals/modal-demandevehicule.php")); ?> 
-
-    <?php include($this->rootPath("webapp/direction/elements/templates/footer.php")); ?>
-
-
-</div>
-
-</div>
 
 
 </body>

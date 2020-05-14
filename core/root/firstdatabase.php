@@ -12,7 +12,7 @@ foreach ($datas as $key => $value) {
 	$item->save();
 }
 
-$datas = ["Mission programmée", "Mission inopinée"];
+$datas = ["Mission programmée", "Mission inopinée", "Autre demande"];
 foreach ($datas as $key => $value) {
 	$item = new TYPEMISSION();
 	$item->name = $value;
@@ -132,6 +132,7 @@ $item->enregistre();
 $item = new MYCOMPTE();
 $item->identifiant = strtoupper(substr(uniqid(), 5, 7));
 $item->tentative = 0;
+$item->typecompte = TYPECOMPTE::MASTER;
 $item->expired = dateAjoute(7);
 $item->setProtected(1);
 $item->enregistre();

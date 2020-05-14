@@ -45,7 +45,7 @@ if ($action == "newUser") {
 	$datas = UTILISATEUR::findBy(["id ="=>getSession("temp_utilisateur_id")]);
 	if (count($datas) == 1) {
 		$element = $datas[0];
-		if ($element->set_login($login)) {
+		if ($element->setLogin($login)) {
 			if ($pass != "" && $pass == $pass0) {
 				$element->password = hasher($pass);
 				$element->is_new = 0;

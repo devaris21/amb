@@ -12,13 +12,13 @@
                     <div class="col-sm-4">
                         <label>Pour quel type de demande <span1>*</span1></label>
                         <div class="form-group">
-                            <?php Native\BINDING::html("select", "typedemandevehicule"); ?>
+                            <?php Native\BINDING::html("select", "typemission"); ?>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <label>Objet de la démande <span1>*</span1></label>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="objet" required placeholder="Tournée de controle à cocody">
+                            <input type="text" class="form-control" name="objet" required >
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="col-sm-4">
-                        <label>Expliquer la mission<span1>*</span1></label>
+                        <label>Motif de la demande<span1>*</span1></label>
                         <div class="form-group">
                             <textarea class="form-control" rows="5" name="comment"></textarea>
                         </div>

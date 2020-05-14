@@ -122,7 +122,7 @@ class ENTRETIENVEHICULE extends TABLE
 			$objet = "Demande d'entretien de véhicule approuvé";
 
 			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
+			include(__DIR__."/../../webapp/home/elements/mails/demandeentretien1.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
 			//EMAIL::send([$this->email()], $objet, $contenu);
@@ -146,7 +146,7 @@ class ENTRETIENVEHICULE extends TABLE
 			$objet = "Entretien de véhicule échoué!";
 
 			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
+			include(__DIR__."/../../webapp/home/elements/mails/demandeentretien1.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
 			//EMAIL::send([$this->email()], $objet, $contenu);

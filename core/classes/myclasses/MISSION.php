@@ -47,7 +47,7 @@ class MISSION extends TABLE
 
 					// $message = "Une nouvelle mission a été enregistrée suite à l'approbation générale de la demande de véhicule N°$this->id pour ".$this->demandevehicule->typedemandevehicule->name." faite par ".$this->demandevehicule->auteur();
 					// ob_start();
-					// include(__DIR__."/../../sections/home/elements/mails/mission.php");
+					// include(__DIR__."/../../webapp/home/elements/mails/mission.php");
 					// $contenu = ob_get_contents();
 					// ob_end_clean();
 					// EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Approbation d'une nouvelle mission", $contenu);
@@ -55,7 +55,7 @@ class MISSION extends TABLE
 
 					// $message = "Nous vous informons de la nouvelle mission suite à l'approbation générale de votre demande de véhicule N°$this->id pour ".$this->demandevehicule->typedemandevehicule->name;
 					// ob_start();
-					// include(__DIR__."/../../sections/home/elements/mails/missionuser.php");
+					// include(__DIR__."/../../webapp/home/elements/mails/missionuser.php");
 					// $contenu = ob_get_contents();
 					// ob_end_clean();
 					// EMAIL::send([$this->demandevehicule->email()], "Approbation votre mission", $contenu);

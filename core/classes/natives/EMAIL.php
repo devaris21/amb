@@ -16,7 +16,7 @@ class EMAIL
 	public static function send(Array $destinateurs, String $subject, $lemessage, $format = false){
 		if (@fsockopen("www.google.com", 80)) {
 			// Create the Transport
-			$transport = (new Swift_SmtpTransport(SHAMMAN::getConfig("mail", "transport"), SHAMMAN::getConfig("mail", "transport")))
+			$transport = (new Swift_SmtpTransport(SHAMMAN::getConfig("mail", "transport"), SHAMMAN::getConfig("mail", "port")))
 			->setUsername(SHAMMAN::getConfig("mail", "email"))
 			->setPassword(SHAMMAN::getConfig("mail", "password"))
 			->setEncryption(SHAMMAN::getConfig("mail", "encryption"));

@@ -28,6 +28,9 @@
             <li class="">
                 <a href="<?= $this->url("direction", "master", "missions") ?>"><i class="fa fa-plane"></i> <span class="nav-label">Les missions</span></a>
             </li>
+            <li class="">
+                <a href="<?= $this->url("direction", "master", "moncompte") ?>"><i class="fa fa-plane"></i> <span class="nav-label">Mon compte</span></a>
+            </li>
             <?php if (in_array($utilisateur->departement->getId(), [1,2])) { ?>
                 <li class="dropdown-divider"></li>
                 <li class="">

@@ -2,6 +2,7 @@
 $(function(){
 
     $("form#formConnexion").submit(function(event) {
+        Loader.start()
         var url = "../../webapp/direction/modules/access/login/ajax.php";
         var formData = new FormData($(this)[0]);
         formData.append('action', 'connexion');
@@ -9,6 +10,7 @@ $(function(){
             if (data.status) {
                 if (data.new) {
                     $("#modalNewUser").modal();
+                    Loader.stop()
                 }else{
                     window.location.href = data.url;
                 }
@@ -22,6 +24,7 @@ $(function(){
 
 
     $("form#formNewUser").submit(function(event) {
+        Loader.start()
         var url = "../../webapp/direction/modules/access/login/ajax.php";
         var formData = new FormData($(this)[0]);
         formData.append('action', 'newUser');

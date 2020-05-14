@@ -19,7 +19,7 @@
             <div class=" animated fadeInRightBig">
                 <div class="ibox">
                     <div class="ibox-content">
-                     <div class="tabs-container">
+                       <div class="tabs-container">
                         <ul class="nav nav-tabs" role="tablist">
                             <li><a class="nav-link" data-toggle="tab" href="#menu-0"><i class="fa fa-user"></i> Mes Informations</a></li>
                             <li><a class="nav-link active" data-toggle="tab" href="#menu-1"><i class="fa fa-car"></i> Infos Générale</a></li>
@@ -85,142 +85,142 @@
 
                             <div role="tabpanel" id="menu-0" class="tab-pane">
                                 <div class="panel-body">
-                                 <div class="row">
-                                    <div class="col-md-8 border-right">
-                                        <div class="row">
-                                           <div class="col-md-4">
-                                            <div class="">
-                                                <div>
-                                                    <img style="width: 90%;" class="img-thumbnail" src="<?= $this->stockage("images", "carplans", $affectation->carplan->image) ?>" alt=""><br>
-                                                    <div class="text-center"><br>
-                                                        <button data-toggle="modal" data-target="#modal-image" class="btn btn-success btn-xs btn-rounded btn-outline"><i class="fa fa-plus"></i> Changer la photo</button>
+                                    <div class="row">
+                                        <div class="col-md-8 border-right">
+                                            <div class="row">
+                                             <div class="col-md-4">
+                                                <div class="">
+                                                    <div>
+                                                        <img style="width: 90%;" class="img-thumbnail" src="<?= $this->stockage("images", "carplans", $affectation->carplan->image) ?>" alt=""><br>
+                                                        <div class="text-center"><br>
+                                                            <button data-toggle="modal" data-target="#modal-image" class="btn btn-success btn-xs btn-rounded btn-outline"><i class="fa fa-plus"></i> Changer la photo</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <span data-toggle="modal" data-target="#modal-carplan" onclick="modification('carplan', <?= $affectation->carplan->getId(); ?>)" class="float-right mp5"><i class="fa fa-pencil cursor fa-2x"></i></span>
-                                            <h2 class="mp0 gras text-navy" style="margin-top: 6px;"><?= $affectation->carplan->name() ?></h2>
-                                            <h5 class="gras"><?= $affectation->carplan->fonction ?></h5><br>
+                                            <div class="col-md-8">
+                                                <span data-toggle="modal" data-target="#modal-carplan" onclick="modification('carplan', <?= $affectation->carplan->getId(); ?>)" class="float-right mp5"><i class="fa fa-pencil cursor fa-2x"></i></span>
+                                                <h2 class="mp0 gras text-navy" style="margin-top: 6px;"><?= $affectation->carplan->name() ?></h2>
+                                                <h5 class="gras"><?= $affectation->carplan->fonction ?></h5><br>
 
-                                            <small>Situation géographique</small>
-                                            <h3 class="font-bold"><i class="fa fa-map-marker"></i>  <?= $affectation->carplan->adresse ?></h3>
-                                            <small>Adresse email</small>
-                                            <h3 class="font-bold"><i class="fa fa-envelope"></i>  <?= $affectation->carplan->email ?></h3>
-                                            <small>Contact</small>
-                                            <h3 class="font-bold"><i class="fa fa-phone"></i>  <?= $affectation->carplan->contact ?></h3>
+                                                <small>Situation géographique</small>
+                                                <h3 class="font-bold"><i class="fa fa-map-marker"></i>  <?= $affectation->carplan->adresse ?></h3>
+                                                <small>Adresse email</small>
+                                                <h3 class="font-bold"><i class="fa fa-envelope"></i>  <?= $affectation->carplan->email ?></h3>
+                                                <small>Contact</small>
+                                                <h3 class="font-bold"><i class="fa fa-phone"></i>  <?= $affectation->carplan->contact ?></h3>
+                                            </div>
                                         </div>
+
                                     </div>
+                                    <div class="col-md-4">
+                                        <h3 class="mp0 gras text-navy" style="margin-top: 6px;">Login</h3>
+                                        <h5 class="gras"><?= $affectation->carplan->login ?>
+                                        <button  data-toggle="modal" data-target="#modal-login" class="btn btn-warning btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-key"></i> Changer le login</button>
+                                    </h5>
+                                    <br><br>
+
+
+                                    <h3 class="mp0 gras text-navy" style="margin-top: 6px;">Mot de passe</h3>
+                                    <h5 class="gras">************** 
+                                        <button data-toggle="modal" data-target="#modal-password"  class="btn btn-danger btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-lock"></i> Changer le mot de passe</button>
+                                    </h5>
+                                    <br>
 
                                 </div>
-                                <div class="col-md-4">
-                                    <h3 class="mp0 gras text-navy" style="margin-top: 6px;">Login</h3>
-                                    <h5 class="gras"><?= $affectation->carplan->login ?>
-                                    <button  data-toggle="modal" data-target="#modal-login" class="btn btn-warning btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-key"></i> Changer le login</button>
-                                </h5>
-                                <br><br>
-
-
-                                <h3 class="mp0 gras text-navy" style="margin-top: 6px;">Mot de passe</h3>
-                                <h5 class="gras">************** 
-                                    <button data-toggle="modal" data-target="#modal-password"  class="btn btn-danger btn-xs btn-rounded btn-outline pull-right"><i class="fa fa-lock"></i> Changer le mot de passe</button>
-                                </h5>
-                                <br>
-
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div role="tabpanel" id="menu-2" class="tab-pane">
-                    <h2 class="text-uppercase gras">Fiche technique de la <u><?= $affectation->vehicule->marque->name ?> <?= $affectation->vehicule->modele ?></u> </h2>
+                    <div role="tabpanel" id="menu-2" class="tab-pane">
+                        <h2 class="text-uppercase gras">Fiche technique de la <u><?= $affectation->vehicule->marque->name ?> <?= $affectation->vehicule->modele ?></u> </h2>
 
-                    <br>
-                    <div class="row">
-                        <div class="col-md-4 border-right">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr>
-                                        <td>Marque</td>
-                                        <td><?= $affectation->vehicule->marque->name ?></td>
-                                    </tr>                                            
-                                    <tr>
-                                        <td>Modèle</td>
-                                        <td><?= $affectation->vehicule->modele ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Couleur</td>
-                                        <td><?= $carteGrise->couleur ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>N°Chasis</td>
-                                        <td><?= $affectation->vehicule->chasis ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-4 border-right">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr>
-                                        <td>Energie</td>
-                                        <td><?= ($carteGrise->energie_id > 0)?$carteGrise->energie->name:"" ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Puissance</td>
-                                        <td><?= $affectation->vehicule->puissance ?> chevaux</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Transmission</td>
-                                        <td><?= $affectation->vehicule->typetransmission->name ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Portieres / Places</td>
-                                        <td><?= $affectation->vehicule->nb_porte ?> portières / <?= $affectation->vehicule->nb_place ?> places</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="col-md-4">
-                            <table class="table table-sm">
-                                <tbody>
-                                    <tr>
-                                        <td>Mise en circulation</td>
-                                        <td><?= datecourt($affectation->vehicule->date_mise_circulation) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Kilometrage actuel</td>
-                                        <td><?= $affectation->vehicule->kilometrage ?> Kms</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Sortie de Circulation</td>
-                                        <td><?= datecourt($affectation->vehicule->date_sortie) ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Propriétaire</td>
-                                        <td><?= $affectation->vehicule->prestataire->name ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4 border-right">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td>Marque</td>
+                                            <td><?= $affectation->vehicule->marque->name ?></td>
+                                        </tr>                                            
+                                        <tr>
+                                            <td>Modèle</td>
+                                            <td><?= $affectation->vehicule->modele ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Couleur</td>
+                                            <td><?= $carteGrise->couleur ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>N°Chasis</td>
+                                            <td><?= $affectation->vehicule->chasis ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4 border-right">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td>Energie</td>
+                                            <td><?= ($carteGrise->energie_id > 0)?$carteGrise->energie->name:"" ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Puissance</td>
+                                            <td><?= $affectation->vehicule->puissance ?> chevaux</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Transmission</td>
+                                            <td><?= $affectation->vehicule->typetransmission->name ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Portieres / Places</td>
+                                            <td><?= $affectation->vehicule->nb_porte ?> portières / <?= $affectation->vehicule->nb_place ?> places</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-4">
+                                <table class="table table-sm">
+                                    <tbody>
+                                        <tr>
+                                            <td>Mise en circulation</td>
+                                            <td><?= datecourt($affectation->vehicule->date_mise_circulation) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kilometrage actuel</td>
+                                            <td><?= $affectation->vehicule->kilometrage ?> Kms</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Sortie de Circulation</td>
+                                            <td><?= datecourt($affectation->vehicule->date_sortie) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Propriétaire</td>
+                                            <td><?= $affectation->vehicule->prestataire->name ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
 
 
-                <div role="tabpanel" id="menu-3" class="tab-pane">
-                    <div class="panel-body">
-                     <div class="row">
-                        <div class="col-md-6">
-                            <table class="table table-striped table-hover table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>Désignation</th>
-                                        <th>Quantité</th>
-                                        <th colspan="2">Options</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                   <?php foreach ($affectation->vehicule->equipement_vehicules as $key => $ch) {
+                    <div role="tabpanel" id="menu-3" class="tab-pane">
+                        <div class="panel-body">
+                           <div class="row">
+                            <div class="col-md-6">
+                                <table class="table table-striped table-hover table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Désignation</th>
+                                            <th>Quantité</th>
+                                            <th colspan="2">Options</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                     <?php foreach ($affectation->vehicule->equipement_vehicules as $key => $ch) {
                                         $ch->actualise(); ?>
                                         <tr>
                                             <td class=""><img style="width: 32px" src="<?= $this->stockage("images", "equipements", $ch->equipement->image) ?>"></td>
@@ -259,7 +259,7 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-8 border-right">
-                         <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
+                           <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
                             <div class="vertical-timeline-block">
                                 <div class="vertical-timeline-icon navy-bg">
                                     <i class="fa fa-briefcase"></i>
