@@ -10,7 +10,8 @@ class GROUPEVEHICULE extends TABLE
 	public static $namespace = __NAMESPACE__;
 
 	const VEHICULEMISSION = 1;
-	const VEHICULELOUEE = 4;
+	const VEHICULECARPLAN = 1;
+	const VEHICULELOUEE = 6;
 
 	public $name;
 

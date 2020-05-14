@@ -13,10 +13,10 @@ if ($action == "password") {
 		if ($password == $password1) {
 			$datas = CARPLAN::findBy(["id ="=>getSession("carplan_connecte_id")]);
 			if (count($datas) == 1) {
-				$flotte = $datas[0];
-				if ($flotte->checkPassword($password0)) {
-					$flotte->setPassword($password);
-					$data = $flotte->save();
+				$carplan = $datas[0];
+				if ($carplan->checkPassword($password0)) {
+					$carplan->setPassword($password);
+					$data = $carplan->save();
 				}else{
 					$data->status = false;
 					$data->message = "Votre mot de passe n'est pas correcte !";
@@ -42,10 +42,10 @@ if ($action == "password") {
 if ($action == "login") {
 	$datas = CARPLAN::findBy(["id ="=>getSession("carplan_connecte_id")]);
 	if (count($datas) == 1) {
-		$flotte = $datas[0];
-		if ($flotte->checkPassword($password)) {
-			if ($flotte->setLogin($login)) {
-			$data = $flotte->save();
+		$carplan = $datas[0];
+		if ($carplan->checkPassword($password)) {
+			if ($carplan->setLogin($login)) {
+			$data = $carplan->save();
 			}else{
 				$data->status = false;
 			$data->message = "Vous ne pouvez pas utilisez ce login, veuillez le changer !";

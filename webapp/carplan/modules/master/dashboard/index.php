@@ -44,7 +44,7 @@
                                         <h1 class="gras text-navy" style="margin: 0"><strong><?= $affectation->vehicule->immatriculation ?></strong></h1>
                                         <h2 class="font-bold m-b-xs"><?= $affectation->vehicule->marque->name ?> <?= $affectation->vehicule->modele ?></h2><br>
                                         <span>Période de l'affectation</span>
-                                        <h3 class="font-bold m-b-xs"><?= datecourt($affectation->started) ?> -- <?= datecourt($affectation->finished) ?> (1)</h3>
+                                        <h3 class="font-bold m-b-xs"><?= datecourt($renouv->started);  ?> -- <?= datecourt($renouv->finished);  ?> (<?= count($affectation->renouvelementaffectations) ?>)</h3>
                                         <hr>
 
                                         <div>
@@ -59,8 +59,12 @@
                                                     <tr>
                                                         <td><label class="m-b-5 f-w-400 label label-<?= ($assurance->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($assurance->finished); ?></label></td>
                                                         <td><label class="m-b-5 f-w-400 label label-<?= ($visitetechnique->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($visitetechnique->finished); ?></label></td>
-                                                        <td><label class="m-b-5 f-w-400 label label-<?= ($vidange->finished > dateAjoute())?"success":"danger" ?>"><?= datecourt($vidange->finished); ?></label></td>
-                                                        <td></td>
+                                                        <td>
+                                                            <?php if ($vidange != null) { ?>
+                                                                <label class="m-b-5 f-w-400 label label-<?= ($vidange->date > dateAjoute())?"success":"danger" ?>"><?= datecourt($vidange->date); ?> ou dans <?= $vidange->kilometrage  ?> Kms</label>
+                                                            <?php } ?>
+                                                        </td>
+                                                        <td><?= $affectation->vehicule->kilometrage ?> Kms</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -160,7 +164,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Energie</td>
-                                        <td><?= $affectation->vehicule->energie->name ?></td>
+                                        <td><?= ($carteGrise->energie_id > 0)?$carteGrise->energie->name:"" ?></td>
                                     </tr>
                                     <tr>
                                         <td>Puissance</td>

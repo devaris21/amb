@@ -22,6 +22,7 @@ class CARPLAN extends AUTH
 	public $contact ;
 	public $sexe_id = 1;
 	public $is_allowed = 1;
+	public $is_new = 1;
 	public $is_connecte = false;
 	public $image = "default.png";
 	

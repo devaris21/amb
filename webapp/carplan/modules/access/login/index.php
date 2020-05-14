@@ -56,28 +56,41 @@
  </div>
 
 
- <div class="modal inmodal" id="formNewUser" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
+ <div class="modal inmodal" id="modalNewUser" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog ">
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <i class="fa fa-laptop modal-icon"></i>
-                <h4 class="modal-title">Modal title</h4>
-                <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
+                <h4 class="modal-title">Prémière connexion</h4>
             </div>
-            <div class="modal-body">
-                <p><strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                remaining essentially unchanged.</p>
-                <div class="form-group"><label>Sample Input</label> <input type="email" placeholder="Enter your email" class="form-control"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form id="formNewUser" method="post">
+                <div class="modal-body">                
+                    <p class="text-center">Bienvenue sur votre espace d'administration.<br> Pour plus de sécurité, vous devez changer vos paramètres de connexion pour que vous soyez le seul à les connaitre !</p><br>
+                    <div class="form-group">
+                        <label>Nouvel identifiant</label>
+                        <input type="text" name="login" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Nouveau mot de passe</label>
+                        <input type="password" name="pass0" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>Corfirmer mot de passe</label>
+                        <input type="password" name="pass" required class="form-control">
+                    </div>
+                </div>
+                <div class="">
+                    <br>
+                    <div class="container">
+                        <button type="button" class="btn btn-default dim pull-left" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>
+                        <button class="btn btn-primary dim pull-right"><i class="fa fa-check"></i> Je suis prêt !</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 
 <?php include($this->rootPath("webapp/carplan/elements/templates/script.php")); ?>

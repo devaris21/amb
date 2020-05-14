@@ -25,6 +25,7 @@ class ENTRETIENVEHICULE extends TABLE
 	public $price;
 	public $started;
 	public $finished;
+	public $kilometrage;
 	public $gestionnaire_id;
 	public $etat_id = ETAT::ENCOURS;
 	public $date_approuve; 
@@ -41,7 +42,9 @@ class ENTRETIENVEHICULE extends TABLE
 			$this->name = $item->name;
 			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
+				$vehicule = $datas[0];
 				if ($this->started >= dateAjoute() && $this->finished >= $this->started) {
+					$this->kilometrage = $vehicule->kilometrage;
 					$this->ticket = strtoupper(substr(uniqid(), 5, 6));
 					$this->gestionnaire_id = getSession("gestionnaire_connecte_id");
 					$data = $this->save();

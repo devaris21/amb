@@ -73,15 +73,6 @@ $("input#inputSearch").keyup(function(event) {
 });
 
 
-$("a#btn-deconnexion").click(function(event) {
-	alerty.confirm("Voulez-vous vraiment vous deconnecter ???", {
-		title: "Deconnexion",
-		cancelLabel : "Non",
-		okLabel : "OUI, me deconnecter",
-	}, function(){
-		window.location.href = "/access/logout";
-	})
-});
 
 
 

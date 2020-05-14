@@ -26,11 +26,19 @@ if ($this->getId() != null && intval($this->getId()) > 0) {
 		///////////////////////////////////////////////////////
 		$carteGrise = $levehicule->carteGrise();
 		$assurance = $levehicule->assurance();
+		$vidange = $levehicule->vidange();
 		$visitetechnique = $levehicule->visitetechnique();
-		$vidange = $assurance; //$levehicule->vidange();
 
 		AFFECTATION::etat();
-		$affectation = $levehicule->affectation();
+		$affectation = null;
+		if ($levehicule->is_affecte()) {
+			$affectation = $levehicule->affectation();
+			$affectation->fourni("renouvelementaffectation");
+			$renouv = new RENOUVELEMENTAFFECTATION;
+			if (count($affectation->renouvelementaffectations) > 0) {
+				$renouv = end($affectation->renouvelementaffectations);
+			}
+		}
 
 		$title = "AMB | ".$levehicule->name();
 

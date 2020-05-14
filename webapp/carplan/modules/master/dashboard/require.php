@@ -10,11 +10,18 @@ $affectation->actualise();
 
 $affectation->vehicule->fourni("equipement_vehicule");
 
+$affectation->fourni("renouvelementaffectation");
+$renouv = new RENOUVELEMENTAFFECTATION;
+if (count($affectation->renouvelementaffectations) > 0) {
+	$renouv = end($affectation->renouvelementaffectations);
+}
+
+
 ///////////////////////////////////////////////////////
-		$carteGrise = $affectation->vehicule->carteGrise();
-		$assurance = $affectation->vehicule->assurance();
-		$visitetechnique = $affectation->vehicule->visitetechnique();
-		$vidange = $assurance; //$affectation->vehicule->vidange();
+$carteGrise = $affectation->vehicule->carteGrise();
+$assurance = $affectation->vehicule->assurance();
+$vidange = $affectation->vehicule->vidange();
+$visitetechnique = $affectation->vehicule->visitetechnique();
 
 session("carplan_vehicule_id", $affectation->vehicule->getId());
 

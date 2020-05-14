@@ -77,7 +77,7 @@ foreach ($datas as $key => $value) {
 	$item->save();
 }
 
-$datas = ["Véhicules de mission", "Véhicules de Pool", "Cars de ramassage", "Véhicules loués"];
+$datas = ["Véhicules de mission", "Véhicules de Car Plan", "Véhicules de Pool", "Véhicules de livraison", "Cars de ramassage", "Véhicules loués"];
 foreach ($datas as $key => $value) {
 	$item = new GROUPEVEHICULE();
 	$item->name = $value;
@@ -316,7 +316,7 @@ $data = $item->save();
 
 
 
-$datas = ["Manuelle", "Seme-automatique", "Automatique"];
+$datas = ["Manuelle", "Semie-automatique", "Automatique"];
 foreach ($datas as $key => $value) {
 	$item = new TYPETRANSMISSION();
 	$item->name = $value;

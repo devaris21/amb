@@ -126,6 +126,18 @@ class VEHICULE extends TABLE
 		}
 	}
 
+
+	//Obtenir la date de la vidange
+	public function vidange(){
+		$datas = $this->fourni("entretienvehicule", ["typeentretienvehicule_id = "=>TYPEENTRETIENVEHICULE::VIDANGE, "typeentretienvehicule_id = "=>TYPEENTRETIENVEHICULE::VIDANGECOMPLETE,], [], [], 1, "OR");
+		if (count($datas) == 1) {
+			$item = $datas[0];
+			$item->date = dateAjoute1($item->finished, 360);
+			$item->kilometrage = 10000 - ($this->kilometrage - $item->kilometrage);
+			return $item;
+		}
+	}
+
 	public function pieces(){
 		$tableau = [];
 		foreach (TYPEPIECEVEHICULE::getAll() as $key => $value) {
