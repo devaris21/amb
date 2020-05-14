@@ -34,13 +34,13 @@ class GROUPEVEHICULEOPEN extends TABLE
 
 
 	public function sentenseCreate(){
-		return $this->sentense = "Ajout d'un nouveau type d'equipement de vehicule : $this->name dans les paramétrages";
+		return $this->sentense = "Ajout d'un nouveau type d'equipement de vehicule : dans les paramétrages";
 	}
 	public function sentenseUpdate(){
-		return $this->sentense = "Modification des informations du type d'equipement de vehicule $this->id : $this->name ";
+		return $this->sentense = "Modification des informations du type d'equipement de vehicule $this->id : ";
 	}
 	public function sentenseDelete(){
-		return $this->sentense = "Suppression definitive du type d'equipement de vehicule $this->id : $this->name";
+		return $this->sentense = "Suppression definitive du type d'equipement de vehicule $this->id :";
 	}
 
 
