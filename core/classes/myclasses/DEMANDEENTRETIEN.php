@@ -17,7 +17,7 @@ class DEMANDEENTRETIEN extends TABLE
 
 
 	public $ticket;
-	public $typeentretienvehicule_id = 0;
+	public $typeentretienvehicule_id;
 	public $carplan_id = null;
 	public $vehicule_id	;
 	public $comment;
@@ -79,11 +79,6 @@ class DEMANDEENTRETIEN extends TABLE
 	}
 
 
-
-	public static function encours(){
-		return static::findBy(["etat_id = "=>ETAT::ENCOURS]);
-	}
-
 	public static function valideesCeMois(){
 		return static::findBy(["etat_id ="=>1, "date_approuve >="=>date("Y-m")."-01"]);
 	}
@@ -131,24 +126,29 @@ class DEMANDEENTRETIEN extends TABLE
 
 	public function approuver(){
 		$data = new RESPONSE;
-		$rooter = new ROOTER;
-		$this->etat_id = ETAT::ENCOURS;;
-		$this->date_approuve = date("Y-m-d H:i:s");
-		$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
-		$data = $this->save();
-		if ($data->status) {
-			$this->actualise();
-			$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été prise en compte et approuver par la gestion du parc automobile de l'ARTCI !";
-			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
-			$objet = "Demande d'entretien de véhicule approuvé";
+		if ($this->etat_id == ETAT::ENCOURS) {
+			$data = new RESPONSE;
+			$rooter = new ROOTER;
+			$this->etat_id = ETAT::VALIDEE;
+			$this->date_approuve = date("Y-m-d H:i:s");
+			$this->historique("Approbation de la demande d'entretien de véhicule N° $this->id");
+			$data = $this->save();
+			if ($data->status) {
+				$this->actualise();
+				$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été prise en compte et approuver par la gestion du parc automobile de l'ARTCI !";
+				$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
+				$objet = "Demande d'entretien de véhicule approuvé";
 
-			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
-			$contenu = ob_get_contents();
-			ob_end_clean();
+				ob_start();
+				include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
+				$contenu = ob_get_contents();
+				ob_end_clean();
 			//EMAIL::send([$this->email()], $objet, $contenu);
-							session("demandeentretien", $this);
-
+				session("demandeentretien", $this);
+			}
+		}else{
+			$data->status = false;
+			$data->message = "Vous ne pouvez plus effectuer cette action sur cette demande !";
 		}
 		return $data;
 	}
@@ -156,22 +156,28 @@ class DEMANDEENTRETIEN extends TABLE
 
 	public function refuser(){
 		$data = new RESPONSE;
-		$rooter = new ROOTER;
-		$this->etat_id = ETAT::ANNULEE;;
-		$this->date_approuve = date("Y-m-d H:i:s");
-		$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
-		$data = $this->save();
-		if ($data->status) {
-			$this->actualise();
-			$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été refusé par la gestion du parc automobile de l'ARTCI !";
-			$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
-			$objet = "Demande d'entretien de véhicule refusé";
+		if ($this->etat_id == ETAT::ENCOURS) {
+			$data = new RESPONSE;
+			$rooter = new ROOTER;
+			$this->etat_id = ETAT::ANNULEE;
+			$this->date_approuve = date("Y-m-d H:i:s");
+			$this->historique("Refus de la demande d'entretien de véhicule N° $this->id");
+			$data = $this->save();
+			if ($data->status) {
+				$this->actualise();
+				$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été refusé par la gestion du parc automobile de l'ARTCI !";
+				$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
+				$objet = "Demande d'entretien de véhicule refusé";
 
-			ob_start();
-			include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
-			$contenu = ob_get_contents();
-			ob_end_clean();
+				ob_start();
+				include(__DIR__."/../../sections/home/elements/mails/demandeentretien1.php");
+				$contenu = ob_get_contents();
+				ob_end_clean();
 			//EMAIL::send([$this->email()], $objet, $contenu);
+			}
+		}else{
+			$data->status = false;
+			$data->message = "Vous ne pouvez plus effectuer cette action sur cette demande !";
 		}
 		return $data;
 	}

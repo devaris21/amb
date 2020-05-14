@@ -10,37 +10,22 @@ extract($_POST);
 
 if ($action == "locked") {
 	if ($password != "") {
-		$datas = GESTIONNAIRE::findBy(["id ="=> getSession("gestionnaire_connecte_id")]);
+		$datas = PRESTATAIRE::findBy(["id ="=> getSession("prestataire_connecte_id")]);
 		if (count($datas) == 1) {
 			$user = $datas[0];
 			if ($user->checkPassword($password)) {
-				session("gestionnaire_connecte_id", $user->getId());
+				session("prestataire_connecte_id", $user->getId());
 				$data->status = true;
-				$data->setUrl("gestionnaire", "master", "dashboard");
 				session("last_access", time());
 				unset_session("page_session");
-			}
-//TODO voir si on peut faire du ldap pour l'authentification
-			/*else{
-				$ldapconn = ldap_connect("ldap://172.16.0.3");
-				if ($ldapconn) {
-					$ldapbind = @ldap_bind($ldapconn, $user->email, $password);
-					if ($ldapbind) {
-						session("gestionnaire_connecte_id", $user->getId());
-						$data->status = true;
-						$data->setUrl("gestionnaire", "master", "dashboard");
-						session("last_access", time());
-						unset_session("page_session");
-					}else{
-						$data->status = false;
-						$data->message = "Votre mot de passe est incorrect !";
-					}
-				}else{
-					$data->setUrl("gestionnaire", "access", "login");
-				}		
-			}*/	
+				$data->url = "/".getSession("lastUrl");
+			}else{
+				$data->status = false;
+				$data->message = "Le mot de passe est incorrect !";
+			}	
 		}else{
-			$data->setUrl("gestionnaire", "access", "login");
+			$data->status = false;
+			$data->setUrl("prestataire", "access", "login");
 		}
 	}else{
 		$data->status = false;

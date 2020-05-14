@@ -40,7 +40,7 @@
                 <a href="#"><i class="fa fa-unlink"></i> <span class="nav-label">Sinistres</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li><a href="<?= $this->url("carplan", "master", "sinistres") ?>">Sinistres déclarés</a></li>
-                    <li data-toggle="modal" data-target="#modal-sinistre"><a href="#"><i class="fa fa-plus"></i> Déclarer un sinistre</a></li>
+                    <li data-toggle="modal" data-target="#modal-sinistre-carplan"><a href="#"><i class="fa fa-plus"></i> Déclarer un sinistre</a></li>
                 </ul>
             </li>
     

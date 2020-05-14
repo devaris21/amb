@@ -75,7 +75,7 @@
                                         <div>
                                             <button data-toggle="modal" data-target="#modal-demandeentretien" class="btn btn-warning dim" type="button"><i class="fa fa-upload"></i> Demander un entretien</button>
 
-                                            <button data-toggle="modal" data-target="#modal-sinistre" class="btn btn-outline btn-danger dim" type="button"><i class="fa fa-upload"></i> Déclarer un sinistre</button>
+                                            <button data-toggle="modal" data-target="#modal-sinistre-carplan" class="btn btn-outline btn-danger dim" type="button"><i class="fa fa-upload"></i> Déclarer un sinistre</button>
 
                                             <button class="btn btn-outline btn-success  dim" type="button"><i class="fa fa-line-chart"></i> Voir les stats</button>
                                         </div>

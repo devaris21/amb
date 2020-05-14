@@ -39,7 +39,9 @@ class ENTRETIENVEHICULE extends TABLE
 		$datas = TYPEENTRETIENVEHICULE::findBy(["id ="=>$this->typeentretienvehicule_id]);
 		if (count($datas) == 1) {
 			$item = $datas[0];
-			$this->name = $item->name;
+			if ($this->name == "") {
+				$this->name = $item->name;
+			}
 			$datas = VEHICULE::findBy(["id ="=>$this->vehicule_id]);
 			if (count($datas) == 1) {
 				$vehicule = $datas[0];

@@ -37,6 +37,7 @@
             </div><hr class="">
             <div class="container">
                 <input type="hidden" name="id">
+                <input type="hidden" name="carplan_id" value="<?= $carplan->getId() ?>">
                 <button type="button" class="btn btn-sm  btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>
                 <button class="btn btn-sm btn-success pull-right"><i class="fa fa-check"></i> Faire la demande</button>
             </div>

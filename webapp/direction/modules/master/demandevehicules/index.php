@@ -73,7 +73,7 @@
                             <div class="wrapper wrapper-content animated fadeInRight">
                                 <?php foreach ($demandes as $key => $demande) {
                                     $demande->actualise(); ?>
-                                    <div class="vote-item  <?= ($demande->etat_id != Home\ETAT::ENCOURS;)?'fini':'' ?> ">
+                                    <div class="vote-item  <?= ($demande->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?> ">
                                         <div class="row">
                                             <div class="col-md-9">
                                                 <div class="vote-actions" style="margin-right: 6%; height: 100%">
@@ -93,7 +93,7 @@
                                             <div class="col-md-3 text-right">
                                                 <div class="vote-icon">
                                                     <?php 
-                                                    if ($demande->etat_id == Home\ETAT::ENCOURS;) {
+                                                    if ($demande->etat_id == Home\ETAT::ENCOURS) {
                                                       if ($demande->typedemandevehicule_id == 1) {
                                                          if ($demande->etats >= 1) { ?>
                                                              <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DRH"> </i>
@@ -105,7 +105,7 @@
                                                              <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DAPA"> </i>
                                                          <?php }
                                                      }else{
-                                                        if($demande->etat_id == 1){ ?>
+                                                        if($demande->etat_id == Home\ETAT::VALIDEE){ ?>
                                                          <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
                                                      <?php }
                                                  }
@@ -114,7 +114,7 @@
                                              <?php }
                                              ?>
                                          </div>
-                                         <?php if ($demande->etat_id == Home\ETAT::ENCOURS;) { ?>
+                                         <?php if ($demande->etat_id == Home\ETAT::ENCOURS) { ?>
                                              <button onclick="approuver(<?= $demande->getId(); ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> Approuver </button>
                                              <button class="btn btn-white btn-sm" data-toggle=tooltip title="Refuser la demande" onclick="refuser(<?= $demande->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                                          <?php } ?>

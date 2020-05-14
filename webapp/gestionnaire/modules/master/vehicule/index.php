@@ -636,7 +636,7 @@
                                     <a href="#">Annulée <?= depuis($entretien->date_approuve) ?></a>
                                 <?php }else if ($entretien->etat_id == Home\ETAT::ENCOURS){ ?>
                                     <a href="#">Emise <?= depuis($entretien->created) ?></a>
-                                <?php }else if ($entretien->etat_id == 1){ ?>
+                                <?php }else if ($entretien->etat_id == Home\ETAT::VALIDEE){ ?>
                                     <a href="#">Du <?= datecourt($entretien->started) ?> au <?= datecourt($entretien->finished) ?></a>
                                 <?php } ?>
                                 <i class="fa fa-wrench"></i> <a href="#">Entretien par <?= $entretien->prestataire->name() ?></a>
@@ -664,7 +664,7 @@
                         <img style="width: 100%;" onclick="openImage('<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>')" class="m-t-xs cursor" src="<?= $this->stockage("images", "entretienvehicules", $entretien->image2) ?>">
                     </div>
                     <div class="col-md-1 text-right">
-                        <?php if ($entretien->etat_id == 1) { ?>
+                        <?php if ($entretien->etat_id == Home\ETAT::VALIDEE) { ?>
                             <div class="vote-icon">
                                 <i class="fa fa-check text-green" data-toggle="tooltip" title="Entretien terminé avec succes"> </i>
                             </div>
@@ -719,7 +719,7 @@
                                     <a href="#">Annulée <?= depuis($sinistre->date_approbation) ?></a>
                                 <?php }else if ($sinistre->etat_id == Home\ETAT::ENCOURS){ ?>
                                     <a href="#">Emise <?= depuis($sinistre->created) ?></a>
-                                <?php }else if ($sinistre->etat_id == 1){ ?>
+                                <?php }else if ($sinistre->etat_id == Home\ETAT::VALIDEE){ ?>
                                     <a href="#">Approuvée <?= depuis($sinistre->date_approbation) ?></a>
                                 <?php } ?>
                                 <i class="fa fa-user"></i> <a href="#">Par <?= $sinistre->auteur() ?> - <?= $sinistre->matricule ?></a>

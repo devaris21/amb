@@ -101,7 +101,7 @@
                                                          <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée la DAPA"> </i>
                                                      <?php }
                                                  }else{
-                                                    if($demande->etat_id == 1){ ?>
+                                                    if($demande->etat_id == Home\ETAT::VALIDEE){ ?>
                                                      <i class="fa fa-check text-green" data-toggle="tooltip" title="Demande validée le DG / CSDG"> </i>
                                                  <?php }
                                              }

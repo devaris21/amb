@@ -2,6 +2,7 @@
 
         $("body").on("submit", "form.formShamman", function(event) {
             Loader.start()
+            $this = $(this);
             name = $(this).attr('classname');
             reload = $(this).attr('reload');
             url = "../../composants/dist/shamman/traitement.php";
@@ -14,6 +15,7 @@
                         Alerter.success('Réussite', data.message);
                         Loader.stop();
                         $(".modal").modal('hide');
+                        $this.find("input").val("");
                     }else{
                         window.location.reload();
                     }
@@ -82,20 +84,20 @@
                 cancelLabel : "Non",
                 okLabel : "OUI, bloquer",
             }, function(password){
-                    Loader.start();
-                    $.post(url, {action:"validerEtat", table:table, id:id}, function(data){
-                        console.log(data);
-                        if (data.status) {
-                            window.location.reload()
-                        }else{
-                            Alerter.error('Erreur !', data.message);
-                        }
-                    },"json");
-                })
-            }
+                Loader.start();
+                $.post(url, {action:"validerEtat", table:table, id:id}, function(data){
+                    console.log(data);
+                    if (data.status) {
+                        window.location.reload()
+                    }else{
+                        Alerter.error('Erreur !', data.message);
+                    }
+                },"json");
+            })
+        }
 
 
-         lock = function(table, id){
+        lock = function(table, id){
             url = "../../composants/dist/shamman/traitement.php";
             alerty.confirm("Voulez-vous vraiment bloquer tout accès à cette personne ?", {
                 title: "Restriction d'accès",
@@ -127,20 +129,20 @@
                 cancelLabel : "Non",
                 okLabel : "OUI, Reinitialiser",
             }, function(password){
-                    Loader.start();
-                    $.post(url, {action:"resetPassword", table:table, id:id}, (data)=>{
-                        if (data.status) {
-                            window.location.reload()
-                        }else{
-                            Alerter.error('Erreur !', data.message);
-                        }
-                    },"json");
-                })
+                Loader.start();
+                $.post(url, {action:"resetPassword", table:table, id:id}, (data)=>{
+                    if (data.status) {
+                        window.location.reload()
+                    }else{
+                        Alerter.error('Erreur !', data.message);
+                    }
+                },"json");
+            })
         }
 
 
 
-         unlock = function(table, id){
+        unlock = function(table, id){
             url = "../../composants/dist/shamman/traitement.php";
             alerty.confirm("Vous êtes sur le point de redonner les accès à cette personne. Continuer ?", {
                 title: "Restriction d'accès",

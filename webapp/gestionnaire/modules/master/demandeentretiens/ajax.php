@@ -34,7 +34,18 @@ if ($action == "entretien2") {
 		$demande = getSession("demandeentretien");
 		$entretien->cloner($demande);
 		$entretien->hydrater($_POST);
-		$entretien->name = $demande->typeentretienvehicule->name." suite à la demande d'entretien ".$demande->ticket;
+
+		$files = [];
+		if (isset($_FILES)) {
+			foreach ($_FILES as $key => $value) {
+				if ($key !== "id" && $value != "") {
+					$files[] = $value;
+				}
+			}
+		}
+		$entretien->files = $files;
+		$entretien->etat_id = ETAT::ENCOURS;
+		$entretien->name = $demande->typeentretienvehicule->name." suite à la demande d'entretien N°".$demande->ticket;
 		$entretien->setId(null);
 		$data = $entretien->enregistre();
 		if ($data->status) {
