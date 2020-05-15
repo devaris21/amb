@@ -82,7 +82,7 @@
                                     <h3 class="mp0"><u class="text-info">#<?= $mission->reference ?></u> // <?= $mission->objet ?></h3>
                                     <h5 class="mp0"><?= $mission->lieu ?></h5>
                                     <span><?= $mission->comment ?></span><br><br>
-                                    <u><?= $mission->demandevehicule->typedemandevehicule->name() ?></u><br>
+                                    <u><?= $mission->demandevehicule->typemission->name() ?></u><br>
                                     <a href="#"><i class="fa fa-clock-o"></i> Du <?= depuis($mission->started) ?> au <?= depuis($mission->finished) ?></a> <br>
                                     <div class="vote-info mp0">
                                         <i class="fa fa-bank"></i> <a href="#">Par <?= $mission->departement->name() ?></a>

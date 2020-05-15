@@ -10,6 +10,8 @@ class DEPARTEMENT extends TABLE
 	public static $tableName = __CLASS__;
 	public static $namespace = __NAMESPACE__;
 
+	const DPA = 1;
+
 	public $name;
 	public $sigle;
 	public $circuit_programmee;

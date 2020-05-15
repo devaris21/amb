@@ -10,11 +10,19 @@ if ($this->getId() != null && intval($this->getId()) > 0) {
 		$levehicule->actualise();
 		$levehicule->etat();
 
-		$levehicule->fourni("piecevehicule");
-		$levehicule->fourni("assurance");
-		$levehicule->fourni("visitetechnique");
-		$levehicule->fourni("entretienvehicule");
-		$levehicule->fourni("sinistre");
+		$datas1 = $levehicule->fourni("piecevehicule");
+		$datas2 = $levehicule->fourni("assurance");
+		$datas3 = $levehicule->fourni("visitetechnique");
+		$datas4 = $levehicule->fourni("cartegrise");
+
+		$datas = array_merge($datas1, $datas2, $datas3, $datas4);
+		foreach ($datas as $key => $value) {
+			$value->comment = $value->name()." établi(e) le ".datecourt($value->date_etablissement)." pour une validité allant du ".datecourt($value->started)." au ".datecourt($value->finished);
+		}
+
+		$datas5 = $levehicule->fourni("entretienvehicule");
+		$datas6 = $levehicule->fourni("sinistre");
+
 		$levehicule->fourni("equipement_vehicule");
 
 		$levehicule->fourni("chauffeur_vehicule");
@@ -39,6 +47,10 @@ if ($this->getId() != null && intval($this->getId()) > 0) {
 				$renouv = end($affectation->renouvelementaffectations);
 			}
 		}
+
+		$historiques = $levehicule->historiques();
+		$historiques = array_merge($datas, $datas5, $datas6, $historiques);
+		usort($historiques, "comparerDateCreated");
 
 		$title = "AMB | ".$levehicule->name();
 

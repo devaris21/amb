@@ -243,7 +243,7 @@
 
                 <div role="tabpanel" id="menu-3" class="tab-pane">
                     <div class="panel-body">
-                       <div class="row">
+                     <div class="row">
                         <div class="col-md-6">
                             <div>
                                 <strong>Les équipements ajoutés sur ce véhicule</strong>
@@ -297,93 +297,23 @@
             <div role="tabpanel" id="menu-5" class="tab-pane">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-8 border-right">
-                           <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon navy-bg">
-                                    <i class="fa fa-briefcase"></i>
-                                </div>
+                        <div class="offset-1 col-md-10">
+                         <div id="vertical-timeline" class="vertical-container dark-timeline">
 
-                                <div class="vertical-timeline-content">
-                                    <h2>Meeting</h2>
-                                    <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
-                                    </p>
-                                    <a href="#" class="btn btn-sm btn-primary"> More info</a>
-                                    <span class="vertical-date">
-                                        Today <br/>
-                                        <small>Dec 24</small>
-                                    </span>
+                            <?php foreach ($historiques as $key => $history) { ?>
+                                <div class="vertical-timeline-block">
+                                    <div class="vertical-timeline-icon navy-bg">
+                                        <i class="fa fa-briefcase"></i>
+                                    </div>
+                                    <div class="vertical-timeline-content">
+                                        <h2 class="mp0"><?= $history->name ?></h2>
+                                        <p ><?= $history->comment ?></p>
+                                       <small><?= depuis($history->created)  ?></small>
+                                    </div>
                                 </div>
-                            </div>
+                            <?php } ?>
 
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon blue-bg">
-                                    <i class="fa fa-file-text"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Send documents to Mike</h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                                    <a href="#" class="btn btn-sm btn-success"> Download document </a>
-                                    <span class="vertical-date">
-                                        Today <br/>
-                                        <small>Dec 24</small>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon lazur-bg">
-                                    <i class="fa fa-coffee"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Coffee Break</h2>
-                                    <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
-                                    <a href="#" class="btn btn-sm btn-info">Read more</a>
-                                    <span class="vertical-date"> Yesterday <br/><small>Dec 23</small></span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon yellow-bg">
-                                    <i class="fa fa-phone"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Phone with Jeronimo</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-                                    <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon lazur-bg">
-                                    <i class="fa fa-user-md"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Go to the doctor dr Smith</h2>
-                                    <p>Find some issue and go to doctor. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
-                                    <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon navy-bg">
-                                    <i class="fa fa-comments"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Chat with Monica and Sandra</h2>
-                                    <p>Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
-                                    <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                                </div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        option
                     </div>
                 </div>
             </div>
@@ -419,7 +349,7 @@
                         <div class="ibox-content">
                             <table class="table table-hover">
                                 <tbody>
-                                 <?php foreach ($levehicule->cartegrises as $key => $carte) {
+                                   <?php foreach ($levehicule->cartegrises as $key => $carte) {
                                     $carte->actualise(); ?>
                                     <tr>
                                         <td class="project-status">
@@ -437,10 +367,10 @@
                                             <h4><?= money($carte->price) ?> <?= $params->devise ?></h4>
                                         </td>
                                         <td class="project-people">
-                                           <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
-                                           <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
-                                       </td>
-                                       <td class="project-actions">
+                                         <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image1) ?>">
+                                         <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "cartegrises", $carte->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "cartegrises", $carte->image2) ?>">
+                                     </td>
+                                     <td class="project-actions">
                                         <button data-toggle="modal" data-target="#modal-cartegrise"  onclick="modification('cartegrise', <?= $carte->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                                         <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('cartegrise', <?= $carte->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                                     </td>
@@ -466,7 +396,7 @@
                 <div class="ibox-content">
                     <table class="table table-hover">
                         <tbody>
-                         <?php foreach ($levehicule->assurances as $key => $assurance) {
+                           <?php foreach ($levehicule->assurances as $key => $assurance) {
                             $assurance->actualise(); ?>
                             <tr>
                                 <td class="project-status">
@@ -488,10 +418,10 @@
                                     <h4><?= money($assurance->price) ?> <?= $params->devise ?></h4>
                                 </td>
                                 <td class="project-people">
-                                   <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
-                                   <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
-                               </td>
-                               <td class="project-actions">
+                                 <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image1) ?>">
+                                 <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "assurances", $assurance->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "assurances", $assurance->image2) ?>">
+                             </td>
+                             <td class="project-actions">
                                 <button data-toggle="modal" data-target="#modal-assurance"  onclick="modification('assurance', <?= $assurance->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                                 <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('assurance', <?= $assurance->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                             </td>
@@ -517,7 +447,7 @@
             <div class="ibox-content">
                 <table class="table table-hover">
                     <tbody>
-                     <?php foreach ($levehicule->visitetechniques as $key => $vist) {
+                       <?php foreach ($levehicule->visitetechniques as $key => $vist) {
                         $vist->actualise(); ?>
                         <tr>
                             <td class="project-status">
@@ -538,10 +468,10 @@
                                 <h4><?= money($vist->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                               <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
-                               <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
-                           </td>
-                           <td class="project-actions">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image1) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "visitetechniques", $vist->image2) ?>">
+                         </td>
+                         <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-visitetechnique"  onclick="modification('visitetechnique', <?= $vist->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                             <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('visitetechnique', <?= $vist->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                         </td>
@@ -568,7 +498,7 @@
             <div class="ibox-content">
                 <table class="table table-hover">
                     <tbody>
-                     <?php foreach ($levehicule->piecevehicules as $key => $piece) {
+                       <?php foreach ($levehicule->piecevehicules as $key => $piece) {
                         $piece->actualise(); ?>
                         <tr>
                             <td class="project-status">
@@ -590,10 +520,10 @@
                                 <h4><?= money($piece->price) ?> <?= $params->devise ?></h4>
                             </td>
                             <td class="project-people">
-                               <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
-                               <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
-                           </td>
-                           <td class="project-actions">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image1) ?>">
+                             <img class="img-thumbnail cursor" onclick="openImage('<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>')" style="height: 50px; width: 50px;" src="<?= $this->stockage("images", "piecevehicules", $piece->image2) ?>">
+                         </td>
+                         <td class="project-actions">
                             <button data-toggle="modal" data-target="#modal-piecevehicule"  onclick="modification('piecevehicule', <?= $piece->getId() ?>)" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Modiifer </button>
                             <button class="btn btn-white btn-sm" onclick="suppressionWithPassword('piecevehicule', <?= $piece->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
                         </td>
@@ -617,7 +547,7 @@
                 </div>
             </div>
             <div class="ibox-content">
-             <?php foreach ($levehicule->entretienvehicules as $key => $entretien) {
+               <?php foreach ($levehicule->entretienvehicules as $key => $entretien) {
                 $entretien->actualise(); ?>
                 <div class="vote-item <?= ($entretien->etat_id != Home\ETAT::ENCOURS)?'fini':'' ?>">
                     <div class="row">
@@ -700,7 +630,7 @@
                 </div>
             </div>
             <div class="ibox-content">
-             <table class="table table-hover table-sinistre">
+               <table class="table table-hover table-sinistre">
                 <tbody>
                     <?php foreach ($levehicule->sinistres as $key => $sinistre) {
                         $sinistre->actualise(); ?>
@@ -756,19 +686,19 @@
 
                     </td>
                     <td class="project-actions">
-                     <?php if ($sinistre->etat_id == Home\ETAT::ENCOURS) { ?>
+                       <?php if ($sinistre->etat_id == Home\ETAT::ENCOURS) { ?>
                         <div class="btn-group btn-group-vertical">
                             <?php if ($sinistre->carplan_id == null) { ?>
-                             <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations du sinistre" class="fa fa-pencil"></i> </button>
-                         <?php } ?>                                
-                         <button data-toggle="tooltip" title="Valider cette déclaration" class="btn btn-white btn-sm" onclick="validerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-check text-green"></i></button>
-                         <button data-toggle="tooltip" title="Annuler cette déclaration" class="btn btn-white btn-sm" onclick="annulerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                     </div>
-                 <?php } ?>
-             </td>
-         </tr>
-     <?php  } ?>
- </tbody>
+                               <button data-toggle="modal" data-target="#modal-sinistre"  onclick="modification('sinistre', <?= $sinistre->getId() ?>)" class="btn btn-white btn-sm"><i data-toggle="tooltip" title="Modifier les informations du sinistre" class="fa fa-pencil"></i> </button>
+                           <?php } ?>                                
+                           <button data-toggle="tooltip" title="Valider cette déclaration" class="btn btn-white btn-sm" onclick="validerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-check text-green"></i></button>
+                           <button data-toggle="tooltip" title="Annuler cette déclaration" class="btn btn-white btn-sm" onclick="annulerSinistre(<?= $sinistre->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                       </div>
+                   <?php } ?>
+               </td>
+           </tr>
+       <?php  } ?>
+   </tbody>
 </table>
 </div>
 </div>

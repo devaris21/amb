@@ -26,6 +26,8 @@ class MISSION extends TABLE
 	public $started;
 	public $finished;
 	public $vehicule_id;
+	public $kilometrage_aller;
+	public $kilometrage_retour;
 	public $chauffeur_id;
 	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;

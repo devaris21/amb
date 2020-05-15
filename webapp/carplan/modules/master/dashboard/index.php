@@ -19,7 +19,7 @@
             <div class=" animated fadeInRightBig">
                 <div class="ibox">
                     <div class="ibox-content">
-                       <div class="tabs-container">
+                     <div class="tabs-container">
                         <ul class="nav nav-tabs" role="tablist">
                             <li><a class="nav-link" data-toggle="tab" href="#menu-0"><i class="fa fa-user"></i> Mes Informations</a></li>
                             <li><a class="nav-link active" data-toggle="tab" href="#menu-1"><i class="fa fa-car"></i> Infos Générale</a></li>
@@ -88,7 +88,7 @@
                                     <div class="row">
                                         <div class="col-md-8 border-right">
                                             <div class="row">
-                                             <div class="col-md-4">
+                                               <div class="col-md-4">
                                                 <div class="">
                                                     <div>
                                                         <img style="width: 90%;" class="img-thumbnail" src="<?= $this->stockage("images", "carplans", $affectation->carplan->image) ?>" alt=""><br>
@@ -209,7 +209,7 @@
 
                     <div role="tabpanel" id="menu-3" class="tab-pane">
                         <div class="panel-body">
-                           <div class="row">
+                         <div class="row">
                             <div class="col-md-6">
                                 <table class="table table-striped table-hover table-sm">
                                     <thead>
@@ -220,7 +220,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                     <?php foreach ($affectation->vehicule->equipement_vehicules as $key => $ch) {
+                                       <?php foreach ($affectation->vehicule->equipement_vehicules as $key => $ch) {
                                         $ch->actualise(); ?>
                                         <tr>
                                             <td class=""><img style="width: 32px" src="<?= $this->stockage("images", "equipements", $ch->equipement->image) ?>"></td>
@@ -258,101 +258,31 @@
             <div role="tabpanel" id="menu-5" class="tab-pane">
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-8 border-right">
-                           <div id="vertical-timeline" class="vertical-container dark-timeline center-orientation">
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon navy-bg">
-                                    <i class="fa fa-briefcase"></i>
-                                </div>
+                        <div class="offset-1 col-md-10">
+                            <div id="vertical-timeline" class="vertical-container dark-timeline">
 
-                                <div class="vertical-timeline-content">
-                                    <h2>Meeting</h2>
-                                    <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the sale.
-                                    </p>
-                                    <a href="#" class="btn btn-sm btn-primary"> More info</a>
-                                    <span class="vertical-date">
-                                        Today <br/>
-                                        <small>Dec 24</small>
-                                    </span>
-                                </div>
-                            </div>
+                                <?php foreach ($historiques as $key => $history) { ?>
+                                    <div class="vertical-timeline-block">
+                                        <div class="vertical-timeline-icon navy-bg">
+                                            <i class="fa fa-briefcase"></i>
+                                        </div>
+                                        <div class="vertical-timeline-content">
+                                            <h2 class="mp0"><?= $history->name ?></h2>
+                                            <p ><?= $history->comment ?></p>
+                                            <small><?= depuis($history->created)  ?></small>
+                                        </div>
+                                    </div>
+                                <?php } ?>
 
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon blue-bg">
-                                    <i class="fa fa-file-text"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Send documents to Mike</h2>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-                                    <a href="#" class="btn btn-sm btn-success"> Download document </a>
-                                    <span class="vertical-date">
-                                        Today <br/>
-                                        <small>Dec 24</small>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon lazur-bg">
-                                    <i class="fa fa-coffee"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Coffee Break</h2>
-                                    <p>Go to shop and find some products. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's. </p>
-                                    <a href="#" class="btn btn-sm btn-info">Read more</a>
-                                    <span class="vertical-date"> Yesterday <br/><small>Dec 23</small></span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon yellow-bg">
-                                    <i class="fa fa-phone"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Phone with Jeronimo</h2>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-                                    <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon lazur-bg">
-                                    <i class="fa fa-user-md"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Go to the doctor dr Smith</h2>
-                                    <p>Find some issue and go to doctor. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
-                                    <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                                </div>
-                            </div>
-
-                            <div class="vertical-timeline-block">
-                                <div class="vertical-timeline-icon navy-bg">
-                                    <i class="fa fa-comments"></i>
-                                </div>
-
-                                <div class="vertical-timeline-content">
-                                    <h2>Chat with Monica and Sandra</h2>
-                                    <p>Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). </p>
-                                    <span class="vertical-date">Yesterday <br/><small>Dec 23</small></span>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        option
-                    </div>
                 </div>
             </div>
+
+
         </div>
-
-
     </div>
-</div>
 </div>
 <div class="ibox-footer">
     <span class="float-right">

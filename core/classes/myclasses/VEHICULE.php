@@ -204,6 +204,19 @@ class VEHICULE extends TABLE
 	}
 
 
+	public function historiques(){
+		//les autres sont deja dans le 'require' de la page
+		$datas = $this->fourni("location_vehicule");
+		$datas1 = $this->fourni("affectation");
+		foreach ($datas1 as $key => $value) {
+			$value->actualise();
+			$value->name = $value->typeaffectation->name()." à ".$value->carplan->name();
+		}
+		$datas2 = $this->fourni("mission");
+		return array_merge($datas, $datas1, $datas2);
+	}
+
+
 
 	public function name(){
 		$this->actualise();

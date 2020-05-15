@@ -132,7 +132,7 @@ $item->enregistre();
 $item = new MYCOMPTE();
 $item->identifiant = strtoupper(substr(uniqid(), 5, 7));
 $item->tentative = 0;
-$item->typecompte = TYPECOMPTE::MASTER;
+$item->typecompte_id = TYPECOMPTE::MASTER;
 $item->expired = dateAjoute(7);
 $item->setProtected(1);
 $item->enregistre();
@@ -314,6 +314,16 @@ $item->password = "5e9795e3f3ab55e7790a6283507c085db0d764fc";
 $item->setProtected(1);
 $data = $item->save();
 
+
+$item = new DEPARTEMENT();
+$item->typegestionnaire_id = TYPEGESTIONNAIRE::CHEF;
+$item->name = "DEPARTEMENT PARC AUTO";
+$item->sigle = "DPA";
+$item->circuit_programmee = 1;
+$item->circuit_inopinee = 1;
+$item->visibility = 0;
+$item->setProtected(1);
+$data = $item->save();
 
 
 

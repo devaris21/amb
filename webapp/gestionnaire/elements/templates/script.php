@@ -1,3 +1,6 @@
+
+
+
     <!-- Mainly scripts -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/jquery-3.1.1.min.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/popper.min.js") ?>"></script>
@@ -11,11 +14,15 @@
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.spline.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.resize.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.pie.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.symbol.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/flot/jquery.flot.time.js") ?>"></script>
+
 
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/inspinia.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/pace/pace.min.js") ?>"></script>
     <!-- ChartJS-->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/chartJs/Chart.min.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/chartist/chartist.min.js") ?>"></script>
     <!-- Sparkline -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/sparkline/jquery.sparkline.min.js") ?>"></script>
     <!-- Toastr -->
@@ -23,8 +30,12 @@
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/footable/footable.all.min.js") ?>"></script>
     <!-- IonRangeSlider -->
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/ionRangeSlider/ion.rangeSlider.min.js") ?>"></script>
-    <!-- Idle Timer plugin -->
-    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/idle-timer/idle-timer.min.js") ?>"></script>
+
+    <!-- Input Mask-->
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/jasny/jasny-bootstrap.min.js") ?>"></script>
+
+    <!-- Data picker -->
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/js/plugins/datapicker/bootstrap-datepicker.js") ?>"></script>
 
     <!-- mansory -->
     <script src="<?= $this->rootPath("composants/dist/js/plugins/masonary/masonry.pkgd.min.js") ?>"></script>
@@ -35,6 +46,11 @@
 
     <!-- iCheck -->
     <script src="<?= $this->rootPath("composants/dist/js/plugins/iCheck/icheck.min.js") ?>"></script>
+
+
+     <!-- idle-timer -->
+    <script src="<?= $this->rootPath("composants/dist/js/plugins/idle-timer/idle-timer.min.js") ?>"></script>
+
     <!-- Select2 -->
     <script src="<?= $this->rootPath("composants/dist/js/plugins/select2/dist/js/select2.js") ?>"></script>
     <script src="<?= $this->rootPath("composants/dist/js/plugins/alerty/alerty.min.js") ?>"></script>
@@ -43,7 +59,9 @@
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/shamman/loader.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/shamman/alerter.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/shamman/general.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->rootPath("composants/dist/shamman/watchDog.js") ?>"></script>
     <script type="text/javascript" src="<?= $this->rootPath("composants/dist/shamman/traitement.js") ?>"></script>
+    <script type="text/javascript" src="<?= $this->elements("templates/myscript.js") ?>"></script>
 
     
     <!-- script pour chaque page généré -->
@@ -51,7 +69,7 @@
 
 
 
-    <script>
+     <script>
         $(function(){
             //sauvegarde de la page en cours
             sessionStorage.setItem("page", "<?= $this->getUrl() ?>");

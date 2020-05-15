@@ -32,9 +32,9 @@
     <li class="" id="missions">
         <a href="<?= $this->url("gestionnaire", "master", "missions") ?>"><i class="fa fa-plane"></i> <span class="nav-label">Missions</span></a>
     </li>
-    <li class="" id="equipements">
+ <!--    <li class="" id="equipements">
         <a href="<?= $this->url("gestionnaire", "master", "equipements") ?>"><i class="fa fa-tags"></i> <span class="nav-label">Equipements véhicules</span></a>
-    </li>
+    </li> -->
 
     <li class="dropdown-divider"></li>
     <li class="" id="locations">
