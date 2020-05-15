@@ -56,12 +56,12 @@ class DEMANDEVEHICULE extends TABLE
 						$this->setId($data->lastid)->actualise();
 						$params = PARAMS::findLastId();
 
-						$message = "Vous avez reçu une nouvelle demande de véhicule de la part de ".$this->auteur()." pour ".$this->typemission->name;
+						$demande = "Vous avez reçu une nouvelle demande de véhicule N°$this->ticket de la part de ".$this->auteur()." pour ".$this->typemission->name;
 						ob_start();
-						include(__DIR__."/../../webapp/home/elements/mails/demandevehicule.php");
+						include(__DIR__."/../../../composants/assets/emails/demande.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
-						// EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande de véhicule", $contenu);
+						EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande de véhicule", $contenu);
 						
 					}
 					$data->message = "Votre demande de véhicule a bien été pris en compte !";
@@ -133,16 +133,14 @@ class DEMANDEVEHICULE extends TABLE
 		$this->historique("Refus de la demande de véhicule N° $this->id");
 		$data = $this->save();
 		if ($data->status) {
-			//TODO mail
-			// $this->actualise();
-			// $message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typemission->name." a été refusé ! Comme motif << $commentaire >> !";
-			// $objet = "Demande de véhicule refusé";
+			$this->actualise();
+			$demande = "Votre demande de véhicule N°".$this->ticket." pour ".$this->typemission->name;
 
-			// ob_start();
-			// include(__DIR__."/../../webapp/home/elements/mails/demandevehicule1.php");
-			// $contenu = ob_get_contents();
-			// ob_end_clean();
-			// EMAIL::send([$this->email()], $objet, $contenu);
+			ob_start();
+			include(__DIR__."/../../../composants/assets/emails/refus.php");
+			$contenu = ob_get_contents();
+			ob_end_clean();
+			EMAIL::send([$this->email()], $objet, $contenu);
 		}
 		return $data;
 	}
@@ -168,14 +166,13 @@ class DEMANDEVEHICULE extends TABLE
 					$data = $this->save();
 					if ($data->status) {
 						$this->actualise();
-						$message = "Votre demande de véhicule N°".$this->getId()." pour ".$this->typemission->name." a été approuvé !";
-						$objet = "Demande de véhicule approuvé";
+						$demande = "Votre demande de véhicule N°".$this->ticket." pour ".$this->typemission->name;
 
 						ob_start();
-						include(__DIR__."/../../webapp/home/elements/mails/demandevehicule1.php");
+						include(__DIR__."/../../../composants/assets/emails/success.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
-						// EMAIL::send([$this->email()], $objet, $contenu);
+						EMAIL::send([$this->email()], $objet, $contenu);
 					}
 				}
 			}

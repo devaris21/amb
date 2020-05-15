@@ -38,12 +38,12 @@ class ADMIN extends AUTH
 					$data = $this->save();
 					$this->setId($data->lastid)->actualise();
 
-					//@TODO refaire email welcome gestionnaire
+					$poste = "Administrateur de l'application de gestion du parc automobile";
 					ob_start();
-					include(__DIR__."/../../webapp/home/elements/mails/welcome_gestionnaire.php");
+					include(__DIR__."/../../../composants/assets/emails/newcompte.php");
 					$contenu = ob_get_contents();
 					ob_end_clean();
-					EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+					EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
 				}else{
 					$data->status = false;
 					$data->message = "Ce login ne peut plus etre utilisé !";

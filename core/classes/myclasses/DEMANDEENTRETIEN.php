@@ -40,12 +40,13 @@ class DEMANDEENTRETIEN extends TABLE
 				$this->setId($data->lastid)->actualise();
 				$params = PARAMS::findLastId();
 
-				//TODO revoir les emails
-				// ob_start();
-				// include(__DIR__."/../../webapp/home/elements/mails/demandeentretien.php");
-				// $contenu = ob_get_contents();
-				// ob_end_clean();
-				// EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande d'entretien de véhicule", $contenu);
+				$demande = "Vous avez reçu une nouvelle demande de véhicule N°$this->ticket de la part de ".$this->carplan->name()." pour ".$this->typeentretienvehicule->name;
+				$this->objet = $this->typeentretienvehicule->name;
+				ob_start();
+				include(__DIR__."/../../../composants/assets/emails/demande.php");
+				$contenu = ob_get_contents();
+				ob_end_clean();
+				EMAIL::send(GESTIONNAIRE::getEmailGestionnaires(), "Nouvelle demande d'entretien de véhicule", $contenu);
 				$data->message = "Votre demande d'entretien du véhicule a été enregistré avec succes !";
 			}
 		}else{
@@ -89,33 +90,6 @@ class DEMANDEENTRETIEN extends TABLE
 
 
 
-	public function contact(){
-		$this->actualise();
-		if ($this->utilisateur_id == null) {
-			return $this->carplan->contact." // ".$this->carplan->contact2;
-		}else{
-			return $this->utilisateur->contact." // ".$this->utilisateur->contact2;
-		}
-	}
-
-	public function fonction(){
-		$this->actualise();
-		if ($this->utilisateur_id == null) {
-			return "carplan";
-		}else{
-			return $this->utilisateur->departement->name;
-		}
-	}
-
-	public function email(){
-		$this->actualise();
-		if ($this->utilisateur_id == null) {
-			return $this->carplan->email;
-		}else{
-			return $this->utilisateur->email;
-		}
-	}
-
 
 	public function annuler(){
 		$this->etat_id = ETAT::ANNULEE;;
@@ -135,15 +109,13 @@ class DEMANDEENTRETIEN extends TABLE
 			$data = $this->save();
 			if ($data->status) {
 				$this->actualise();
-				$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été prise en compte et approuver par la gestion du parc automobile de l'ARTCI !";
-				$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
-				$objet = "Demande d'entretien de véhicule approuvé";
+				$demande = "Votre demande d'entretien de véhicule N°".$this->ticket." pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation;
 
 				ob_start();
-				include(__DIR__."/../../webapp/home/elements/mails/demandeentretien1.php");
+				include(__DIR__."/../../../composants/assets/emails/success.php");
 				$contenu = ob_get_contents();
 				ob_end_clean();
-			//EMAIL::send([$this->email()], $objet, $contenu);
+				EMAIL::send([$this->email()], $objet, $contenu);
 				session("demandeentretien", $this);
 			}
 		}else{
@@ -165,15 +137,13 @@ class DEMANDEENTRETIEN extends TABLE
 			$data = $this->save();
 			if ($data->status) {
 				$this->actualise();
-				$message = "Votre demande d'entretien de véhicule pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation." a bien été refusé par la gestion du parc automobile de l'ARTCI !";
-				$image = $rooter->stockage("images", "vehicules", $this->vehicule->image);
-				$objet = "Demande d'entretien de véhicule refusé";
+				$demande = "Votre demande d'entretien de véhicule N°".$this->ticket." pour la ".$this->vehicule->marque->name." ".$this->vehicule->modele." immatriculé ".$this->vehicule->immatriculation;
 
 				ob_start();
-				include(__DIR__."/../../webapp/home/elements/mails/demandeentretien1.php");
+				include(__DIR__."/../../../composants/assets/emails/refus.php");
 				$contenu = ob_get_contents();
 				ob_end_clean();
-			//EMAIL::send([$this->email()], $objet, $contenu);
+				EMAIL::send([$this->email()], $objet, $contenu);
 			}
 		}else{
 			$data->status = false;

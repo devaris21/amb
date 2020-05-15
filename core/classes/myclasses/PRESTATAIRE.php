@@ -39,12 +39,13 @@ class PRESTATAIRE extends AUTH
 					$data = $this->save();
 					if ($data->status) {
 						$this->uploading($this->files);
+						
+						$poste = $this->typeprestataire->name()." / partenaire du parc automobile";
 						ob_start();
-						include(__DIR__."/../../webapp/home/elements/mails/welcome_prestataire.php");
+						include(__DIR__."/../../../composants/assets/emails/newcompte.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
-						// TODO gerer les mails
-						//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+						EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
 					}
 				}else{
 					$data->status = false;

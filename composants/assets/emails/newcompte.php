@@ -19,7 +19,8 @@
 			<h2 style="color: #23B2DBFF; text-align: center;">Lorem ipsum dolor sit amet, consectetur.</h2>
 
 			<span><b>Cher <?= $this->name() ?>,</b> </span>
-			<p>un accès et un espace de connexion vient de vous être dédié sur plateforme web de gestion du parc automobile en tant que <?= $poste  ?> ! Cet espace vous permettra de mener vos actions habituelles, de suivre eventuellement le processus de validation de vos différentes demandes et surtout de retracer et/ou retrouver l'historiques de vos différentes action, de déclarer d'eventuels sinistres, et bien d'autres choses !</p><br>
+			<p>un accès et un espace de connexion vient de vous être dédié sur plateforme web de gestion du parc automobile en tant que <u><?= $poste  ?></u> !<br> 
+			Cet espace vous permettra de mener vos actions habituelles, de suivre eventuellement le processus de validation de vos différentes demandes et surtout de retracer et/ou retrouver l'historiques de vos différentes action, de déclarer d'eventuels sinistres, et bien d'autres choses !</p>
 
 			<p>Les informations de connexion communiquées ci-dessous vous sont individuelles et vous incomberont de tout acte ou action ménée sur ladite plateforme à partir d'une session ouverte par celles-ci! <br><br> Vous ne devez donc, en aucun cas, les divulguées à une autre personne !</p><br>
 
@@ -27,11 +28,11 @@
 				<tbody >
 					<tr>
 						<td class="gras">Identifiant : </td>
-						<td><?= $this->login ?></td>
+						<td><b><?= $this->login ?></b></td>
 					</tr>
 					<tr>
 						<td class="gras"> Mot de passe :</td>
-						<td><?= $pass  ?></td>
+						<td><b><?= $pass  ?></b></td>
 					</tr>
 				</tbody>
 			</table>
@@ -63,8 +64,9 @@
 
 		<small style=" font-size: 10px; color: #666666; line-height: 16px; display: inline-block; text-align: justify;  font-weight: normal !important;  " align="left">Cet email a été envoyé de manière automatique, donc si vous repondez, personne ne le verra.<br> Pour nous contactez, veuillez utiliser les supports de contact au bas du mail. <br><br>copyright © 2019-2020 AMB. Tous droits reservés. AMB est situé à port-bouet, rue de la baltique, Abidjan Côte d'Ivoire. <br>www.amb.com // info@amb.com // +225 59573307</small>
 	</div>
+	
+	<?php include(__DIR__."/../../composants/assets/emails/templates/footer.php"); ?>
+
 </body>
 </html>
 
-
-<?php include(__DIR__."/../../composants/assets/emails/templates/footer.php"); ?>

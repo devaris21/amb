@@ -12,6 +12,7 @@ class TYPEGESTIONNAIRE extends TABLE
 	public $name;
 
 	const CHEF = 1;
+	const NORMAL = 2;
 
 	public function enregistre(){
 		$data = new RESPONSE;

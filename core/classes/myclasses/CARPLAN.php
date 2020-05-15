@@ -38,12 +38,13 @@ class CARPLAN extends AUTH
 					$this->password = hasher($pass);
 					$data = $this->save();
 					if ($data->status) {
+
+						$poste = "Bénéficiaire d'un Car plan";
 						ob_start();
-						include(__DIR__."/../../webapp/home/elements/mails/welcome_carplan.php");
+						include(__DIR__."/../../../composants/assets/emails/newcompte.php");
 						$contenu = ob_get_contents();
 						ob_end_clean();
-						//TODO gerer les emails
-						//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+						EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
 					}
 				}else{
 					$data->status = false;

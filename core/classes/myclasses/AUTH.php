@@ -99,12 +99,11 @@ abstract class AUTH extends TABLE
 		$data = $this->save();
 		if ($data->status) {
 			ob_start();
-			//TODO mettre le mail a jour
-			include(__DIR__."/../../../composants/assets/mails/reset.php");
+			include(__DIR__."/../../../composants/assets/emails/reset.php");
 			$contenu = ob_get_contents();
 			ob_end_clean();
 			EMAIL::send([$this->email], "Reinitialisation de vos parametres de connexion", $contenu);
-			$data->setUrl("amb", "start", "select");
+			$data->setUrl("amb", "home", "select");
 		}
 		return $data;
 	}

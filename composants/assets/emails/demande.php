@@ -17,31 +17,28 @@
             </div>
             <br><br>
 
-            <h2 style="color: #23B2DBFF; text-align: center;">Reinitialisation de votre mot de passe</h2>
+            <h2 style="color: #23B2DBFF; text-align: center;">Nouvelle demande </h2>
 
-            <span><b>Cher <?= $this->name() ?>,</b> </span>
-            <p>Vos paramètres de connexion ont bien été reinitialisé. Nous vous invitons cette fois-ci à bien les conserver dans un endroit sûr !</p><br>
+           
+            <span><b>Cher gestionnaire,</b> </span>
+            <p><?= $demande  ?> </p><br>
 
-            <p>Nous tenons à vous rappelez également que les informations de connexion communiquées ci-dessous vous sont individuelles et vous incomberont de tout acte ou action ménée sur ladite plateforme à partir d'une session ouverte par celles-ci!</p><br>
+            <p>Pour plus d'informations, veuillez vous connecter sur l'application de gestion de parc automobile avec vos accès habituels!</p><br>
 
             <table>
-                <tbody >
-                    <tr>
-                        <td class="gras">Identifiant : </td>
-                        <td><b><?= $this->login ?></b></td>
+                <tbody>
+                    <tr style="margin-bottom: 2%;">
+                        <td class="gras"> Objet de la demande :</td>
+                        <td><b><?= $this->objet ?></b></td>
                     </tr>
-                    <tr>
-                        <td class="gras"> Mot de passe :</td>
-                        <td><b><?= $pass ?></b></td>
+                    <tr style="margin-bottom: 2%;">
+                        <td class="gras"> Détails / Explication :</td>
+                        <td><b><?= $this->comment ?></b></td>
                     </tr>
                 </tbody>
             </table>
             <br>
-            <div>
-                <a class="bouton" href="<?= Native\SHAMMAN::getConfig("metadata","website")  ?>" target="_blank">Aller sur la plateforme</a>
-            </div><br>
 
-            <p>Vous serez emmener à changer ces informations lors de votre premiere connexion !.</p><br><br><br>
 
             <div style="text-align: right;">
                 <h4 style="margin: 5px auto" >Cordialement,</h4>

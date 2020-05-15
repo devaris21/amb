@@ -39,7 +39,7 @@ class UTILISATEUR extends AUTH
 			if (count($datas) == 1 && $this->departement_id != DEPARTEMENT::DPA) {
 				$datas = UTILISATEUR::findBy(["login ="=>$this->login]);
 				if (count($datas) == 0) {
-					if ($this->emailIsValide($this->email) || true) {
+					if ($this->emailIsValide($this->email)) {
 						$data = $this->save();
 						if ($data->status) {
 							$this->uploading($this->files);
@@ -47,10 +47,10 @@ class UTILISATEUR extends AUTH
 
 							$poste ="Responsable de ".$this->departement->name();
 							ob_start();
-							include(__DIR__."/../../composants/assets/emails/newcompte.php");
+							include(__DIR__."/../../../composants/assets/emails/newcompte.php");
 							$contenu = ob_get_contents();
 							ob_end_clean();
-						//EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
+							EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
 						}
 					}else{
 						$data->status = false;

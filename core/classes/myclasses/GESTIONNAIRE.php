@@ -39,12 +39,12 @@ class GESTIONNAIRE extends AUTH
 					$data = $this->save();
 					$this->setId($data->lastid)->actualise();
 
-					//@TODO refaire email welcome gestionnaire
+					$poste = $this->typegestionnaire->name()." du parc automobile";
 					ob_start();
-					include(__DIR__."/../../webapp/home/elements/mails/welcome_gestionnaire.php");
+					include(__DIR__."/../../../composants/assets/emails/newcompte.php");
 					$contenu = ob_get_contents();
 					ob_end_clean();
-					//EMAIL::send([$this->email], "Bienvenue - ARTCI | Gestion du parc auto", $contenu);
+					EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
 				}else{
 					$data->status = false;
 					$data->message = "Ce login ne peut plus etre utilisé !";
@@ -63,7 +63,7 @@ class GESTIONNAIRE extends AUTH
 
 	public static function getEmailGestionnaires(){
 		$emails = [];
-		$datas = static::findBy(["is_admin < "=>2]);
+		$datas = static::findBy(["typegestionnaire_id < "=> TYPEGESTIONNAIRE::NORMAL]);
 		foreach ($datas as $key => $value) {
 			$emails[] = $value->email;
 		}
