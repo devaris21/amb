@@ -35,16 +35,23 @@ $(function(){
 			cancelLabel : "Non",
 			okLabel : "OUI, terminer",
 		}, function(){
-			Loader.start();
-			var url = "../../webapp/gestionnaire/modules/master/missions/ajax.php";
-			$.post(url, {action:"terminer", id:id}, (data)=>{
-				if (data.status) {
-					window.location.reload()
-				}else{
-					Alerter.error("Erreur !", data.message);
-				}
-			},"json");
+			$(".modal-mission"+id).modal("show");
 		})
 	}
+
+
+	$("form.missionTerminee").submit(function(event) {
+		Loader.start();
+		var url = "../../webapp/gestionnaire/modules/master/missions/ajax.php";
+		formdata.append('action', "terminer");
+		$.post({url:url, data:formdata, contentType:false, processData:false}, function(data){
+			if (data.status) {
+				window.location.reload()
+			}else{
+				Alerter.error("Erreur !", data.message);
+			}
+		},"json");
+	});
+
 
 })

@@ -3,8 +3,6 @@ namespace Home;
 use Native\RESPONSE;
 use Native\EMAIl;
 
-
-
 /**
  * 
  */
@@ -39,9 +37,8 @@ class DEMANDEVEHICULE extends TABLE
 	public $etat_id = ETAT::ENCOURS;
 	public $gestionnaire_id;
 
-	public $carburant;
-	public $typedotation_id;
-	public $dotation;
+	public $carburant_aller;
+	public $carburant_retour;
 
 
 	public function enregistre(){

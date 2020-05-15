@@ -12,6 +12,7 @@ if ($action == "terminer") {
 	$datas = MISSION::findBy(["id ="=> $id]);
 	if (count($datas) == 1) {
 		$mission = $datas[0];
+		$mission->hydrater($_POST);
 		$data = $mission->terminer();
 	}else{
 		$data->status = false;

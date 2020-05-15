@@ -30,7 +30,7 @@
                         <div class="col-md-3 col-sm-6">
                             <label>Le modèle du vehicule<span1>*</span1></label>
                             <div class="form-group">
-                                <input type="text" class="form-control input-xs" name="modele" required placeholder="Ex...BMW 362 X2">
+                                <input type="text" class="form-control input-xs" name="modele" required>
                             </div>
                         </div>
                     </div><hr>

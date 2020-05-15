@@ -14,8 +14,8 @@ class DEPARTEMENT extends TABLE
 
 	public $name;
 	public $sigle;
-	public $circuit_programmee;
-	public $circuit_inopinee;
+	public $circuit_programmee = -1;
+	public $circuit_inopinee = -1;
 
 
 	public function enregistre(){

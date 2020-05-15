@@ -9,13 +9,13 @@ $(function(){
         $.post({url:url, data:formData, processData:false, contentType:false}, function(data) {
             if (data.status) {
                 if (data.new) {
-                     Loader.stop();
+                    Loader.stop();
                     $("#modal-newUser").modal();
                 }else{
                     window.location.href = data.url;
                 }
             }else{
-               Alerter.error('Erreur !', data.message);
+                Alerter.error('Erreur !', data.message);
             }
         }, 'json');
         return false;
@@ -24,7 +24,7 @@ $(function(){
 
 
     $("form#formNewUser").submit(function(event) {
-         Loader.start();
+        Loader.start();
         var url = "../../webapp/gestionnaire/modules/access/login/ajax.php";
         var formData = new FormData($(this)[0]);
         formData.append('action', 'newUser');
@@ -32,7 +32,7 @@ $(function(){
             if (data.status) {
                 window.location.href = data.url;
             }else{
-               Alerter.error('Erreur !', data.message);
+                Alerter.error('Erreur !', data.message);
             }
         }, 'json');
         return false;

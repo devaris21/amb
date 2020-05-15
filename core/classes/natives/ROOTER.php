@@ -18,7 +18,7 @@ class ROOTER extends PATH
     private $url;
     private $language = "fr";
     public $section = "amb";
-    public $module = "start";
+    public $module = "home";
     public $page = "select";
     public $id ;
 
@@ -149,32 +149,27 @@ class ROOTER extends PATH
        }
 
 
-       $path = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/index.php";
-       $require = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/require.php";
+        $path = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/index.php";
+        $require = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/require.php";
 
-       if (file_exists($path)) {
-          $path = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/index.php";
-          $require = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/require.php";
+        if (file_exists($path)) {
+            $path = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/index.php";
+            $require = __DIR__."/../../../webapp/$this->section/modules/$this->module/$this->page/require.php";
 
-          require realpath($require);
-          require realpath($path);
+            require realpath($require);
+            require realpath($path);
 
-          $token = hasher(bin2hex(random_bytes(32)));
-          session("token", $token);
-          session("verif_token", $token);
+            $token = hasher(bin2hex(random_bytes(32)));
+            session("token", $token);
+            session("verif_token", $token);
 
-      }else{
-        if (in_array($this->section, array_merge(static::SECTION_SIMPLE, static::SECTION_ADMIN))) {
-            $this->new_root($this->section, "access", "erreur404");
-            echo "page inconnue";
         }else{
-            header("HTTP/1.0 404 Not Found");
-            $this->new_root("amb", "access", "erreur404");
-            echo "page inconnue 2";
+            $path = __DIR__."/../../../webapp/amb/modules/home/erreur404/index.php";
+            $require = __DIR__."/../../../webapp/amb/modules/home/erreur404/require.php";
+            require realpath($require);
+            require realpath($path);
         }
-    //$this->render();
     }
-}
 
 
 

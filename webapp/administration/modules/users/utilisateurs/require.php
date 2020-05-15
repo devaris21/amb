@@ -3,6 +3,6 @@ namespace Home;
 
 $title = "AMB | Departements & responsables !";
 
-$departements = DEPARTEMENT::getAll();
+$departements = DEPARTEMENT::findBy(["visibility ="=>1]);
 
 ?>

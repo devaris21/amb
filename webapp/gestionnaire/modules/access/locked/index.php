@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/gestion/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/gestionnaire/elements/templates/head.php")); ?>
 
 
 <body class="gray-bg">
@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <?php include($this->rootPath("webapp/gestion/elements/templates/script.php")); ?>
+    <?php include($this->rootPath("webapp/gestionnaire/elements/templates/script.php")); ?>
 
 
 </body>

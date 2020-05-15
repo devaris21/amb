@@ -21,8 +21,8 @@ class MISSION extends TABLE
 	public $lieu;
 	public $objet;
 	public $comment;
-	public $carburant;
-	public $dotation;
+	public $carburant_aller;
+	public $carburant_retour;
 	public $started;
 	public $finished;
 	public $vehicule_id;
@@ -38,6 +38,10 @@ class MISSION extends TABLE
 		if ($this->started <= $this->finished && $this->finished >= dateAjoute()) {
 			$datas = DEMANDEVEHICULE::findBy(["id ="=>$this->demandevehicule_id]);
 			if (count($datas) == 1) {
+				$demande = $datas[0];
+				$demande->actualise();
+				$this->kilometrage_aller = $demande->vehicule->kilometrage;
+
 				$data = $this->save();
 				if ($data->status) {
 					$this->actualise();

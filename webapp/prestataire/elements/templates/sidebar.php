@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <h1 class="logo-name text-center" style="font-size: 50px; letter-spacing: 5px; margin: 0% auto !important; padding: 0% !important;">AMB</h1>
-            <li class="nav-header">
+            <li class="nav-header" style="padding: 15px 10px !important">
                 <div class="dropdown profile-element">                        
                     <div class="row">
                         <div class="col-3">

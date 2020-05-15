@@ -2,7 +2,7 @@
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <h1 class="logo-name text-center" style="font-size: 50px; letter-spacing: 5px; margin: 0% auto !important; padding: 0% !important;">AMB</h1>
-            <li class="nav-header">
+            <li class="nav-header" style="padding: 15px 10px !important">
                 <div class="dropdown profile-element">                        
                     <div class="row">
                         <div class="col-3">
@@ -22,18 +22,18 @@
             </li>
             
 
-            <li class="active">
+            <li id="dashboard">
                 <a href="<?= $this->url("direction", "master", "dashboard") ?>"><i class="fa fa-dashboard"></i> <span class="nav-label">Tableau de bord</span></a>
             </li>
-            <li class="">
+            <li id="missions">
                 <a href="<?= $this->url("direction", "master", "missions") ?>"><i class="fa fa-plane"></i> <span class="nav-label">Les missions</span></a>
             </li>
-            <li class="">
+            <li id="moncompte">
                 <a href="<?= $this->url("direction", "master", "moncompte") ?>"><i class="fa fa-plane"></i> <span class="nav-label">Mon compte</span></a>
             </li>
             <?php if (in_array($utilisateur->departement->getId(), [1,2])) { ?>
                 <li class="dropdown-divider"></li>
-                <li class="">
+                <li id="demandevehicules">
                     <a href="<?= $this->url("direction", "master", "demandevehicules") ?>"><i class="fa fa-check"></i> <span class="nav-label">Les Demandes à valider</span></a>
                 </li>
             <?php } ?>

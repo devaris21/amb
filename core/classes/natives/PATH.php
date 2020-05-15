@@ -19,6 +19,10 @@ class PATH
 		return "../../webapp/$this->section/assets/$file";
 	}
 
+	public function elements($file){
+		return "../../webapp/$this->section/elements/$file";
+	}
+
 	public function stockage($type, $dossier, $file){
 		return "../../../stockage/$type/$dossier/$file";
 	}

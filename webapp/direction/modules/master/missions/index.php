@@ -109,9 +109,7 @@
                                 </td>
                                 <td class="project-completion">
                                     <small>Carburant</small><br>
-                                    <span><?= $mission->carburant ?> Litres</span><br>
-                                    <small>Dotation</small><br>
-                                    <span><?= money($mission->dotation) ?> <?= $params->devise ?></span>
+                                    <span><?= $mission->carburant_aller - $mission->carburant_retour ?> Litres</span><br>
                                 </td>
                                 <td class="border-right">
                                     <a class="row" style="color: black; margin-top: 3%" href="<?= $this->url("direction", "master", "vehicule", $mission->demandevehicule->vehicule_id) ?>">

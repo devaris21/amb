@@ -213,6 +213,9 @@ class VEHICULE extends TABLE
 			$value->name = $value->typeaffectation->name()." à ".$value->carplan->name();
 		}
 		$datas2 = $this->fourni("mission");
+		foreach ($datas2 as $key => $value) {
+			$value->name = "Mission : ".$value->objet;
+		}
 		return array_merge($datas, $datas1, $datas2);
 	}
 

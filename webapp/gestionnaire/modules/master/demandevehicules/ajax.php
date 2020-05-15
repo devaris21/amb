@@ -20,7 +20,7 @@ if ($action == "demandevehicule") {
 		$demande = $datas[0];
 		$demande->vehicule_id = getSession("vehicule");
 		$demande->chauffeur_id = getSession("chauffeur");
-		$data = $demande->approuverFinal();
+		$data = $demande->approuver();
 		if ($data->status) {
 			unset_session("demandeentretien");
 			unset_session("vehicule");

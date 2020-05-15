@@ -35,28 +35,34 @@ class UTILISATEUR extends AUTH
 		$pass = substr(uniqid(), 5);
 		$this->password = hasher($pass);
 		if ($this->login != "" && $this->password != "") {
-			$datas = UTILISATEUR::findBy(["login ="=>$this->login]);
-			if (count($datas) == 0) {
-				if ($this->emailIsValide($this->email) || true) {
-					$data = $this->save();
-					if ($data->status) {
-						$this->uploading($this->files);
-						$this->setId($data->lastid)->actualise();
+			$datas = DEPARTEMENT::findBy(["id ="=>$this->departement_id]);
+			if (count($datas) == 1 && $this->departement_id != DEPARTEMENT::DPA) {
+				$datas = UTILISATEUR::findBy(["login ="=>$this->login]);
+				if (count($datas) == 0) {
+					if ($this->emailIsValide($this->email) || true) {
+						$data = $this->save();
+						if ($data->status) {
+							$this->uploading($this->files);
+							$this->setId($data->lastid)->actualise();
 
-						$poste ="Responsable de ".$this->departement->name();
-						ob_start();
-						include(__DIR__."/../../composants/assets/emails/newcompte.php");
-						$contenu = ob_get_contents();
-						ob_end_clean();
+							$poste ="Responsable de ".$this->departement->name();
+							ob_start();
+							include(__DIR__."/../../composants/assets/emails/newcompte.php");
+							$contenu = ob_get_contents();
+							ob_end_clean();
 						//EMAIL::send([$this->email], "Bienvenue - AMB | Gestion du parc auto", $contenu);
+						}
+					}else{
+						$data->status = false;
+						$data->message = "Veuillez renseigner votre adresse email ou le changer !";
 					}
 				}else{
 					$data->status = false;
-					$data->message = "Veuillez renseigner votre adresse email ou le changer !";
+					$data->message = "Ce login ne peut plus etre utilisé !";
 				}
 			}else{
 				$data->status = false;
-				$data->message = "Ce login ne peut plus etre utilisé !";
+				$data->message = "Vous ne pouvez pas utiliser cet département/direction !";
 			}
 		}else{
 			$data->status = false;

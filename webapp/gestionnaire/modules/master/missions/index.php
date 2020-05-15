@@ -22,7 +22,7 @@
                         <div class="col-xs-7 gras text-capitalize">Afficher toutes les missions</div>
                         <div class="offset-1"></div>
                         <div class="col-xs-4">
-                         <div class="switch">
+                           <div class="switch">
                             <div class="onoffswitch">
                                 <input type="checkbox" class="onoffswitch-checkbox" id="example1">
                                 <label class="onoffswitch-label" for="example1">
@@ -90,9 +90,7 @@
                                 </td>
                                 <td class="project-completion">
                                     <small>Carburant</small><br>
-                                    <span><?= $mission->carburant ?> Litres</span><br>
-                                    <small>Dotation</small><br>
-                                    <span><?= money($mission->dotation) ?> <?= $params->devise ?></span>
+                                    <span><?= $mission->carburant_aller - $mission->carburant_retour ?> Litres</span><br>
                                 </td>
                                 <td class="border-right">
                                     <a class="row" style="color: black; margin-top: 3%" href="<?= $this->url("gestionnaire", "master", "vehicule", $mission->demandevehicule->vehicule_id) ?>">
@@ -128,19 +126,59 @@
                                     <?php } ?>
                                 </td>
                                 <td class="project-actions">
-                                   <button onclick="terminer(<?= $mission->getId(); ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> Terminer </button>
-                                   <button class="btn btn-white btn-sm" data-toggle=tooltip title="Annuler la mission" onclick="annuler(<?= $mission->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
-                               </td>
-                           </tr>
-                       <?php  } ?>
-                   </tbody>
-               </table>
-           </div>
-       </div>
-   </div>
+                                 <button onclick="terminer(<?= $mission->getId(); ?>)" class="btn btn-white btn-sm"><i class="fa fa-check text-green"></i> Terminer </button>
+                                 <button class="btn btn-white btn-sm" data-toggle=tooltip title="Annuler la mission" onclick="annuler(<?= $mission->getId(); ?>)"><i class="fa fa-close text-red"></i></button>
+                             </td>
+                         </tr>
+                     <?php  } ?>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+ </div>
 
 
-   <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+ <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
+
+
+ <?php foreach ($missions as $key => $mission){ ?>
+    <div class="modal inmodal fade" id="modal-mission<?= $mission->getId() ?>">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title">MIssion terminée</h4>
+                    <p>Pour terminer la mission, veuillez renseigner ces champs</p>
+                </div>
+                <form class="missionTerminee">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-4 col-sm-6">
+                                <label>Niveau de Carburant du véhicule <span1>*</span1></label>
+                                <div class="form-group">
+                                    <input type="number" class="form-control input-xs" max="<?= $mission->carburant_aller ?>" value="" name="carburant_retour" required>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4 col-sm-6">
+                                <label>Kilometrage du véhicule <span1>*</span1></label>
+                                <div class="form-group">
+                                    <input type="number" class="form-control input-xs" min="<?= $mission->kilometrage_aller ?>" name="Kilometrage_retour" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div><hr>
+                    <div class="container">
+                        <input type="hidden" name="id" value="<?= $mission->getId() ?>">
+                        <button type="button" class="btn btn-sm  btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Annuler</button>
+                        <button class="btn btn-sm btn-danger pull-right"><i class="fa fa-refresh"></i> Mission terminée</button>
+                    </div>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php  } ?>
 
 
 </div>
