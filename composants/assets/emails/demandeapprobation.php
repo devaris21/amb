@@ -1,83 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
+<head> 
+    <meta name="swift-page-name" id="swift-page-name" content="home">
+    <meta name="swift-page-section" id="swift-section-name" content="home">
+    <meta name="msapplication-tileimage" content="//abs.twimg.com/favicons/win8-tile-144.png">
+    <meta name="msapplication-tilecolor" content="#00aced">
 </head>
-<body>
+<body > 
+    <div style="max-width: 680px ; margin: 3% auto ;">
+        <div style=" padding: 4%; background-color: #fff; border: 0.5px solid #ddd; border-bottom: 6px solid #ddd;">
 
-    <table align="center" border="0" cellpadding="0" cellspacing="0" style="border: 2px solid orangered; border-collapse: collapse; width: 100%; max-width: 600px;" class="content">
-<!--         <tr>
-            <td style="padding: 15px 10px 15px 10px;">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tr>
-                        <td align="center" style="color: #fff; font-family: Arial, sans-serif; font-size: 12px;">
-                            Email not displaying correctly?  <a href="#" style="color: #0073AA;">View it in your browser</a>
-                        </td>
+            <div>
+                <img style="height: 50px; float: right;" src="http://dummyimage.com/800x600/4d494d/686a82.gif&text=placeholder+image" alt="placeholder+image">
+                <h1 style="font-size: 50px; color: grey; margin: 0; letter-spacing: 5px; font-weight: bold">AMB</h1>
+                <small>Plateforme de gestion de parc Auto-Moto-Bateau</small>
+            </div>
+            <br><br>
+
+            <h2 style="color: #23B2DBFF; text-align: center;">Nouvelle demande </h2>
+
+           
+            <span><b>Cher <?= $responsable  ?>,</b> </span>
+            <p><?= $demande  ?> vous ai soumis pour approbation .</p><br>
+
+            <p>Pour plus d'informations, veuillez vous connecter sur l'application de gestion de parc automobile avec vos accès habituels!</p><br>
+
+            <table>
+                <tbody>
+                    <tr style="margin-bottom: 2%;">
+                        <td class="gras"> Objet de la demande :</td>
+                        <td><b><?= $this->objet ?></b></td>
                     </tr>
-                </table>
-            </td>
-        </tr> -->
-        <tr>
-            <td align="center" bgcolor="green" style="padding: 20px 20px 20px 20px; color: #ffffff; font-family: Arial, sans-serif; font-size: 36px; font-weight: bold;">
-                <img src="http://www.dleg.net/logos/auto.png" alt="le logo" width="250" height="110" style="display:block;">
-            </td>
-        </tr>
-        <tr>
-            <td align="justify" bgcolor="#ffffff" style="padding: 20px 20px 20px 20px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 40px; border-bottom: 1px solid #f6f6f6;">
-                <h2 align="center">Nouvelle demande d'approbation</h2>
-                <b><?= $message ?></b>
-            </td>
-        </tr>
-        <tr>
-            <td align="left" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                <b>Type de la demande:</b> <?= $demande->typedemandevehicule->name ?>;
-            </td>
-        </tr>
-        <tr>
-            <td align="left" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                <b>Objet de la demande:</b> <?= $demande->objet ?>;
-            </td>
-        </tr>
-        <tr>
-            <td align="left" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                <b>Durée d'utilisation :</b> Du <?= datelong($demande->started) ?> au <?= datelong($demande->finished) ?>;
-            </td>
-        </tr>
-        <tr>
-            <td align="left" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                <b>Exigence :</b> <?= $demande->nb_vehicule ?> véhicule(s) // <?= $demande->nb_chauffeur ?> chauffeur(s);
-            </td>
-        </tr>
-        <tr>
-            <td align="left" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                <b>Lieu si mission :</b> <?= $demande->lieu ?>;
-            </td>
-        </tr>
-        <tr>
-            <td align="left" bgcolor="#f9f9f9" style="padding: 10px 10px 0 10px; color: #555555; font-family: Arial, sans-serif; font-size: 15px; line-height: 30px;">
-                    <b>Détails / Explication :</b> <?= $demande->comment ?>
-                    <br><br>
-            </td>
-        </tr>
-
-
-       <tr>
-        <td align="center" bgcolor="#dddddd" style="padding: 15px 10px 15px 10px; color: #555555; font-family: Arial, sans-serif; font-size: 12px; line-height: 18px;">
-            <b>Gestion du Parc Automobile.</b><br>Abidjan Côte d'Ivoire. &bull; 01 79 30 00 Tel: +225 56 49 17 13
-        </td>
-    </tr>
-<!--     <tr>
-        <td style="padding: 15px 10px 15px 10px;">
-            <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                <tr>
-                    <td align="center" width="100%" style="color: #fff; font-family: Arial, sans-serif; font-size: 12px;">
-                        2017-18 &copy; <a href="http://html.codedthemes.com/mash-able/" style="color: #0073AA;">Mash Able</a>
-                    </td>
-                </tr>
+                    <tr style="margin-bottom: 2%;">
+                        <td class="gras"> Détails / Explication :</td>
+                        <td><b><?= $this->comment ?></b></td>
+                    </tr>
+                </tbody>
             </table>
-        </td>
-    </tr> -->
-</table>
+            <br>
 
+
+            <div style="text-align: right;">
+                <h4 style="margin: 5px auto" >Cordialement,</h4>
+                <small style="text-align: right; color: grey;">AMB | Plateforme de gestion de parc Auto-Moto-Bateau</small>
+            </div>
+        </div>
+        <br>
+        
+            <?php include(__DIR__."/templates/footer.php"); ?>
+
+    </div>
 </body>
 </html>
+
+

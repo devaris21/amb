@@ -62,6 +62,17 @@ class DEPARTEMENT extends TABLE
 	}
 
 
+	public function listeEmails(){
+		$tab = [];
+		foreach ($this->fourni('utilisateur') as $key => $user) {
+			if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
+				$tab[] = $user->email;
+			}
+		}
+		return $tab;
+	}
+
+
 
 	public function sentenseCreate(){
 		return $this->sentense = "Ajout d'un nouvelle direction : $this->name dans les paramétrages";

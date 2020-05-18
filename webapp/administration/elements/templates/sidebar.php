@@ -29,17 +29,17 @@
             <br><li class="dropdown-divider"></li><br>
 
             <li>
-                <a href="#"><i class="fa fa-user"></i> <span class="nav-label">Responsables</span> <span class="fa arrow"></span></a>
+                <a href="#"><i class="fa fa-bank"></i> <span class="nav-label">Responsables / DEPT</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
                     <li id="utilisateurs"><a href="<?= $this->url("administration", "users", "utilisateurs") ?>">Liste des responsables</a></li>
                     <!-- <li><a href="dashboard_2.html"><i class="fa fa-plus"></i> Ajouter nouveau</a></li> -->
                 </ul>
             </li>
             <li class="">
-                <a href="<?= $this->url("administration", "users", "carplans") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Bénéficiaires CARPLAN</span></a>
+                <a href="<?= $this->url("administration", "users", "carplans") ?>"><i class="fa fa-users"></i> <span class="nav-label">Bénéficiaires CARPLAN</span></a>
             </li>
             <li class="">
-                <a href="<?= $this->url("administration", "users", "prestataires") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Prestataires</span></a>
+                <a href="<?= $this->url("administration", "users", "prestataires") ?>"><i class="fa fa-cubes"></i> <span class="nav-label">Prestataires</span></a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-pied-piper-alt"></i> <span class="nav-label">Gestionnaire / Admin</span> <span class="fa arrow"></span></a>
@@ -51,7 +51,7 @@
 
             <br><li class="dropdown-divider"></li><br>
             <li class="">
-                <a href="<?= $this->url("administration", "parametres", "configuration") ?>"><i class="fa fa-frown-o"></i> <span class="nav-label">Configuration</span></a>
+                <a href="<?= $this->url("administration", "parametres", "configuration") ?>"><i class="fa fa-wrench"></i> <span class="nav-label">Configuration</span></a>
             </li>
 
             <br><li class="dropdown-divider"></li><br>
@@ -65,7 +65,7 @@
             <br><li class="dropdown-divider"></li><br>
 
             <li class="">
-                <a href="<?= $this->url("administration", "master", "dashboard") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Abonnement AMB</span></a>
+                <a href="<?= $this->url("administration", "parametres", "abonnement") ?>"><i class="fa fa-diamond"></i> <span class="nav-label">Abonnement AMB</span></a>
             </li>
 
         </ul>

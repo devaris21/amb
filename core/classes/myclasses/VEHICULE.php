@@ -310,6 +310,7 @@ class VEHICULE extends TABLE
 	}
 
 	public static function mission(){
+		static::etat();
 		return static::findBy(["groupevehicule_id ="=>GROUPEVEHICULE::VEHICULEMISSION, "etatvehicule_id ="=>ETATVEHICULE::MISSION]);
 	}
 

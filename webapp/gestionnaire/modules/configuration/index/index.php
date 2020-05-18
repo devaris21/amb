@@ -17,19 +17,10 @@
             <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-sm-4">
                     <h2>Configuration de Base</h2>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="index.html">This is</a>
-                        </li>
-                        <li class="breadcrumb-item active">
-                            <strong>Breadcrumb</strong>
-                        </li>
-                    </ol>
+                   
                 </div>
                 <div class="col-sm-8">
-                    <div class="title-action">
-                        <a href="" class="btn btn-primary">This is action area</a>
-                    </div>
+                    
                 </div>
             </div>
 
@@ -123,42 +114,6 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12 bloc">
                                                 <div class="ibox border">
                                                     <div class="ibox-title">
-                                                        <h5 class="text-uppercase">Marque de véhicule</h5>
-                                                        <div class="ibox-tools">
-                                                            <a class="collapse-link">
-                                                                <i class="fa fa-plus"></i> Ajouter
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ibox-content">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Libéllé</th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php $i =0; foreach (Home\MARQUE::findBy([], [], ["name"=>"ASC"]) as $key => $item) {
-                                                                    $i++; ?>
-                                                                    <tr>
-                                                                        <td><?= $i ?></td>
-                                                                        <td><?= $item->name(); ?></td>
-                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="modification('typevehicule', <?= $item->getId() ?>)"><i class="fa fa-pencil text-blue cursor"></i></td>
-                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="suppression('typevehicule', <?= $item->getId() ?>)"><i class="fa fa-close cursor text-danger"></i></td>
-                                                                    </tr>
-                                                                <?php } ?>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-sm-6 col-xs-12 bloc">
-                                                <div class="ibox border">
-                                                    <div class="ibox-title">
                                                         <h5 class="text-uppercase">Type d'énergie</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
@@ -195,7 +150,7 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12 bloc">
                                                 <div class="ibox border">
                                                     <div class="ibox-title">
-                                                        <h5 class="text-uppercase">Type d'équipement</h5>
+                                                        <h5 class="text-uppercase">Type de transmission</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
                                                                 <i class="fa fa-plus"></i> Ajouter
@@ -213,13 +168,13 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <?php $i =0; foreach (Home\TYPEEQUIPEMENT::findBy([], [], ["name"=>"ASC"]) as $key => $item) {
+                                                                <?php $i =0; foreach (Home\TYPETRANSMISSION::findBy([], [], ["name"=>"ASC"]) as $key => $item) {
                                                                     $i++; ?>
                                                                     <tr>
                                                                         <td><?= $i ?></td>
                                                                         <td><?= $item->name(); ?></td>
-                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="modification('typeequipement', <?= $item->getId() ?>)"><i class="fa fa-pencil text-blue cursor"></i></td>
-                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="suppression('typeequipement', <?= $item->getId() ?>)"><i class="fa fa-close cursor text-danger"></i></td>
+                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="modification('typetransmission', <?= $item->getId() ?>)"><i class="fa fa-pencil text-blue cursor"></i></td>
+                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="suppression('typetransmission', <?= $item->getId() ?>)"><i class="fa fa-close cursor text-danger"></i></td>
                                                                     </tr>
                                                                 <?php } ?>
                                                             </tbody>
@@ -315,7 +270,7 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12 bloc">
                                                 <div class="ibox border">
                                                     <div class="ibox-title">
-                                                        <h5 class="text-uppercase">Pièce administrative de véhicule</h5>
+                                                        <h5 class="text-uppercase">Pièces administratives</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
                                                                 <i class="fa fa-plus"></i> Ajouter
@@ -431,7 +386,7 @@
                                             <div class="col-md-4 col-sm-6 col-xs-12 bloc">
                                                 <div class="ibox border">
                                                     <div class="ibox-title">
-                                                        <h5 class="text-uppercase">type de produit de prestataire</h5>
+                                                        <h5 class="text-uppercase">type produit prestataire</h5>
                                                         <div class="ibox-tools">
                                                             <a class="collapse-link">
                                                                 <i class="fa fa-plus"></i> Ajouter
@@ -464,41 +419,6 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4 col-sm-6 col-xs-12 bloc">
-                                                <div class="ibox border">
-                                                    <div class="ibox-title">
-                                                        <h5 class="text-uppercase">Type d'énergie</h5>
-                                                        <div class="ibox-tools">
-                                                            <a class="collapse-link">
-                                                                <i class="fa fa-plus"></i> Ajouter
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ibox-content">
-                                                        <table class="table">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Libéllé</th>
-                                                                    <th></th>
-                                                                    <th></th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <?php $i =0; foreach (Home\ENERGIE::findBy([], [], ["name"=>"ASC"]) as $key => $item) {
-                                                                    $i++; ?>
-                                                                    <tr>
-                                                                        <td><?= $i ?></td>
-                                                                        <td><?= $item->name(); ?></td>
-                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="modification('energie', <?= $item->getId() ?>)"><i class="fa fa-pencil text-blue cursor"></i></td>
-                                                                        <td data-toggle="data-toggle" title="modifier l'élément" onclick="suppression('energie', <?= $item->getId() ?>)"><i class="fa fa-close cursor text-danger"></i></td>
-                                                                    </tr>
-                                                                <?php } ?>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
 
