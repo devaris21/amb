@@ -33,6 +33,12 @@
 
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
+                            <label>Situation géographique <span1>*</span1></label>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="adresse" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-6">
                             <label>Adresse email <span1>*</span1></label>
                             <div class="form-group">
                                 <input type="email" class="form-control" name="email" required>

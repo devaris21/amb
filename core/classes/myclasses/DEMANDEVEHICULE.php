@@ -175,6 +175,16 @@ class DEMANDEVEHICULE extends TABLE
 						EMAIL::send([$this->email()], $objet, $contenu);
 					}
 				}
+			}else{
+				$this->actualise();
+				$demande = "La demande de véhicule N°".$this->ticket." pour ".$this->typemission->name;
+				$responsable = " responsable de ".$this->departement->sigle." / ".$this->departement->name();
+				ob_start();
+				include(__DIR__."/../../../composants/assets/emails/demandeapprobation.php");
+				$contenu = ob_get_contents();
+				ob_end_clean();
+				EMAIL::send([$this->departement->emails()], $objet, $contenu);
+
 			}
 		}
 		return $data;

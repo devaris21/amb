@@ -20,8 +20,6 @@ class CHAUFFEUR extends PERSONNE
 	public $adresse;
 	public $sexe_id;
 	public $typepermis;	
-	public $numero_permis;
-	public $date_fin_permis;
 	public $email;
 	public $contact;
 	public $image = "default.png";
@@ -31,7 +29,7 @@ class CHAUFFEUR extends PERSONNE
 
 	public function enregistre(){
 		$data = new RESPONSE;
-		if ($this->name ) {
+		if ($this->name != "") {
 			$data = $this->save();
 			if ($data->status) {
 				$this->uploading($this->files);
@@ -65,7 +63,6 @@ class CHAUFFEUR extends PERSONNE
 			}			
 		}
 	}
-
 
 
 

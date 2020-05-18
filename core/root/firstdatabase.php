@@ -120,8 +120,6 @@ $item->save();
 $item = new PARAMS();
 $item->societe = "Devaris 21";
 $item->email = "info@devaris21.com";
-$item->email_rh = "info@devaris21.com";
-$item->email_dg = "info@devaris21.com";
 $item->devise = "Fcfa";
 $item->timeout = 10;
 $item->delai_alert = 10;

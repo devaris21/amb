@@ -45,7 +45,7 @@
                     <div class="col-md-4 col-sm-6">
                         <label>Email <span1>*</span1></label>
                         <div class="form-group">
-                            <input type="email" class="form-control" name="email" required>
+                            <input type="email" class="form-control" name="email">
                         </div>
                     </div>
                 </div>
@@ -72,22 +72,7 @@
                             <input type="text" class="form-control" name="typepermis" required placeholder="EX...ABCDE">
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6">
-                        <label>Numero de permis <span1>*</span1></label>
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="numero_permis" required>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <label>Date de fin du permis <span1>*</span1></label>
-                        <div class="form-group">
-                            <input type="date" class="form-control" name="date_fin_permis" required>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-4">
+                     <div class="col-sm-4">
                         <label>Photo du chauffeur</label>
                         <div class="">
                             <img style="width: 80px;" src="" class="img-thumbnail logo">

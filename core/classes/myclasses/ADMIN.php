@@ -20,6 +20,7 @@ class ADMIN extends AUTH
 	public $started;
 	public $is_new = 1;
 	public $code;
+	public $adresse;
 	public $image = "default.png";
 	public $is_connecte = false;
 	

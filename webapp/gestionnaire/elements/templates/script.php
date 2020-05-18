@@ -92,6 +92,9 @@
 
 
         var modul = "<?= $this->getModule() ?>"
+        if (modul == "configuration") {
+            modul = "users";
+        }
         $("li.section").click(function(event) {
             $("li.section").removeClass('active')
             $(this).addClass("active")

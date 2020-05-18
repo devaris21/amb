@@ -74,20 +74,6 @@
                         </a>
                     </div>
                     <div class="col-lg-2">
-                        <a href="<?= $this->url("gestionnaire", "master", "parcauto")  ?>" data-toggle="tooltip" title="Véhicules disponibles">
-                            <div class="widget style1 lazur-bg">
-                                <div class="row vertical-align">
-                                    <div class="col-3">
-                                        <i class="fa fa-car fa-3x"></i>
-                                    </div>
-                                    <div class="col-9 text-right">
-                                        <h2 class="font-bold"><?= start0(count(Home\VEHICULE::libres())) ?></h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-lg-2">
                         <a href="<?= $this->url("gestionnaire", "master", "entretiensencours")  ?>" data-toggle="tooltip" title="Véhicules en entretiens">
                             <div class="widget style1 yellow-bg">
                                 <div class="row vertical-align">
@@ -124,6 +110,20 @@
                                     </div>
                                     <div class="col-9 text-right">
                                         <h2 class="font-bold"><?= start0(count(Home\MISSION::encours())) ?></h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-2">
+                        <a href="<?= $this->url("gestionnaire", "master", "parcauto")  ?>" data-toggle="tooltip" title="Véhicules disponibles">
+                            <div class="widget style1 lazur-bg">
+                                <div class="row vertical-align">
+                                    <div class="col-3">
+                                        <i class="fa fa-car fa-3x"></i>
+                                    </div>
+                                    <div class="col-9 text-right">
+                                        <h2 class="font-bold"><?= start0(count(Home\VEHICULE::libres())) ?></h2>
                                     </div>
                                 </div>
                             </div>
@@ -327,7 +327,6 @@
         <br>
 
         <?php include($this->rootPath("webapp/gestionnaire/elements/templates/footer.php")); ?>
-
 
     </div>
 </div>
