@@ -1,6 +1,6 @@
 <?php 
 namespace Home;
-$title = "BRIXS | Session vérouillée ";
+$title = "AMB | Session vérouillée ";
 
 $datas = UTILISATEUR::findBy(["id = "=>getSession("utilisateur_connecte_id")]);
 if (count($datas) >0) {

@@ -7,7 +7,7 @@ $mycompte = MYCOMPTE::findLastId();
 if ($mycompte->expired < dateAjoute()) {
 	$title = "Renouvellement de l'abonnement";
 }else{
-	header("Location: ../../amb/access/login");
+	header("Location: ../../AMB/access/login");
 }
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/amb/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/AMB/elements/templates/head.php")); ?>
 
 
 <body class="gray-bg">
@@ -27,7 +27,7 @@
 		<hr>
 	</div>
 
-	<?php //include($this->rootPath("webapp/amb/elements/templates/script.php")); ?>
+	<?php //include($this->rootPath("webapp/AMB/elements/templates/script.php")); ?>
 
 </body>
 

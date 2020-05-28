@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 
-<?php include($this->rootPath("webapp/amb/elements/templates/head.php")); ?>
+<?php include($this->rootPath("webapp/AMB/elements/templates/head.php")); ?>
 
 
 <body class="gray-bg">
